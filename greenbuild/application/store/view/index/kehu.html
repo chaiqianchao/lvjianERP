@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+  <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.2</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/project.css" />
+<!--  <link rel="stylesheet" href="__STATIC__/lib/bootstrap/css/bootstrap.min.css" />-->
+  <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+  <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+</head>
+<body>
+  <div class="searchcard">
+    <div class="layui-card">
+      <div class="searchbar">
+        <div class="search-text">
+          <input type="text" id="searchAll" class="search-area" placeholder="输入关键字搜索">
+          <p class="iconfont">&#xe6ac;</p>
+        </div>
+        <div class="search-button" onclick="searchAll()">
+          <a href=""><p>搜索</p></a>
+        </div>
+      </div>
+          <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+              <div class="layui-collapse">
+                  <div class="layui-colla-item">
+                  <h2 class="layui-colla-title">条件筛选<i class="layui-icon layui-colla-icon"></i></h2>
+                  <div class="layui-colla-content">
+                    <form id="select" class="layui-form" action="">
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">工程号</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="contract_id" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">项目名称</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="contractledger_signtime" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">单位名称</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="contract_amount" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">姓名</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="contractledger_actual" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">电话</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="invoice_date" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">手机</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="invoice_amount" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">微信</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="payment_date" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">QQ</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="payment_amount" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">邮箱</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="payment_amount" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                    </form>
+                  <div class="layui-input-block">
+                      <button class="layui-btn" onclick="search()">搜索</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      <div class="searchtable">
+        <div class="layui-card-body layui-table-body layui-table-main">
+          <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="r">共有数据：<strong>{$count}</strong> 条</span>
+          </div>
+          <table class="layui-table layui-form" id="table">
+            <thead>
+            <th>工程号</th>
+            <th>项目名称</th>
+            <th>单位名称</th>
+            <th>姓名</th>
+            <th>电话</th>
+            <th>手机</th>
+            <th>微信</th>
+            <th>QQ</th>
+            <th>邮箱</th>
+            <th>详情</th>
+            </thead>
+          <tbody>
+          {volist name='orderList' id='vo'}
+          <tr class="text-c">
+            <td>{$vo.contract_id}</td>
+            <td>{$vo.contractledger_signtime}</td>
+            <td>{$vo.contractledger_amount}</td>
+            <td>{$vo.contractledger_actual}</td>
+            <td>{$vo.contract_id}</td>
+            <td>{$vo.contractledger_signtime}</td>
+            <td>{$vo.contractledger_amount}</td>
+            <td>{$vo.contractledger_actual}</td>
+            <td>{$vo.contract_id}</td>
+            <td>{$vo.contractledger_signtime}</td>
+            <!-- 信息缺漏，需更改为$vo. -->
+          <!--   <td>{$.invoice_date}</td>
+            <td>{$.invoice_amount}</td>
+            <td>{$.payment_date}</td>
+            <td>{$.payment_amount}</td> -->
+            <td><a href="" onclick="detail_show(this,'{:url("index/contract_details",["id"=>$vo["contract_id"]])}')" >点击详情</a></td>
+          </tr>
+          {/volist}
+
+          </tbody>
+        </table>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+<script>
+  var showMenu = 1;
+  function searchscreen() {
+    if (showMenu == 1) {
+      document.getElementById('smenu').style.display="inline-block";
+      showMenu = -1;
+    } else {
+      document.getElementById('smenu').style.display="none";
+      showMenu = 1;
+    } 
+  }
+  function detail_show(obj,url){
+    obj.href=url;
+  }
+
+  function search(){
+  var data = $('#select').serialize();
+    console.log(data);
+    $.ajax({
+            //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "{:url('index/ContractSelect')}",//url
+                data: data,
+                success: function (result) {
+                    console.log((result));//打印服务端返回的数据(调试用)
+                    if (result.length == 0) {
+                        alert("SUCCESS");
+                    }
+                    else
+                        alert("无匹配数据!");
+                },
+                error : function() {
+                    alert("异常！");
+                }
+            });
+  }
+  function searchAll(){
+    var content = document.getElementById("searchAll").value;
+  var data = "content="+content;
+    console.log(data);
+    $.ajax({
+            //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "{:url('index/ContractSelectAll')}",//url
+                data: data,
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    // if (result.length == 0) {
+                    //     alert("SUCCESS");
+                    // }
+                    // else
+                    //     alert("无匹配数据!");
+                },
+                error : function() {
+                    alert("异常！");
+                }
+            });
+  }
+</script>
+</body>
+</html>

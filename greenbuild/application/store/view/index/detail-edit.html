@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>详情修改</title>
+	<meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/lib/layui/css/layui.css" />
+	<script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+<style type="text/css">
+	body {text-align: center;}
+	form {font-size: 18px;}
+	label {width: 100px;margin: 7px 0 0 5%;float: left;text-align: center;}
+	li {margin-bottom: 9px;display: inline-block;}
+	a {margin-top: 10px;}
+	.layui-input-block {margin: 0;}
+	.item-icon, input {margin: 0 8px;}
+	.item-icon {font-size: 25px;}
+	.table input {width: 150px;text-align: center;}
+	.filling {width: 200px;border: 1px solid #ccc;overflow: scroll;}
+</style> 
+</head>
+<body>
+<div style="margin-top: 20px;">
+	<div class="layui-form-item">
+		<form>
+			<label id="column"></label>
+			<div class="layui-input-inline" id="content" style="width: 60%;"></div>
+		</form>
+	</div>
+	<div class="layui-input-block">
+		<a class="layui-btn" id="submit">确认修改</a>
+	</div>
+</div>
+<script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+<script>
+	var url = location.search;
+	var value;
+	if(url.indexOf("?")!=-1){
+		var str = url.substr(1);
+		strs = str.split("&"); 
+		value=new Array(strs.length);
+		for(i=0;i<strs.length;i++){
+			value[i]=decodeURI(strs[i].split("=")[1]); 
+		} 
+	}
+
+$(function(){
+	$('#column').text(value[2]);
+	switch(value[4]) {
+		case "7": $('#content').html('<ul><li><input type="checkbox" name="buildtype" value="住宅">住宅</li><li><input type="checkbox" name="buildtype" value="商业"/>商业</li><li><input type="checkbox" name="buildtype" value="公建"/>公建</li><li><input type="checkbox" name="buildtype" value="其他"/>其他</li><button type="button" class="item-icon" onclick="itemAdd()">+</button></ul>');
+			checkedBoxes("buildtype");break;
+		case "8": $('#content').html('<ul><li><input type="checkbox" name="design" value="总包">总包</li><li><input type="checkbox" name="design" value="建筑"/>建筑</li><li><input type="checkbox" name="design" value="结构"/>结构</li><li><input type="checkbox" name="design" value="给排水"/>给排水</li><li><input type="checkbox" name="design" value="暖通"/>暖通</li><li><input type="checkbox" name="design" value="电气"/>电气</li><li><input type="checkbox" name="design" value="弱电"/>弱电</li><button type="button" class="item-icon" onclick="itemAdd()">+</button></ul>');
+			checkedBoxes("design");break;
+		case "11": $('#content').html('<ul><li><input type="checkbox" name="finished" value="合同已签">合同已签</li><li><input type="checkbox" name="finished" value="方案"/>方案</li><li><input type="checkbox" name="finished" value="初步"/>初步</li><li><input type="checkbox" name="finished" value="施工图"/>施工图</li><li><input type="checkbox" name="finished" value="审批"/>审批</li><li><input type="checkbox" name="finished" value="开工"/>开工</li><li><input type="checkbox" name="finished" value="交底"/>交底</li><button type="button" class="item-icon" onclick="itemAdd()">+</button></ul>');
+			checkedBoxes("finished");break;
+		case "9": value[3] = JSON.parse(sessionStorage.getItem("designer"));$('#column').remove();
+			$('#content').html(showTable(value[3]));break;
+		case "10": value[3] = JSON.parse(sessionStorage.getItem("drawplan"));
+			$('#content').html(showList(value[3]));break;
+		default: $('#content').html('<input type="text" id="text" class="layui-input" value="'+value[3]+'">');		
+	}
+
+	function checkedBoxes(name) {
+		var strs = value[3].split(","); 
+		var boxes = $('[name='+name+']');
+		var values = [];
+		for(var i = 0; i < boxes.length; i++){
+			values[i] = boxes[i].value;
+			if($.inArray(values[i],strs) >= 0) {
+				boxes[i].checked = true;
+			}
+		}
+		for (var i = 0; i < strs.length; i++) {
+			if ($.inArray(strs[i],values) < 0) {
+				itemAdd(strs[i]);
+			}
+		}
+	}
+
+	function showTable(array) {
+		var ners = "<table class='table'><tr>";
+		for (var i = 0; i < array[0].length; i++) {
+			ners += "<td>"+ array[0][i] +"</td>";
+		}
+		ners += "<td><button type='button' class='item-icon' onclick='trAdd()'>+</button></td></tr>";
+		for (var i = 1; i < array.length; i++) {
+			ners += "<tr>";
+			for (var key in array[i]) {
+				ners += "<td><input type='text' value="+ array[i][key] +"></td>";
+			}
+			ners += "<td><button type='button' class='iconfont item-icon' onclick='itemDel(this,\"design\",\""+array[i]['project_design']+"\")'>-</button></td></tr>";
+		}
+		ners += "</table>";
+		return ners;
+	}
+
+	function showList(array) {
+		var ners = "<table class='table'><td><button type='button' class='item-icon' onclick='listAdd()'>+</button></td>";
+		var i = 0;
+			for (var key in array[1]) {
+				ners += "<tr><td>"+array[0][i++]+"</td>";
+				ners += "<td><input type='date' value="+ array[1][key] +"></td>";
+				ners += "<td><button type='button' class='iconfont item-icon' onclick='itemDel(this,\"draw\")'>-</button></td></tr>";
+			}
+		ners += "</table>";
+		return ners;
+	}
+});
+$('#submit').click(function() {
+	var id = value[0];
+	var column = value[1];
+	var content;
+	switch(value[4]) {
+		case "7":
+		case "8":
+		case "11": {content = "";
+					var boxes = $('[type="checkbox"]');
+					for(var i = 0; i < boxes.length; i++){
+						if(boxes[i].checked) {
+							content += boxes[i].value + ",";
+						}
+					}
+					var textes = $('[name="text"]');
+					for(var i = 0; i < textes.length; i++){
+						if (textes[i].value) {
+							content += textes[i].value + ",";
+						}
+					}
+					content = content.substring(0,content.length-1);
+					$.get("{:url('index/edit1')}",{project_id:id, column: column, content:content});
+					break;
+				}
+		case "9": {var oInput = $('input');
+					content = {};
+					content.project_id = id;
+					content.project_design_before = [];
+					content.project_design_after = [];
+					content.type = [];
+					content.design = [];
+					content.contractor = [];
+					for (var i = 1, j = 0; i < value[3].length; i++, j++) {
+						content.project_design_before[j] = value[3][i]['project_design'];
+					}
+					for (var i = 0, j = 0; j < oInput.length/7; j++) {
+						content.project_design_after[j] = oInput[i++].value;
+						content.type[j] = oInput[i++].value;
+						content.design[j] = oInput[i++].value;
+						content.contractor[j] = oInput[i++].value;
+					}
+					$.post("{:url('index/edit2')}", content, function(data){
+						console.log(data);
+					}, "json");
+					break;
+				}
+		case "10": {content = {};
+					content.project_id = id;
+					var oInput = $('input');
+					content.concept = oInput[0].value;
+					content.plan = oInput[1].value;
+					content.preliminary = oInput[2].value;
+					content.work = oInput[3].value;
+					content.modify = oInput[4].value;
+					$.get("{:url('index/edit3')}",content);
+					break;
+				}
+		default: content = document.getElementById('text').value;	
+				$.get("{:url('index/edit1')}",{project_id:id, column: column, content:content});	
+	}
+    xadmin.close();
+    xadmin.father_reload();
+});
+
+function trAdd() {
+	var aTr = document.createElement('tr');
+	aTr.innerHTML='<td><input type="text" value=""></td><td><input type="text" value=""></td><td><input type="text" value=""></td><td><input type="text" value=""></td><td><button type="button" class="iconfont item-icon" onclick="itemDel(this,\'design\')">-</button></td>';
+	document.getElementsByTagName('table')[0].appendChild(aTr);
+}
+
+function listAdd() {
+	var aTr = document.createElement('tr');
+	aTr.innerHTML='<td><input type="text" value=""></td><td><input type="date" value=""></td><td><button type="button" class="iconfont item-icon" onclick="itemDel(this,\'draw\')">-</button></td>';
+	document.getElementsByTagName('table')[0].appendChild(aTr);
+}
+
+function itemAdd(val) {
+	var aDiv = document.createElement('div');
+	if (val) {
+		aDiv.innerHTML='<input type="text" name="text" class="filling" value="'+val+'"><button type="button" class="iconfont item-icon" onclick="itemDel(this)">-</button>';
+	}
+	else {
+		aDiv.innerHTML='<input type="text" name="text" class="filling"><button type="button" class="iconfont item-icon" onclick="itemDel(this)">-</button>';
+	}
+	document.getElementById('content').appendChild(aDiv);
+}
+var itemDel = function(e, table, val) {
+	if (table == "design") {
+		layer.confirm('确认要删除吗？',function(){
+			$.get("{:url('index/deletedesigner')}", {id:value[0], design:val});
+			$(e).parent().parent().remove();
+			layer.msg('已删除!',{icon:1,time:1000});
+		});
+	}
+	else if (table == "draw") {
+		layer.confirm('确认要删除吗？',function(){
+			$.get("{:url('index/deletedraw')}", {id:value[0], design:val});
+			$(e).parent().parent().remove();
+			layer.msg('已删除!',{icon:1,time:1000});
+		});
+	}
+	else {
+		$(e).parent().remove();
+	}
+}
+</script>
+</body>
+</html>
