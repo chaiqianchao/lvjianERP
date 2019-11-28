@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>details</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/details.css">
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+	<script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+</head>
+<body>
+<div class="card">
+		
+	<div class="layui-col-md12">
+        <div class="layui-card" >
+        	<div class="back-pro" style="background-color: #fff;padding-bottom: 10px;"><a href="javascript:history.go(-1)">返回</a></div>
+            <div class="layui-card-body ">
+            	<!-- 1 -->
+            	<div class="layui-collapse" lay-filter="test">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">基本信息<i class="layui-icon layui-colla-icon"></i></h2>
+                        <div class="layui-colla-content">
+		                    <table class="layui-table">
+		                        <tbody>
+		                            <tr>
+		                                <th>姓名</th>
+		                                <td>{$staff.staff_name}</td>
+		                                {if condition="($limit eq 2)"}
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_name','姓名','{$staff.staff_name}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                                {/if}
+		                                </tr>
+		                            <tr>
+		                                <th>电话</th>
+		                                <td>{$staff.staff_phone}</td>
+		                                {if condition="($limit eq 2)"}
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_phone','电话','{$staff.staff_phone}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                                {/if}
+		                            </tr>
+		                            <tr>
+		                                <th>手机1</th>
+		                                <td>{$staff.staff_phone}</td>
+		                                {if condition="($limit eq 2)"}
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_telphole_1','手机1','{$staff.staff_telphole_1}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                                {/if}
+		                            </tr>
+		                            <tr>
+		                                <th>手机2</th>
+		                                <td>{$staff.staff_phone}</td>
+		                                {if condition="($limit eq 2)"}
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_telphole_2','手机2','{$staff.staff_telphole_1}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                                {/if}
+		                            </tr>
+		                            <tr>
+		                                <th>分机</th>
+		                                <td>{$staff.staff_extension}</td>
+		                                {if condition="($limit eq 2)"}
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_extension','分机','{$staff.staff_extension}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                                {/if}
+		                            </tr>
+		                            <tr>
+		                                <th>职务</th>
+		                                <td>{$staff.staff_position}</td>
+		                                {if condition="($limit eq 2)"}
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_position','职务','{$staff.staff_position}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                                {/if}
+		                            </tr>
+		                            <tr>
+		                            	<th>部门</th>
+		                                <td>{$staff.staff_department}</td>
+		                                {if condition="($limit eq 2)"}
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_department','部门','{$staff.staff_department}','personalDepartmentEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                                {/if}
+		                            </tr>
+		                            <tr>
+		                                <th>状态</th>
+		                                <td>{$staff.staff_status}</td>
+		                                {if condition="($limit eq 2)"}
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_status','状态','{$staff.staff_status}','personalStatusEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                                {/if}
+		                            </tr>
+		                            <tr>
+		                                <th>短号</th>
+		                                <td>{$staff.staff_shortmobile}</td>
+		                                {if condition="($limit eq 2)"}
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_shortmobile','短号','{$staff.staff_shortmobile}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                                {/if}
+		                            </tr>
+		                            <tr>
+		                                <th>执业资格</th>
+		                                <td>{$staff.staff_practising}</td>
+		                                {if condition="($limit eq 2)"}
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_practising','执业资格','{$staff.staff_practising}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                                {/if}
+		                            </tr>
+		                            <tr>
+		                                <th>职称</th>
+		                                <td>{$staff.staff_practising}</td>
+		                                {if condition="($limit eq 2)"}
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_title','职称','{$staff.staff_title}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                                {/if}
+		                            </tr>
+		                            <tr>
+		                                <th>QQ</th>
+		                                <td>{$staff.staff_QQ}</td>
+		                                {if condition="($limit eq 2)"}
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_QQ','QQ','{$staff.staff_QQ}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                                {/if}
+		                            </tr>
+						            <tr>
+		                                <th>微信</th>
+		                                <td>{$staff.staff_wechat}</td>
+		                                {if condition="($limit eq 2)"}
+								        <td>
+								        	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_wechat','微信','{$staff.staff_wechat}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+								        </td>
+								        {/if}
+		                            </tr>
+		                            <tr>
+		                                <th>钉钉</th>
+		                                <td>{$staff.staff_wechat}</td>
+		                                {if condition="($limit eq 2)"}
+								        <td>
+								        	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_dingding','钉钉','{$staff.staff_dingding}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+								        </td>
+								        {/if}
+		                            </tr>
+		                            <tr>
+		                                <th>邮箱</th>
+		                                <td>{$staff.staff_wechat}</td>
+		                                {if condition="($limit eq 2)"}
+								        <td>
+								        	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_email','邮箱','{$staff.staff_email}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+								        </td>
+								        {/if}
+		                            </tr>
+		                            <tr>
+		                                <th>其他</th>
+		                                <td>{$staff.staff_wechat}</td>
+		                                {if condition="($limit eq 2)"}
+								        <td>
+								        	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_other','其他','{$staff.staff_other}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+								        </td>
+								        {/if}
+		                            </tr>
+		                        </tbody>
+		                    </table>
+                        </div>
+                    </div>
+                </div>
+            	<!-- 2 -->
+            	{if condition="($power eq '普通管理员') or ($power eq '超级管理员')"}
+            	<div class="layui-collapse" lay-filter="test">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">权限<i class="layui-icon layui-colla-icon"></i></h2>
+                        <div class="layui-colla-content">
+		                    <table class="layui-table">
+		                        <tbody>
+		                            <tr>
+		                                <th>新建工程</th>
+		                                <td>{$admin.project_view}</td>
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'project_view','新建工程','{$admin.project_view}','adminEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                                </tr>
+		                            <tr>
+		                                <th>查看工程</th>
+		                                <td>{$admin.project_view}</td>
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'project_view','查看工程','{$admin.project_view}','adminEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>新建合同</th>
+		                                <td>{$admin.contract_view}</td>
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'contract_view','新建合同','{$admin.contract_view}','adminEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>查看合同</th>
+		                                <td>{$admin.contract_view}</td>
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'contract_view','查看合同','{$admin.contract_view}','adminEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                            	<th>台账管理</th>
+		                                <td>{$admin.ledger}</td>
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'ledger','台账管理','{$admin.ledger}','adminEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>招投标项目</th>
+		                                <td>{$admin.bid}</td>
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'bid','招投标项目','{$admin.bid}','adminEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>管理员列表</th>
+		                                <td>{$admin.adminstrator}</td>
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'adminstrator','管理员列表','{$admin.adminstrator}','adminEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>员工信息</th>
+		                                <td>{$admin.staff}</td>
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff','员工信息','{$admin.staff}','adminEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>权限管理</th>
+		                                <td>{$admin.jurisdiction}</td>
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'jurisdiction','权限管理','{$admin.jurisdiction}','adminEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                            </tr>
+						            <tr>
+		                                <th>客户总览</th>
+		                                <td>{$admin.customer}</td>
+								        <td>
+								        	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'customer','客户总览','{$admin.customer}','adminEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+								        </td>
+		                                </tr>
+		                            <tr>
+		                                <th>工程产值</th>
+		                                <td>{$admin.project_value}</td>
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'project_value','工程产值','{$admin.project_value}','adminEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>院产值</th>
+		                                <td>{$admin.department_value}</td>
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'department_value','院产值','{$admin.department_value}','adminEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>个人产值</th>
+		                                <td>{$admin.staff_value}</td>
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_value','个人产值','{$admin.staff_value}','adminEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                            </tr>
+						           
+		                        </tbody>
+		                    </table>
+                        </div>
+                    </div>
+                </div>
+                {/if}
+                <div class="layui-input-block">
+                    <button class="layui-btn" onclick="passwordEdit({$staff.staff_id})" style="margin-top: 10px;">修改密码</button>
+                </div>
+            </div>
+    	</div>
+	</div>
+<script type="text/javascript">
+function passwordEdit(id) {
+ url = "{:url('index/passwordEdit')}?id="+id;
+ xadmin.open('密码修改', url);
+}
+function member_edit(id, column, chinese, content, type) {
+	url = "{:url('index/detailEdit')}?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
+	xadmin.open('详情修改', url);
+}
+
+</script>
+</body>
+</html>

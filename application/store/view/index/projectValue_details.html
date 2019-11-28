@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>工程产值详情</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/details.css">
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+	<script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/FileSave.js"></script>
+</head>
+<body>
+<div class="card">
+	<div class="layui-col-md12">
+        <div class="layui-card" >
+        	<div class="back-pro" style="background-color: #fff;padding-bottom: 10px;"><a href="javascript:history.go(-1)">返回</a></div>
+            <div class="layui-card-body ">
+				<p>&nbsp&nbsp&nbsp工程号：{$content[0]['project_id']}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp工程名称：{$content[0]['project_name']} </p>
+            	<!-- 1 -->
+            	<div class="layui-collapse" lay-filter="test">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" onclick="pullDown()">基本信息<i class="layui-icon layui-colla-icon"></i></h2>
+                        <div class="layui-colla-content" style="overflow-x: scroll;">
+							<table class="layui-table layui-form" id="table">
+								<tbody style="position: absolute;">
+		                            <tr style="visibility: hidden ;">
+		                                <th>工程号</th>
+		                                <td>&nbsp;{$content[0]['project_id']}</td>
+		                                <th>工程名称</th>
+		                                <td>{$content[0]['project_name']}</td>
+		                            </tr>
+		                        </tbody>
+								<th>项目名称</th>
+								<th>设计面积</th>
+								<th>阶段比例</th>
+								<th>难度系统</th>
+								<th>分配比例</th>
+								<th>其他系数</th>
+								<th>专业</th>
+								<th>设计人员</th>
+								<th>设计单价</th>
+								<th>设计产值</th>
+								<th>校对人员</th>
+								<th>校对单价</th>
+								<th>校对产值</th>
+								<th>审核人员</th>
+								<th>审核单价</th>
+								<th>审核产值</th>
+								<th>工种负责人</th>
+								<th>工种单价</th>
+								<th>工种产值</th>
+								<th>工程人员</th>
+								<th>工程单价</th>
+								<th>工程产值</th>
+								<th>其他费用</th>
+								<th>小计</th>
+								<th>部门</th>
+								<th>出图时间</th>
+								<th>备注</th>
+								<th>编辑</th>
+								<tbody>
+								{volist name='content' id='vo'}
+								<tr class="text-c">
+									<td>{$vo.entry_name}</td>
+									<td>{$vo.design_area}</td>
+									<td>{$vo.stage_proportions}</td>
+									<td>{$vo.difficulty_system}</td>
+									<td>{$vo.distribution_ratio}</td>
+									<td>{$vo.residual_coefficient}</td>
+									<td>{$vo.major}</td>
+									<td>{$vo.designer}</td>
+									<td>{$vo.design_price}</td>
+									<td>{$vo.design_value}</td>
+									<td>{$vo.proofreader}</td>
+									<td>{$vo.proofreading_price}</td>
+									<td>{$vo.proofreading_value}</td>
+									<td>{$vo.auditor}</td>
+									<td>{$vo.audit_price}</td>
+									<td>{$vo.audit_value}</td>
+									<td>{$vo.work_boss}</td>
+									<td>{$vo.work_basenumber}</td>
+									<td>{$vo.work_value}</td>
+									<td>{$vo.project_boss}</td>
+									<td>{$vo.project_basenumber}</td>
+									<td>{$vo.project_value}</td>
+									<td>{$vo.other_expenses	}</td>
+									<td>{$vo.value_subtotal}</td>
+									<td>{$vo.department}</td>
+									<td>{$vo.drawing_time}</td>
+									<td>{$vo.remarks}</td>
+									<th class="td-manage">
+										{if condition="$limit eq 2"}
+										<a title="编辑" href="javascript:;" class="edit" onclick="xadmin.open('工程产值修改','{:url("index/projectValue_Edit",["id"=>$vo["id"],"project_id"=>$vo["project_id"]])}')">
+										<i class="layui-icon" style="color: #2196f3;"></i>
+										</a>
+										{/if}
+									</th>
+								</tr>
+								{/volist}
+								</tbody>
+							</table>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: #fff;padding: 10px;text-align: right;">
+          			<button class="layui-btn" onclick="leadingOut()" style="background-color: #319587;margin-right: 10px;">导出数据</button>
+       	 		</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+function member_edit(id, column, chinese, content, type) {
+	content =content.replace(/%/g, '%25');
+	console.log(id,column,chinese,content,type);
+	if (column=='drawing_time') {
+		type = "projectValueDateEdit";
+	}
+
+	var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
+	console.log(content);
+	xadmin.open('详情修改', url);
+}
+var template =
+    ' <style type="text/css">' +
+    'table {' +
+    '    font-family: verdana,arial,sans-serif;' +
+    '    font-size:11px;' +
+    '    color:#333333;' +
+    '    border-width: 1px;' +
+    '    border-color: #666666;' +
+    '    border-collapse: collapse;' +
+    '}' +
+    'table th {' +
+    '    padding: 8px;' +
+    '    width: 200px;' +
+    '  height: 30px;' +
+    '    border-style: solid;' +
+    '    border-color: #9a9a9a;' +
+    '    color: #000000;' +
+    '    background-color: #ffffff;' +
+    '}' +
+    'table td {' +
+    '    width: 200px;' +
+    '  height: 30px;' +
+    '    padding: 8px;' +
+    '    text-align: center;' +
+    '    border-style: solid;' +
+    '    border-color: #9a9a9a;' +
+    '}' +
+    ' ' +
+    '</style>';
+function tableToExcel(tableid, sheetName, template, fileName) {
+    if (!tableid.nodeType) tableid = document.getElementById(tableid);
+    var html = "<html xmlns:x=\"urn:schemas-microsoft-com:office:excel\">\n" +
+        "    <head>\n" +
+        "        <!--[if gte mso 9]><xml>\n" +
+        "            <x:ExcelWorkbook>\n" +
+        "                <x:ExcelWorksheets>\n" +
+        "                    <x:ExcelWorksheet>\n" +
+        "                        <x:Name>"+ sheetName +"</x:Name>\n" +
+        "                        <x:WorksheetOptions>\n" +
+        "                            <x:Print>\n" +
+        "                                <x:ValidPrinterInfo />\n" +
+        "                            </x:Print>\n" +
+        "                        </x:WorksheetOptions>\n" +
+        "                    </x:ExcelWorksheet>\n" +
+        "                </x:ExcelWorksheets>\n" +
+        "            </x:ExcelWorkbook>\n" +
+        "        </xml>\n" +
+        "        <![endif]-->\n" + template +
+        "    </head>" +
+        "<body>" + tableid.outerHTML +
+        "</body></html>";
+    var blob = new Blob([html], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, fileName);
+}
+
+function leadingOut() {
+  //询问框
+  layer.confirm('只能导出当前页的数据哦', {
+    btn: ['取消导出','依旧导出'] //按钮
+  }, function(){
+    layer.msg('已取消', {icon: 1});
+  }, function(){
+    tableToExcel('table','sheet1',template,'Data.xlsx');
+  });
+}
+function pullDown() {
+	flag = !flag;
+	if (flag) {
+		var show = document.getElementsByClassName("layui-colla-content");
+		show[0].className = "layui-colla-content layui-show";
+	}
+	if (!flag) {
+		var show = document.getElementsByClassName("layui-colla-content layui-show");
+		show[0].className = "layui-colla-content";
+	}
+}
+</script>
+</body>
+</html>

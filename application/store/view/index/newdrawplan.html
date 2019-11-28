@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新建出图计划</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/newcontract.css" />
+    <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+    <style type="text/css">
+        .layui-form-label{
+            width: 120px;
+        }
+        .td_input{
+            background-color: transparent;
+            border: none;
+        }
+    </style>
+<body>
+<div class="layui-card">
+    <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">新建出图<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-content layui-show">
+                    <form id="newContract" class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>工程号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_id" lay-verify="required" autocomplete="off" class="layui-input" onchange="insertData(this.value)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>工程名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="project_name" name="project_name" lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">发包人</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="project_contractor" name="project_contractor" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">代建人</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="project_agent" name="project_agent" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">单体名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="monomer_name" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">专业</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="drawplan_major" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">阶段</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="drawplan_phase" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">工程概况</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="drawplan_survey" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">出图日期</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input"  autocomplete="off" placeholder="日期" name="drawplan_date" id="start">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">备注</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="drawplan_remarks" name="drawplan_remarks" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">图号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="figure_number" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div  class="layui-table-body layui-table-main" style="margin: 5px;">
+                            <form id="data2">
+                                <table class="layui-table layui-form" id="table">
+                                    <thead>
+                                        <th>编号</th>
+                                        <th>图纸尺寸</th>
+                                        <th>蓝图数量</th>
+                                        <th>蓝图单价（元/张）</th>
+                                        <th>硫酸图数量</th>
+                                        <th>硫酸图单价（元/张）</th>
+                                        <th>文本制作数量</th>
+                                        <th>文本制作单价（元/张）</th>
+                                    </thead>
+                                    <tbody>
+                                        {volist name='orderList' id='vo'}
+                                        <tr class="text-c">
+                                            <td>{$vo.id}</td>
+                                            <td>{$vo.drawing_size}</td>
+                                            <td><input type="text" class="td_input" name="blueprint_{$vo.drawing_size}" onchange="showPrice(this.value, this.name, {$vo.drawing_blueprint})"></td>
+                                            <td><input type="text" class="td_input" id="blueprint_{$vo.drawing_size}" name="price_blueprint_{$vo.drawing_size}" onchange="changePrice(this.value,'blueprint_{$vo.drawing_size}')"></td>
+                                            <td><input type="text" class="td_input" name="sulphuric_acid_diagram_{$vo.drawing_size}" onchange="showPrice(this.value, this.name, {$vo.drawing_sulphuric_acid_diagram})"></td>
+                                            <td><input type="text" class="td_input" id="sulphuric_acid_diagram_{$vo.drawing_size}" name="price_sulphuric_acid_diagram_{$vo.drawing_size}" onchange="changePrice(this.value,'sulphuric_acid_diagram_{$vo.drawing_size}')"></td>
+                                            <td><input type="text" class="td_input" name="text_production_{$vo.drawing_size}" onchange="showPrice(this.value, this.name, {$vo.drawing_text_production})"></td>
+                                            <td><input type="text" class="td_input" id="text_production_{$vo.drawing_size}" name="price_text_production_{$vo.drawing_size}" onchange="changePrice(this.value,'text_production_{$vo.drawing_size}')"></td>
+                                        </tr>
+                                        {/volist}
+                                    </tbody>
+
+                                </table>
+                            </form>
+                    </div>
+                    </div>
+                    <div><p style="text-align: left;">合计: <span id="summary" style="margin-left:10px;">0</span>元</p></div>
+                        <div class="layui-collapse" lay-filter="test">
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">参与人员<i class="layui-icon layui-colla-icon"></i></h2>
+                                <div class="layui-colla-content">
+                                    <table class="layui-table" style="table-layout: fixed;width: 100%;">
+                                            <thead>
+                                                <th>工程</th>
+                                                <th>工种</th>
+                                                <th>设计</th>
+                                                <th>制图</th>
+                                                <th>校对</th>
+                                                <th>审核</th>
+                                                <th>审定</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="text-c">
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_project1"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_type1"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_designer1"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_drafting1"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_check1"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_verify1"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_authorize1"></td>
+                                                </tr>
+                                            </tbody>
+                                    </table>      
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-collapse" lay-filter="test">
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">实际参与人员<i class="layui-icon layui-colla-icon"></i></h2>
+                                <div class="layui-colla-content">
+                                    <table class="layui-table" style="table-layout: fixed;width: 100%;">
+                                            <thead>
+                                                <th>工程</th>
+                                                <th>工种</th>
+                                                <th>设计</th>
+                                                <th>制图</th>
+                                                <th>校对</th>
+                                                <th>审核</th>
+                                                <th>审定</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="text-c">
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_project2"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_type2"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_designer2"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_drafting2"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_check2"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_verify2"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_authorize2"></td>
+                                                </tr>
+                                                <thead>
+                                                <th>工程备注</th>
+                                                <th>工种备注</th>
+                                                <th>设计备注</th>  
+                                                <th>制图备注</th>
+                                                <th>校对备注</th>
+                                                <th>审核备注</th>
+                                                <th>审定备注</th>
+                                                </thead>
+                                                <tr class="text-c">
+                                                <td><input type="text" class="td_input" autocomplete="off" name="project_remarks"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="type_remarks"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="designer_remarks"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drafting_remarks"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="check_remarks"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="verify_remarks"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="authorize_remarks"></td>
+                                                </tr>
+                                            </tbody>
+                                    </table>      
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-collapse" lay-filter="test">
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">经济指标<i class="layui-icon layui-colla-icon"></i></h2>
+                                <div class="layui-colla-content">
+                                    <table class="layui-table" style="table-layout: fixed;width: 100%;">
+                                            <thead>
+                                                <th>地上面积(含架空)/㎡</th>
+                                                <th>地下面积(含人防)/㎡</th>
+                                                <th>其中人防/㎡</th>
+                                                <th>层数/层</th>
+                                                <th>高度/m</th>
+                                                <th>类别</th>
+                                                <th>备注</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="text-c">
+                                                <td><input type="text" class="td_input" autocomplete="off" name="aboveground_area"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="underground_area"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="civil_air_defense"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="layer_number"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="height"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="category"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="notes"></td>
+                                                </tr>
+                                            </tbody>
+                                    </table>      
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-collapse" lay-filter="test">
+                            <div class="layui-colla-item" style="width: 100%;">
+                                <h2 class="layui-colla-title">产值登记<i class="layui-icon layui-colla-icon"></i></h2>
+                                <div class="layui-colla-content" style="overflow: hidden;overflow-x: scroll;">
+                                    <table class="layui-table">
+                                            <thead>
+                                                <th>类别</th>
+                                                <th>设计面积</th>
+                                                <th>主体产值额</th>
+                                                <th>阶段比例</th>
+                                                <th>分配比例</th>
+                                                <th>其他系数</th>
+                                                <th>专业</th>
+                                                <th>设计人员</th>
+                                                <th>设计单价</th>
+                                                <th>设计产值</th>
+                                                <th>校对人员</th>
+                                                <th>校对单价</th>
+                                                <th>校对产值</th>
+                                                <th>审核人员</th>
+                                                <th>审核单价</th>
+                                                <th>审核产值</th>
+                                                <th>工种负责人</th>
+                                                <th>工种单价</th>
+                                                <th>工种产值</th>
+                                                <th>工程人员</th>
+                                                <th>工程单价</th>
+                                                <th>工程产值</th>
+                                                <th>备注</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="text-c">
+                                                <td><input type="text" class="td_input" autocomplete="off" name="aboveground_area"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="underground_area"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="civil_air_defense"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="layer_number"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="height"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="category"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="notes"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="aboveground_area"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="underground_area"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="civil_air_defense"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="layer_number"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="height"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="category"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="notes"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="aboveground_area"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="underground_area"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="civil_air_defense"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="layer_number"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="height"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="category"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="notes"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="notes"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="notes"></td>
+                                                </tr>
+                                            </tbody>
+                                    </table>      
+                                </div>
+                            </div>
+                        </div>                     
+
+                        <div class="layui-form-item" style="padding-top: 2%;">
+                          <button  class="layui-btn" lay-filter="add" lay-submit>新建提交</button>
+                        </div>
+
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+<script>
+layui.use(['form','layer'], function(){
+    $ = layui.jquery;
+    var form = layui.form
+    ,layer = layui.layer;
+
+    //监听提交
+    form.on('submit(add)',
+    function() {
+        var data = $('#newContract').serialize();
+        console.log(data);
+        console.log($('#newContract td[drawplan_project1]').val());
+        console.log($("td[name='drawplan_project1']").val());
+        $.ajax({
+        //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "{:url('index/drawplanAdd')}",//url
+            data: data,
+            success: function (result) {
+                console.log(result);//打印服务端返回的数据(调试用)
+                if (result.status == 1) {
+                    // alert("SUCCESS");
+                    layer.alert("新增出图计划信息成功",
+                    function() {
+                        xadmin.close();
+                        xadmin.father_reload();
+                    });
+                }
+                else
+                    alert("新建出图信息失败!");
+            },
+            error : function(result) {
+                alert(result.message);
+            }
+        });
+        return false;
+    });
+});
+
+var data = [];
+function showPrice(value, name, price) {
+    var sum = 0;
+    document.getElementById(name).value = price;
+    data[name] = parseFloat(value)*parseFloat(price);
+    for(var item in data){
+        sum += data[item];
+    }
+    document.getElementById('summary').innerText = sum;
+}
+function changePrice(price, name) {
+    var sum = 0;
+    document.getElementById(name).value = price;
+    var value = $('input[name="'+name+'"]').val();
+    data[name] = parseFloat(value)*parseFloat(price);
+    for(var item in data){
+        sum += data[item];
+    }
+    document.getElementById('summary').innerText = sum;
+    localStorage.sum = sum;
+}
+function insertData(value){
+    var project_agent =document.getElementById('project_agent');
+    var project_contractor =document.getElementById('project_contractor');
+    var project_name =document.getElementById('project_name');
+    var drawplan_remarks =document.getElementById('drawplan_remarks');
+
+    $.ajax({
+            type: "POST",
+            url: "{:url('index/insertData')}",
+            data: "value="+value,
+            success: function (result) {
+                if (result.status == 1) {
+                    // console.log(result);
+                    project_agent.value = result.project_agent;
+                    project_contractor.value = result.project_contractor;
+                    project_name.value = result.project_name;
+                    drawplan_remarks.value = result.project_remark;
+                }
+            },
+            error : function() {
+                console.log(555);
+                // alert("异常！");
+            }
+        });
+    return false;
+}
+</script>
+</body>
+</html>

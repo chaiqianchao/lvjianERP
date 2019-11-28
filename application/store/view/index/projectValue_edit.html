@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工程产值编辑页</title>
+    <meta name="renderer" $content="webkit">
+    <meta http-equiv="X-UA-Compatible" $content="IE=edge,chrome=1">
+    <meta name="viewport" $content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/newcontract.css" />
+    <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+    <script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+
+<body>
+<div class="layui-card">
+    <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">工程产值详情编辑<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-$content layui-show">
+                    <form id="projectvalue" class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">项目名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="entry_name" autocomplete="off" class="layui-input" value="{$content['entry_name']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">设计面积</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="design_area" autocomplete="off" class="layui-input" value="{$content['design_area']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">主体合同额</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="contract_amount" autocomplete="off" class="layui-input" value="{$content['contract_amount']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">阶段比例</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="stage_proportions" autocomplete="off" class="layui-input" value="{$content['stage_proportions']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">难度系统</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="difficulty_system" autocomplete="off" class="layui-input" value="{$content['difficulty_system']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">分配比例</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="distribution_ratio" autocomplete="off" class="layui-input" value="{$content['distribution_ratio']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">其他系数</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="residual_coefficient" autocomplete="off" class="layui-input" value="{$content['residual_coefficient']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">专业</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="major" autocomplete="off" class="layui-input" value="{$content['major']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">设计人员</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="designer" autocomplete="off" class="layui-input" value="{$content['designer']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">设计单价</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="design_price" autocomplete="off" class="layui-input" value="{$content['design_price']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">设计产值</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="design_value" autocomplete="off" class="layui-input" value="{$content['design_value']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">校对人员</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="proofreader" autocomplete="off" class="layui-input" value="{$content['proofreader']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">校对单价</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="proofreading_price" autocomplete="off" class="layui-input" value="{$content['proofreading_price']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">校对产值</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="proofreading_value" autocomplete="off" class="layui-input" value="{$content['proofreading_value']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">审核人员</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="auditor" autocomplete="off" class="layui-input" value="{$content['auditor']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">审核单价</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="audit_price" autocomplete="off" class="layui-input" value="{$content['audit_price']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">审核产值</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="audit_value" autocomplete="off" class="layui-input" value="{$content['audit_value']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">工种负责人</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="work_boss" autocomplete="off" class="layui-input" value="{$content['work_boss']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">工种单价</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="work_basenumber" autocomplete="off" class="layui-input" value="{$content['work_basenumber']}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">工种产值</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="work_value" autocomplete="off" class="layui-input" value="{$content['work_value']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">工程人员</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_boss" autocomplete="off" class="layui-input" value="{$content['project_boss']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">工程单价</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_basenumber" autocomplete="off" class="layui-input" value="{$content['project_basenumber']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">工程产值</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_value" autocomplete="off" class="layui-input" value="{$content['project_value']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">其他费用</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="other_expenses" autocomplete="off" class="layui-input" value="{$content['other_expenses']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">小计</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="value_subtotal" autocomplete="off" class="layui-input" value="{$content['value_subtotal']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">部门</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="department" autocomplete="off" class="layui-input" value="{$content['department']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">出图时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="drawing_time" autocomplete="off" class="layui-input" value="{$content['drawing_time']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">备注</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="remarks" autocomplete="off" class="layui-input" value="{$content['remarks']}">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="layui-input-block">
+                        <button class="layui-btn" onclick="deleteThis()" style="background-color: #F4592E;">删除当前数据</button>
+                        <button class="layui-btn" onclick="submitprojectvalue()">确认修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function submitprojectvalue (){
+        let id = '{$content["id"]}';
+        let project_id ='{$content["project_id"]}';
+        console.log($('#projectvalue').serialize()+"&id="+id+"&project_id="+project_id);
+        $.ajax({
+            //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "{:url('index/projectValueEdit')}",//url
+            data: $('#projectvalue').serialize()+"&id="+id+"&project_id="+project_id,
+            success:function (result) {
+                console.log(result);//打印服务端返回的数据(调试用)
+                if (result.status == 1) {
+                    xadmin.close();
+                    xadmin.father_reload();
+                    alert("SUCCESS");
+                }
+                else
+                    alert(result.message);
+            },
+            error:function() {
+                alert("异常！");
+            }
+        });
+    }
+
+    function deleteThis() {
+        console.log({$content['id']});
+
+        layer.alert("您确定要删除当前合同的所有数据吗？",
+            function() {
+                let ID = '{$content["id"]}';
+                let project_id ='{$content["project_id"]}';
+                $.ajax({
+                    type: "POST",
+                    url: "{:url('index/ProjectValueDel')}",
+                    data:"ID="+ID+"&project_id="+project_id,
+                    success: function (data) {
+                        layer.alert("删除成功！",
+                            function() {
+                                xadmin.close();
+                                xadmin.father_reload();
+                            });
+                    },
+                    error: function(data) {
+                        alert("error:"+data.message);
+                    }
+                });
+
+            });
+    }
+</script>
+</body>
+</html>

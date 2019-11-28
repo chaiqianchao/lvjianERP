@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+  <meta charset="UTF-8">
+    <title>查看合同</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" /> -->
+  <link rel="stylesheet" href="__STATIC__/lib/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/project.css" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/common.css" />
+  <script type="text/javascript" src="__STATIC__/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+  <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
+
+  <style>
+.mouseOver{
+    background-color: #708090;
+    color:#FFFAFA;
+}
+
+.mouseOut{
+    background-color: #FFFAFA;
+    color:#000000;
+}
+</style>
+</head>
+<body>
+  <div class="searchcard">
+    <div class="layui-card">
+      <div class="searchbar">
+        <div class="search-text">
+          <form id="searchAll">
+            <input type="text" name="content" id="searchInput" class="search-area" placeholder="输入关键字搜索" style="height: 41px;">
+          </form>
+          <p class="iconfont">&#xe6ac;</p>
+        </div>
+        <button class="search-button" onclick="searchSelectAll()">
+          <a><p>搜索</p></a>
+        </button>
+      </div>
+          <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+              <div class="layui-collapse">
+                  <div class="layui-colla-item">
+                  <h2 class="layui-colla-title" onclick="pullDown()">条件筛选<i class="layui-icon layui-colla-icon"></i></h2>
+                  <div class="layui-colla-content">
+                    <form id="project_search" class="layui-form" action="">
+                      <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">工程号</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="project_id" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">合同编号</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="contract_id" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">合同分类</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="contract_type" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">合同额</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="contract_amount" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">设计阶段</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="contract_phase" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">经办人</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="contract_operator" autocomplete="off" class="layui-input" onblur="lose('contract_operator')" onfocus="get('contract_operator')" oninput="change(this.value,'contract_operator')">
+                              <ul id="contract_operator"></ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">项目负责人</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="contract_projectleader" autocomplete="off" class="layui-input" onblur="lose('contract_projectleader')" onfocus="get('contract_projectleader')" oninput="change(this.value,'contract_projectleader')">
+                              <ul id="contract_projectleader"></ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">审批人</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="contract_approver" autocomplete="off" class="layui-input" onblur="lose('contract_approver')" onfocus="get('contract_approver')" oninput="change(this.value,'contract_approver')">
+                              <ul id="contract_approver"></ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                        <div class="layui-inline" style="width: 100%;">
+                          <label class="layui-form-label">签订时间</label>
+                          <div class="layui-input-inline" style="width: 40%;">
+                            <div class="layui-inline layui-show-xs-block" style="display: flex;flex-direction: row;">
+                                  <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">&nbsp;~&nbsp;
+                                  <input class="layui-input"  autocomplete="off" placeholder="结束日" name="end" id="end">
+                              </div>
+                            <!-- <input type="text" name="contractledger_signtime" autocomplete="off" class="layui-input"> -->
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  <div class="layui-input-block">
+                      <button class="layui-btn"  onclick="searchSelect()">搜索</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+            <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
+              <span>单页数据：</span>
+              <div class="select">
+              <select id="pagenumber" name="pagenumber" class="layui-anim layui-anim-upbit">
+                  <option value="{$pagenumber}">{$pagenumber}</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="50">50</option>
+              </select>
+          </div>
+          <div><button class="layui-btn" onclick="searchSelectAll()" style="background-color: #319587;margin-left: 10px;">执行</button></div>
+            </div>
+          </div>
+      <div class="searchtable">
+        {if condition ="$limit eq 2"}
+        <button class="layui-btn" onclick="xadmin.open('新建合同','./newcontract.html',800,600)"><i class="layui-icon"></i>新建合同</button>
+        {/if}
+        <div class="layui-card-body layui-table-body layui-table-main">
+          <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="r">共有数据：<strong>{$count}</strong> 条</span>
+          </div>
+          <table class="layui-table layui-form" id="table">
+            <thead>
+            <th>合同编号</th>
+            <th>工程编号</th>
+            <th>合同分类</th>
+            <th>签订时间</th>
+            <th>合同额</th>
+            <th>设计阶段</th>
+            <th>经办人</th>
+            <th>项目负责人</th>
+            <th>审批人</th>
+            <th>详情</th>
+            </thead>
+          <tbody>
+          {volist name='orderList' id='vo'}
+          <tr class="text-c">
+            <td>{$vo.contract_id}</td>
+            <td>{$vo.project_id}</td>
+            <td>{$vo.contract_type}</td>
+            <td>{$vo.contract_signtime}</td>
+            <td>{$vo.contract_amount}</td>
+            <td>{$vo.contract_phase}</td>
+            <td>{$vo.contract_operator}</td>
+            <td>{$vo.contract_projectleader}</td>
+            <td>{$vo.contract_approver}</td>
+            <td><a href="" onclick="detail_show(this,'{:url("index/contract_details",["id"=>$vo["contract_id"]])}')" >点击详情</a></td>
+          </tr>
+          {/volist}
+
+          </tbody>
+        </table>
+        <!-- 显示分页按钮,事先要将bootstrap导入css和js -->
+          <div class="container" style="width: 100%;">
+           <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" style="text-align: center;">{$orderList->render()}</div></div>
+           <div class="col-md-2"></div>
+          </div>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+<script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/js/domain.js"></script>
+<script>
+function change(value,name) {
+  if (value == '') {
+    return false;
+  }
+     $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "{:url('index/getName')}",
+            data:{'content':value},
+            success: function(result){
+              $('#'+name).html('');
+              for (var i = 0; i < result.length; i++) {
+                var aLi = document.createElement('li');
+                aLi.innerText = result[i].staff_name;
+                document.getElementById(name).appendChild(aLi);
+                aLi.onmouseover = function() {
+                  this.className = 'mouseOver';
+                  $('input[name='+name+']').val(this.innerText);
+                };
+                aLi.onmouseout = function() {
+                  this.className = 'mouseOut';
+                };
+              }
+            },
+            error: function(data) {
+                alert("error:"+data.responseText);
+             }
+         });
+  }
+
+  function searchSelect(){
+    var options=$("#pagenumber option:selected");
+     $.ajax({
+            type: "post",
+            // dataType: "json",
+            url: "{:url('index/ContractSelect')}",
+            data:$('#project_search').serialize()+"&pagenumber="+options.val(),
+            success: function (result) {
+                document.body.innerHTML=result;
+            },
+            error: function(data) {
+                alert("error:"+data.responseText);
+             }
+         });
+  }
+  function searchSelectAll(){
+    window.localStorage.content = document.getElementById("searchInput").value;
+    var options=$("#pagenumber option:selected");
+     $.ajax({
+            type: "post",
+            url: "{:url('index/ContractselectAll')}",
+            data:$('#searchAll').serialize()+"&pagenumber="+options.val(),
+            success: function (result) {
+                document.body.innerHTML=result;
+                document.getElementById("searchInput").value=localStorage.content;
+                localStorage.removeItem('content');
+            },
+            error: function(data) {
+                alert("error:"+data.responseText);
+             }
+         });
+  }
+    // 单页显示数据条数回复
+// document.getElementById("pagenumber").value = {drawplanList['pagenumber']};
+</script>
+</body>
+</html>

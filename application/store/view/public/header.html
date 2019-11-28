@@ -1,0 +1,41 @@
+<!--_header 作为公共模版分离出去-->
+<header>
+    <div class="container">
+        <div class="logo">
+            <a href="./index.html">浙江绿建建筑设计有限公司</a></div>
+        <div class="left_open">
+            <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
+        </div>
+       
+        <ul class="layui-nav right" lay-filter="">
+            <li class="layui-nav-item">
+                <a href="javascript:;">{$name}</a>
+                <dl class="layui-nav-child">
+                    <!-- 二级菜单 -->
+                    <dd>
+                        <a onclick="xadmin.open('个人信息','personal_details')">个人信息</a></dd>
+                    <dd>
+                        <a onclick="tuichu()">切换帐号</a></dd>
+                    <dd>
+                        <a onclick="tuichu()">退出</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item to-index">
+                <a onclick="xadmin.add_tab('我的桌面','welcome.html')">前台首页</a></li>
+        </ul>
+    </div>
+</header>
+<!--/_header 作为公共模版分离出去-->
+<script>
+    function tuichu(){
+    $.ajax({
+        type: "POST",  //提交方式
+        url: "{:url('index/logout')}",
+        data: '',
+        dataType: 'json',
+        success: function(data){
+          window.location.href = data.url;
+        }
+      });
+}
+</script>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新建台账</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/newcontract.css" />
+    <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+<body>
+<div class="layui-card">
+    <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">新建台账<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-content layui-show">
+                    <form id="newLedger" class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>合同编号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="contract_id" autocomplete="off" lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>工程名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_name" autocomplete="off" lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>签订日期</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input" placeholder="日期" name="contractledger_signtime" lay-verify="required" id="start" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="constructor">
+                                <label class="layui-form-label"><span class="x-red">*</span>建设方</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" autocomplete="off" lay-verify="required" class="layui-input project_constructor">
+                                    <button type="button" class="item-icon" onclick="itemAdd('constructor','project_constructor')">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="agent">
+                                <label class="layui-form-label">代建方</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" autocomplete="off" class="layui-input project_agent">
+                                    <button type="button" class="item-icon" onclick="itemAdd('agent','project_agent')">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">合同额</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" autocomplete="off" name=" contractledger_amount" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">实算额</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="contractledger_actual" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="payment">
+                                <label class="layui-form-label">支付</label>
+                                <div class="layui-input-inline">
+                                    <ul style="width: 100%;">
+                                        <li class="input-items">
+                                            <input type="text" autocomplete="off" class="layui-input payment" placeholder="支付比例"></li>
+                                        <li class="input-items">
+                                            <input type="text" autocomplete="off" class="layui-input payment" placeholder="付款金额"></li>
+                                        <li class="input-items">
+                                            <input type="text" autocomplete="off" class="layui-input payment" placeholder="支付节点要求"></li>
+                                        <li class="input-items">
+                                            <li class="chechboxes">
+                                                <input type="radio" class="contractledger_status" name="contractledger_status" lay-skin="primary" value="是"/>是</li>
+                                            <li class="chechboxes">
+                                                <input type="radio" class="contractledger_status" checked name="contractledger_status" lay-skin="primary" value="否"/>否</li>
+                                            <li class="chechboxes">
+                                                <input type="radio" class="contractledger_status" name="contractledger_status" lay-skin="primary" value="部分"/>部分</li>
+                                        </li>
+                                    </ul>
+                                    <button type="button" class="item-icon" onclick="itemAdd('payment')">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-collapse" lay-filter="test">
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">已完成阶段<i class="layui-icon layui-colla-icon"></i></h2>
+                                <div class="layui-colla-content">
+                                    <table class="layui-table">
+                                        <tbody>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">合同已签</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="contract_phase1" id="date1" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">方案</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="contract_phase2" id="date2" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">初步</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="contract_phase3" id="date3" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">施工</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="contract_phase4" id="date4" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">审批</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="contract_phase5" id="date5" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">开工</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="contract_phase6" id="date6" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">交底</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="contract_phase7" id="date7" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">管网</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="contract_phase8" id="date8" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">基础完工</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="contract_phase9" id="date9" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">地下完工</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="contract_phase10" id="date10" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">结顶</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="contract_phase11" id="date11" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">室外工程</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="contract_phase12" id="date12" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">竣工验收</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="contract_phase13" id="date13" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">竣工备案</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="contract_phase14" id="date14" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </tbody>
+                                    </table>      
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="confirm">
+                                <label class="layui-form-label">开票-到账</label>
+                                <div class="layui-input-inline">
+                                    <ul>
+                                        <li class="input-items">
+                                            <input class="layui-input confirm" placeholder="开票日期" id="date15" autocomplete="off">
+                                        </li>
+                                        <li class="input-items">
+                                            <input type="text" autocomplete="off" class="layui-input confirm" placeholder="开票金额"></li>
+                                        <li class="input-items">
+                                            <input class="layui-input confirm" placeholder="到账日期" id="date16" autocomplete="off">
+                                        </li>
+                                        <li class="input-items">
+                                            <input type="text" autocomplete="off" class="layui-input confirm"placeholder="到账金额"></li>
+                                    </ul>
+                                    <button type="button" class="item-icon" onclick="itemAdd('confirm')">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">完成产值额</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="contract_value" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">备注</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="contractledger_remarks" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <a class="layui-btn" href="javascript:;" onclick="xadmin.open('新增字段','detailAdd?newcontract',800,600)">新增字段</a>
+                            <button class="layui-btn" lay-filter="add" lay-submit>新增台账</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
+<script>
+layui.use(['form'], function(){
+    $ = layui.jquery;
+    var form = layui.form;
+    form.on('submit',function(){
+        submitLedger();
+        return false;
+    });
+});
+    var id = 17;
+    //判断session是否存在
+    if (localStorage.addanother) {
+        var addItems = JSON.parse(localStorage.addanother);
+        for (var i =.0; i < addItems.length; i++) {
+             var item = document.createElement("div");
+            item.className = "layui-form-item";
+            item.innerHTML = '<div class="layui-inline"><label class="layui-form-label">'+addItems[i].name+'</label><div class="layui-input-inline"><input type="text" name="project_name" autocomplete="off" class="layui-input" value="'+addItems[i].content+'"></div></div>';
+            document.getElementById("newLedger").appendChild(item);
+        }
+    }
+
+    function itemAdd(obj,className) {
+        if (obj == 'payment') {
+            var item = document.createElement("div");
+            item.className = "layui-input-inline";
+            item.innerHTML ='<ul><li class="input-items"><input type="text" autocomplete="off" class="layui-input payment" placeholder="支付比例"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input payment" placeholder="付款金额"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input payment" placeholder="支付节点要求"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input payment" placeholder="该节点是否已付款"></li></ul>'
+                +'<button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button>';
+            document.getElementById(obj).appendChild(item);
+        }
+        else if (obj == 'confirm') {
+            var item = document.createElement("div");
+            item.className = "layui-input-inline";
+            item.innerHTML ='<ul><li class="input-items"><input class="layui-input" placeholder="开票日期" name="contract_phase1" id="date'+id+'" autocomplete="off"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input confirm" placeholder="开票金额"></li><li class="input-items"><input class="layui-input" placeholder="到账日期" name="contract_phase1" id="date'+(id+1)+'" autocomplete="off"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input confirm" placeholder="到账金额"></li></ul>'
+                +'<button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button>';
+                id +=2;
+            document.getElementById(obj).appendChild(item);
+        }
+        else {
+            var item = document.createElement("div");
+            item.className = "layui-input-inline";
+            item.innerHTML = '<input type="text" autocomplete="off" class="layui-input '+className+'">'+'<button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button>';
+            document.getElementById(obj).appendChild(item);
+        }
+    }
+    var itemDel = function(e) {
+        $(e).parent().remove();
+    }
+    function submitLedger(){
+        var data = $('#newLedger').serialize();
+// 分离 - 建设方，并转存
+    var project_constructor = document.getElementsByClassName("project_constructor");
+    var project_constructorContent = "";
+    for (var i =0; i < project_constructor.length; i++) {
+        if (project_constructor[i].value) {
+            project_constructorContent = project_constructorContent+project_constructor[i].value +",";
+        }
+    }
+    data = data + "&project_constructor="+project_constructorContent;  
+// 分离 - 代建方，并转存
+    var project_agent = document.getElementsByClassName("project_agent");
+    var project_agentContent = "";
+    for (var i =0; i < project_agent.length; i++) {
+        if (project_agent[i].value) {
+            project_agentContent = project_agentContent+project_agent[i].value +",";
+        }
+    }
+    data = data + "&project_agent="+project_agentContent;    
+// 分离 - 支付，并转存
+        var payment = document.getElementsByClassName("payment");
+        var paymentContent = "";
+        for (var i =0; i < payment.length; i++) {
+            if (i%4==0){
+                paymentContent = paymentContent +"^"+payment[i].value;
+            }
+            else{
+                paymentContent = paymentContent +"*"+payment[i].value;
+            }
+        }
+        paymentContent = paymentContent.replace("^***","");
+        data = data + "&payment="+paymentContent;        
+// 分离 - 开票-到账，并转存
+        var confirm = document.getElementsByClassName("confirm");
+        var confirmContent = "";
+        for (var i =0; i < confirm.length; i++) {
+            if (i%4==0)
+                confirmContent = confirmContent +"^"+confirm[i].value;
+            else
+                confirmContent = confirmContent +"*"+confirm[i].value;
+        }
+        confirmContent = confirmContent.replace("^***","");
+        data = data + "&confirm="+confirmContent;
+        console.log(data);
+
+        $.ajax({
+            //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "{:url('index/ledgerAdd')}",//url
+                data: data,
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result.status == 1) {
+                        localStorage.removeItem("addanother");
+                        alert("SUCCESS");
+                    }
+                    else
+                        alert("新建台账失败!");
+                },
+                error : function() {
+                    alert("异常！");
+                }
+            });
+        return false;
+    }
+</script>
+</body>
+</html>

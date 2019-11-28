@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>合同详情</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/details.css">
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+	<script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/FileSave.js"></script>
+
+</head>
+<body>
+<div class="card">
+		
+	<div class="layui-col-md12">
+        <div class="layui-card" >
+        	<div class="back-pro" style="background-color: #fff;padding-bottom: 10px;"><a href="javascript:history.go(-1)">返回</a></div>
+            <div class="layui-card-body ">
+            	<!-- 1 -->
+            	<div class="layui-collapse" lay-filter="test">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">基本信息<i class="layui-icon layui-colla-icon"></i></h2>
+                        <div class="layui-colla-content">
+		                    <table class="layui-table" id="table1">
+		                        <tbody>
+		                            <tr>
+		                                <th>合同编号</th>
+		                                <td>{$ContractList['contract_id']}</td>
+		                                <td></td>
+		                                </tr>
+		                            <tr>
+		                                <th>工程编号</th>
+		                                <td>&nbsp;{$ContractList['project_id']}</td>
+		                                <td></td>
+		                            </tr>
+		                            <tr>
+		                                <th>工程名称</th>
+		                                <td>{$ContractList['project_name']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','project_name','工程名称','{$ContractList["project_name"]}','contractEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>合同分类</th>
+		                                <td>{$ContractList['contract_type']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["project_id"]}','contract_type','合同分类','{$ContractList["contract_type"]}','contractEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                            	</td>
+		                            </tr>
+		                            <tr>
+		                            	<th>签订时间</th>
+		                                <td>{$ContractList['contract_signtime']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_signtime','签订时间','{$ContractList["contract_signtime"]}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>建设方</th>
+		                                <td>{$ContractList['contract_constructor']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_constructor','建设方','{$ContractList["contract_constructor"]}','contractEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>代建方</th>
+		                                <td>{$ContractList['contract_agent']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_agent','代建方','{$ContractList["contract_agent"]}','contractEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            {if condition="$limit eq 2"}
+		                            <tr>
+		                                <th>合同额（元）</th>
+		                                <td>{$ContractList['contract_amount']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_amount','合同额（元）','{$ContractList["contract_amount"]}','contractEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            {/if}
+		                            <tr>
+		                                <th>设计内容</th>
+		                                <td>{$ContractList['contract_content']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_content','设计内容','{$ContractList["contract_content"]}','contractContentEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>设计阶段</th>
+		                                <td>{$ContractList['contract_design']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_design','设计范围','{$ContractList["contract_design"]}','contractEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+						            <tr>
+		                                <th>奖罚措施</th>
+		                                <td>{$ContractList['contract_reward']}</td>
+								        <td>
+								        	{if condition="$limit eq 2"}
+								        	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_reward','奖罚措施','{$ContractList["contract_reward"]}','contractEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+								        	{/if}
+								        </td>                        	
+		                                </tr>
+		                            <tr>
+		                                <th>经办人</th>
+		                                <td>{$ContractList['contract_operator']}</td>
+								        <td>
+								        	{if condition="$limit eq 2"}
+								        	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_operator','经办人','{$ContractList["contract_operator"]}','contractEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+								        	{/if}
+								        </td>
+								    </tr>
+		                            <tr>
+		                                <th>项目负责人</th>
+		                                <td>{$ContractList['contract_projectleader']}</td>
+								        <td>
+								        	{if condition="$limit eq 2"}
+								        	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_projectleader','项目负责人','{$ContractList["contract_projectleader"]}','contractEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+								        	{/if}
+								        </td>
+								    </tr>
+		                            <tr>
+		                                <th>审批人</th>
+		                                <td>{$ContractList['contract_approver']}</td>
+								        <td>
+								        	{if condition="$limit eq 2"}
+								        	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_approver','审批人','{$ContractList["contract_approver"]}','contractEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+								        	{/if}
+								        </td>
+								    </tr>
+		                            <tr>
+		                                <th>备注</th>
+		                                <td>{$ContractList['contract_remarks']}</td>
+								        <td>
+								        	{if condition="$limit eq 2"}
+								        	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_remarks','备注','{$ContractList["contract_remarks"]}','contractEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+								        	{/if}
+								        </td>
+								    </tr>
+		                        </tbody>
+		                    </table>
+		                    <button class="layui-btn" onclick="leadingOut1()" style="background-color: #319587;margin-right: 10px;">导出数据</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 2 -->
+                {if condition="$limit eq 2"}
+				<div class="layui-collapse" lay-filter="test">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">设计单价<i class="layui-icon layui-colla-icon"></i></h2>
+                        <div class="layui-colla-content">
+		                    <table class="layui-table" id="table2">
+		                    	<tbody style="position: absolute;">
+                            <tr style="visibility: hidden ;">
+                                <th>工程号</th>
+                                <td colspan="4">&nbsp;{$ContractList["project_id"]}</td>
+                            </tr>
+                            <tr style="visibility: hidden ;">
+                                <th>工程名称</th>
+                                <td colspan="4">{$ContractList["project_name"]}</td>
+                            </tr>
+                        </tbody>
+		                        <tbody>
+		                            <tr>
+		                                <th>内容</th>
+										<th>单价</th>
+										<th>下浮率</th>
+										<th>说明</th>
+										<th></th>
+		                            </tr>
+		                            {volist name="Unitprice" id="vo"}
+		                            <tr>
+		                                <td>{$vo.contract_content}</td>
+		                                <td>{$vo.contract_unitprice}</td>
+		                                <td>{$vo.contract_floatingrate}</td>
+		                                <td>{$vo.contract_remarks}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','{$vo.contract_content}','{$vo.contract_content}','{$vo.contract_unitprice}*{$vo.contract_floatingrate}*{$vo.contract_remarks}','contractUnitpriceEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            {/volist}
+		                        </tbody>
+		                    </table>
+		                    <button class="layui-btn" onclick="leadingOut2()" style="background-color: #319587;margin-right: 10px;">导出数据</button>
+		                    <button class="layui-btn" onclick="xadmin.open('新增设计单价','./newdesignPrice.html',800,600)" style="background-color: #319587;margin-right: 10px;">新增设计单价</button>
+                        </div>
+                    </div>
+                </div>
+                {/if}
+                <!-- 3 -->
+				<div class="layui-collapse" lay-filter="test">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">设计阶段<i class="layui-icon layui-colla-icon"></i></h2>
+                        <div class="layui-colla-content">
+		                    <table class="layui-table" id="table3">
+		                    	<tbody style="position: absolute;">
+                            <tr style="visibility: hidden ;">
+                                <th>工程号</th>
+                                <td colspan="1">&nbsp;{$ContractList["project_id"]}</td>
+                            </tr>
+                            <tr style="visibility: hidden ;">
+                                <th>工程名称</th>
+                                <td colspan="1">{$ContractList["project_name"]}</td>
+                            </tr>
+                        </tbody>
+		                        <tbody>
+		                            <tr>
+		                                <th>咨询</th>
+		                                <td>{$phase.contract_phase1}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_phase1','咨询','{$phase.contract_phase1}','contractPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>强排</th>
+		                                <td>{$phase.contract_phase2}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_phase2','强排','{$phase.contract_phase2}','contractPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>方案</th>
+		                                <td>{$phase.contract_phase3}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_phase3','方案','{$phase.contract_phase3}','contractPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>初步</th>
+		                                <td>{$phase.contract_phase4}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_phase4','初步','{$phase.contract_phase4}','contractPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>施工图</th>
+		                                <td>{$phase.contract_phase5}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_phase5','施工图','{$phase.contract_phase5}','contractPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>套图</th>
+		                                <td>{$phase.contract_phase6}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_phase6','套图','{$phase.contract_phase6}','contractPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                        </tbody>
+		                    </table>
+		                    <button class="layui-btn" onclick="leadingOut3()" style="background-color: #319587;margin-right: 10px;">导出数据</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-card layui-input-block">
+           	 		<button class="layui-btn" onclick="deleteThis()" style="background-color: #F4592E;">删除当前数据</button>
+       	 		</div>
+            </div>
+    	</div>
+	</div>
+<script type="text/javascript">
+function member_edit(id, column, chinese, content, type) {
+	content =content.replace(/%/g, '%25').replace(/\(/g,"%28").replace(/\)/g,"%29");
+	var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
+	xadmin.open('详情修改', url);
+}
+function deleteThis() {
+   console.log("合同号为："+{$ContractList['contract_id']});
+    layer.alert("您确定要删除当前合同的所有数据吗？",
+        function() {
+            $.ajax({
+            type: "post",
+            url: "{:url('index/ContractDel')}",
+            data:"contract_id="+{$ContractList['contract_id']},
+            success: function (data) {
+                  layer.alert("删除成功！",
+                function() {
+                    xadmin.close();
+                    xadmin.father_reload();
+                });
+            },
+            error: function(data) {
+                alert("error:"+data.message);
+             }
+         });
+        
+        });
+}
+
+function leadingOut1() {
+  //询问框
+  layer.confirm('只能导出台账基本信息的数据，请在导出前确认单页数据为“全部”,并已执行', {
+    btn: ['取消导出','依旧导出'] //按钮
+  }, function(){
+    layer.msg('已取消', {icon: 1});
+  }, function(){
+    tableToExcel('table1','sheet1',template,'Data.xlsx');
+  });
+}
+function leadingOut2() {
+  //询问框
+  layer.confirm('只能导出已完成阶段的数据，请在导出前确认单页数据为“全部”,并已执行', {
+    btn: ['取消导出','依旧导出'] //按钮
+  }, function(){
+    layer.msg('已取消', {icon: 1});
+  }, function(){
+    tableToExcel('table2','sheet1',template,'Data.xlsx');
+  });
+}
+function leadingOut3() {
+  //询问框
+  layer.confirm('只能导出开票-到账的数据，请在导出前确认单页数据为“全部”,并已执行', {
+    btn: ['取消导出','依旧导出'] //按钮
+  }, function(){
+    layer.msg('已取消', {icon: 1});
+  }, function(){
+    tableToExcel('table3','sheet1',template,'Data.xlsx');
+  });
+}
+function leadingOut4() {
+  //询问框
+  layer.confirm('只能导出支付进度的数据，请在导出前确认单页数据为“全部”,并已执行', {
+    btn: ['取消导出','依旧导出'] //按钮
+  }, function(){
+    layer.msg('已取消', {icon: 1});
+  }, function(){
+    tableToExcel('table4','sheet1',template,'Data.xlsx');
+  });
+}
+var template =
+    ' <style type="text/css">' +
+    'table {' +
+    '    font-family: verdana,arial,sans-serif;' +
+    '    font-size:11px;' +
+    '    color:#333333;' +
+    '    border-width: 1px;' +
+    '    border-color: #666666;' +
+    '    border-collapse: collapse;' +
+    '}' +
+    'table th {' +
+    '    padding: 8px;' +
+    '    width: 200px;' +
+    '  height: 30px;' +
+    '    border-style: solid;' +
+    '    border-color: #9a9a9a;' +
+    '    color: #ffffff;' +
+    '    background-color: #319587;' +
+    '}' +
+    'table td {' +
+    '    width: 200px;' +
+    '  height: 30px;' +
+    '    padding: 8px;' +
+    '    text-align: center;' +
+    '    border-style: solid;' +
+    '    border-color: #9a9a9a;' +
+    '}' +
+    ' ' +
+    '</style>';
+
+function tableToExcel(tableid, sheetName, template, fileName) {
+    if (!tableid.nodeType) tableid = document.getElementById(tableid);
+    var html = "<html xmlns:x=\"urn:schemas-microsoft-com:office:excel\">\n" +
+        "    <head>\n" +
+        "        <!--[if gte mso 9]><xml>\n" +
+        "            <x:ExcelWorkbook>\n" +
+        "                <x:ExcelWorksheets>\n" +
+        "                    <x:ExcelWorksheet>\n" +
+        "                        <x:Name>"+ sheetName +"</x:Name>\n" +
+        "                        <x:WorksheetOptions>\n" +
+        "                            <x:Print>\n" +
+        "                                <x:ValidPrinterInfo />\n" +
+        "                            </x:Print>\n" +
+        "                        </x:WorksheetOptions>\n" +
+        "                    </x:ExcelWorksheet>\n" +
+        "                </x:ExcelWorksheets>\n" +
+        "            </x:ExcelWorkbook>\n" +
+        "        </xml>\n" +
+        "        <![endif]-->\n" + template +
+        "    </head>" +
+        "<body>" + tableid.outerHTML +
+        "</body></html>";
+    var blob = new Blob([html], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, fileName);
+}
+
+</script>
+</body>
+</html>

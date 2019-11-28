@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>出图计划详细</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/details.css">
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+	<script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/FileSave.js"></script>
+</head>
+<body>
+<div class="card">
+	<div class="layui-col-md12">
+        <div class="layui-card" >
+        	<div class="back-pro" style="background-color: #fff;padding-bottom: 10px;"><a href="javascript:history.go(-1)">返回</a></div>
+            <div class="layui-card-body ">
+            	<p>&nbsp&nbsp&nbsp工程号：{$content.project_id}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp工程名称：{$content.project_name}</p>
+            	<!-- 1 -->
+                <div class="layui-collapse" lay-filter="test">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">基本信息<i class="layui-icon layui-colla-icon"></i></h2>
+                        <div class="layui-colla-content" style="overflow-x: scroll;">
+                            <table class="layui-table layui-form" id="table">
+                                <tbody style="position: absolute;">
+                                    <tr style="visibility: hidden ;">
+                                        <th>工程号</th>
+                                        <td>&nbsp;{$content.project_id}</td>
+                                    </tr>
+                                    <tr style="visibility: hidden ;">
+                                        <th>工程名称</th>
+                                        <td>&nbsp;{$content.project_name}</td>
+                                    </tr>
+                                </tbody>
+                                <td>发包人</td>
+                                <td>代建方</td>
+                                <td>单体名称</td>
+                                <td>专业</td>
+                                <td>阶段</td>
+                                <td>图号</td>
+                                <td>图数</td>
+                                <td>工程概况</td>
+                                <td>日期</td>
+                                <td>备注</td>
+                                <tbody>
+                                <tr class="text-c">
+                                    <td>{$content.project_contractor}</td>
+                                    <td>{$content.project_agent}</td>
+                                    <td>{$content.monomer_name}</td>
+                                    <td>{$content.drawplan_major}</td>
+                                    <td>{$content.drawplan_phase}</td>
+                                    <td>{$content.figure_number}</td>
+                                    <td>{$content.drawplan_number}</td>
+                                    <td>{$content["drawplan_survey"]}</td>
+                                    <td>{$content["drawplan_date"]}</td>
+                                    <td>{$content["drawplan_remarks"]}</td>
+                                </tr>
+                                {if condition="$limit eq 2"}
+                                <tr class="text-c">
+                            		<td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'project_contractor', '发包人', '{$content["project_contractor"]}', 'drawplanEdit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a></td>
+		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'project_agent', '代建方', '{$content["project_agent"]}', 'drawplanEdit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a></td>
+		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}','monomer_name', '单体名称', '{$content["monomer_name"]}', 'drawplanEdit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a></td>
+		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_major', '专业', '{$content["drawplan_major"]}', 'drawplanEdit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a></td>
+		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_phase', '阶段', '{$content["drawplan_phase"]}', 'drawplanEdit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a></td>
+		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'figure_number', '图号', '{$content["figure_number"]}', 'drawplanEdit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a></td>
+		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_number', '图数', '{$content["drawplan_number"]}', 'drawplanEdit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a></td>
+		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_survey', '工程概况', '{$content["drawplan_survey"]}', 'drawplanEdit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a></td>
+		                            <td> <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_date', '日期', '{$content["drawplan_date"]}', 'drawplanEdit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a></td>
+		                            <td> <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_remarks', '备注', '{$content["drawplan_remarks"]}', 'drawplanEdit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a></td>
+                        		</tr>
+                        		{/if}
+                                </tbody>
+                            </table>
+                           	<button class="layui-btn" onclick="leadingOut1()" style="background-color: #319587;margin-right: 10px;">导出数据</button>
+                        </div>
+                    </div>
+                </div>
+
+		        <!-- 2 -->
+		        <div class="layui-collapse" lay-filter="test">
+		            <div class="layui-colla-item">
+		                <h2 class="layui-colla-title">参与人员信息<i class="layui-icon layui-colla-icon"></i></h2>
+		                <div class="layui-colla-content">
+		                    <table class="layui-table" id="table2">
+		                    	<tbody style="position: absolute;">
+		                            <tr style="visibility: hidden ;">
+		                                <th>工程号</th>
+		                                <td colspan="2">&nbsp;{$content.project_id}</td>
+		                            </tr>
+		                            <tr style="visibility: hidden ;">
+		                                <th>工程名称</th>
+		                                <td colspan="2">{$content.project_name}</td>
+		                            </tr>
+		                        </tbody>
+		                        <tbody>
+		                            <tr class="text-c">
+		                                <th>工程</th>
+		                                <td>工种</td>
+		                                <td>设计</td>
+		                                <td>制图</td>
+		                                <td>校对</td>
+		                                <td>审核</td>
+		                                <td>审定</td>
+		                                <th class="td-manage">操作</th>
+		                            </tr>
+		                        	{volist name='drawplan_designer' id='vo'}
+									<tr class="text-c">
+										<th>{$vo["drawplan_project1"]}</th>
+										<td>{$vo["drawplan_type1"]}</td>
+		                                <td>{$vo["drawplan_designer1"]}</td>
+		                                <td>{$vo["drawplan_drafting1"]}</td>
+		                                <td>{$vo["drawplan_check1"]}</td>
+		                                <td>{$vo["drawplan_verify1"]}</td>
+		                                <td>{$vo["drawplan_authorize1"]}</td>
+										<th class="td-manage">
+		                                    {if condition="$limit eq 2"}
+			                                 <a title="编辑" onclick="member_edit2('{$vo["project_id"]}','1','{$vo["project_id"]}','{$vo["drawplan_project1"]}*{$vo["drawplan_type1"]}*{$vo["drawplan_designer1"]}*{$vo["drawplan_drafting1"]}*{$vo["drawplan_check1"]}*{$vo["drawplan_verify1"]}*{$vo["drawplan_authorize1"]}','drawplanDesignerEdit')" href="javascript:;">
+	                                      <i class="layui-icon">&#xe642;</i>
+	                                    </a>
+		                                    {/if}
+			                            </th>
+									</tr>
+									{/volist}
+									<tr class="text-c">
+		                                <th>实际工程</th>
+		                                <td>实际工种</td>
+		                                <td>实际设计</td>
+		                                <td>实际制图</td>
+		                                <td>实际校对</td>
+		                                <td>实际审核</td>
+		                                <td>实际审定</td>
+		                                <th class="td-manage">操作</th>
+		                            </tr>
+		                        	{volist name='drawplan_designer' id='vo'}
+									<tr class="text-c">
+										<th>{$vo["drawplan_project2"]}</th>
+										<td>{$vo["drawplan_type2"]}</td>
+		                                <td>{$vo["drawplan_designer2"]}</td>
+		                                <td>{$vo["drawplan_drafting2"]}</td>
+		                                <td>{$vo["drawplan_check2"]}</td>
+		                                <td>{$vo["drawplan_verify2"]}</td>
+		                                <td>{$vo["drawplan_authorize2"]}</td>
+										<th class="td-manage">
+		                                    {if condition="$limit eq 2"}
+		                                     <a title="编辑" onclick="member_edit2('{$vo["project_id"]}','2','{$vo["project_id"]}','{$vo["drawplan_project2"]}*{$vo["drawplan_type2"]}*{$vo["drawplan_designer2"]}*{$vo["drawplan_drafting2"]}*{$vo["drawplan_check2"]}*{$vo["drawplan_verify2"]}*{$vo["drawplan_authorize2"]}','drawplanDesignerEdit')" href="javascript:;">
+	                                      <i class="layui-icon">&#xe642;</i>
+	                                    </a>
+		                                    {/if}
+			                            </th>
+									</tr>
+									{/volist}
+									<tr class="text-c">
+		                                <th>工程备注</th>
+		                                <td>工种备注</td>
+		                                <td>设计备注</td>
+		                                <td>制图备注</td>
+		                                <td>校对备注</td>
+		                                <td>审核备注</td>
+		                                <td>审定备注</td>
+		                                <th class="td-manage">操作</th>
+		                            </tr>
+		                        	{volist name='drawplan_designer' id='vo'}
+									<tr class="text-c">
+										<th>{$vo["project_remarks"]}</th>
+										<td>{$vo["type_remarks"]}</td>
+		                                <td>{$vo["designer_remarks"]}</td>
+		                                <td>{$vo["drafting_remarks"]}</td>
+		                                <td>{$vo["check_remarks"]}</td>
+		                                <td>{$vo["verify_remarks"]}</td>
+		                                <td>{$vo["authorize_remarks"]}</td>
+										<th class="td-manage">
+		                                    {if condition="$limit eq 2"}
+		                                     <a title="编辑" onclick="member_edit2('{$vo["project_id"]}','3','{$vo["project_id"]}','{$vo["project_remarks"]}*{$vo["type_remarks"]}*{$vo["designer_remarks"]}*{$vo["drafting_remarks"]}*{$vo["check_remarks"]}*{$vo["verify_remarks"]}*{$vo["authorize_remarks"]}','drawplanDesignerEdit')" href="javascript:;">
+	                                      <i class="layui-icon">&#xe642;</i>
+	                                    </a>
+		                                    {/if}
+			                            </th>
+									</tr>
+									{/volist}
+		                        </tbody>
+		                    </table>
+		                    <button class="layui-btn" onclick="leadingOut2()" style="background-color: #319587;margin-right: 10px;">导出数据</button>
+		                </div>
+		            </div>
+		        </div>
+				<!-- 4 -->
+		        <div class="layui-collapse" lay-filter="test">
+		            <div class="layui-colla-item">
+		            <h2 class="layui-colla-title">经济指标<i class="layui-icon layui-colla-icon"></i></h2>
+		            <div class="layui-colla-content">
+		                <table class="layui-table" id="table5">
+		                	<tbody style="position: absolute;">
+                            <tr style="visibility: hidden ;">
+                                <th>工程号</th>
+                                <td colspan="2">&nbsp;{$content.project_id}</td>
+                            </tr>
+                            <tr style="visibility: hidden ;">
+                                <th>工程名称</th>
+                                <td colspan="2">{$content.project_name}</td>
+                            </tr>
+                        </tbody>
+		                    <tbody>
+		                        <tr>
+		                            <th>地上面积（含架空）</th>
+		                            <td>{$economic_indicators.aboveground_area}</td>
+		                        	<th class="td-manage">
+		                        		{if condition="$limit eq 2"}
+		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'aboveground_area', '地上面积（含架空）', '{$economic_indicators["aboveground_area"]}', 'ecoedit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a>
+		                                {/if}
+		                            </th>
+		                        </tr>
+		                        <tr>
+		                            <th>地下面积（含人防）</th>
+		                            <td>{$economic_indicators.underground_area}</td>
+		                        	<th class="td-manage">
+		                        		{if condition="$limit eq 2"}
+		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'underground_area', '地下面积（含人防）', '{$economic_indicators["underground_area"]}', 'ecoedit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a>
+		                                {/if}
+		                            </th>
+		                        </tr>
+		                        <tr>
+		                            <th>其中人防</th>
+		                            <td>{$economic_indicators.monomer_name}</td>
+		                        	<th class="td-manage">
+		                        		{if condition="$limit eq 2"}
+		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}','civil_air_defense', '其中人防', '{$economic_indicators["civil_air_defense"]}', 'ecoedit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a>
+		                                {/if}
+		                            </th>
+		                        </tr>
+		                        <tr>
+		                            <th>层数</th>
+		                            <td>{$economic_indicators.layer_number}</td>
+		                        	<th class="td-manage">
+		                        		{if condition="$limit eq 2"}
+		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'layer_number', '层数', '{$economic_indicators["layer_number"]}', 'ecoedit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a>
+		                                {/if}
+		                            </th>
+		                        </tr>
+		                        <tr>
+		                            <th>高度</th>
+		                            <td>{$economic_indicators.height}</td>
+		                        	<th class="td-manage">
+		                        		{if condition="$limit eq 2"}
+		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'height', '高度', '{$economic_indicators["height"]}', 'ecoedit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a>
+		                                {/if}
+		                            </th>
+		                        </tr>
+		                        <tr>
+		                            <th>类别</th>
+		                            <td>{$economic_indicators.category}</td>
+		                        	<th class="td-manage">
+		                        		{if condition="$limit eq 2"}
+		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'category', '类别', '{$economic_indicators["category"]}', 'ecoedit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a>
+		                                {/if}
+		                            </th>
+		                        </tr>
+		                        <tr>
+		                            <th>备注</th>
+		                            <td>{$economic_indicators.notes}</td>
+		                        	<th class="td-manage">
+		                        		{if condition="$limit eq 2"}
+		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'notes', '备注', '{$economic_indicators["notes"]}', 'ecoedit')" href="javascript:;">
+		                                  <i class="layui-icon">&#xe642;</i>
+		                                </a>
+		                                {/if}
+		                            </th>
+		                        </tr> 
+		                    </tbody>
+		                </table>
+		                <button class="layui-btn" onclick="leadingOut5()" style="background-color: #319587;margin-right: 10px;">导出数据</button>
+		            </div>
+		            </div>
+		        </div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+function member_edit(id, column, chinese, content, type) {
+	content =content.replace(/%/g, '%25');
+	var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
+	console.log(content);
+	xadmin.open('详情修改', url);
+}
+function member_edit2(id, column, chinese, content, type) {
+	 console.log(content);
+    var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
+   
+    xadmin.open('详情修改', url);
+}
+var template =
+    ' <style type="text/css">' +
+    'table {' +
+    '    font-family: verdana,arial,sans-serif;' +
+    '    font-size:11px;' +
+    '    color:#333333;' +
+    '    border-width: 1px;' +
+
+    '    border-color: #666666;' +
+    '    border-collapse: collapse;' +
+    '}' +
+    'table th {' +
+    '    padding: 8px;' +
+    '    width: 200px;' +
+    '  height: 30px;' +
+    '    border-style: solid;' +
+    '    border-color: #9a9a9a;' +
+    '    color: #000000;' +
+    '    background-color: #ffffff;' +
+    '}' +
+    'table td {' +
+    '    width: 200px;' +
+    '  height: 30px;' +
+    '    padding: 8px;' +
+    '    text-align: center;' +
+    '    border-style: solid;' +
+    '    border-color: #9a9a9a;' +
+    '}' +
+    ' ' +
+    '</style>';
+function tableToExcel(tableid, sheetName, template, fileName) {
+    if (!tableid.nodeType) tableid = document.getElementById(tableid);
+    var html = "<html xmlns:x=\"urn:schemas-microsoft-com:office:excel\">\n" +
+        "    <head>\n" +
+        "        <!--[if gte mso 9]><xml>\n" +
+        "            <x:ExcelWorkbook>\n" +
+        "                <x:ExcelWorksheets>\n" +
+        "                    <x:ExcelWorksheet>\n" +
+        "                        <x:Name>"+ sheetName +"</x:Name>\n" +
+        "                        <x:WorksheetOptions>\n" +
+        "                            <x:Print>\n" +
+        "                                <x:ValidPrinterInfo />\n" +
+        "                            </x:Print>\n" +
+        "                        </x:WorksheetOptions>\n" +
+        "                    </x:ExcelWorksheet>\n" +
+        "                </x:ExcelWorksheets>\n" +
+        "            </x:ExcelWorkbook>\n" +
+        "        </xml>\n" +
+        "        <![endif]-->\n" + template +
+        "    </head>" +
+        "<body>" + tableid.outerHTML +
+        "</body><script><\/script></html>";
+    var blob = new Blob([html], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, fileName);
+}
+
+function leadingOut1() {
+  //询问框
+  layer.confirm('只能导出支付进度的数据，请在导出前确认单页数据为“全部”,并已执行', {
+    btn: ['取消导出','依旧导出'] //按钮
+  }, function(){
+    layer.msg('已取消', {icon: 1});
+  }, function(){
+    tableToExcel('table1','sheet1',template,'Data.xlsx');
+  });
+}
+
+function leadingOut2() {
+  //询问框
+  layer.confirm('只能导出支付进度的数据，请在导出前确认单页数据为“全部”,并已执行', {
+    btn: ['取消导出','依旧导出'] //按钮
+  }, function(){
+    layer.msg('已取消', {icon: 1});
+  }, function(){
+    tableToExcel('table2','sheet1',template,'Data.xlsx');
+  });
+}
+
+
+function leadingOut5() {
+  //询问框
+  layer.confirm('只能导出支付进度的数据，请在导出前确认单页数据为“全部”,并已执行', {
+    btn: ['取消导出','依旧导出'] //按钮
+  }, function(){
+    layer.msg('已取消', {icon: 1});
+  }, function(){
+    tableToExcel('table5','sheet1',template,'Data.xlsx');
+  });
+}
+</script>
+</body>
+</html>

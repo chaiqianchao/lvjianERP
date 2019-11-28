@@ -1,0 +1,150 @@
+{extend name='public/base'/}
+{block name='header'}{/block} {//关掉头部}
+{block name='menu'}{/block} {//关掉菜单}
+{block name='seo'}
+<title>{$title|default="订单栏"}</title>
+<meta name="keywords" content="{$keywords|default='关键字'}">
+<meta name="description" content="{$desc|default='描述'}">
+{/block}
+
+{block name='content'}
+<article class="cl pd-20">
+
+    <form action="" method="post" class="form form-horizontal" id="form-mall-add">
+        <!-- <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>订单编号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input  type="text" class="input-text" value="" placeholder="" id="number" name="number">
+            </div>
+        </div> -->
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>商品id：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input  type="text" class="input-text" value="" placeholder="" id="id" name="id">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>游戏用户手机号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value=""  placeholder="" id="mobile" name="mobile">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所花现金</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value=""  placeholder="" id="money" name="money">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所花积分</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value=""  placeholder="" id="integral" name="integral">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>收货人姓名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input  type="text" class="input-text" value="" placeholder="" id="cnee" name="cnee">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>收货人手机号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input  type="text" class="input-text" value="" placeholder="" id="cneeMobile" name="cneeMobile">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>收货地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input  type="text" class="input-text" value="" placeholder="" id="address" name="address">
+            </div>
+        </div>
+
+        <!--<div class="row cl">-->
+            <!--<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>订单创建时间：</label>-->
+            <!--<div class="formControls col-xs-8 col-sm-9">-->
+                <!--<input  type="text" class="input-text" value="" placeholder="" id="date" name="date">-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>订单状态：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input  type="text" class="input-text" value="" placeholder="" id="status" name="status">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius disabled" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" id="submit" >
+            </div>
+        </div>
+    </form>
+
+
+</article>
+{/block}
+
+{block name='js'}
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__STATIC__/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+
+
+<script>
+
+    $(function(){
+
+        //防止订单无更新提交,只有表中数据有变化时才允许提交
+        $("form").children().change(function(){
+            $("#submit").removeClass('disabled');
+        });
+
+        // //失去焦点时,检查订单id是否重复
+        // $("#id").blur(function(){
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: "{:url('index/checkOrderNumber')}",
+        //         data:{name:$(this).val()},
+        //         dataType: 'json',
+        //         success: function(data){
+        //             if (data.status == 1) {
+        //                 alert(data.message);
+        //             } else {
+        //                 alert(data.message);
+        //             }
+        //         }
+        //     });
+        // });
+
+
+        $("#submit").on("click", function(event){
+            $.ajax({
+                type: "POST",
+                url: "{:url('index/addOrder')}",
+                data: $("#form-mall-add").serialize(),
+                dataType: "json",
+                success: function(data){
+                    if (data.status == 1) {
+                        sessionStorage.upDateFlag = 1;
+                        alert(data.message);
+                    } else {
+                        sessionStorage.upDateFlag = 1;
+                        alert(data.message);
+                    }
+                }
+            });
+
+        })
+    })
+</script>
+{/block}
+
+</body>
+</html>

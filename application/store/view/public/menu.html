@@ -1,0 +1,220 @@
+
+<!--_menu 作为公共模版分离出去-->
+<div class="left-nav">
+    <div id="side-nav">
+        <ul id="nav">
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="工程管理">&#xe6b8;</i>
+                    <cite>工程概况</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    {if condition ="$limits.project_view neq 0"}
+                    <li>
+                        <a onclick="xadmin.add_tab('查看工程','project.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>查看工程</cite></a>
+                    </li>
+                    {/if}
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="出图计划">&#xe69e;</i>
+                    <cite>出图登记</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('出图登记','drawplan.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>出图登记</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('加晒记录','slideshow.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>加晒记录</cite></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="产值">&#xe6b4;</i>
+                    <cite>产值管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    {if condition ="$limits.project_value neq 0"}
+                    <li>
+                        <a onclick="xadmin.add_tab('工程产值','gongchengchanzhi.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>工程产值</cite></a>
+                    </li>
+                    {/if}
+                    {if condition ="$limits.department_value neq 0"}
+                    <li>
+                        <a onclick="xadmin.add_tab('院产值','yuanchanzhi.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>院产值</cite></a>
+                    </li>
+                    {/if}
+                    {if condition ="$limits.staff_value neq 0"}
+                    <li>
+                        <a onclick="xadmin.add_tab('个人产值','gerenchanzhi.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>个人产值</cite></a>
+                    </li>
+                    {/if}
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="合同管理">&#xe723;</i>
+                    <cite>合同管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                  <!--   {if condition ="$limits.contract_view eq 2"}
+                    <li>
+                        <a onclick="xadmin.add_tab('新建合同','newcontract.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>新建合同</cite></a>
+                    </li>
+                    {/if} -->
+                    {if condition ="$limits.contract_view neq 0"}
+                    <li>
+                        <a onclick="xadmin.add_tab('查看合同','contract.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>查看合同</cite></a>
+                    </li>
+                    {/if}
+                 <!--    {if condition ="$limits.ledger eq 2"}
+                    <li>
+                        <a onclick="xadmin.add_tab('新建台账','newledger.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>新建台账</cite></a>
+                    </li>
+                    {/if} -->
+                    {if condition ="$limits.ledger neq 0"}
+                    <li>
+                        <a onclick="xadmin.add_tab('台账管理','taizhangguanli.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>台账管理</cite></a>
+                    </li>
+                    {/if}
+                </ul>
+            </li>
+            {if condition ="$limits.bid neq 0"}
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="招投标项目">&#xe6bf;</i>
+                    <cite>招投标管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('招投标项目','zhaotoubiao.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>招投标项目</cite></a>
+                    </li>
+                    {if condition ="$limits.invoice_new neq 0"}
+                   <!--  <li>
+                        <a onclick="xadmin.add_tab('新增开票','invoice.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>新增开票</cite></a>
+                    </li> -->
+                    <li>
+                        <a onclick="xadmin.add_tab('开票记录','invoiceHistory.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>开票记录</cite></a>
+                    </li>
+                    {/if}
+                </ul>
+            </li>
+            {/if}
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="人员管理">&#xe726;</i>
+                    <cite>人事管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    {if condition ="$limits.adminstrator eq 2"}
+                    <li>
+                        <a onclick="xadmin.add_tab('管理员列表','adminlist.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>管理员列表</cite></a>
+                    </li>
+                    {/if}
+                    <li>
+                        <a onclick="xadmin.add_tab('员工管理','personal.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>员工管理</cite></a>
+                    </li>
+                </ul>
+            </li>
+            {if condition ="$limits.customer neq 0"}
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="客户统计">&#xe6ce;</i>
+                    <cite>客户信息</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('客户总览','kehu.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>客户总览</cite></a>
+                    </li>
+                   
+                </ul>
+            </li>
+            {/if}
+            
+            <!-- {if condition ="$limits.invoice_new neq 0"}
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="开票">&#xe6ab;</i>
+                    <cite>开票</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('新增开票','invoice.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>新增开票</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('开票记录','invoiceHistory.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>开票记录</cite></a>
+                    </li>
+                </ul>
+            </li>
+            {/if} -->
+            
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="单价管理">&#xe6c5;</i>
+                    <cite>单价管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('图纸、文本制作费','fee.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>图文制作费</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('建筑专业设计单价','architecture_fee.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>建筑专业设计单价</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('结构专业设计单价','structure_fee.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>结构专业设计单价</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('设备专业设计单价','equipment_fee.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>设备专业设计单价</cite></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--/_menu 作为公共模版分离出去-->

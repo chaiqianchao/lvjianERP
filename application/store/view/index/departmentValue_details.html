@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>院产值详情</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	  <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/details.css">
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+	<script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/FileSave.js"></script>
+</head>
+<body>
+<div class="card">
+	<div class="layui-col-md12">
+        <div class="layui-card" >
+        	<div class="back-pro" style="background-color: #fff;padding-bottom: 10px;"><a href="javascript:history.go(-1)">返回</a></div>
+            <div class="layui-card-body ">
+            	<p>&nbsp&nbsp&nbsp部门：{$content[0]['staff_department']}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp姓名：{$content[0]['staff_name']} </p>
+            	<!-- 1 -->
+		    	<div class="layui-collapse" lay-filter="test">
+		            <div class="layui-colla-item">
+		            <h2 class="layui-colla-title" onclick="pullDown()">基本信息<i class="layui-icon layui-colla-icon"></i></h2>
+		            <div class="layui-colla-content">
+		                <table class="layui-table" id="table">
+		                	<tbody style="position: absolute;">
+		                            <tr style="visibility: hidden ;">
+		                                <th>部门</th>
+		                                <td>&nbsp;{$content[0]['staff_department']}</td>
+		                                <th>姓名</th>
+		                                <td>{$content[0]['staff_name']}</td>
+		                            </tr>
+		                        </tbody>
+		                    <tbody>
+	                            <th>出图时间</th>
+	                            <th>个人总产值汇总</th>
+	                            <th>年度奖惩调整系数</th>
+	                            <th>特殊津贴</th>
+	                            <th>年终个人产值</th>
+	                            <th>备注</th>
+	                            <th>操作</th>
+	                            <tbody>
+								{volist name='content' id='vo'}
+								<tr class="text-c">
+									<td>{$vo.draw_date}</td>
+									<td>{$vo.total_personalvalue}</td>
+									<td>{$vo.reward_coefficient}</td>
+									<td>{$vo.special_allowance}</td>
+									<td>{$vo.yearend_personalvalue}</td>
+									<td>{$vo.departmentvalue_remarks}</td>
+									<th class="td-manage">
+										{if condition="$limit eq 2"}
+										<a title="编辑" href="javascript:;" class="edit" onclick="xadmin.open('院产值修改','{:url("index/departmentValue_Edit",["id"=>$vo["id"]])}')">
+										<i class="layui-icon" style="color: #2196f3;"></i>
+										</a>
+										{/if}
+									</th>
+								</tr>
+								{/volist}
+								</tbody>
+		                </table>
+		            </div>
+		            </div>
+		        </div>
+		        <!-- 小计2-->
+				<div style="background-color: #fff;padding: 10px;text-align: right;">
+          			<button class="layui-btn" onclick="leadingOut()" style="background-color: #319587;margin-right: 10px;">导出数据</button>
+					<!-- <span>小计： <span style="color: red;font-size: 18pt;padding: 2px;">99999</span>元</span> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+function member_edit(id, column, chinese, content, type) {
+	content =content.replace(/%/g, '%25');
+	var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
+	console.log(content);
+	xadmin.open('详情修改', url);
+}
+var template =
+    ' <style type="text/css">' +
+    'table {' +
+    '    font-family: verdana,arial,sans-serif;' +
+    '    font-size:11px;' +
+    '    color:#333333;' +
+    '    border-width: 1px;' +
+    '    border-color: #666666;' +
+    '    border-collapse: collapse;' +
+    '}' +
+    'table th {' +
+    '    padding: 8px;' +
+    '    width: 200px;' +
+    '  height: 30px;' +
+    '    border-style: solid;' +
+    '    border-color: #9a9a9a;' +
+    '    color: #000000;' +
+    '    background-color: #ffffff;' +
+    '}' +
+    'table td {' +
+    '    width: 200px;' +
+    '  height: 30px;' +
+    '    padding: 8px;' +
+    '    text-align: center;' +
+    '    border-style: solid;' +
+    '    border-color: #9a9a9a;' +
+    '}' +
+    ' ' +
+    '</style>';
+function tableToExcel(tableid, sheetName, template, fileName) {
+    if (!tableid.nodeType) tableid = document.getElementById(tableid);
+    var html = "<html xmlns:x=\"urn:schemas-microsoft-com:office:excel\">\n" +
+        "    <head>\n" +
+        "        <!--[if gte mso 9]><xml>\n" +
+        "            <x:ExcelWorkbook>\n" +
+        "                <x:ExcelWorksheets>\n" +
+        "                    <x:ExcelWorksheet>\n" +
+        "                        <x:Name>"+ sheetName +"</x:Name>\n" +
+        "                        <x:WorksheetOptions>\n" +
+        "                            <x:Print>\n" +
+        "                                <x:ValidPrinterInfo />\n" +
+        "                            </x:Print>\n" +
+        "                        </x:WorksheetOptions>\n" +
+        "                    </x:ExcelWorksheet>\n" +
+        "                </x:ExcelWorksheets>\n" +
+        "            </x:ExcelWorkbook>\n" +
+        "        </xml>\n" +
+        "        <![endif]-->\n" + template +
+        "    </head>" +
+        "<body>" + tableid.outerHTML +
+        "</body></html>";
+    var blob = new Blob([html], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, fileName);
+}
+
+function leadingOut() {
+  //询问框
+  layer.confirm('只能导出当前页的数据哦', {
+    btn: ['取消导出','依旧导出'] //按钮
+  }, function(){
+    layer.msg('已取消', {icon: 1});
+  }, function(){
+    tableToExcel('table','sheet1',template,'Data.xlsx');
+  });
+}
+function pullDown() {
+	flag = !flag;
+	if (flag) {
+		var show = document.getElementsByClassName("layui-colla-content");
+		show[0].className = "layui-colla-content layui-show";
+	}
+	if (!flag) {
+		var show = document.getElementsByClassName("layui-colla-content layui-show");
+		show[0].className = "layui-colla-content";
+	}
+}
+</script>
+</body>
+</html>

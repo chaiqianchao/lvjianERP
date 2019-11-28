@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新建工程项目</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/newcontract.css" />
+    <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+<body>
+<div class="layui-card">
+    <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">新建工程项目<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-content layui-show">
+                    <form id="newContract" class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>工程号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_id" lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>工程名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_name" lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>项目名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="entry_name" lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>分包人</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_subcontractor" lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-collapse" lay-filter="test">
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">工程产值<i class="layui-icon layui-colla-icon"></i></h2>
+                                <!-- <button type="button" class="item-icon" onclick="itemAdd('provalue','','data')">+</button> -->
+                                <div class="layui-colla-content">
+                                    <table class="layui-table">
+                                        
+                                        <tbody>
+                                            
+                                           <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">设计面积</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="design_area" name="design_area" autocomplete="off" class="layui-input" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">主体合同额</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="contract_amount" name="contract_amount" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">阶段比例</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="stage_proportions" name="stage_proportions" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">难度系统</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="difficulty_system" name="difficulty_system" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">分配比例</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="distribution_ratio" name="distribution_ratio" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">其他系数</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="residual_coefficient" name="residual_coefficient" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">专业</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" name="major" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">设计人员</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" name="designer" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">设计单价</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="design_price" name="design_price" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">设计产值</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="design_value" name="design_value" autocomplete="off" class="layui-input" onfocus="get_design_value()">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">校对人员</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" name="proofreader" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">校对单价</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="proofreading_price" name="proofreading_price" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">校对产值</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="proofreading_value" name="proofreading_value" autocomplete="off" class="layui-input" onfocus="get_proofreading_value()">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">审核人员</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" name="auditor" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">审核单价</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="audit_price" name="audit_price" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">审核产值</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="audit_value" name="audit_value" autocomplete="off" class="layui-input" onfocus="get_audit_value()">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">工种负责人</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" name="work_boss" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">工种单价</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="work_basenumber" name="work_basenumber" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">工种产值</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="work_value" name="work_value" autocomplete="off" class="layui-input" onfocus="get_work_value()">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">工程人员</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" name="project_boss" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                  <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">工程单价</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="project_basenumber" name="project_basenumber" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">工程产值</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="project_value" name="project_value" autocomplete="off" class="layui-input" onfocus="get_project_value()">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">其他费用</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="other_expenses" name="other_expenses" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">小计</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" id="value_subtotal" name="value_subtotal" autocomplete="off" class="layui-input" onfocus="get_value_subtotal()">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">出图时间</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" name="drawing_time" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">备注</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" name="remarks" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           <div class="layui-form-item">
+                                               <div class="layui-inline">
+                                                   <label class="layui-form-label">地上/地下</label>
+                                                   <div class="layui-input-inline" id="type">
+                                                       <ul>
+                                                           <li class="chechboxes">
+                                                               <input type="radio" class="project_buildtype" name="ground_floor" lay-skin="primary" value="0"/>地上</li>
+                                                           <li class="chechboxes">
+                                                               <input type="radio" class="project_buildtype" name="ground_floor" lay-skin="primary" value="1"/>地下</li>
+                                                       </ul>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="layui-form-item" style="padding-top: 2%;">
+                            <button class="layui-btn" lay-filter="add" lay-submit>新建项目</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
+<script>
+    var input = [];
+    input[0] = document.getElementById('design_area');
+    input[1] = document.getElementById('contract_amount');
+    input[2] = document.getElementById('stage_proportions');
+    input[3] = document.getElementById('difficulty_system');
+    input[4] = document.getElementById('distribution_ratio');
+    input[5] = document.getElementById('residual_coefficient');
+    input[6] = document.getElementById('design_price');
+    input[7] = document.getElementById('proofreading_price');
+    input[8] = document.getElementById('audit_price');
+    input[9] = document.getElementById('work_basenumber');
+    input[10] = document.getElementById('project_basenumber');
+
+
+    //判断localstorage是否存在
+    if (localStorage.addanother) {
+        var addItems = JSON.parse(localStorage.addanother);
+        for (var i =.0; i < addItems.length; i++) {
+             var item = document.createElement("div");
+            item.className = "layui-form-item";
+            item.innerHTML = '<div class="layui-inline"><label class="layui-form-label">'+addItems[i].name+'</label><div class="layui-input-inline"><input type="text" name="project_name" autocomplete="off" class="layui-input" value="'+addItems[i].content+'"></div></div>';
+            document.getElementById("newContract").appendChild(item);
+        }
+    }
+
+layui.use(['form'], function(){
+    $ = layui.jquery;
+    var form = layui.form;
+    form.on("submit(add)",function(){
+    submitProject();
+    return false;
+})
+});
+
+    requestAnimationFrame(render);
+    function render() {
+        selected();
+        requestAnimationFrame(render);
+    }
+    function selected() {
+        if($('input[type=radio][name=project_buildtype]:checked').val()=='其他'){
+            $('#classifybtn').css('display','block');
+        }
+        else {
+            $('#classifybtn').css('display','none');
+        }
+        if($('input[type=checkbox][value="其他"]').prop('checked')==true){
+            $('li.contentAdd').css('display','block');
+        }
+        else {
+            $('li.contentAdd').css('display','none');
+        }
+    }
+    // 设计产值、校对产值、审核产值、工种产值、工程产值、小计自动填充
+    function get_design_value(){
+        var sum = input[1].value*input[2].value*input[3].value*input[4].value*input[5].value*input[6].value;
+        document.getElementById("design_value").value=sum;
+    }
+    function get_proofreading_value(){
+        var sum = document.getElementById("design_value").value *input[7].value;
+        document.getElementById("proofreading_value").value=sum;
+    }
+    function get_audit_value(){
+        var sum = document.getElementById("design_value").value *input[8].value;
+        document.getElementById("audit_value").value=sum;
+    }
+    function get_work_value(){
+        var sum = document.getElementById("design_value").value *input[9].value;
+        document.getElementById("work_value").value=sum;
+    }
+    function get_project_value(){
+        var sum = document.getElementById("design_value").value *input[10].value;
+        document.getElementById("project_value").value=sum;
+    }
+    function get_value_subtotal(){
+        var sum = parseFloat(document.getElementById("design_value").value)
+            +parseFloat(document.getElementById("proofreading_value").value)
+            +parseFloat(document.getElementById("audit_value").value)
+            +parseFloat(document.getElementById("work_value").value)
+            +parseFloat(document.getElementById("project_value").value)
+            +parseFloat(document.getElementById("other_expenses").value);
+        document.getElementById("value_subtotal").value=sum;
+    }
+
+    
+
+
+    function itemAdd(obj, type,className) {
+        if(type) {
+            if (className == "classify" && document.getElementsByClassName("classify").length>=13) {
+                layer.alert("只能添加一个自定义哦！");
+                return 0;
+            }
+            var item = document.createElement("li");
+            item.className = "chechboxes input-add ";
+            if (type == "contentAdd") {item.className += type;}
+            item.innerHTML = '<input type="text" class="'+className+'"><button type="button" class="iconfont item-icon" onclick="itemDel(this)">-</button>';
+            document.getElementById(obj).appendChild(item);
+        }
+        else if (obj == 'unitprice') {
+            var item = document.createElement("div");
+            item.className = "layui-input-inline";
+            item.innerHTML ='<ul><li class="input-items"><input type="text" autocomplete="off" class="layui-input unitprice" placeholder="内容"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input unitprice" placeholder="单价"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input unitprice" placeholder="下浮率"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input unitprice" placeholder="说明"></li></ul>'
+                +'<button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button>';
+            document.getElementById(obj).appendChild(item);
+        }
+        else {
+            var item = document.createElement("div");
+            item.className = "layui-input-inline";
+            item.innerHTML = '<input type="text" autocomplete="off" class="layui-input '+className+'">'+'<button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button>';
+            document.getElementById(obj).appendChild(item);
+                ;
+        }
+    }
+    var itemDel = function(e) {
+        $(e).parent().remove();
+    }
+    function submitProject(){
+        var data = $('#newContract').serialize();
+        console.log(data);
+
+    
+        $.ajax({
+            //几个参数需要注意一下
+                type: "post",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "{:url('index/entryAdd')}",//url
+                data: data,
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result.status == 1) {
+                        localStorage.removeItem("addanother");
+                        alert("SUCCESS");
+                    }
+                    else
+                        alert("新建工程失败!");
+                },
+                error : function() {
+                    alert("异常！");
+                }
+            });
+        return false;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新建合同</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/newcontract.css" />
+    <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+<body>
+<div class="layui-card">
+    <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">新建合同<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-content layui-show">
+                    <form id="newContract" class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>合同编号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="contract_id" autocomplete="off" lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>工程编号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_id" autocomplete="off" lay-verify="required" class="layui-input" oninput="change(this.value)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>合同分类</label>
+                                <div class="layui-input-inline" id="classify">
+                                    <ul>
+                                        <li class="chechboxes">
+                                            <input type="radio" name="contract_type" class="classify" lay-skin="primary" value="总院"/>总院</li>
+                                        <li class="chechboxes">
+                                            <input type="radio" name="contract_type" class="classify" lay-skin="primary" value="方案所"/>方案所</li>
+                                        <li class="chechboxes">
+                                            <input type="radio" name="contract_type" class="classify" lay-skin="primary" value="景观所"/>景观所</li>
+                                        <li class="chechboxes">
+                                            <input type="radio" name="contract_type" class="classify" lay-skin="primary" value="杭州分院"/>杭州分院</li>
+                                        <li class="chechboxes">
+                                            <input type="radio" name="contract_type" class="classify" lay-skin="primary" value="上海分院"/>上海分院</li>
+                                        <li class="chechboxes">
+                                            <input type="radio" name="contract_type" class="classify" lay-skin="primary" value="工业化所"/>工业化所</li>
+                                        <li class="chechboxes">
+                                            <input type="radio" name="contract_type" class="classify" lay-skin="primary" value="挂靠"/>挂靠</li>
+                                        <li class="chechboxes">
+                                            <input type="radio" name="contract_type" class="classify" lay-skin="primary" value="财务"/>财务</li>
+                                        <li class="chechboxes">
+                                            <input type="radio" name="contract_type" class="classify" lay-skin="primary" value="分包"/>分包</li>
+                                        <li class="chechboxes">
+                                            <input type="radio" name="contract_type" class="classify" lay-skin="primary" value="备案"/>备案</li>
+                                        <li class="chechboxes">
+                                            <input type="radio" name="contract_type" class="classify" lay-skin="primary" value="零星"/>零星</li>
+                                        <li class="chechboxes">
+                                            <input type="radio" name="contract_type" class="classify" lay-skin="primary" value="其他"/>其他</li>
+                                        <li class="chechboxes" id="classifybtn">
+                                            <input type="text" id="classifyadd" autocomplete="off" class="layui-input">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>签订时间</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input" placeholder="日期" name="contract_signtime" lay-verify="required" id="start" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>工程名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_name" autocomplete="off" lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="constructor">
+                                <label class="layui-form-label"><span class="x-red">*</span>建设方</label>
+                                <div class="layui-input-inline">
+                                    <input type="text"  name="contract_constructor" autocomplete="off" lay-verify="required" class="layui-input contract_constructor">
+                                    <button type="button" class="item-icon" onclick="itemAdd('constructor','','contract_constructor')">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="agent">
+                                <label class="layui-form-label">代建方</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="contract_agent" autocomplete="off" class="layui-input contract_agent">
+                                    <button type="button" class="item-icon" onclick="itemAdd('agent','','contract_agent')">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="agent">
+                                <label class="layui-form-label">总建筑面积</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_totalarea" autocomplete="off" class="layui-input contract_agent">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">合同额</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="contract_amount" autocomplete="off" class="layui-input" name="contract_amount">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="range">
+                                <label class="layui-form-label">设计范围</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="contract_design" autocomplete="off" class="layui-input contract_design">
+                                    <button type="button" class="item-icon" onclick="itemAdd('range','','contract_design')">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="unitprice">
+                                <label class="layui-form-label">设计单价</label>
+                                <div class="layui-input-inline">
+                                    <ul>
+                                        <li class="input-items">
+                                            <input type="text" autocomplete="off" class="layui-input unitprice" placeholder="内容"></li>
+                                        <li class="input-items">
+                                            <input type="text" autocomplete="off" class="layui-input unitprice" placeholder="单价"></li>
+                                        <li class="input-items">
+                                            <input type="text" autocomplete="off" class="layui-input unitprice" placeholder="下浮率"></li>
+                                        <li class="input-items">
+                                            <input type="text" autocomplete="off" class="layui-input unitprice"placeholder="说明"></li>
+                                    </ul>
+                                    <button type="button" class="item-icon" onclick="itemAdd('unitprice')">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">设计内容</label>
+                                <div class="layui-input-inline" id="content">
+                                    <ul>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="总包" id="zongbao">总包</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="建筑"/>建筑</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="结构"/>结构</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="给排水"/>给排水</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="暖通"/>暖通</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="电气"/>电气</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="弱电"/>弱电</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="管网"/>管网</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="景观"/>景观</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="内装"/>内装</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="内装机电"/>内装机电</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="钢构"/>钢构</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="幕墙"/>幕墙</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="护坡"/>护坡</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="基坑"/>基坑</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="燃气"/>燃气</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="驳坎"/>驳坎</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="亮丽"/>亮丽</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="中央空调"/>中央空调</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="电力"/>电力</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="PC"/>PC</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="BIM"/>BIM</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="contract_content" lay-skin="primary" value="其他"/>其他</li>
+                                        <li class="contentAdd"><button type="button" class="item-icon" onclick="itemAdd('content', 'contentAdd','content')">+</button></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-colla-item">
+                            <h2 class="layui-colla-title">设计阶段<i class="layui-icon layui-colla-icon"></i></h2>
+                            <div class="layui-colla-content">
+                                <table class="layui-table">
+                                    <tbody>
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">咨询</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" autocomplete="off" id="date1" class="layui-input" name="contract_phase1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">强排</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" autocomplete="off" id="date2" class="layui-input" name="contract_phase2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">方案</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" autocomplete="off" id="date3" class="layui-input" name="contract_phase3">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">初步</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" autocomplete="off" id="date4" class="layui-input" name="contract_phase4">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">施工图</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" autocomplete="off" id="date5" class="layui-input" name="contract_phase5">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <div class="layui-inline">
+                                                <label class="layui-form-label">套图</label>
+                                                <div class="layui-input-inline">
+                                                    <input type="text" autocomplete="off" id="date6" class="layui-input" name="contract_phase6">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tbody>
+                                </table>      
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="reward">
+                                <label class="layui-form-label">奖惩措施</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" autocomplete="off" class="layui-input contract_reward">
+                                    <button type="button" class="item-icon" onclick="itemAdd('reward','','contract_reward')">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline"  id="search">
+                                <label class="layui-form-label"><span class="x-red">*</span>经办人</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="contract_operator" id="search-text" lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="projectleader">
+                                <label class="layui-form-label"><span class="x-red">*</span>项目负责人</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" autocomplete="off" name="contract_projectleader" lay-verify="required" class="layui-input contract_projectleader">
+                                    <button type="button" class="item-icon" onclick="itemAdd('projectleader','','contract_projectleader')">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>审批人</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="contract_approver" autocomplete="off" lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">备注</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="contract_remarks" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <a class="layui-btn" href="javascript:;" onclick="xadmin.open('新增字段','detailAdd?newcontract',800,600)">新增字段</a>
+                           <button class="layui-btn" lay-filter="add" lay-submit>新建合同</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
+<script>
+layui.use(['form'], function(){
+    $ = layui.jquery;
+    var form = layui.form;
+    form.on('submit(add)',function(){
+        submitContract();
+        return false;
+    });
+});
+    requestAnimationFrame(render);
+    function render() {
+        selected();
+        requestAnimationFrame(render);
+    }
+    function selected() {
+        if($('input[type=radio][name=contract_type]:checked').val()=='其他'){
+            $('#classifybtn').css('display','block');
+        }
+        else {
+            $('#classifybtn').css('display','none');
+        }
+        if($('input[type=checkbox][value="其他"]').prop('checked')==true){
+            $('li.contentAdd').css('display','block');
+        }
+        else {
+            $('li.contentAdd').css('display','none');
+        }
+    }
+
+    //判断session是否存在
+    if (localStorage.addanother) {
+        var addItems = JSON.parse(localStorage.addanother);
+        for (var i =.0; i < addItems.length; i++) {
+             var item = document.createElement("div");
+            item.className = "layui-form-item";
+            item.innerHTML = '<div class="layui-inline"><label class="layui-form-label">'+addItems[i].name+'</label><div class="layui-input-inline"><input type="text" name="project_name" autocomplete="off" class="layui-input" value="'+addItems[i].content+'"></div></div>';
+            document.getElementById("newContract").appendChild(item);
+        }
+    }
+
+
+    function itemAdd(obj, type,className) {
+        if(type) {
+            var item = document.createElement("li");
+            item.className = "chechboxes input-add "+type;
+            item.innerHTML = '<input type="text" class="'+className+'"><button type="button" class="iconfont item-icon" onclick="itemDel(this)">-</button>';
+            document.getElementById(obj).appendChild(item);
+        }
+        else if (obj == 'unitprice') {
+            var item = document.createElement("div");
+            item.className = "layui-input-inline";
+            item.innerHTML ='<ul><li class="input-items"><input type="text" autocomplete="off" class="layui-input unitprice" placeholder="内容"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input unitprice" placeholder="单价"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input unitprice" placeholder="下浮率"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input unitprice" placeholder="说明"></li></ul>'
+                +'<button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button>';
+            document.getElementById(obj).appendChild(item);
+        }
+        else {
+            var item = document.createElement("li");
+            item.className = "layui-input-inline";
+            item.innerHTML = '<input type="text" autocomplete="off" class="layui-input '+className+'">'+'<button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button>';
+            document.getElementById(obj).appendChild(item);
+        }
+    }
+    var itemDel = function(e) {
+        $(e).parent().remove();
+    }
+    function submitContract(){
+        var data = $('#newContract').serialize();
+// 分离 - 合同分类，并转存,找出选择出来的单一对象
+        var contract_classify = document.getElementsByClassName("classify");
+        if($('input[type=radio][name=contract_type]:checked').val()=='其他')
+        {
+            data = data+"&contract_type="+$('#classifyadd').val();
+        }
+        else{
+            data = data+"&contract_type="+$('input[type=radio][name=contract_type]:checked').val();
+        }
+// 分离 - 设计单价，并转存
+        var contract_unitprice = document.getElementsByClassName("unitprice");
+        var contract_unitpriceContent = "";
+        for (var i =0; i < contract_unitprice.length; i++) {
+            if (i%4==0)
+                contract_unitpriceContent = contract_unitpriceContent +"^"+contract_unitprice[i].value;
+            else
+                contract_unitpriceContent = contract_unitpriceContent +"*"+contract_unitprice[i].value;
+        }
+        data = data + "&contract_unitprice="+contract_unitpriceContent;
+// 分离 - 设计内容，并转存
+    var contract_content = document.getElementsByClassName("contract_content");
+    var contract_contentContent = "";
+    for (var i =0; i < contract_content.length-1; i++) {
+        if(contract_content[i].checked==true)
+            contract_contentContent += contract_content[i].value +",";
+    }
+    if($('input[type=checkbox][value="其他"]').prop('checked')==true) {
+        $('.content').each(function() {
+            if ($(this).val()) {
+                contract_contentContent += $(this).val() +",";
+            }
+        });
+    }
+    data = data + "&contract_content="+contract_contentContent;
+// 分离 - 设计范围，并转存
+    var contract_design = document.getElementsByClassName("contract_design");
+    var contract_designContent = "";
+    for (var i =0; i < contract_design.length; i++) {
+        if (contract_design[i].value) {
+            contract_designContent = contract_designContent+contract_design[i].value +",";
+        }
+    }
+    data = data + "&contract_design="+contract_designContent;
+// 分离 - 奖惩措施，并转存
+    var contract_reward = document.getElementsByClassName("contract_reward");
+    var contract_rewardContent = "";
+    for (var i =0; i < contract_reward.length; i++) {
+        if (contract_reward[i].value) {
+            contract_rewardContent = contract_rewardContent+contract_reward[i].value +",";
+        }
+    }
+    data = data + "&contract_reward="+contract_rewardContent;
+// 分离 - 项目负责人，并转存
+    var contract_projectleader = document.getElementsByClassName("contract_projectleader");
+    var contract_projectleaderContent = "";
+    for (var i =0; i < contract_projectleader.length; i++) {
+        if (contract_projectleader[i].value) {
+            contract_projectleaderContent = contract_projectleaderContent+contract_projectleader[i].value +",";
+        }
+    }
+    data = data + "&contract_projectleader="+contract_projectleaderContent;
+// 分离 - 建设方，并转存
+    var contract_constructor = document.getElementsByClassName("contract_constructor");
+    var contract_constructorContent = "";
+    for (var i =0; i < contract_constructor.length; i++) {
+        if (contract_constructor[i].value) {
+            contract_constructorContent = contract_constructorContent+contract_constructor[i].value +",";
+        }
+    }
+    data = data + "&contract_constructor="+contract_constructorContent;
+// 分离 - 代建方，并转存
+    var contract_agent = document.getElementsByClassName("contract_agent");
+    var contract_agentContent = "";
+    for (var i =0; i < contract_agent.length; i++) {
+        if (contract_agent[i].value) {
+            contract_agentContent = contract_agentContent+contract_agent[i].value +",";
+        }
+    }
+    data = data + "&contract_agent="+contract_agentContent;
+    console.log(data);
+
+    $.ajax({
+        //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "{:url('index/contractAdd')}",//url
+            data: data,
+            success: function (result) {
+                console.log(result);//打印服务端返回的数据(调试用)
+                if (result.status == 1) {
+                    localStorage.removeItem("addanother");
+                    alert("SUCCESS");
+                }
+                else
+                    alert("新建合同失败!");
+            },
+            error : function() {
+                alert("异常！");
+            }
+        });
+    return false;
+    }
+function change(value) {
+  if (value == '') {
+    return false;
+  }
+     $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "{:url('index/project_details')}",
+            data:{'id':value,'type':"select"},
+            success: function(result){
+                if (result.status == 1) {
+                    console.log(result);
+                    if (result.jibenxinxi) {
+                        $("input[name='contract_constructor']")[0].value = result.jibenxinxi.project_contractor;
+                        $("input[name='project_name']")[0].value = result.jibenxinxi.project_name;
+                        $("input[name='contract_agent']")[0].value = result.jibenxinxi.project_agent;        
+                        $("input[name='contract_projectleader']")[0].value = result.jibenxinxi.project_leader;
+                        $("input[name='contract_remarks']")[0].value = result.jibenxinxi.project_remark;
+                        $("input[name='project_totalarea']")[0].value = result.jibenxinxi.project_totalarea;
+                        // 设计内容
+                        // $("input[name='contract_content']")[0].value = result.jibenxinxi.project_design;
+                        console.log(result.jibenxinxi.project_design);
+                        var contentSplit = result.jibenxinxi.project_design.split(",");
+                        // 过滤空字符
+                        if (contentSplit[contentSplit.length-1]=='') {
+                            contentSplit.pop();
+                        }
+
+                        // console.log(contentSplit);
+                        var contract_content = document.getElementsByClassName("contract_content");
+                        // var contract_contentContent = "";
+                        // for (var i =0; i < contract_content.length-1; i++) {
+                        //     if(contract_content[i].checked==true)
+                        //         contract_contentContent += contract_content[i].value +",";
+                        // }
+                    }
+                } 
+            },
+            error: function(data) {
+                alert("error:"+data.responseText);
+             }
+         });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>院产值编辑页</title>
+    <meta name="renderer" $content="webkit">
+    <meta http-equiv="X-UA-Compatible" $content="IE=edge,chrome=1">
+    <meta name="viewport" $content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/newcontract.css" />
+    <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+    <script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+
+<body>
+<div class="layui-card">
+    <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">院产值详情编辑<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-$content layui-show">
+                    <form id="projectvalue" class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">部门</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="staff_department" autocomplete="off" class="layui-input" value="{$content['staff_department']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">人员姓名</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="staff_name" autocomplete="off" class="layui-input" value="{$content['staff_name']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">出图时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="draw_date" autocomplete="off" class="layui-input" value="{$content['draw_date']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">个人产值汇总</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="total_personalvalue" autocomplete="off" class="layui-input" value="{$content['total_personalvalue']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">年度奖惩调整系数</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="reward_coefficient" autocomplete="off" class="layui-input" value="{$content['reward_coefficient']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">特殊津贴</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="special_allowance" autocomplete="off" class="layui-input" value="{$content['special_allowance']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">年终个人产值</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="yearend_personalvalue" autocomplete="off" class="layui-input" value="{$content['yearend_personalvalue']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">备注</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="departmentvalue_remarks" autocomplete="off" class="layui-input" value="{$content['departmentvalue_remarks']}">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="layui-input-block">
+                        <button class="layui-btn" onclick="deleteThis()" style="background-color: #F4592E;">删除当前数据</button>
+                        <button class="layui-btn" onclick="submitprojectvalue()">确认修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function submitprojectvalue (){
+
+        $.ajax({
+            //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "{:url('index/departmentValueEdit')}",//url
+            data: $('#projectvalue').serialize()+"&id="+{$content['id']},
+            success:function (result) {
+                console.log(result);//打印服务端返回的数据(调试用)
+                if (result.status == 1) {
+                    xadmin.close();
+                    xadmin.father_reload();
+                    alert("SUCCESS");
+                }
+                else
+                    alert(result.message);
+            },
+            error:function() {
+                alert("异常！");
+            }
+        });
+    }
+
+    function deleteThis() {
+        console.log({$content['id']});
+
+        layer.alert("您确定要删除当前合同的所有数据吗？",
+            function() {
+                let ID = '{$content["id"]}';
+                $.ajax({
+                    type: "POST",
+                    url: "{:url('index/departmentValueDel')}",
+                    data:"id="+id,
+                    success: function (data) {
+                        layer.alert("删除成功！",
+                            function() {
+                                xadmin.close();
+                                xadmin.father_reload();
+                            });
+                    },
+                    error: function(data) {
+                        alert("error:"+data.message);
+                    }
+                });
+
+            });
+    }
+</script>
+</body>
+</html>

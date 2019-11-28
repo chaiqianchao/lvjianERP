@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>新增单价</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/newcontract.css" />
+    <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+
+<body>
+    <div class="layui-card">
+        <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+            <div class="layui-collapse">
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">新增单价<i class="layui-icon layui-colla-icon"></i></h2>
+                    <div class="layui-colla-content layui-show">
+                        <form id="newContract" class="layui-form" action="">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label"><span class="x-red">*</span>图纸尺寸</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="drawing_size" lay-verify="required" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label"><span class="x-red">*</span>蓝图单价</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="drawing_blueprint" lay-verify="required" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label"><span class="x-red">*</span>硫酸图单价</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="drawing_sulphuric_acid_diagram" lay-verify="required" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label"><span class="x-red">*</span>文本制作</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="drawing_text_production" lay-verify="required" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" style="padding-top: 2%;">
+                    <button class="layui-btn" lay-filter="add" lay-submit>新增单价</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
+    <script>
+ 
+
+    layui.use(['form'], function() {
+        $ = layui.jquery;
+        var form = layui.form;
+        form.on("submit(add)", function() {
+            submitProject();
+            return false;
+        })
+    });
+
+    requestAnimationFrame(render);
+
+
+    function submitProject() {
+        var data = $('#newContract').serialize();
+        console.log(data);
+
+        $.ajax({
+            //几个参数需要注意一下
+            type: "post", //方法类型
+            dataType: "json", //预期服务器返回的数据类型
+            url: "{:url('index/feeAdd')}", //url
+            data: data,
+            success: function(result) {
+                console.log(result); //打印服务端返回的数据(调试用)
+                if (result.status == 1) {
+                    localStorage.removeItem("addanother");
+                    alert("SUCCESS");
+                    
+                        xadmin.close();
+                        xadmin.father_reload();
+                } else
+                    alert("新增单价失败!");
+            },
+            error: function() {
+                alert("异常！");
+            }
+        });
+        return false;
+    }
+    </script>
+</body>
+
+</html>

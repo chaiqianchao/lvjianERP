@@ -1,0 +1,150 @@
+{extend name='public/base' /}
+
+{block name='seo'}
+<title>商城管理</title>
+<meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+<meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+{/block}
+
+
+{block name='content'}
+
+<section class="Hui-article-box">
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont">&#xe67f;</i>
+        首页 <span class="c-gray en">&gt;</span>
+        商城管理 <span class="c-gray en">&gt;</span>
+        商品列表<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="Hui-article">
+        <article class="cl pd-20">
+
+            <div class="cl pd-5 bg-1 bk-gray mt-20">
+				<span class="l">
+					<a style="margin-bottom: 20px;" href="javascript:;" onclick="mall_add('添加商品','{:url("index/mallAdd")}','','510')" class="btn btn-primary radius">
+						<i class="Hui-iconfont">&#xe600;</i>
+						添加商品
+                    </a>
+				</span>
+                <span class="r">共有数据：<strong>{$count}</strong> 条</span>
+            </div>
+            <div class="mt-20">
+                <table class="table table-border table-bordered table-hover table-bg table-sort">
+                    <thead>
+                    <tr class="text-c">
+                        <th width="100">商品id</th>
+                        <th width="100">商品名称</th>
+                        <th width="130">商品图片</th>
+                        <th width="100">商品文字介绍</th>
+                        <th width="100">商品剩余数量</th>
+                        <th width="100">商品所需积分</th>
+                        <th width="100">商品所需现金</th>
+                        <th width="40">商品类别</th>
+                        <th width="100">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {volist name='mallList' id='vo'}
+                    <tr class="text-c">
+
+                        <td>{$vo.mall_id}</td>
+                        <td>{$vo.mall_name}</td>
+                        <td>{$vo.mall_picture}</td>
+                        <td>{$vo.mall_word}</td>
+                        <td>{$vo.mall_residualQuantity}</td>
+                        <td>{$vo.mall_necessaryIntegral}</td>
+                        <td>{$vo.mall_necessaryMoney}</td>
+                        <td>{$vo.mall_type}</td>
+                        <td class="td-manage">
+                        <a title="编辑" href="javascript:;" onclick="mall_edit('商品编辑','{:url("index/mallEdit",["id"=>$vo["mall_id"]])}','1','800','500')" class="ml-5" style="text-decoration:none">
+                        <i class="Hui-iconfont">&#xe6df;</i>
+                        </a>
+
+                        <a title="删除" href="javascript:;" onclick="mall_del(this,{$vo.mall_id})" class="ml-5" style="text-decoration:none">
+                        <i class="Hui-iconfont">&#xe6e2;</i>
+                        </a>
+
+                        </td>
+                    </tr>
+                    {/volist}
+                    </tbody>
+                </table>
+            </div>
+            <!--显示分页按钮,事先要将bootstrap导入css和js-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">{$mallList->render()}</div></div>
+                <div class="col-md-4"></div>
+            </div>
+        </article>
+    </div>
+</section>
+
+{/block}
+
+{block name='js'}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__STATIC__/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+    // $(function(){
+    //     $('.table-sort').dataTable({
+    //         "aaSorting": [[ 1, "desc" ]],//默认第几个排序
+    //         "bStateSave": true,//状态保存
+    //         "aoColumnDefs": [
+    //             {"bVisible":false,"aTargets":[3]},//控制列的隐藏显示
+    //             // {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+    //         ]
+    //     });
+    //     $('.table-sort tbody').on( 'click', 'tr', function () {
+    //         if ( $(this).hasClass('selected') ) {
+    //             $(this).removeClass('selected');
+    //         }
+    //         else {
+    //             table.$('tr.selected').removeClass('selected');
+    //             $(this).addClass('selected');
+    //         }
+    //     });
+    // });
+
+    //自动刷新主界面
+    requestAnimationFrame(render);
+    function render() {
+        if(sessionStorage.upDateFlag==1)
+        {
+            window.location.reload();
+            sessionStorage.upDateFlag = 0;
+        }
+        requestAnimationFrame(render);
+    }
+
+    /*商品-添加*/
+    function mall_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+
+    /*商品-编辑*/
+    function mall_edit(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+
+    /*商品-删除*/
+    function mall_del(obj,id){
+        //请求服务器脚本处理删除
+        $.get("{:url('index/deleteMall')}", {id: id});
+        layer.confirm('确认要删除吗？', function (index) {
+            $(obj).parents("tr").remove();
+            sessionStorage.upDateFlag = 1;
+            layer.msg('已删除!', {icon: 1, time: 1000});
+        });
+    }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+{/block}
+</body>
+</html>
+
+

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新建工程</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/newcontract.css" />
+    <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+    <style type="text/css">
+        .td_input{
+            width: 100%;
+            background-color: transparent;
+            border: none;
+        }
+    </style>
+<body>
+<div class="layui-card">
+    <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">新建工程<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-content layui-show">
+                    <form id="newContract" class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>工程号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_id" lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"><span class="x-red">*</span>工程名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_name" lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="contractor">
+                                <label class="layui-form-label"><span class="x-red">*</span>发包人</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" autocomplete="off" lay-verify="required" class="layui-input project_contractor">
+                                    <button type="button" class="item-icon" onclick="itemAdd('contractor','','project_contractor')">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="agent">
+                                <label class="layui-form-label">代建方</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" autocomplete="off" class="layui-input project_agent">
+                                    <button type="button" class="item-icon" onclick="itemAdd('agent','','project_agent')">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">用地面积</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_landarea" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">地上面积</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="aboveground_area" name="aboveground_area" autocomplete="off" class="layui-input" onblur="isnumber('aboveground_area')">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">地下面积</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="underground_area" name="underground_area" autocomplete="off" class="layui-input" onblur="isnumber('underground_area')">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">其中人防</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="among_area" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">总建筑面积</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id='project_totalarea' name="project_totalarea" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">建筑类型</label>
+                                <div class="layui-input-inline" id="type">
+                                    <ul>
+                                        <li class="chechboxes">
+                                            <input type="radio" class="project_buildtype" name="project_buildtype" lay-skin="primary" value="住宅"/>住宅</li>
+                                        <li class="chechboxes">
+                                            <input type="radio" class="project_buildtype" name="project_buildtype" lay-skin="primary" value="商业"/>商业</li>
+                                        <li class="chechboxes">
+                                            <input type="radio" class="project_buildtype" name="project_buildtype" lay-skin="primary" value="公建"/>公建</li>
+                                            <li class="chechboxes">
+                                            <input type="radio" class="project_buildtype" name="project_buildtype" lay-skin="primary" value="零星"/>零星</li>
+                                        <li class="chechboxes">
+                                            <input type="radio" class="project_buildtype" name="project_buildtype" lay-skin="primary" value="其他"/>其他</li>
+                                        <li class="chechboxes" id="classifybtn">
+                                             <input type="text" id="classifyadd" autocomplete="off" class="layui-input">
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="projectleader">
+                                <label class="layui-form-label"><span class="x-red">*</span>项目负责人</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" autocomplete="off" lay-verify="required" class="layui-input project_leader">
+                                    <button type="button" class="item-icon" onclick="itemAdd('projectleader','','project_leader')">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">设计内容</label>
+                                <div class="layui-input-inline" id="content">
+                                    <ul>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="总包"/>总包</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="建筑"/>建筑</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="结构"/>结构</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="给排水"/>给排水</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="暖通"/>暖通</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="电气"/>电气</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="弱电"/>弱电</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="管网"/>管网</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="景观"/>景观</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="内装"/>内装</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="内装机电"/>内装机电</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="钢构"/>钢构</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="幕墙"/>幕墙</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="护坡"/>护坡</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="基坑"/>基坑</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="燃气"/>燃气</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="驳坎"/>驳坎</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="亮丽"/>亮丽</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="中央空调"/>中央空调</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="电力"/>电力</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="PC"/>PC</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="BIM"/>BIM</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_design" name="project_design" lay-skin="primary" value="其他"/>其他</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-collapse" lay-filter="test">
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">工种负责人<i class="layui-icon layui-colla-icon"></i></h2>
+                                <div class="layui-colla-content" style="overflow: auto;">
+                                    <table class="layui-table" style="table-layout: fixed;width: 2000px;">
+                                            <thead>
+                                                <th>总包</th>
+                                                <th>建筑</th>
+                                                <th>结构</th>
+                                                <th>给排水</th>
+                                                <th>暖通</th>
+                                                <th>电气</th>
+                                                <th>弱电</th>
+                                                <th>管网</th>
+                                                <th>景观</th>
+                                                <th>内装</th>
+                                                <th>内装机电</th>
+                                                <th>钢构</th>
+                                                <th>幕墙</th>
+                                                <th>护坡</th>
+                                                <th>基坑</th>
+                                                <th>燃气</th>
+                                                <th>驳坎</th>
+                                                <th>亮丽</th>
+                                                <th>中央空调</th>
+                                                <th>电力</th>
+                                                <th>PC</th>
+                                                <th>BIM</th>
+                                                <th>其他</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="text-c">
+                                                <td><input type="text" class="td_input" name="projectdesigner_type1" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type2" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type3" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type4" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type5" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type6" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type7" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type8" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type9" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type10" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type11" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type12" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type13" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type14" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type15" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type16" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type17" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type18" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type19" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type20" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type21" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type22" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_type23" autocomplete="off"></td>
+                                                </tr>
+                                               
+                                            </tbody>
+                                    </table>      
+                                </div>
+                            </div>
+                        </div>
+                      <div class="layui-collapse" lay-filter="test">
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">设计人员<i class="layui-icon layui-colla-icon"></i></h2>
+                                <div class="layui-colla-content" style="overflow: auto;">
+                                    <table class="layui-table" style="table-layout: fixed;width: 2000px;">
+                                            <thead>
+                                                <th>总包</th>
+                                                <th>建筑</th>
+                                                <th>结构</th>
+                                                <th>给排水</th>
+                                                <th>暖通</th>
+                                                <th>电气</th>
+                                                <th>弱电</th>
+                                                <th>管网</th>
+                                                <th>景观</th>
+                                                <th>内装</th>
+                                                <th>内装机电</th>
+                                                <th>钢构</th>
+                                                <th>幕墙</th>
+                                                <th>护坡</th>
+                                                <th>基坑</th>
+                                                <th>燃气</th>
+                                                <th>驳坎</th>
+                                                <th>亮丽</th>
+                                                <th>中央空调</th>
+                                                <th>电力</th>
+                                                <th>PC</th>
+                                                <th>BIM</th>
+                                                <th>其他</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="text-c">
+                                                <td><input type="text" class="td_input" name="projectdesigner_design1" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design2" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design3" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design4" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design5" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design6" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design7" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design8" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design9" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design10" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design11" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design12" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design13" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design14" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design15" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design16" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design17" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design18" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design19" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design20" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design21" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design22" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="projectdesigner_design23" autocomplete="off"></td>
+                                                </tr>
+                                               
+                                            </tbody>
+                                    </table>      
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-collapse" lay-filter="test">
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">分包人<i class="layui-icon layui-colla-icon"></i></h2>
+                                <div class="layui-colla-content" style="overflow: auto;">
+                                    <table class="layui-table" style="table-layout: fixed;width: 2000px;">
+                                            <thead>
+                                                <th>总包</th>
+                                                <th>建筑</th>
+                                                <th>结构</th>
+                                                <th>给排水</th>
+                                                <th>暖通</th>
+                                                <th>电气</th>
+                                                <th>弱电</th>
+                                                <th>管网</th>
+                                                <th>景观</th>
+                                                <th>内装</th>
+                                                <th>内装机电</th>
+                                                <th>钢构</th>
+                                                <th>幕墙</th>
+                                                <th>护坡</th>
+                                                <th>基坑</th>
+                                                <th>燃气</th>
+                                                <th>驳坎</th>
+                                                <th>亮丽</th>
+                                                <th>中央空调</th>
+                                                <th>电力</th>
+                                                <th>PC</th>
+                                                <th>BIM</th>
+                                                <th>其他</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="text-c">
+                                                <td><input type="text" class="td_input" name="project_subcontractor1" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor2" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor3" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor4" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor5" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor6" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor7" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor8" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor9" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor10" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor11" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor12" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor13" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor14" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor15" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor16" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor17" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor18" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor19" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor20" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor21" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor22" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="project_subcontractor23" autocomplete="off"></td>
+                                                </tr>
+                                               
+                                            </tbody>
+                                    </table>      
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-collapse" lay-filter="test">
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">设计阶段与出图计划<i class="layui-icon layui-colla-icon"></i></h2>
+                                <div class="layui-colla-content" style="overflow: auto;">
+                                    <table class="layui-table" style="table-layout: fixed;width: 2000px;">
+                                            <thead>
+                                                <th>概念方案</th>
+                                                <th>方案</th>
+                                                <th>初步</th>
+                                                <th>桩基图</th>
+                                                <th>施工图</th>
+                                                <th>修改图</th>
+                                                <th>联系单</th>
+                                                <th>其他</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="text-c">
+                                                <td><input type="text" class="td_input" name="draw_concept" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="draw_plan" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="draw_preliminary" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="draw_pile" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="draw_work" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="draw_modify" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="contact" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" name="others" autocomplete="off"></td>
+                                                </tr>
+                                               
+                                            </tbody>
+                                    </table>      
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-collapse" lay-filter="test">
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">已完成阶段<i class="layui-icon layui-colla-icon"></i></h2>
+                                <div class="layui-colla-content" style="overflow: auto;">
+                                    <table class="layui-table" style="table-layout: fixed;width: 2000px;">
+                                            <thead>
+                                                <th>合同已签</th>
+                                                <th>方案</th>
+                                                <th>方案批复</th>
+                                                <th>初步</th>
+                                                <th>初步批复</th>
+                                                <th>桩基图</th>
+                                                <th>桩基批复</th>
+                                                <th>施工图</th>
+                                                <th>施工批复</th>
+                                                <th>审批</th>
+                                                <th>开工</th>
+                                                <th>交底</th>
+                                                <th>管网</th>
+                                                <th>基础完工</th>
+                                                <th>地下完工</th>
+                                                <th>结顶</th>
+                                                <th>室外工程</th>
+                                                <th>竣工验收</th>
+                                                <th>竣工备案</th>
+                                                <th>已结算</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="text-c">
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date1" name="phase_name1" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date2" name="phase_name2" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date3" name="phase_name3" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date4" name="phase_name4" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date5" name="phase_name5" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date6" name="phase_name6" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date7" name="phase_name7" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date8" name="phase_name8" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date9" name="phase_name9" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date10" name="phase_name10" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date11" name="phase_name11" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date12" name="phase_name12" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date13" name="phase_name13" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date14" name="phase_name14" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date15" name="phase_name15" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date16" name="phase_name16" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date17" name="phase_name17" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date18" name="phase_name18" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date19" name="phase_name19" autocomplete="off"></td>
+                                                <td><input type="text" class="td_input" placeholder="日期" id="date20" name="phase_name20" autocomplete="off"></td>
+                                                </tr>
+                                            </tbody>
+                                    </table>      
+                                </div>
+                            </div>
+                        </div>
+                   
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="amount">
+                                <label class="layui-form-label">备注</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_remark" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="column"></div>
+                        <div id="name" style="display: none;">
+                            <input type="text" name="name1" value="总包">
+                            <input type="text" name="name2" value="建筑">
+                            <input type="text" name="name3" value="结构">
+                            <input type="text" name="name4" value="给排水" >
+                            <input type="text" name="name5" value="暖通" >
+                            <input type="text" name="name6" value="电气" >
+                            <input type="text" name="name7" value="弱电" >
+                            <input type="text" name="name8" value="管网" >
+                            <input type="text" name="name9" value="景观" >
+                            <input type="text" name="name10" value="内装">
+                            <input type="text" name="name11" value="内装机电">
+                            <input type="text" name="name12" value="钢构">
+                            <input type="text" name="name13" value="幕墙">
+                            <input type="text" name="name14" value="护坡">
+                            <input type="text" name="name15" value="基坑">
+                            <input type="text" name="name16" value="燃气">
+                            <input type="text" name="name17" value="驳坎">
+                            <input type="text" name="name18" value="亮丽">
+                            <input type="text" name="name19" value="中央空调">
+                            <input type="text" name="name20" value="电力">
+                            <input type="text" name="name21" value="PC">
+                            <input type="text" name="name22" value="BIM">
+                            <input type="text" name="name23" value="其他">
+                        </div>
+                        <div class="layui-form-item">
+                            <a class="layui-btn" href="javascript:;" onclick="xadmin.open('新增字段','detailAdd?newcontract',800,600)">新增字段</a>
+                            <button class="layui-btn" lay-filter="add" lay-submit>新建工程</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
+<script>
+layui.use(['form'], function(){
+    $ = layui.jquery;
+    var form = layui.form;
+    form.on("submit(add)",function(){
+    submitProject();
+    return false;
+})
+});
+
+    requestAnimationFrame(render);
+    function render() {
+        selected();
+        requestAnimationFrame(render);
+    }
+    function selected() {
+        if($('input[type=radio][name=project_buildtype]:checked').val()=='其他'){
+            $('#classifybtn').css('display','block');
+        }
+        else {
+            $('#classifybtn').css('display','none');
+        }
+        if($('input[type=checkbox][value="其他"]').prop('checked')==true){
+            $('li.contentAdd').css('display','block');
+        }
+        else {
+            $('li.contentAdd').css('display','none');
+        }
+    }
+    //判断localstorage是否存在
+    if (localStorage.addanother) {
+        var addItems = JSON.parse(localStorage.addanother);
+        for (var i =.0; i < addItems.length; i++) {
+             var item = document.createElement("div");
+            item.className = "layui-form-item";
+            item.innerHTML = '<div class="layui-inline"><label class="layui-form-label">'+addItems[i].name+'</label><div class="layui-input-inline"><input type="text" name="project_name" autocomplete="off" class="layui-input" value="'+addItems[i].content+'"></div></div>';
+            document.getElementById("column").appendChild(item);
+        }
+    }
+
+    function isnumber(id){
+        var content=document.getElementById(id);
+        var number = parseFloat(content.value);
+        if (isNaN(number)) {
+            console.log("非法");
+            return 0;
+        }
+        else
+        {
+            var aboveground_area = document.getElementById("aboveground_area");
+            var underground_area = document.getElementById("underground_area");
+            if (aboveground_area.value&&underground_area.value) {
+                // 相加
+                document.getElementById("project_totalarea").value = parseFloat(aboveground_area.value)+parseFloat(underground_area.value);
+            }
+            else{
+                return 0;
+            }
+        }
+    }
+
+    function itemAdd(obj, type,className) {
+        if(type) {
+            if (className == "classify" && document.getElementsByClassName("classify").length>=13) {
+                layer.alert("只能添加一个自定义哦！");
+                return 0;
+            }
+            var item = document.createElement("li");
+            item.className = "chechboxes input-add ";
+            if (type == "contentAdd") {item.className += type;}
+            item.innerHTML = '<input type="text" class="'+className+'"><button type="button" class="iconfont item-icon" onclick="itemDel(this)">-</button>';
+            document.getElementById(obj).appendChild(item);
+        }
+        else if (obj == 'unitprice') {
+            var item = document.createElement("div");
+            item.className = "layui-input-inline";
+            item.innerHTML ='<ul><li class="input-items"><input type="text" autocomplete="off" class="layui-input unitprice" placeholder="内容"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input unitprice" placeholder="单价"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input unitprice" placeholder="下浮率"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input unitprice" placeholder="说明"></li></ul>'
+                +'<button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button>';
+            document.getElementById(obj).appendChild(item);
+        }
+        else {
+            var item = document.createElement("div");
+            item.className = "layui-input-inline";
+            item.innerHTML = '<input type="text" autocomplete="off" class="layui-input '+className+'">'+'<button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button>';
+            document.getElementById(obj).appendChild(item);
+                ;
+        }
+    }
+    var itemDel = function(e) {
+        $(e).parent().remove();
+    }
+    function submitProject(){
+        var data = $('#newContract').serialize();
+        console.log(data);
+
+        var project_classify = document.getElementsByClassName("classify");
+        if($('input[type=radio][name=project_buildtype]:checked').val()=='其他')
+        {
+            data = data+"&project_buildtype_self="+$('#classifyadd').val();
+        }
+    // 分离 - 设计内容，并转存
+        var project_design = document.getElementsByClassName("project_design");
+        var project_designContent = "";
+        for (var i =0; i < project_design.length-1; i++) {
+            if(project_design[i].checked == true)
+                project_designContent = project_designContent+project_design[i].value +",";
+        }
+        if($('input[type=checkbox][value="其他"]').prop('checked')==true) {
+            $('.content').each(function() {
+                if ($(this).val()) {
+                    project_designContent += $(this).val() +",";
+                }
+            });
+        }
+        data = data + "&project_design="+project_designContent;
+    // 分离 - 项目负责人，并转存
+        var project_leader = document.getElementsByClassName("project_leader");
+        var project_leaderContent = "";
+        for (var i =0; i < project_leader.length; i++) {
+            if (project_leader[i].value) {
+                project_leaderContent = project_leaderContent+project_leader[i].value +",";
+            }
+        }
+        data = data + "&project_leader="+project_leaderContent;
+    // 分离 - 建设方，并转存
+        var project_contractor = document.getElementsByClassName("project_contractor");
+        var project_contractorContent = "";
+        for (var i =0; i < project_contractor.length; i++) {
+            if (project_contractor[i].value) {
+                project_contractorContent = project_contractorContent+project_contractor[i].value +",";
+            }
+        }
+        data = data + "&project_contractor="+project_contractorContent;
+    // 分离 - 代建方，并转存
+        var project_agent = document.getElementsByClassName("project_agent");
+        var project_agentContent = "";
+        for (var i =0; i < project_agent.length; i++) {
+            if (project_agent[i].value) {
+                project_agentContent = project_agentContent+project_agent[i].value +",";
+            }
+        }
+        data = data + "&project_agent="+project_agentContent;
+
+        $.ajax({
+            //几个参数需要注意一下
+                type: "post",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "{:url('index/projectAdd')}",//url
+                data: data,
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result.status == 1) {
+                        localStorage.removeItem("addanother");
+                        alert("SUCCESS");
+                    }
+                    else
+                        alert("新建工程失败!");
+                },
+                error : function() {
+                    alert("异常！");
+                }
+            });
+        return false;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>详情修改</title>
+	<meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/lib/layui/css/layui.css" />
+  	<link rel="stylesheet" href="__STATIC__/lib/bootstrap/css/bootstrap.css" />
+	<script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+<style type="text/css">
+	body {text-align: center;}
+	form {font-size: 18px;}
+	label {width: 150px;margin: 7px 0 0 5%;float: left;text-align: center;}
+	li {margin-bottom: 9px;display: inline-block;}
+	a {margin-top: 10px;}
+	.layui-input-block {margin: 0;}
+	.item-icon, input {margin: 0 8px;}
+	.item-icon {font-size: 25px;}
+	.table input {width: 150px;text-align: center;}
+	.filling {width: 200px;border: 1px solid #ccc;overflow: scroll;}
+</style>
+</head>
+<body>
+<div style="margin-top: 20px;">
+	<div class="layui-form-item">
+		<form id="form" class="layui-form">
+			<label id="column"></label>
+			<div class="layui-input-inline" id="content" style="width: 60%;"></div>
+		</form>
+	</div>
+	<div class="layui-input-block">
+		<a class="layui-btn" id="submit">确认修改</a>
+	</div>
+</div>
+<script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
+<script>
+
+var url = location.search;
+var value;
+if(url.indexOf("?")!=-1){
+	var str = url.substr(1);
+	strs = str.split("&"); 
+	value=new Array(strs.length);
+	for(i=0;i<strs.length;i++){
+		value[i]=decodeURI(strs[i].split("=")[1]); 
+	} 
+}
+console.log(value);
+
+$(function(){
+	$('#column').text(value[2]);
+	switch(value[4]) {
+		case 'bidPhaseEdit':
+		case 'projectPhaseEdit':
+		case 'bidDateEdit':
+		case 'projectValueDateEdit':
+		case 'personalvalueDateEdit':
+		case 'departmentvalueDateEdit':
+		case 'accountPhaseEdit': $('#content').html('<input class="layui-input" placeholder="日期" id="start" autocomplete="off" value="'+value[3]+'">');break;
+		case 'contractUnitpriceEdit': unitPriceShow();break;
+		case 'paymentEdit': paymentShow();break;
+		case 'projectEdit1':buildtypeShow();break;
+		case 'contractPhaseEdit':contractPhaseShow();break;
+		case 'compensationAdd':
+		case 'depositeAdd':
+		case 'confirmEdit':
+		case 'depositeEdit': 
+		case 'compensationEdit': confirmShow();break;
+		case 'drawplanDesignerEdit': designer2Show();break;
+		case 'designerEdit': designerShow();break;
+		case 'projectContentEdit':
+		case 'contractContentEdit': contentShow();break;
+		case 'personalStatusEdit': personalStatusShow();break;
+		case 'adminEdit': adminShow();break;
+		case 'drawplanDesignerEdit':drawplanDesignerShow();break;
+		case 'noticeEdit': noticeShow();break;
+		default: $('#content').html('<input type="text" id="text" class="layui-input" value="'+value[3]+'">');break;
+	}
+});
+$('#submit').click(function() {
+	if (document.getElementById('start')) {
+		var content = document.getElementById('start').value;
+	}
+	else if (document.getElementById('text')) {
+		var content = document.getElementById('text').value;
+	}
+	else {
+	  var content = "";
+	 }
+	switch(value[4]) {
+		//项目
+		case 'projectEdit': $.get("{:url('index/projectEdit')}",{project_id:value[0], column: value[1], content:content});break;
+		case 'projectContentEdit':  var content = "";$("input[type='checkbox']:checked").each(function(){if($(this).val()!="其他")content+=$(this).val()+",";});$('input[type="text"]').each(function(){if($(this).val() && $('#other').prop("checked") == true)content+=$(this).val()+",";});  $.get("{:url('index/projectEdit')}",{project_id:value[0], column: value[1], content:content});break;
+		case 'designerEdit': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/designerEdit')}",{project_id:value[0], column: value[1],projectdesigner_design:content[1],projectdesigner_type:content[2],project_subcontractor:content[3]});break;
+		case 'subcontractorEdit': $.get("{:url('index/subcontractorEdit')}",{project_id:value[0], column: value[1], content:content});break;
+		case 'ProjectDrawEdit': $.get("{:url('index/ProjectDrawEdit')}",{project_id:value[0], column: value[1], content:content});break;
+		case 'projectPhaseEdit': $.get("{:url('index/projectPhaseEdit')}",{project_id:value[0], column: value[1], content:content});break;
+		//合同
+		case 'contractEdit': $.get("{:url('index/contractEdit')}",{contract_id:value[0], column: value[1], content:content});break;
+		case 'contractPhaseEdit': $.get("{:url('index/contractPhaseEdit')}",{contract_id:value[0], column: value[1], content:content});break;
+		case 'contractUnitpriceEdit': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/contractUnitpriceEdit')}",{contract_id:value[0], column: value[1], content:content[0],unitPrice:content[1],floatingrate:content[2],remarks:content[3]});break;
+		case 'contractContentEdit': var content = "";$("input[type='checkbox']:checked").each(function(){if($(this).val()!="其他")content+=$(this).val()+",";});$('input[type="text"]').each(function(){if($(this).val() && $('#other').prop("checked") == true)content+=$(this).val()+",";});  $.get("{:url('index/contractEdit')}",{contract_id:value[0], column: value[1], content:content});break;
+		//合同台账
+		case 'ledgerListEdit': $.get("{:url('index/ledgerListEdit')}",{contract_id:value[0], column: value[1], content:content});break;
+		case 'accountPhaseEdit': $.get("{:url('index/accountPhaseEdit')}",{contract_id:value[0], column: value[1], content:content});break;
+		case 'confirmEdit': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/confirmEdit')}",{confirm_id:value[0], invoice_date:content[0], invoice_amount:content[1], payment_date:content[2],payment_amount:content[3],confirm_drawer:content[4],confirm_applicant:content[5]});break;
+		case 'paymentEdit': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/paymentEdit')}",{id:value[0], ledgernode_paymentratio:content[0], ledgernode_payment:content[1], ledgernode_require:content[2], ledgernode_status:content[3], payment_amount:content[3],confirm_drawer:content[3]});break;
+		//招投标
+		case 'bidListEdit': $.get("{:url('index/bidListEdit')}",{project_id:value[0], column: value[1], content:content});break;
+		case 'bidDateEdit': $.get("{:url('index/bidListEdit')}",{project_id:value[0], column: value[1], content:content});break;
+		case 'depositeEdit': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/depositeEdit')}",{id:value[0], invoice_date:content[0], invoice_amount:content[1], payment_date:content[2], payment_amount:content[3]});break;
+		case 'compensationEdit': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/compensationEdit')}",{id:value[0], invoice_date:content[0], invoice_amount:content[1], payment_date:content[2], payment_amount:content[3]});break;
+		case 'bidPhaseEdit': $.get("{:url('index/bidPhaseEdit')}",{project_id:value[0], column: value[1], content:content});break;
+		case 'depositeAdd': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/depositeAdd')}",{project_id:value[0], deposite_invoice_date:content[0], deposite_invoice_amount:content[1], deposite_payment_date:content[2], deposite_payment_amount:content[3]});break;
+		case 'compensationAdd': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/compensationAdd')}",{project_id:value[0], compensation_invoice_date:content[0], compensation_invoice_amount:content[1], compensation_payment_date:content[2], compensation_payment_amount:content[3]});break;
+		//产值
+		case 'projectValueDateEdit': $.get("{:url('index/projectValueEdit')}",{id:value[0], column: value[1], content:content});break;
+		case 'projectValueEdit': $.get("{:url('index/projectValueEdit')}",{id:value[0], column: value[1], content:content});break;
+		case 'departmentvalueDateEdit':
+		case 'departmentValueEdit':  $.get("{:url('index/departmentValueEdit')}",{id:value[0], column: value[1], content:content});break;
+		case 'personalvalueDateEdit':
+		case 'personalValueEdit': $.get("{:url('index/personalValueEdit')}",{id:value[0], column: value[1], content:content});break;
+		//员工
+		case 'personalStatusEdit':
+		case 'personalEdit' : $.get("{:url('index/personalEdit')}",{id:value[0], column: value[1], content:content});break;
+		case 'adminEdit': $.get("{:url('index/adminEdit')}",{id:value[0], column: value[1], content:content});break;
+		//出图计划
+		case 'drawplanEdit':$.get("{:url('index/drawplanEdit')}",{id:value[0], column: value[1], content:content});break;
+		case 'ecoedit':$.get("{:url('index/ecoedit')}",{id:value[0], column: value[1], content:content});break;
+		case 'drawplanDesignerEdit':var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/drawplanDesignerEdit')}",{project_id:value[0], column: value[1],content1:content[0],content2:content[1],content3:content[2],content4:content[3],content5:content[4],content6:content[5],content7:content[6]});break;
+		// case 'drawplanDesignerEdit':$.get("{:url('index/drawplanDesignerEdit')}",{id:value[0], column: value[1], content:content});break;
+		case 'noticeEdit': $('input').each(function(){content+=$(this).val()+";";}); $.get("{:url('index/noticeEdit')}",{project_id:value[0], project_notice:content});break;
+	}
+	
+    xadmin.close();
+    xadmin.father_reload();
+});
+
+requestAnimationFrame(render);
+function render() {
+    checked();
+    requestAnimationFrame(render);
+}
+function checked() {
+    if ($('#other').prop("checked") == true) {
+    	$('#addBtn').css('display','block');
+		$('.other').css('display','block');
+	}
+	else {
+    	$('#addBtn').css('display','none');
+		$('.other').css('display','none');
+	}
+}
+var unitPriceShow = function() {
+	$('#column').remove();
+	$('#content').remove();
+	var content = value[3].split('*');
+	$('#form').html('<label>内容</label><input type="text" class="layui-input" style="width: 60%;" value="'+value[2]+'"><label>单价</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[0]+'"><label>下浮率</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[1]+'"><label>说明</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[2]+'">');
+}
+
+var confirmShow = function() {
+	$('#column').remove();
+	$('#content').remove();
+	var content = value[3].split('*');
+	if (value[4]=='depositeAdd'||value[4]=='compensationAdd') {
+		content=['','','',''];
+	}
+	$('#form').html('<label>开票日期</label><input class="layui-input" style="width: 60%;" placeholder="日期" id="start" autocomplete="off" value="'+content[0]+'"><label>开票金额</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[1]+'"><label>到账日期</label><input class="layui-input" style="width: 60%;" placeholder="日期" id="start" autocomplete="off" value="'+content[2]+'""><label>到账金额</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[3]+'">');
+}
+
+var paymentShow = function() {
+	$('#column').remove();
+	$('#content').remove();
+	var content = value[3].split('*');
+	$('#form').html('<label>支付比例</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[0]+'"><label>付款金额</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[1]+'"><label>支付节点要求</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[2]+'"><label>该节点是否已付款</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[3]+'">');
+}
+
+var designerShow = function() {
+	$('#column').remove();
+	$('#content').remove();
+	var content = value[3].split('*');
+	$('#form').html('<label>设计内容</label><input type="text" class="layui-input" style="width: 60%;" readonly="readonly" value="'+value[2]+'"><label>设计人</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[0]+'"><label>工种负责人</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[1]+'"><label>分包人</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[2]+'">');
+}
+
+var designer2Show = function() {
+	$('#column').remove();
+	$('#content').remove();
+	var content = value[3].split('*');
+	$('#form').html('<label>工程</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[0]+'"><label>工种</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[1]+'"><label>设计</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[2]+'"><label>制图</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[3]+'"><label>校对</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[4]+'"><label>审核</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[5]+'"><label>审定</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[6]+'">');
+}
+
+var drawplanDesignerShow = function() {
+	$('#column').remove();
+	$('#content').remove();
+	// var content = value[3].split('*');
+	$('#form').html('<label>工程</label><input type="text" class="layui-input" style="width: 60%;" readonly="readonly" value="'+value[2]+'"><label>工种</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[0]+'"><label>设计</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[1]+'"><label>制图</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[2]+'"><label>校对</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[3]+'"><label>审核</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[4]+'"><label>审定</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[5]+'">');
+}
+
+var contentShow = function() {
+	// $('#column').remove();
+	$('#content').remove();
+	var content = value[3].split(',');
+	$('#form').append('<ul><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="总包">总包</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="建筑"/>建筑</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="结构"/>结构</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="给排水"/>给排水</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="暖通"/>暖通</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="电气"/>电气1</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="弱电"/>弱电</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="管网"/>管网</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="景观"/>景观</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="内装"/>内装</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="内装机电"/>内装机电</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="钢构"/>钢构</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="幕墙"/>幕墙</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="护坡"/>护坡</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="基坑"/>基坑</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="燃气"/>燃气</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="驳坎"/>驳坎</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="亮丽"/>亮丽</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="中央空调"/>中央空调</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="电力"/>电力</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="PC"/>PC</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="BIM"/>BIM</li><li class="checkboxes"><input type="checkbox" lay-skin="primary" value="其他" id="other"/>其他</li><li id="addBtn"><button type="button" class="item-icon" onclick="itemAdd()">+</button></li></ul>');
+	$('input[type=checkbox]').each(function() {
+		if ($.inArray($(this).val(), content)>=0) {
+			$(this).attr("checked",true);
+		}
+	})
+	var values = ['总包','建筑','结构','给排水','暖通','电气','弱电','管网','景观','内装','内装机电','钢构','幕墙','护坡','基坑','燃气','驳坎','亮丽','中央空调','电力','PC','BIM'];
+	for (let val in content) {
+		if ($.inArray(content[val], values)<0 && content[val]) {
+			$('input[value="其他"]').prop("checked",true);
+			$('ul').append('<li class="other"><input type="text" lay-skin="primary" value="'+content[val]+'"/><button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button></li>')
+		}
+	}
+}
+
+function personalStatusShow() {
+	$('#content').html('<select id="text"><option value="在职">在职</option><option value="离职">离职</option></select>');
+	$('option[value='+value[3]+']').prop("selected", true);
+}
+
+function adminShow() {
+	$('#content').html('<select id="text"><option value="0">不可读</option><option value="1">可读不可写</option><option value="2">可读可写</option></select>');
+	var val = "";
+	switch(value[3]){
+		case '不可读': val = "0";break;
+		case '可读不可写': val = "1";break;
+		case '可读可写': val = "2";break;
+	}
+	$('option[value='+val+']').prop("selected", true);
+}
+function contractPhaseShow(){
+	$('#content').html('<select id="text"><option value="0">已通过</option><option value="1">未通过</option></select>');
+	var val = "";
+	switch(value[3]){
+		case '已通过': val = "0";break;
+		case '未通过': val = "1";break;
+	}
+	$('option[value='+val+']').prop("selected", true);
+}
+function buildtypeShow() {
+	$('#content').html('<select id="text"><option value="0">住宅</option><option value="1">商业</option><option value="2">公建</option><option value="0">零星</option><option value="0">其他</option></select>');
+	var val = "";
+	switch(value[3]){
+		case '不可读': val = "0";break;
+		case '可读不可写': val = "1";break;
+		case '可读可写': val = "2";break;
+	}
+	$('option[value='+val+']').prop("selected", true);
+}
+function noticeShow() {
+ var oContent = $('#content');
+ var notices = value[3].split(';');
+ for (var i = 0; i < notices.length - 1; i++) {
+console.log(value[3])
+     oContent.append('<li style="display: block;"><input type="text" class="layui-input" style="width: 100%;" value="'+notices[i]+'"></li>');
+ }
+}
+function itemAdd() {
+    var item = document.createElement("li");
+    item.className="other";
+    item.innerHTML = '<input type="text" autocomplete="off" class="layui-input">'+'<button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button>';
+    $('ul').append(item);
+}
+function itemDel(e) {
+    $(e).parent().remove();
+}
+</script>
+</body>
+</html>

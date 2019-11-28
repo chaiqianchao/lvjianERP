@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+  <meta charset="UTF-8">
+    <title>新增开票</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/project.css" />
+<!--  <link rel="stylesheet" href="__STATIC__/lib/bootstrap/css/bootstrap.min.css" />-->
+  <script type="text/javascript" src="__STATIC__/lib/layui/layui.js" charset="utf-8"></script>
+  <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+  <style type="text/css">
+    .layui-form-label {width: 150px;}
+  </style>
+</head>
+<body>
+<div class="searchcard">
+  <div class="layui-card" style="padding-top: 20px;">
+    <div style="margin: 0 8%;border: 1px solid #f2f2f2;">
+    <h2 class="layui-colla-title">新增开票</h2>
+    <form class="layui-form layui-colla-content layui-show" id="newInvoice" style="padding-top: 30px;">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">工程号</label>
+            <div class="layui-input-inline">
+              <input type="text" name="id" autocomplete="off" class="layui-input" style="width: 200px;">
+            </div>
+          </div>
+        </div>
+        <div>
+            <label class="layui-form-label">开票类型</label>
+            <div class="layui-input-inline" style="width: 200px;">
+              <select name="type">
+                <option value="保证金">保证金</option>
+                <option value="补偿费">补偿费</option>
+              </select>
+            </div>
+        </div>
+      </form>
+      <div class="layui-card-body layui-table-body layui-table-main">
+        <table class="layui-table layui-form" id="table">
+          <thead>
+          <th>开票时间</th>
+          <th>开票金额</th>
+          <th>到账时间</th>
+          <th>到账金额</th>
+          <th>新增</th>
+          </thead>
+          <tbody>
+          <tr>
+            <td><input class="layui-input invoice" placeholder="开票日期" id="date10" autocomplete="off"></td>
+            <td><input class="layui-input invoice" placeholder="开票金额" autocomplete="off"></td>
+            <td><input class="layui-input invoice" placeholder="到账日期" id="date12" autocomplete="off"></td>
+            <td><input class="layui-input invoice" placeholder="到账金额"  autocomplete="off"></td>
+            <td><button class="layui-btn" style="background-color:#49CABE;" onclick="itemAdd()"><i class="iconfont">&#xe6b9;</i></button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="layui-input-block" style=" text-align: center;margin: 10px 0;">
+          <button class="layui-btn" onclick="submitInvoice()">新增开票</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
+<script type="text/javascript">
+var date = 3;
+function itemAdd() {
+  var item = document.createElement("tr");
+  item.innerHTML ='<td><input class="layui-input invoice" placeholder="开票日期" id="date'+date+'" autocomplete="off"></td><td><input class="layui-input invoice" placeholder="开票金额"  autocomplete="off"></td><td><input class="layui-input invoice" placeholder="到账日期" id="date'+(date+1)+'" autocomplete="off"></td><td><input class="layui-input invoice" placeholder="到账金额"  autocomplete="off"></td><td><button class="layui-btn" style="background-color:#49CABE;" onclick="itemDel(this)"><i class="iconfont">&#8212;</i></button></td>';
+  document.getElementsByTagName('tbody')[0].appendChild(item);
+  date +=2;
+}
+
+function itemDel(e) {
+  $(e).parent().parent().remove();
+}
+
+function submitInvoice(){
+
+  var data = $('#newInvoice').serialize();
+  var invoice = document.getElementsByClassName("invoice");
+  var invoiceContent = "&invoice=";
+  for (var i =0; i < invoice.length; i++) {
+      if (i%4==0)
+          invoiceContent = invoiceContent +"^"+invoice[i].value;
+      else
+          invoiceContent = invoiceContent +"*"+invoice[i].value;
+  }
+  invoiceContent = invoiceContent.replace("^***","");
+  data = data +invoiceContent;
+  console.log(data);
+
+  $.ajax({
+    //几个参数需要注意一下
+    type: "POST",//方法类型
+    dataType: "json",//预期服务器返回的数据类型
+    url: "{:url('index/invoiceAdd')}",//url
+    data: data,
+    success: function (result) {
+        console.log(result);//打印服务端返回的数据(调试用)
+        layer.msg(result.message,{icon: 6,time:1000},);
+        // 清空表单内的数据   
+        var inputs = document.getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+          inputs[i].value = null;
+        }
+        if (result.status == 1) {
+          if(localStorage.addanother)
+            window.localStorage.addanother += JSON.stringify(data);
+          else
+            window.localStorage.addanother = JSON.stringify(data);
+          if (window.localStorage.addanother) {
+            layer.alert("增加成功",
+                function() {
+                  xadmin.close();
+                  xadmin.father_reload();
+                });
+          }
+          else
+          {
+            layer.alert("增加失败");
+          }
+        }
+        else
+            alert("error:"+result.message);
+    },
+    error : function() {
+        alert("异常！");
+    }
+  });
+}
+</script>
+</body>
+</html>

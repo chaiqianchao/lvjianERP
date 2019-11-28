@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+  <meta charset="UTF-8">
+    <title>加晒登记</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+  <link rel="stylesheet" href="__STATIC__/lib/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/project.css" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/common.css" />
+  <script type="text/javascript" src="__STATIC__/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+  <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
+  
+</head>
+<body>
+  <div class="searchcard">
+    <div class="layui-card">
+      <div class="searchbar">
+        <div class="search-text">
+          <form id="searchAll">
+            <input type="text" name="content" id="searchInput" class="search-area" placeholder="输入关键字搜索">
+          </form>
+          <p class="iconfont">&#xe6ac;</p>
+        </div>
+        <div class="search-button" onclick="searchSelectAll()">
+          <a><p>搜索</p></a>
+        </div>
+      </div>
+          <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+              <div class="layui-collapse">
+                  <div class="layui-colla-item">
+                  <h2 class="layui-colla-title" onclick="pullDown()">条件筛选<i class="layui-icon layui-colla-icon"></i></h2>
+                  <div class="layui-colla-content">
+                    <form id="select" class="layui-form" action="">
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">工程号</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="project_id" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">工程名称</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="project_name" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">发包人</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="project_contractor" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">代建人</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="project_agent" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">加晒费总额</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="sum_fee" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">已结算加晒费</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="sum_settled" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">免费金额</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="sum_free" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">应收金额</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="sum_receivable" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">加晒时间</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">&nbsp;~&nbsp;
+                                  <input class="layui-input"  autocomplete="off" placeholder="结束日" name="end" id="end">
+                            </div>
+                          </div>
+                        </div>
+                    </form>
+                  <div class="layui-input-block">
+                      <button class="layui-btn" onclick="searchSelect()">搜索</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+            <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
+              <span>单页数据：</span>
+              <div class="select">
+              <select id="pagenumber" name="pagenumber" class="layui-anim layui-anim-upbit">
+                  <option value="{$pagenumber}">{$pagenumber}</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="50">50</option>
+              </select>
+          </div>
+          <div><button class="layui-btn" onclick="searchSelectAll()" style="background-color: #319587;margin-left: 10px;">执行</button></div>
+            </div>
+          </div>
+          
+        <div class="searchtable">
+              <button class="layui-btn" onclick="xadmin.open('新增加晒','./newslideshow.html',800,600)"><i class="layui-icon"></i>新增加晒</button>
+        <div class="layui-card-body layui-table-body layui-table-main">
+          <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="r">共有数据：<strong>{$count}</strong> 条</span>
+          </div>
+          <table class="layui-table layui-form" id="table">
+            <thead>
+            <th>工程号</th>
+            <th>工程名称</th>
+            <th>发包人</th>
+            <th>代建人</th>
+            <th>加晒费总额</th>
+            <th>已结算加晒费</th>
+            <th>免费金额</th>
+            <th>应收金额</th>
+            <th>加晒时间</th>
+            <th>操作</th>
+            </thead>
+          <tbody>
+          {volist name='orderList' id='vo'}
+          <tr class="text-c">
+            <td>{$vo.project_id}</td>
+            <td>{$vo.project_name}</td>
+            <td>{$vo.project_contractor}</td>
+            <td>{$vo.project_agent}</td>
+            <td>{$vo.sum_fee}</td>
+            <td>{$vo.sum_settled}</td>
+            <td>{$vo.sum_free}</td>
+            <td>{$vo.sum_receivable}</td>
+            <td>{$vo.sum_date}</td>
+            <td><a href="{:url("index/slideshow_details",["id"=>$vo["project_id"]])}">点击详情</a></td>
+          </tr>
+          {/volist}
+
+          </tbody>
+        </table>
+     <!--    <div style="background-color: #fff;padding: 10px;text-align: right;">
+          <button class="layui-btn" onclick="leadingOut()" style="background-color: #319587;margin-right: 10px;">导出数据</button>
+        </div> -->
+        <!-- 显示分页按钮,事先要将bootstrap导入css和js -->
+          <div class="container" style="width: 100%;">
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-8" style="text-align: center;">{$orderList->render()}</div>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+<script type="text/javascript" src="__STATIC__/js/domain.js"></script>
+<script>
+  var showMenu = 1;
+  function searchscreen() {
+    if (showMenu == 1) {
+      document.getElementById('smenu').style.display="inline-block";
+      showMenu = -1;
+    } else {
+      document.getElementById('smenu').style.display="none";
+      showMenu = 1;
+    } 
+  }
+
+  function searchSelect(){
+    var options=$("#pagenumber option:selected");
+    console.log($('#select').serialize());
+     $.ajax({
+            type: "post",
+            // dataType: "json",
+            url: "{:url('index/tosumSelect')}",
+            data:$('#select').serialize()+"&pagenumber="+options.val(),
+            success: function (result) {
+                document.body.innerHTML=result;
+            },
+            error: function(data) {
+                alert("error:"+data.responseText);
+             }
+
+         });
+
+  }
+  function searchSelectAll(){
+    window.localStorage.content = document.getElementById("searchInput").value;
+    var options=$("#pagenumber option:selected");
+     $.ajax({
+            type: "post",
+            url: "{:url('index/tosumSelectAll')}",
+            data:$('#searchAll').serialize()+"&pagenumber="+options.val(),
+            success: function (result) {
+              // console.log(result);
+                document.body.innerHTML=result;
+                document.getElementById("searchInput").value=localStorage.content;
+                localStorage.removeItem('content');
+            },
+            error: function(data) {
+                alert("error:"+data.responseText);
+             }
+
+         });
+
+  }
+</script>
+</body>
+</html>

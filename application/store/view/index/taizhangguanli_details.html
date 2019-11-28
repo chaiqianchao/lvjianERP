@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>台账管理详细</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/details.css">
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+	<script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/FileSave.js"></script>
+</head>
+<body>
+<div class="card">
+		
+	<div class="layui-col-md12">
+        <div class="layui-card" >
+        	<div class="back-pro" style="background-color: #fff;padding-bottom: 10px;"><a href="javascript:history.go(-1)">返回</a></div>
+            <div class="layui-card-body ">
+            	<!-- 1 -->
+            	<div class="layui-collapse" lay-filter="test">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">基本信息<i class="layui-icon layui-colla-icon"></i></h2>
+                        <div class="layui-colla-content">
+		                    <table class="layui-table" id="table1">
+		                        <tbody>
+		                            <tr>
+		                                <th>合同编号</th>
+		                                <td>&nbsp;{$ledgerList['contract_id']}</td>
+		                                <td></td>
+		                            </tr>
+		                            <tr>
+		                                <th>工程名称</th>
+		                                <td>{$ledgerList['project_name']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','project_name','工程名称','{$ledgerList.project_name}','ledgerListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+                                    		{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>签订日期</th>
+		                                <td>{$ledgerList['contractledger_signtime']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contractledger_signtime','签订日期','{$ledgerList.contractledger_signtime}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                            	<th>建设方</th>
+		                                <td>{$ledgerList['project_constructor']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','project_constructor','建设方','{$ledgerList.project_constructor}','ledgerListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                            	<th>代建方</th>
+		                                <td>{$ledgerList['project_agent']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','project_agent','代建方','{$ledgerList.project_agent}','ledgerListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>合同额</th>
+		                                <td>{$ledgerList['contractledger_amount']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contractledger_amount','合同额','{$ledgerList.contractledger_amount}','ledgerListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>实算额</th>
+		                                <td>{$ledgerList['contractledger_actual']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contractledger_actual','实算额','{$ledgerList.contractledger_actual}','ledgerListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>已开票金额</th>
+		                                <td>{$ledgerList['contract_invoiced']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_invoiced','已开票金额','{$ledgerList.contract_invoiced}','ledgerListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>已收款金额</th>
+		                                <td>{$ledgerList['contract_accepted']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_accepted','已收款金额','{$ledgerList.contract_accepted}','ledgerListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>实算额已收比例</th>
+		                                <td>{$ledgerList['contract_acceptedratio']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_acceptedratio','实算额已收比例','{$ledgerList.contract_acceptedratio}','ledgerListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>实算额未收款</th>
+		                                <td>{$ledgerList['contract_unaccepted']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_unaccepted','实算额未收款','{$ledgerList.contract_unaccepted}','ledgerListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>已开票未收款</th>
+		                                <td>{$ledgerList['contract_invoiced_unpaid']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_invoiced_unpaid','已开票未收款','{$ledgerList.contract_invoiced_unpaid}','ledgerListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>完成产值额</th>
+		                                <td>{$ledgerList['contract_value']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_value','完成产值额','{$ledgerList.contract_value}','ledgerListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>应收款</th>
+		                                <td>{$ledgerList['contract_receivables']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_receivables','应收款','{$ledgerList.contract_receivables}','ledgerListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>备注</th>
+		                                <td>{$ledgerList['contractledger_remarks']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contractledger_remarks','备注','{$ledgerList.contractledger_remarks}','ledgerListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                        </tbody>
+		                    </table>
+		                    <button class="layui-btn" onclick="leadingOut1()" style="background-color: #319587;margin-right: 10px;">导出数据</button>
+                        </div>
+                    </div>
+                </div>
+				<!-- 2 -->
+				<div class="layui-collapse" lay-filter="test">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">已完成阶段<i class="layui-icon layui-colla-icon"></i></h2>
+                        <div class="layui-colla-content">
+		                    <table class="layui-table" id="table2">
+		                    	<tbody style="position: absolute;">
+                            <tr style="visibility: hidden ;">
+                                <th>工程号</th>
+                                <td colspan="4">&nbsp;{$ledgerList["contract_id"]}</td>
+                            </tr>
+                            <tr style="visibility: hidden ;">
+                                <th>工程名称</th>
+                                <td colspan="4">{$ledgerList["project_name"]}</td>
+                            </tr>
+                        </tbody>
+		                    	<tbody style="position: absolute;">
+		                    	<tr style="visibility: hidden ;">
+						              <th>合同编号</th>
+		                              <td colspan="2">{$ledgerList['contract_id']}</td>
+						            </tr>
+						            <tr style="visibility: hidden ;">
+		                                <th>工程名称</th>
+		                                <td colspan="2">{$ledgerList['project_name']}</td>
+		                            </tr>
+		                            <tr style="visibility: hidden ;">
+		                            	<th>签订日期</th>
+		                                <td colspan="2">{$ledgerList['contractledger_signtime']}</td>
+		                            </tr>
+		                            <tr style="visibility: hidden ;">
+		                            	<th>建设方</th>
+		                                <td colspan="2">{$ledgerList['project_constructor']}</td>
+		                            </tr>
+		                             <tr style="visibility: hidden ;">
+		                                <th>代建方</th>
+		                                <td colspan="2">{$ledgerList['project_agent']}</td>
+		                            </tr>
+		                        </tbody>
+		                        <tbody>
+		                            <tr>
+		                                <th>合同已签</th>
+		                                <td>{$phase['contract_account_phase1']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_account_phase1','合同已签','{$phase.contract_account_phase1}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>方案</th>
+		                                <td>{$phase['contract_account_phase2']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_account_phase2','方案','{$phase.contract_account_phase2}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>初步</th>
+		                                <td>{$phase['contract_account_phase3']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_account_phase3','初步','{$phase.contract_account_phase3}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>施工图</th>
+		                                <td>{$phase['contract_account_phase4']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_account_phase4','施工图','{$phase.contract_account_phase4}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>审批</th>
+		                                <td>{$phase['contract_account_phase5']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_account_phase5','审批','{$phase.contract_account_phase5}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>开工</th>
+		                                <td>{$phase['contract_account_phase6']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_account_phase6','开工','{$phase.contract_account_phase6}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>交底</th>
+		                                <td>{$phase['contract_account_phase7']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_account_phase7','交底','{$phase.contract_account_phase7}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>管网</th>
+		                                <td>{$phase['contract_account_phase8']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_account_phase8','管网','{$phase.contract_account_phase8}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>基础完工</th>
+		                                <td>{$phase['contract_account_phase9']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_account_phase9','基础完工','{$phase.contract_account_phase9}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>地下完工</th>
+		                                <td>{$phase['contract_account_phase10']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_account_phase10','地下完工','{$phase.contract_account_phase10}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>结顶</th>
+		                                <td>{$phase['contract_account_phase11']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_account_phase11','结顶','{$phase.contract_account_phase11}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>室外工程</th>
+		                                <td>{$phase['contract_account_phase12']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_account_phase12','室外工程','{$phase.contract_account_phase12}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>竣工验收</th>
+		                                <td>{$phase['contract_account_phase13']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_account_phase13','竣工验收','{$phase.contract_account_phase13}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>竣工备案</th>
+		                                <td>{$phase['contract_account_phase14']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ledgerList.contract_id}','contract_account_phase14','竣工备案','{$phase.contract_account_phase14}','accountPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                        </tbody>
+		                    </table>
+                    		<button class="layui-btn" onclick="leadingOut2()" style="background-color: #319587;margin-right: 10px;">导出数据</button>
+                        </div>
+                    </div>
+                </div>
+				<!-- 3 -->
+				<div class="layui-collapse" lay-filter="test">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">开票-到账<i class="layui-icon layui-colla-icon"></i></h2>
+                        <div class="layui-colla-content">
+		                    <table class="layui-table" id="table3">
+		                    	<tbody style="position: absolute;">
+		                    	<tr style="visibility: hidden ;">
+						              <th>合同编号</th>
+		                              <td colspan="4">&nbsp;{$ledgerList['contract_id']}</td>
+						            </tr>
+						            <tr style="visibility: hidden ;">
+		                                <th>工程名称</th>
+		                                <td colspan="4">{$ledgerList['project_name']}</td>
+		                            </tr>
+		                            <tr style="visibility: hidden ;">
+		                            	<th>签订日期</th>
+		                                <td colspan="4">{$ledgerList['contractledger_signtime']}</td>
+		                            </tr>
+		                            <tr style="visibility: hidden ;">
+		                            	<th>建设方</th>
+		                                <td colspan="4">{$ledgerList['project_constructor']}</td>
+		                            </tr>
+		                             <tr style="visibility: hidden ;">
+		                                <th>代建方</th>
+		                                <td colspan="4">{$ledgerList['project_agent']}</td>
+		                            </tr>
+		                        </tbody>
+		                        <tbody>
+		                            <tr>
+		                            	<th>开票日期</th>
+		                            	<th>开票金额</th>
+		                            	<th>到账日期</th>
+		                            	<th>到账金额</th>
+		                            	<th>开票人</th>
+		                            	<th>申请人</th>
+		                            	<th>编辑</th>
+		                            </tr>
+		                        	{volist name="confirm" id="vo"}
+		                            <tr>
+		                            	<td>{$vo['invoice_date']}</td>
+		                            	<td>{$vo['invoice_amount']}</td>
+		                            	<td>{$vo['payment_date']}</td>
+		                            	<td>{$vo['payment_amount']}</td>
+		                            	<td>{$vo['confirm_drawer']}</td>
+		                            	<td>{$vo['confirm_applicant']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$vo.confirm_id}','','','{$vo.invoice_date}*{$vo.invoice_amount}*{$vo.payment_date}*{$vo.payment_amount}*{$vo.confirm_drawer}*{$vo.confirm_applicant}','confirmEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            {/volist}
+		                            <tr>
+		                            	<td></td>
+		                            	<td style="color: red;">{$total_invoice_amount}</td>
+		                            	<td></td>
+		                            	<td style="color: red;">{$total_payment_amount}</td>
+		                            	<td></td>
+		                            	<td></td>
+		                                <td></td>
+		                            </tr>
+		                        </tbody>
+		                    </table>
+		                    <button class="layui-btn" onclick="leadingOut3()" style="background-color: #319587;margin-right: 10px;">导出数据</button>
+                        </div>
+                    </div>
+                </div>
+				<!-- 4 -->
+				<div class="layui-collapse" lay-filter="test">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title">支付进度<i class="layui-icon layui-colla-icon"></i></h2>
+                        <div class="layui-colla-content">
+		                    <table class="layui-table" id="table4">
+		                    	<tbody style="position: absolute;">
+		                    	<tr style="visibility: hidden ;">
+						              <th>合同编号</th>
+		                              <td colspan="4">&nbsp;{$ledgerList['contract_id']}</td>
+						            </tr>
+						            <tr style="visibility: hidden ;">
+		                                <th>工程名称</th>
+		                                <td colspan="4">{$ledgerList['project_name']}</td>
+		                            </tr>
+		                            <tr style="visibility: hidden ;">
+		                            	<th>签订日期</th>
+		                                <td colspan="4">{$ledgerList['contractledger_signtime']}</td>
+		                            </tr>
+		                            <tr style="visibility: hidden ;">
+		                            	<th>建设方</th>
+		                                <td colspan="4">{$ledgerList['project_constructor']}</td>
+		                            </tr>
+		                             <tr style="visibility: hidden ;">
+		                                <th>代建方</th>
+		                                <td colspan="4">{$ledgerList['project_agent']}</td>
+		                            </tr>
+		                        </tbody>
+		                        <tbody>
+		                            <tr>
+		                            	<th>支付比例</th>
+		                            	<th>付款金额</th>
+		                            	<th>支付节点要求</th>
+		                            	<th>该节点是否已付款</th>
+		                            	<th></th>
+		                            </tr>
+		                        	{volist name="node" id="vo"}
+		                            <tr>
+		                            	<td>{$vo['ledgernode_paymentratio']}</td>
+		                            	<td>{$vo['ledgernode_payment']}</td>
+		                            	<td>{$vo['ledgernode_require']}</td>
+		                            	<td>{$vo['ledgernode_status']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑"  href="javascript:;" onclick="member_edit('{$vo.id}','','','{$vo.ledgernode_paymentratio}*{$vo.ledgernode_payment}*{$vo.ledgernode_require}*{$vo.ledgernode_status}','confirmEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            {/volist}
+		                        </tbody>
+		                    </table>
+		                    <button class="layui-btn" onclick="leadingOut4()" style="background-color: #319587;">导出数据</button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="layui-card layui-input-block">
+            		<button class="layui-btn" onclick="deleteThis()" style="background-color: #F4592E;">删除当前数据</button>
+        		</div>
+            </div>
+    	</div>
+	</div>
+<script type="text/javascript">
+function member_edit(id, column, chinese, content, type) {
+	content =content.replace(/%/g, '%25');
+	var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
+	xadmin.open('详情修改', url);
+}
+function deleteThis() {
+   console.log("工程号为："+{$ledgerList["contract_id"]});
+    layer.alert("您确定要删除当前台账的所有数据吗？",
+        function() {
+            $.ajax({
+            type: "post",
+            url: "{:url('index/LedgerDel')}",
+            data:"contract_id="+{$ledgerList["contract_id"]},
+            success: function (data) {
+                  layer.alert("删除成功！",
+                function() {
+                    xadmin.close();
+                    xadmin.father_reload();
+                });
+            },
+            error: function(data) {
+                alert("error:"+data.message);
+             }
+         });
+            //当用户确认点击删除数据时
+        
+        });
+}
+
+function leadingOut1() {
+  //询问框
+  layer.confirm('只能导出台账基本信息的数据，请在导出前确认单页数据为“全部”,并已执行', {
+    btn: ['取消导出','依旧导出'] //按钮
+  }, function(){
+    layer.msg('已取消', {icon: 1});
+  }, function(){
+    tableToExcel('table1','sheet1',template,'Data.xlsx');
+  });
+}
+function leadingOut2() {
+  //询问框
+  layer.confirm('只能导出已完成阶段的数据，请在导出前确认单页数据为“全部”,并已执行', {
+    btn: ['取消导出','依旧导出'] //按钮
+  }, function(){
+    layer.msg('已取消', {icon: 1});
+  }, function(){
+    tableToExcel('table2','sheet1',template,'Data.xlsx');
+  });
+}
+function leadingOut3() {
+  //询问框
+  layer.confirm('只能导出开票-到账的数据，请在导出前确认单页数据为“全部”,并已执行', {
+    btn: ['取消导出','依旧导出'] //按钮
+  }, function(){
+    layer.msg('已取消', {icon: 1});
+  }, function(){
+    tableToExcel('table3','sheet1',template,'Data.xlsx');
+  });
+}
+function leadingOut4() {
+  //询问框
+  layer.confirm('只能导出支付进度的数据，请在导出前确认单页数据为“全部”,并已执行', {
+    btn: ['取消导出','依旧导出'] //按钮
+  }, function(){
+    layer.msg('已取消', {icon: 1});
+  }, function(){
+    tableToExcel('table4','sheet1',template,'Data.xlsx');
+  });
+}
+var template =
+    ' <style type="text/css">' +
+    'table {' +
+    '    font-family: verdana,arial,sans-serif;' +
+    '    font-size:11px;' +
+    '    color:#333333;' +
+    '    border-width: 1px;' +
+    '    border-color: #666666;' +
+    '    border-collapse: collapse;' +
+    '}' +
+    'table th {' +
+    '    padding: 8px;' +
+    '    width: 200px;' +
+    '  height: 30px;' +
+    '    border-style: solid;' +
+    '    border-color: #9a9a9a;' +
+    '    color: #ffffff;' +
+    '    background-color: #319587;' +
+    '}' +
+    'table td {' +
+    '    width: 200px;' +
+    '  height: 30px;' +
+    '    padding: 8px;' +
+    '    text-align: center;' +
+    '    border-style: solid;' +
+    '    border-color: #9a9a9a;' +
+    '}' +
+    ' ' +
+    '</style>';
+
+function tableToExcel(tableid, sheetName, template, fileName) {
+    if (!tableid.nodeType) tableid = document.getElementById(tableid);
+    var html = "<html xmlns:x=\"urn:schemas-microsoft-com:office:excel\">\n" +
+        "    <head>\n" +
+        "        <!--[if gte mso 9]><xml>\n" +
+        "            <x:ExcelWorkbook>\n" +
+        "                <x:ExcelWorksheets>\n" +
+        "                    <x:ExcelWorksheet>\n" +
+        "                        <x:Name>"+ sheetName +"</x:Name>\n" +
+        "                        <x:WorksheetOptions>\n" +
+        "                            <x:Print>\n" +
+        "                                <x:ValidPrinterInfo />\n" +
+        "                            </x:Print>\n" +
+        "                        </x:WorksheetOptions>\n" +
+        "                    </x:ExcelWorksheet>\n" +
+        "                </x:ExcelWorksheets>\n" +
+        "            </x:ExcelWorkbook>\n" +
+        "        </xml>\n" +
+        "        <![endif]-->\n" + template +
+        "    </head>" +
+        "<body>" + tableid.outerHTML +
+        "</body></html>";
+    var blob = new Blob([html], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, fileName);
+}
+</script>
+</body>
+</html>

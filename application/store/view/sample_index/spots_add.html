@@ -1,0 +1,192 @@
+{extend name='public/base'/}
+{block name='header'}{/block} {//关掉头部}
+{block name='menu'}{/block} {//关掉菜单}
+{block name='seo'}
+<title>添加景点</title>
+<meta name="keywords" content="{$keywords|default='关键字'}">
+<meta name="description" content="{$desc|default='描述'}">
+{/block}
+
+{block name='content'}
+<article class="cl pd-20">
+
+
+    <form action="" method="post" class="form form-horizontal" id="form-spots-add">
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>景点编号：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+        <input  type="text" class="input-text" value="" placeholder="" id="number" name="number">
+        </div>
+        </div>
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>景点名称：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+        <input  type="text" class="input-text" value="" placeholder="" id="name" name="name">
+        </div>
+        </div>
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>景点类型：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+        <input type="text" class="input-text" value=""  placeholder="" id="type" name="type">
+        </div>
+        </div>
+
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>景点评分：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+        <input  type="text" class="input-text" value="" placeholder="" id="grade" name="grade">
+        </div>
+        </div>
+
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属省份：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+        <input  type="text" class="input-text" value="" placeholder="" id="province" name="province">
+        </div>
+        </div>
+
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属市：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+        <input  type="text" class="input-text" value="" placeholder="" id="city" name="city">
+        </div>
+        </div>
+
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属县（区）：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+        <input  type="text" class="input-text" value="" placeholder="" id="county" name="county">
+        </div>
+        </div>
+
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>详细地址：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+        <input  type="text" class="input-text" value="" placeholder="" id="address" name="address">
+        </div>
+        </div>
+
+
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否收费：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+        <input  type="text" class="input-text" value="" placeholder="" id="charge" name="charge">
+        </div>
+        </div>
+
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>介绍页图：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+        <input  type="text" class="input-text" value="" placeholder="" id="picture" name="picture">
+        </div>
+        </div>
+
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>介绍页文字：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+        <input  type="text" class="input-text" value="" placeholder="" id="word" name="word">
+        </div>
+        </div>
+
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>经度：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+        <input  type="text" class="input-text" value="" placeholder="" id="longitude" name="longitude">
+        </div>
+        </div>
+
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>纬度：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+        <input  type="text" class="input-text" value="" placeholder="" id="latitude" name="latitude">
+        </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>对应数据表：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input  type="text" class="input-text" value="" placeholder="" id="form" name="form">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>安卓大富翁：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input  type="text" class="input-text" value="" placeholder="" id="androidUrl" name="androidUrl">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>iOS大富翁：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input  type="text" class="input-text" value="" placeholder="" id="iosUrl" name="iosUrl">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius disabled" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" id="submit" >
+            </div>
+        </div>
+    </form>
+
+
+</article>
+{/block}
+
+{block name='js'}
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__STATIC__/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+
+
+<script>
+
+    $(function(){
+
+        //防止用户无更新提交,只有表中数据有变化时才允许提交
+        $("form").children().change(function(){
+            $("#submit").removeClass('disabled');
+        });
+
+        // //失去焦点时,检查用户手机号是否重复
+        // $("#mobile").blur(function(){
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: "{:url('index/checkSpots')}",
+        //         data:{name:$(this).val()},
+        //         dataType: 'json',
+        //         success: function(data){
+        //             if (data.status == 1) {
+        //                 alert(data.message);
+        //             } else {
+        //                 alert(data.message);
+        //             }
+        //         }
+        //     });
+        // });
+
+
+        $("#submit").on("click", function(event){
+            $.ajax({
+                type: "POST",
+                url: "{:url('index/addSpots')}",
+                data: $("#form-spots-add").serialize(),
+                dataType: "json",
+                success: function(data){
+                    if (data.status == 1) {
+                        sessionStorage.upDateFlag = 1;
+                        alert(data.message);
+                    } else {
+                        sessionStorage.upDateFlag = 1;
+                        alert(data.message);
+                    }
+                }
+            });
+
+        })
+    })
+</script>
+{/block}
+
+</body>
+</html>

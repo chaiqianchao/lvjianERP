@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+  <meta charset="UTF-8">
+    <title>院产值</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+  <link rel="stylesheet" href="__STATIC__/lib/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/project.css" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/common.css" />
+  <script type="text/javascript" src="__STATIC__/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+  <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+  <script type="text/javascript" src="__STATIC__/js/FileSave.js"></script>
+</head>
+<body>
+  <div class="searchcard">
+    <div class="layui-card">
+      <div class="searchbar">
+        <div class="search-text">
+          <form id="searchAll">
+            <input type="text" name="content" id="searchInput" class="search-area" placeholder="输入关键字搜索">
+          </form>
+          <p class="iconfont">&#xe6ac;</p>
+        </div>
+        <div class="search-button" onclick="searchSelectAll()">
+          <a><p>搜索</p></a>
+        </div>
+      </div>
+      <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+        <div class="layui-collapse">
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title" onclick="pullDown()">条件筛选<i class="layui-icon layui-colla-icon"></i></h2>
+            <div class="layui-colla-content">
+              <form id="project_search" class="layui-form" action="">
+                  <div class="layui-form-item">
+                    <div class="layui-inline" style="width: 100%;">
+                      <label class="layui-form-label">部门</label>
+                      <div class="layui-input-inline" style="width: 40%;">
+                        <input type="text" name="staff_department" autocomplete="off" class="layui-input">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                        <div class="layui-inline" style="width: 100%;">
+                          <label class="layui-form-label">出图时间</label>
+                          <div class="layui-input-inline" style="width: 40%;">
+                            <div class="layui-inline layui-show-xs-block" style="display: flex;flex-direction: row;">
+                                  <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">&nbsp;~&nbsp;
+                                  <input class="layui-input"  autocomplete="off" placeholder="结束日" name="end" id="end">
+                              </div>
+                            <!-- <input type="text" name="contractledger_signtime" autocomplete="off" class="layui-input"> -->
+                          </div>
+                        </div>
+                      </div>
+              </form>
+              <div class="layui-input-block">
+                <button class="layui-btn" onclick="searchSelect()">搜索</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+            <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
+              <span>单页数据：</span>
+              <div class="select">
+              <select id="pagenumber" name="pagenumber" class="layui-anim layui-anim-upbit">
+                <option value="{$pagenumber}">{$pagenumber}</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="50">50</option>
+                  <option value="全部">全部</option>
+              </select>
+          </div>
+          <div><button class="layui-btn" onclick="searchSelectAll()" style="background-color: #319587;margin-left: 10px;">执行</button></div>
+            </div>
+          </div>
+      <div class="searchtable">
+        <div class="layui-card-body layui-table-body layui-table-main">
+          <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="r">共有数据：<strong>{$count}</strong> 条</span>
+          </div>
+          <table class="layui-table layui-form" id="table">
+            <thead>
+            <th>部门</th>
+            <th>姓名</th>
+            <th>个人产值汇总/㎡</th>
+            <th>详情</th>
+            </thead>
+            <tbody>
+            {volist name='orderList' id='vo'}
+            {if condition ="$vo.staff_department eq ''"}
+            {else }
+            <tr class="text-c">
+              <td>{$vo.staff_department}</td>
+               <td>{$vo.staff_name}</td>
+              <td>{$vo.total_personalvalue}</td>
+              <td><a onclick="gotoDetail('{$vo['id']}')">点击详情</a></td>
+            </tr>
+            {/if}
+            {/volist}
+            </tbody>
+            <tr style="visibility:hidden;">
+              <td>小计： </td>
+              <td>{$sum}</td>
+            </tr>
+          </table>
+          <!-- 显示分页按钮,事先要将bootstrap导入css和js -->
+          <div class="container" style="width: 100%;">
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-8" style="text-align: center;">{$orderList->render()}</div>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <!-- 小计3 -->
+          <div style="background-color: #fff;padding: 10px;text-align: right;">
+            <button class="layui-btn" onclick="leadingOut()" style="background-color: #319587;margin-right: 10px;">导出数据</button>
+            <span>小计： <span style="color: red;font-size: 18pt;padding: 2px;">{$sum}</span>元</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
+  <script type="text/javascript" src="__STATIC__/js/domain.js"></script>
+<script>
+  function gotoDetail(id){
+    let start = document.getElementById('start').value;
+    let end = document.getElementById('end').value;
+    $.ajax({
+      type: "post",
+      // dataType: "json",
+      url: "{:url('index/departmentValue_details')}",
+      data:"start="+start+"&end="+end+"&id="+id,
+      success: function (result) {
+        document.body.innerHTML=result;
+      },
+      error: function(data) {
+        alert("error:"+data.responseText);
+      }
+    });
+  }
+  function searchSelect(){
+    var options=$("#pagenumber option:selected");
+     $.ajax({
+            type: "post",
+            // dataType: "json",
+            url: "{:url('index/DepartmentvalueSelect')}",
+            data:$('#project_search').serialize()+"&pagenumber="+options.val(),
+            success: function (result) {
+                document.body.innerHTML=result;
+            },
+            error: function(data) {
+                alert("error:"+data.responseText);
+             }
+
+         });
+
+  }
+  function searchSelectAll(){
+    window.localStorage.content = document.getElementById("searchInput").value;
+    var options=$("#pagenumber option:selected");
+    // console.log($('#searchAll').serialize());
+     $.ajax({
+            type: "post",
+            url: "{:url('index/DepartmentvalueSelectAll')}",
+            data:$('#searchAll').serialize()+"&pagenumber="+options.val(),
+            success: function (result) {
+                document.body.innerHTML=result;
+                document.getElementById("searchInput").value=localStorage.content;
+                localStorage.removeItem('content');
+            },
+            error: function(data) {
+                alert("error:"+data.responseText);
+             }
+
+         });
+
+  }
+function leadingOut() {
+  //询问框
+  layer.confirm('只能导出当前页的数据，请在导出前确认单页数据为“全部”,并已执行', {
+    btn: ['取消导出','依旧导出'] //按钮
+  }, function(){
+    layer.msg('已取消', {icon: 1});
+  }, function(){
+    tableToExcel('table','sheet1',template,'Data.xlsx');
+  });
+}
+var template =
+    ' <style type="text/css">' +
+    'table {' +
+    '    font-family: verdana,arial,sans-serif;' +
+    '    font-size:11px;' +
+    '    color:#333333;' +
+    '    border-width: 1px;' +
+    '    border-color: #666666;' +
+    '    border-collapse: collapse;' +
+    '}' +
+    'table th {' +
+    '    padding: 8px;' +
+    '    width: 200px;' +
+    '  height: 30px;' +
+    '    border-style: solid;' +
+    '    border-color: #9a9a9a;' +
+    '    color: #ffffff;' +
+    '    background-color: #319587;' +
+    '}' +
+    'table td {' +
+    '    width: 200px;' +
+    '  height: 30px;' +
+    '    padding: 8px;' +
+    '    text-align: center;' +
+    '    border-style: solid;' +
+    '    border-color: #9a9a9a;' +
+    '}' +
+    ' ' +
+    '</style>';
+
+function tableToExcel(tableid, sheetName, template, fileName) {
+    if (!tableid.nodeType) tableid = document.getElementById(tableid);
+    var html = "<html xmlns:x=\"urn:schemas-microsoft-com:office:excel\">\n" +
+        "    <head>\n" +
+        "        <!--[if gte mso 9]><xml>\n" +
+        "            <x:ExcelWorkbook>\n" +
+        "                <x:ExcelWorksheets>\n" +
+        "                    <x:ExcelWorksheet>\n" +
+        "                        <x:Name>"+ sheetName +"</x:Name>\n" +
+        "                        <x:WorksheetOptions>\n" +
+        "                            <x:Print>\n" +
+        "                                <x:ValidPrinterInfo />\n" +
+        "                            </x:Print>\n" +
+        "                        </x:WorksheetOptions>\n" +
+        "                    </x:ExcelWorksheet>\n" +
+        "                </x:ExcelWorksheets>\n" +
+        "            </x:ExcelWorkbook>\n" +
+        "        </xml>\n" +
+        "        <![endif]-->\n" + template +
+        "    </head>" +
+        "<body>" + tableid.outerHTML +
+        "</body></html>";
+    var blob = new Blob([html], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, fileName);
+}
+
+</script>
+</body>
+</html>

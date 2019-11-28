@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新建台账</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+    <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+    <style>
+        .layui-form-item{width: 32%;display: inline-block;}
+        .layui-form-label{padding-left: 0;width: 33%;}
+        .td_input{
+            width: 100%;
+            background-color: transparent;
+            border: none;
+        }
+        .layui-input-block{
+            margin-left: 10px;
+        }
+        .layui-form input[type=checkbox]{
+            display: block;
+        }
+        .layui-form-checkbox{
+            display: none;
+        }
+    </style>
+<body>
+<div class="layui-card" style="min-width: 200px;">
+    <div class="layui-card-body" style="width: 90%; margin-left: 5%;padding-top:3%;">
+        <div class="layui-collapse">
+            <form class="layui-form" style="padding-top:2%;" id="data1">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">工程号:</label>
+                    <div class="layui-input-inline" style="width: 60%;margin-right: 0;">
+                        <div class="layui-show-xs-block" style="display: flex;flex-direction: row;">
+                            <input type="text" name="project_id" autocomplete="off" class="layui-input" onchange="insertData(this.value)">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">工程名称:</label>
+                    <div class="layui-input-inline" style="width: 60%;margin-right: 0;">
+                        <div class="layui-show-xs-block" style="display: flex;flex-direction: row;">
+                            <input type="text" name="project_name" autocomplete="off" class="layui-input" id="project_name">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">发包人:</label>
+                    <div class="layui-input-inline" style="width: 60%;margin-right: 0;">
+                        <div class="layui-show-xs-block" style="display: flex;flex-direction: row;">
+                            <input type="text" name="project_contractor" autocomplete="off" class="layui-input" id="project_contractor">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">代建人:</label>
+                    <div class="layui-input-inline" style="width: 60%;margin-right: 0;">
+                        <div class="layui-show-xs-block" style="display: flex;flex-direction: row;">
+                            <input type="text" name="project_agent" autocomplete="off" class="layui-input" id="project_agent">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">已结算金额:</label>
+                    <div class="layui-input-inline" style="width: 60%;margin-right: 0;">
+                        <div class="layui-show-xs-block" style="display: flex;flex-direction: row;">
+                            <input type="text" name="sum_settled" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">免费金额:</label>
+                    <div class="layui-input-inline" style="width: 60%;margin-right: 0;">
+                        <div class="layui-show-xs-block" style="display: flex;flex-direction: row;">
+                            <input type="text" name="sum_free" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">分类:</label>
+                    <div class="layui-input-inline" style="width: 60%;margin-right: 0;">
+                        <select name="sort">
+                            <option value="施工图">施工图</option>
+                            <option value="初步">初步</option>
+                            <option value="制图">制图</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">日期:</label>
+                    <div class="layui-input-inline" style="width: 60%;margin-right: 0;">
+                        <div class="layui-show-xs-block" style="display: flex;flex-direction: row;">
+                            <input class="layui-input" autocomplete="off" name="date" id="date1" lay-key="3">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">份数:</label>
+                    <div class="layui-input-inline" style="width: 60%;margin-right: 0;">
+                        <div class="layui-show-xs-block" style="display: flex;flex-direction: row;">
+                            <input class="layui-input" autocomplete="off" name="sum_number" lay-key="3">
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: row;align-items: center;margin-left: 40px;">
+                               <label>加晒类型:</label>
+                    <div class="layui-input-block" onclick="clickRadio()">
+                        <input type="radio" name="li" id="type1" title="规格加晒" checked="">
+                        <input type="radio" name="li" title="自定义">
+                    </div>
+                        </div>
+                <!-- 规格加晒 -->
+                <div class="layui-collapse" lay-filter="test" style="margin-bottom: 10px;" id="tosunlist1" style="display: none;">
+                    <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">单体列表<i class="layui-icon layui-colla-icon"></i></h2>
+                    <div class="layui-colla-content" id="tosun">
+                        <!-- 加晒单体列表 -->
+                    </div>
+                    </div>
+                </div>
+                <!-- 自定义加晒 -->
+                <div class="layui-collapse" lay-filter="test" style="margin-bottom: 10px;" id="tosunlist2" style="display: none;">
+                    <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">自定义加晒<i class="layui-icon layui-colla-icon"></i></h2>
+                    <div class="layui-colla-content">
+                        <div style="display: flex;flex-direction: row;">
+                                <label style="padding:9px 10px;width: 70px;"><span class="x-red">*</span>单体名称:</label>
+                                <input type="text" autocomplete="off" name="one_entry_name" lay-verify="required" class="layui-input item_name" style="width: 80%;">
+                        </div>
+                        <div  class="layui-table-body layui-table-main" style="margin: 5px;">
+                            <form id="data2">
+                                <table class="layui-table layui-form" id="table">   
+                                    <thead>
+                                        <th>编号</th>
+                                        <th>图纸尺寸</th>
+                                        <th>蓝图数量</th>
+                                        <th>蓝图单价（元/张）</th>
+                                        <th>硫酸图数量</th>
+                                        <th>硫酸图单价（元/张）</th>
+                                        <th>文本制作数量</th>
+                                        <th>文本制作单价（元/张）</th>
+                                    </thead>
+                                    <tbody>
+                                        {volist name='orderList' id='vo'}
+                                        <tr class="text-c">
+                                            <td>{$vo.id}</td>
+                                            <td>{$vo.drawing_size}</td>
+                                            <td><input type="text" class="td_input" autocomplete="off" name="blueprint_{$vo.drawing_size}" onchange="showPrice(this.value, this.name, {$vo.drawing_blueprint})"></td>
+                                            <td><input type="text" class="td_input" autocomplete="off" id="blueprint_{$vo.drawing_size}" name="price_blueprint_{$vo.drawing_size}" onchange="changePrice(this.value,'blueprint_{$vo.drawing_size}')"></td>
+                                            <td><input type="text" class="td_input" autocomplete="off" name="sulphuric_acid_diagram_{$vo.drawing_size}" onchange="showPrice(this.value, this.name, {$vo.drawing_sulphuric_acid_diagram})"></td>
+                                            <td><input type="text" class="td_input" autocomplete="off" id="sulphuric_acid_diagram_{$vo.drawing_size}" name="price_sulphuric_acid_diagram_{$vo.drawing_size}" onchange="changePrice(this.value,'sulphuric_acid_diagram_{$vo.drawing_size}')"></td>
+                                            <td><input type="text" class="td_input" autocomplete="off" name="text_production_{$vo.drawing_size}" onchange="showPrice(this.value, this.name, {$vo.drawing_text_production})"></td>
+                                            <td><input type="text" class="td_input" autocomplete="off" id="text_production_{$vo.drawing_size}" name="price_text_production_{$vo.drawing_size}" onchange="changePrice(this.value,'text_production_{$vo.drawing_size}')"></td>
+                                        </tr>
+                                        {/volist}
+                                    </tbody>
+
+                                </table>
+                            </form>
+                    </div>
+                    </div>
+                    <div><p style="text-align: left;">合计: <span id="summary" style="margin-left:10px;">0</span>元</p></div>
+                    </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="layui-form-item" style="width: 100%;margin: 0;">
+                <button class="layui-btn" style="float: right;" lay-filter="add" lay-submit>新增加晒记录</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
+<script>
+
+layui.use(['form'], function(){
+    $ = layui.jquery;
+    var form = layui.form;
+      //监听提交
+    form.on('submit(add)',
+    function() {
+        var data = $('#data1').serialize();
+        // console.log(data);
+       var tosunCheckList = document.getElementsByClassName("tosunCheck");
+       var entry_name = document.getElementsByClassName("entry_name");
+       var checklist = '';
+       for (var i = 0; i < tosunCheckList.length; i++) {
+            if (tosunCheckList[i].checked) {
+                checklist +=("*"+ entry_name[i].value);
+            }
+       }
+
+       data = data+'&entry_name='+checklist+'&flag='+localStorage.flag+'&sum='+localStorage.sum;
+        // console.log($('#newContract td[drawplan_project1]').val());
+        // console.log($("td[name='drawplan_project1']").val());
+        $.ajax({
+        //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "{:url('index/addslideshow')}",//url
+            data: data,
+            success: function (result) {
+                console.log(result);//打印服务端返回的数据(调试用)
+                if (result.status == 200) {
+                    // alert("SUCCESS");
+                    layer.alert("新增加晒记录成功",
+                    function() {
+                        xadmin.close();
+                        xadmin.father_reload();
+                    });
+                }
+                else
+                    alert("新增加晒记录失败!");
+            },
+            error : function(result) {
+                console.log(result.status);
+               if (result.status == 200) {
+                    // alert("SUCCESS");
+                    layer.alert("新增加晒记录成功",
+                    function() {
+                        xadmin.close();
+                        xadmin.father_reload();
+                    });
+                }
+                else
+                    alert("异常!");
+            }
+        });
+        return false;
+    });
+});
+
+this.clickRadio();
+function clickRadio(){
+    var type1 = document.getElementById("type1");
+    if(type1.checked){
+        console.log("规格加晒");
+        document.getElementById("tosunlist1").style.display="block";
+        document.getElementById("tosunlist2").style.display="none";
+        localStorage.flag = 0;
+    }
+    else{
+        console.log("自定义加晒");
+        document.getElementById("tosunlist2").style.display="block";
+        document.getElementById("tosunlist1").style.display="none";
+        localStorage.flag = 1;
+    }
+}
+function chooseIt(value){
+    var select = document.getElementsByClassName("layui-input layui-unselect")[1];
+    select.value = value;
+}
+function insertData(value){
+    var project_agent =document.getElementById('project_agent');
+    var project_contractor =document.getElementById('project_contractor');
+    var project_name =document.getElementById('project_name');
+    var tosun =document.getElementById('tosun');
+
+    $.ajax({
+            type: "POST",
+            url: "{:url('index/insertDataWithItem')}",
+            data: "value="+value,
+            success: function (result) {
+                if (result.status == 1) {
+                    project_agent.value = result.project_agent;
+                    project_contractor.value = result.project_contractor;
+                    project_name.value = result.project_name;
+                    // console.log(result.names);
+                    var list =[];
+                    for (var i =0 ; i <result.names.length; i++) {
+                        // conentList[2].innerHTML+='<dd onclick="console.log(1234)" lay-value="'+result.names[i].entry_name+'" class>'+result.names[i].entry_name+'</dd>';
+                        // list.push(result.names[i].entry_name);
+                        // conent.innerHTML +='<option value="'+result.names[i].entry_name+'">'+result.names[i].entry_name+'</option>';
+                        tosun.innerHTML+='<div style="display: flex;flex-direction: row;align-items: center;margin-bottom: 5px;" id="tosun"><input class="tosunCheck" type="checkbox" name="tosunCheck'+i+'"><input type="text" class="layui-input entry_name" disabled="true" value="'+result.names[i].entry_name+'" name="select'+i+'"></div>';
+                    }
+                    // localStorage.list = result.names;
+                    // var test = JSON.parse(localStorage.list);
+                    // console.log( eval("(" + localStorage.list + ")"));
+                    // console.log(localStorage.list[0].entry_name);
+                    // console.log(list);
+                    return list;
+                    // namelist = list;
+                }
+            },
+            error : function() {
+                console.log(555);
+                // alert("异常！");
+            }
+        });
+    return false;
+}
+var data = [];
+function showPrice(value, name, price) {
+    var sum = 0;
+    document.getElementById(name).value = price;
+    data[name] = parseFloat(value)*parseFloat(price);
+    for(var item in data){
+        sum += data[item];
+    }
+    document.getElementById('summary').innerText = sum;
+    localStorage.sum = sum;
+}
+
+function changePrice(price, name) {
+    var sum = 0;
+    document.getElementById(name).value = price;
+    var value = $('input[name='+name+']').val();
+    console.log(value);
+    data[name] = parseFloat(value)*parseFloat(price);
+    for(var item in data){
+        sum += data[item];
+    }
+    document.getElementById('summary').innerText = sum;
+    localStorage.sum = sum;
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>客户信息编辑页</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/newcontract.css" />
+    <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+
+<body>
+<div class="layui-card">
+    <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">客户详情编辑<i class="layui-icon layui-colla-icon"></i></h2>
+                <div class="layui-colla-content layui-show">
+                    <form id="customer" class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">工程号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_id" autocomplete="off" class="layui-input" value="{$orderList['project_id']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">项目名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="project_name" autocomplete="off" class="layui-input" value="{$orderList['project_name']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">单位名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="customer_company" autocomplete="off" class="layui-input" value="{$orderList['customer_company']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">部门</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="customer_department" autocomplete="off" class="layui-input" value="{$orderList['customer_department']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">分工</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="customer_division" autocomplete="off" class="layui-input" value="{$orderList['customer_division']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">姓名</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="customer_name" autocomplete="off" class="layui-input" value="{$orderList['customer_name']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">职位</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="customer_position" autocomplete="off" class="layui-input" value="{$orderList['customer_position']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">电话</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="customer_phone" autocomplete="off" class="layui-input" value="{$orderList['customer_phone']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">手机</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="customer_mobile" autocomplete="off" class="layui-input" value="{$orderList['customer_mobile']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">微信</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="customer_wechat" autocomplete="off" class="layui-input" value="{$orderList['customer_wechat']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">QQ</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="customer_QQ" autocomplete="off" class="layui-input" value="{$orderList['customer_QQ']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">邮箱</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="customer_email" autocomplete="off" class="layui-input" value="{$orderList['customer_email']}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">备注</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="customer_remarks" autocomplete="off" class="layui-input" value="{$orderList['customer_remarks']}">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="layui-input-block">
+                        <button class="layui-btn" onclick="deleteThis()" style="background-color: #F4592E;">删除当前数据</button>
+                        <button class="layui-btn" onclick="submitCustomer()">确认修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+     function submitCustomer (){
+
+        $.ajax({
+            //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "{:url('index/customerEditComplete')}",//url
+                data: $('#customer').serialize(),
+                success:function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result.status == 1) {
+                        xadmin.close();
+                        xadmin.father_reload();
+                        alert("SUCCESS");
+                    }
+                    else
+                        alert(result.message);
+                },
+                error:function() {
+                    alert("异常！");
+                }
+            });
+    }
+
+function deleteThis() {
+   console.log({$orderList['customer_name']});
+
+    layer.alert("您确定要删除当前合同的所有数据吗？",
+        function() {
+            $.ajax({
+            type: "post",
+            url: "{:url('index/CustomerDel')}",
+            data:"customer_name="+{$orderList["customer_name"]}+"&project_id="+{$orderList["project_id"]},
+            success: function (data) {
+                  layer.alert("删除成功！",
+                function() {
+                    xadmin.close();
+                    xadmin.father_reload();
+                });
+            },
+            error: function(data) {
+                alert("error:"+data.message);
+             }
+         });
+        
+        });
+}
+</script>
+</body>
+</html>

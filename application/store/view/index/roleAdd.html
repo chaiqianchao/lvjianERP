@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+<meta charset="UTF-8">
+<title>新增员工</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+<link rel="stylesheet" href="__STATIC__/css/font.css">
+<link rel="stylesheet" href="__STATIC__/css/xadmin.css">
+<script type="text/javascript" src="__STATIC__/lib/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>姓名
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="name" name="name" required="" lay-verify="name" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>用户名
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="administrators_name" required="" lay-verify="name" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>密码
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="administrators_password" required="" lay-verify="pass" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>是否启用为管理员
+                </label>
+                <div class="layui-input-inline">
+                    <select name="enable">
+                      <option value="1">是</option>
+                      <option value="0">否</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+              <label for="phone" class="layui-form-label">
+                  <span class="x-red">*</span>电话
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="phone" name="phone" required="" lay-verify="phone" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span></span>手机1
+                </label>
+                <div class="layui-input-inline">
+                     <input type="text" id="staff_telphole_1" name="staff_telphole_1"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span></span>手机2
+                </label>
+                <div class="layui-input-inline">
+                     <input type="text" id="staff_telphole_2" name="staff_telphole_2" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span></span>分机
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="extension" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>职务
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="position" required="" lay-verify="required"
+                    autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>部门
+                </label>
+                <div class="layui-input-inline">
+                    <select name="department">
+                      <option value="院长室">院长室</option>
+                      <option value="建筑一所">建筑一所</option>
+                      <option value="建筑二所">建筑二所</option>
+                      <option value="结构所">结构所</option>
+                      <option value="设备所">设备所</option>
+                      <option value="景观所">景观所</option>
+                      <option value="工业化所">工业化所</option>
+                      <option value="内装">内装</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>状态
+                </label>
+                <div class="layui-input-inline">
+                    <select name="status">
+                      <option value="在职">在职</option>
+                      <option value="离职">离职</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span></span>短号
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="shortmobile" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>执业资格
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="practising" autocomplete="off" class="layui-input" lay-verify="required">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span></span>职称
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="staff_title" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span></span>QQ
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="QQ" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span></span>微信
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="wechat" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span></span>钉钉
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="staff_dingding" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span></span>邮箱
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="staff_email" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span></span>其他
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="staff_other" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+              <div class="layui-form-item">
+                  <label for="L_repass" class="layui-form-label">
+                  </label>
+                  <button  class="layui-btn" lay-filter="add" lay-submit>增加</button>
+              </div>
+        </form>
+    </div>
+</div>
+<script>
+layui.use(['form','layer'], function(){
+    $ = layui.jquery;
+    var form = layui.form
+    ,layer = layui.layer;
+
+    // 自定义验证规则
+    form.verify({
+        name: function(value){
+          if(value.length < 2){
+            return '至少需要2个字符啊';
+          }
+        }
+    });
+
+    //监听提交
+    form.on('submit(add)',
+    function() {
+        var data = $('.layui-form').serialize();
+        $.ajax({
+            type: "get",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "{:url('index/StaffAdd')}",//url
+            data: data,
+            success: function (result) {
+                console.log(result);//打印服务端返回的数据(调试用)
+                if (result.status == 1) {
+                    alert("SUCCESS");
+                    xadmin.close();
+                    xadmin.father_reload();
+                }
+                else
+                    alert("添加员工失败!");
+            },
+            error : function() {
+                alert("异常！");
+            }
+        });
+        return false;
+    });
+});
+
+</script>
+<script>var _hmt = _hmt || []; (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();</script>
+</body>
+
+</html>
