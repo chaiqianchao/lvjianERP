@@ -813,7 +813,7 @@ class Index extends Controller
         $data = $request -> param();
         $result = Db::table('green_bid')
             ->where([
-                'project_id'=>$data['project_id'],
+                'toubiao_id'=>$data['toubiao_id'],
             ])
             ->update([
                 $data['column'].''=>$data['content'],
@@ -844,10 +844,10 @@ class Index extends Controller
                 'deposite_payment_amount'=>$data['payment_amount'],
             ]);
         $res1=Db::table('green_biddeposite')
-            ->where('project_id',$data['id'])
+            ->where('toubiao_id',$data['id'])
             ->sum('deposite_payment_amount');
         Db::table('green_bid')
-            ->where('project_id',$data['id'])
+            ->where('toubiao_id',$data['id'])
             ->update(['bid_deposite'=>$res1]);
         if (null!=$result) {
             return ['status'=>1, 'message'=>'更新成功'];
@@ -874,10 +874,10 @@ class Index extends Controller
                 'compensation_payment_amount'=>$data['payment_amount'],
             ]);
         $res1=Db::table('green_bidcompensation')
-            ->where('project_id',$data['id'])
+            ->where('toubiao_id',$data['id'])
             ->sum('compensation_payment_amount');
         Db::table('green_bid')
-            ->where('project_id',$data['id'])
+            ->where('toubiao_id',$data['id'])
             ->update(['bid_compensation'=>$res1]);
         if (null!=$result) {
             return ['status'=>1, 'message'=>'更新成功'];
@@ -895,7 +895,7 @@ class Index extends Controller
         }
         $result = Db::table('green_bidphase')
             ->where([
-                'project_id'=>$data['project_id'],
+                'toubiao_id'=>$data['toubiao_id'],
             ])
             ->update([
                 $data['column'].''=>$data['content'],
@@ -2603,18 +2603,18 @@ else{
         $limit=Db::table('green_administrators')->where('staff_id',$sid)->value("bid");
         $this -> view -> assign('limit', $limit);
         //获取到要编辑的工程号
-        $project_id = $request -> param('id');
-        $data=['project_id'=>$project_id];
+        $toubiao_id = $request -> param('id');
+        $data=['toubiao_id'=>$toubiao_id];
 
         //根据ID和手机号进行查询
-        $result =GreenBid::get($data);
+        $result =Db::table('green_bid')->where($data)->select();
         $result1 =Db::table('green_bidcompensation')->where($data)->select();
 
         $result2 =Db::table('green_biddeposite')->where($data)->select();
         $result3 =GreenBidphase::get($data);
         // $result4 =GreenBidtype::get($data);
         // dump($result3);
-        $this->view->assign('BidList',$result);
+        $this->view->assign('BidList',$result[0]);
 
         //给当前编辑模板赋值
         $this->view->assign('deposite',$result2);
@@ -2813,6 +2813,11 @@ else{
                 'bid_isbid'=>$data['bid_isbid'],
                 'bid_progress'=>$data['bid_progress'],
                 'bid_type'=>$data['bid_type'],
+                'toubiao_above'=>$data['toubiao_above'],
+                'toubiao_under'=>$data['toubiao_under'],
+                'toubiao_amount'=>$data['toubiao_amount'],
+                'toubiao_address'=>$data['toubiao_address'],
+                'toubiao_other'=>$data['toubiao_other'],
                 // 'bid_deposite'=>null,
                 // 'bid_compensation'=>null,
                 'bid_contractor_mobile'=>$data['bid_contractor_mobile'],
@@ -3853,10 +3858,10 @@ else{
     //删除招投标
     public function  BidDel(Request $request){
         $data=$request->param();
-        $res=Db::table('green_bid')->where('project_id',$data['project_id'])->delete();
-        $res1=Db::table('green_bidcompensation')->where('project_id',$data['project_id'])->delete();
-        $res2=Db::table('green_biddeposite')->where('project_id',$data['project_id'])->delete();
-        $res3=Db::table('green_bidphase')->where('project_id',$data['project_id'])->delete();
+        $res=Db::table('green_bid')->where('toubiao_id',$data['toubiao_id'])->delete();
+        $res1=Db::table('green_bidcompensation')->where('toubiao_id',$data['toubiao_id'])->delete();
+        $res2=Db::table('green_biddeposite')->where('toubiao_id',$data['toubiao_id'])->delete();
+        $res3=Db::table('green_bidphase')->where('toubiao_id',$data['toubiao_id'])->delete();
 
         if ($res == null||$res1 == null||$res2==null||$res3==null) {
             $status = 0;

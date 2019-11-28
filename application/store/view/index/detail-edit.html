@@ -110,8 +110,8 @@ $('#submit').click(function() {
 		case 'confirmEdit': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/confirmEdit')}",{confirm_id:value[0], invoice_date:content[0], invoice_amount:content[1], payment_date:content[2],payment_amount:content[3],confirm_drawer:content[4],confirm_applicant:content[5]});break;
 		case 'paymentEdit': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/paymentEdit')}",{id:value[0], ledgernode_paymentratio:content[0], ledgernode_payment:content[1], ledgernode_require:content[2], ledgernode_status:content[3], payment_amount:content[3],confirm_drawer:content[3]});break;
 		//招投标
-		case 'bidListEdit': $.get("{:url('index/bidListEdit')}",{project_id:value[0], column: value[1], content:content});break;
-		case 'bidDateEdit': $.get("{:url('index/bidListEdit')}",{project_id:value[0], column: value[1], content:content});break;
+		case 'bidListEdit': $.get("{:url('index/bidListEdit')}",{toubiao_id:value[0], column: value[1], content:content});break;
+		case 'bidDateEdit': $.get("{:url('index/bidListEdit')}",{toubiao_id:value[0], column: value[1], content:content});break;
 		case 'depositeEdit': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/depositeEdit')}",{id:value[0], invoice_date:content[0], invoice_amount:content[1], payment_date:content[2], payment_amount:content[3]});break;
 		case 'compensationEdit': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/compensationEdit')}",{id:value[0], invoice_date:content[0], invoice_amount:content[1], payment_date:content[2], payment_amount:content[3]});break;
 		case 'bidPhaseEdit': $.get("{:url('index/bidPhaseEdit')}",{project_id:value[0], column: value[1], content:content});break;

@@ -70,7 +70,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span class="x-red">*</span>资格预审时间</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="bid_pretrial_date" autocomplete="off" id="start" class="layui-input">
+                                    <input type="text" placeholder="日期" name="bid_pretrial_date" autocomplete="off" id="start" class="layui-input">
                                 </div>
                             </div>
                         </div>
@@ -138,6 +138,57 @@
                                         <li class="chechboxes">
                                             <input type="radio" name="bid_type" class="classify" lay-skin="primary" value="其他"/>其他</li>
                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="layui-collapse" lay-filter="test">
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">工程概况<i class="layui-icon layui-colla-icon"></i></h2>
+                                <div class="layui-colla-content">
+                                    <table class="layui-table">
+                                        <tbody>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">地上面积</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" name="toubiao_above" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">地下面积</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" name="toubiao_under" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">投资额</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" name="toubiao_amount" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">地址</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" name="toubiao_address" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">其他</label>
+                                                    <div class="layui-input-inline">
+                                                        <input type="text" name="toubiao_other" autocomplete="off" class="layui-input">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -428,13 +479,16 @@ layui.use(['form'], function(){
                 url: "{:url('index/BidAdd')}",//url
                 data: data,
                 success: function (result) {
-                    console.log(result);//打印服务端返回的数据(调试用)
                     if (result.status == 1) {
-                        localStorage.removeItem("addanother");
-                        alert("SUCCESS");
-                    }
-                    else
-                        alert(result.message);
+                    localStorage.removeItem("addanother");
+                    layer.alert("新增招投标项目成功",
+                    function() {
+                        xadmin.close();
+                        xadmin.father_reload();
+                    });
+                }
+                else
+                    alert(result.message);
                 },
                 error : function() {
                     alert("异常！");

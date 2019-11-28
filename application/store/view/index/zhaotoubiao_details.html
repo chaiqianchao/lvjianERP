@@ -30,7 +30,7 @@
 		                        <tbody>
 		                            <tr>
 		                                <th>工程号</th>
-		                                <td>&nbsp;{$BidList['project_id']}</td>
+		                                <td>&nbsp;{$BidList['toubiao_id']}</td>
 		                                <td></td>
 		                                </tr>
 		                            <tr>
@@ -38,7 +38,7 @@
 		                                <td>{$BidList['project_name']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.project_id}','project_name','项目名称','{$BidList.project_name}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','project_name','项目名称','{$BidList.project_name}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -47,7 +47,7 @@
 		                                <td>{$BidList['bid_content']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.project_id}','bid_content','招标内容','{$BidList.bid_content}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_content','招标内容','{$BidList.bid_content}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -56,7 +56,7 @@
 		                                <td>{$BidList['project_constructor']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.project_id}','project_constructor','建设方','{$BidList.project_constructor}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','project_constructor','建设方','{$BidList.project_constructor}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -65,7 +65,7 @@
 		                                <td>{$BidList['project_agent']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.project_id}','project_agent','代建方','{$BidList.project_agent}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','project_agent','代建方','{$BidList.project_agent}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -74,7 +74,7 @@
 		                                <td>{$BidList['bid_pretrial_date']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.project_id}','bid_pretrial_date','资格预审时间','{$BidList.bid_pretrial_date}','bidDateEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_pretrial_date','资格预审时间','{$BidList.bid_pretrial_date}','bidDateEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -83,7 +83,7 @@
 		                                <td>{$BidList['bid_ispretrial']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.project_id}','bid_ispretrial','是否通过预审','{$BidList.bid_ispretrial}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_ispretrial','是否通过预审','{$BidList.bid_ispretrial}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -92,7 +92,7 @@
 		                                <td>{$BidList['bid_date']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.project_id}','bid_date','招标时间','{$BidList.bid_date}','bidDateEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_date','招标时间','{$BidList.bid_date}','bidDateEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -101,7 +101,7 @@
 		                                <td>{$BidList['bid_isbid']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.project_id}','bid_isbid','是否中标','{$BidList.bid_isbid}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_isbid','是否中标','{$BidList.bid_isbid}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -110,7 +110,52 @@
 		                                <td>{$BidList['bid_type']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.project_id}','bid_type','投标类型','{$BidList.bid_type}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_type','投标类型','{$BidList.bid_type}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>地上面积</th>
+		                                <td>{$BidList['toubiao_above']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','toubiao_above','地上面积','{$BidList.toubiao_above}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>地下面积</th>
+		                                <td>{$BidList['toubiao_under']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','toubiao_under','地下面积','{$BidList.toubiao_under}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>投资额</th>
+		                                <td>{$BidList['toubiao_amount']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','toubiao_amount','投资额','{$BidList.toubiao_amount}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>地址</th>
+		                                <td>{$BidList['toubiao_address']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','toubiao_address','地址','{$BidList.toubiao_address}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>其他</th>
+		                                <td>{$BidList['toubiao_other']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','toubiao_other','其他','{$BidList.toubiao_other}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -119,7 +164,7 @@
 		                                <td>{$BidList['bid_contractor_mobile']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.project_id}','bid_contractor_mobile','发包人联系方式','{$BidList.bid_contractor_mobile}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_contractor_mobile','发包人联系方式','{$BidList.bid_contractor_mobile}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -128,7 +173,7 @@
 		                                <td>{$BidList['bid_agent_mobile']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.project_id}','bid_agent_mobile','招标代理人联系式方','{$BidList.bid_agent_mobile}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_agent_mobile','招标代理人联系式方','{$BidList.bid_agent_mobile}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -137,7 +182,7 @@
 		                                <td>{$BidList['bid_remarks']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.project_id}','bid_remarks','备注','{$BidList.bid_remarks}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_remarks','备注','{$BidList.bid_remarks}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -155,8 +200,8 @@
 		                    <table class="layui-table" id="table2">
 		                    	<tbody style="position: absolute;">
                             <tr style="visibility: hidden ;">
-                                <th>工程号</th>
-                                <td colspan="4">&nbsp;{$BidList["project_id"]}</td>
+                                <th>投标号</th>
+                                <td colspan="4">&nbsp;{$BidList["toubiao_id"]}</td>
                             </tr>
                             <tr style="visibility: hidden ;">
                                 <th>工程名称</th>
@@ -171,7 +216,7 @@
 		                                <th>到账金额</th>
 		                                <th>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.project_id}','','','','depositeAdd')"><i class="layui-icon"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','','','','depositeAdd')"><i class="layui-icon"></i></a>
 		                                	{/if}
 		                                </th>
 		                            </tr>
@@ -202,8 +247,8 @@
 		                    <table class="layui-table" id="table3">
 							<tbody style="position: absolute;">
                             <tr style="visibility: hidden ;">
-                                <th>工程号</th>
-                                <td colspan="4">&nbsp;{$BidList["project_id"]}</td>
+                                <th>投标号</th>
+                                <td colspan="4">&nbsp;{$BidList["toubiao_id"]}</td>
                             </tr>
                             <tr style="visibility: hidden ;">
                                 <th>工程名称</th>
@@ -218,7 +263,7 @@
 		                                <th>到账金额</th>
 		                                <th>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.project_id}','','','','compensationAdd')"><i class="layui-icon"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','','','','compensationAdd')"><i class="layui-icon"></i></a>
 		                                	{/if}
 		                                </th>
 		                            </tr>
@@ -249,8 +294,8 @@
 		                    <table class="layui-table" id="table4">
 		                    	<tbody style="position: absolute;">
                             <tr style="visibility: hidden ;">
-                                <th>工程号</th>
-                                <td colspan="4">&nbsp;{$BidList["project_id"]}</td>
+                                <th>投标号</th>
+                                <td colspan="4">&nbsp;{$BidList["toubiao_id"]}</td>
                             </tr>
                             <tr style="visibility: hidden ;">
                                 <th>工程名称</th>
@@ -263,7 +308,7 @@
 		                                <td>{$phase['bidphase_phase1']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$phase.project_id}','bidphase_phase1','预审完成','{$phase.bidphase_phase1}','bidPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$phase.toubiao_id}','bidphase_phase1','预审完成','{$phase.bidphase_phase1}','bidPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -272,7 +317,7 @@
 		                                <td>{$phase['bidphase_phase2']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$phase.project_id}','bidphase_phase2','投标完成','{$phase.bidphase_phase2}','bidPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$phase.toubiao_id}','bidphase_phase2','投标完成','{$phase.bidphase_phase2}','bidPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -281,7 +326,7 @@
 		                                <td>{$phase['bidphase_phase3']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$phase.project_id}','bidphase_phase3','公示完成','{$phase.bidphase_phase3}','bidPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$phase.toubiao_id}','bidphase_phase3','公示完成','{$phase.bidphase_phase3}','bidPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -290,7 +335,7 @@
 		                                <td>{$phase['bidphase_phase4']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$phase.project_id}','bidphase_phase4','合同签订','{$phase.bidphase_phase4}','bidPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$phase.toubiao_id}','bidphase_phase4','合同签订','{$phase.bidphase_phase4}','bidPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -299,7 +344,7 @@
 		                                <td>{$phase['bidphase_phase5']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$phase.project_id}','bidphase_phase5','已结算','{$phase.bidphase_phase5}','bidPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$phase.toubiao_id}','bidphase_phase5','已结算','{$phase.bidphase_phase5}','bidPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -325,13 +370,13 @@ function member_edit(id, column, chinese, content, type) {
 }
 
 function deleteThis() {
-   console.log("项目id为："+{$BidList['project_id']});
+   console.log("项目id为："+{$BidList['toubiao_id']});
     layer.alert("您确定要删除当前招投标项目的所有数据吗？",
         function() {
             $.ajax({
             type: "post",
             url: "{:url('index/BidDel')}",
-            data:"project_id="+{$BidList['project_id']},
+            data:"toubiao_id="+{$BidList['toubiao_id']},
             success: function (data) {
                   layer.alert("删除成功！",
                 function() {
