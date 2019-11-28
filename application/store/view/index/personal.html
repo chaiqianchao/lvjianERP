@@ -93,7 +93,7 @@
                                   </td>
                                   {if condition="$limit eq 2"}
                                   <td class="td-manage">
-                                    <a onclick="member_stop(this, {$vo.staff_id})" href="javascript:;"  title="启用">
+                                    <a onclick="member_stop(this, {$vo.staff_id})" href="javascript:;"  title="停用">
                                       <i class="layui-icon">&#xe601;</i>
                                     </a>
                                      <a onclick="del_person({$vo.staff_id})" href="javascript:;"  title="删除员工">
@@ -107,7 +107,7 @@
                                   </td>
                                   {if condition="$limit eq 2"}
                                   <td class="td-manage">
-                                    <a onclick="member_stop(this, {$vo.staff_id})" href="javascript:;" title="停用">
+                                    <a onclick="member_stop(this, {$vo.staff_id})" href="javascript:;" title="启用">
                                       <i class="layui-icon">&#xe62f;</i>
                                     </a>
                                     <a onclick="del_person({$vo.staff_id})" href="javascript:;"  title="删除员工">
