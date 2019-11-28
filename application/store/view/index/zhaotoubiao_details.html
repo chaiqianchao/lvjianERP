@@ -216,7 +216,7 @@
 		                                <th>到账金额</th>
 		                                <th>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','','','','depositeAdd')"><i class="layui-icon"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','','','','depositeAdd')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </th>
 		                            </tr>
@@ -263,7 +263,7 @@
 		                                <th>到账金额</th>
 		                                <th>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','','','','compensationAdd')"><i class="layui-icon"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','','','','compensationAdd')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </th>
 		                            </tr>
@@ -368,7 +368,6 @@ function member_edit(id, column, chinese, content, type) {
 	console.log(content);
 	xadmin.open('详情修改', url);
 }
-
 function deleteThis() {
    console.log("项目id为："+{$BidList['toubiao_id']});
     layer.alert("您确定要删除当前招投标项目的所有数据吗？",

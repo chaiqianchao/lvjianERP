@@ -3876,13 +3876,7 @@ else{
     //删除补偿费一条
     public function  CompensationDel(Request $request){
         $data=$request->param();
-        $res=Db::table('green_bidcompensation')->where(['project_id'=>$data['project_id'],'id'=>$data['id']])->delete();
-        $res1=Db::table('green_bidcompensation')
-            ->where('project_id',$data['project_id'])
-            ->sum('compensation_payment_amount');
-        Db::table('green_bid')
-            ->where('project_id',$data['project_id'])
-            ->update(['bid_compensation'=>$res1]);
+        $res=Db::table('green_bidcompensation')->where(['id'=>$data['id']])->delete();
         if ($res == null) {
             $status = 0;
             $message = '删除失败~~';
@@ -3896,13 +3890,13 @@ else{
     //删除保证金一条
     public function  DepositeDel(Request $request){
         $data=$request->param();
-        $res=Db::table('green_biddeposite')->where(['project_id'=>$data['project_id'],'id'=>$data['id']])->delete();
-        $res1=Db::table('green_biddeposite')
-            ->where('project_id',$data['project_id'])
-            ->sum('deposite_payment_amount');
-        Db::table('green_bid')
-            ->where('project_id',$data['project_id'])
-            ->update(['bid_deposite'=>$res1]);
+        $res=Db::table('green_biddeposite')->where(['id'=>$data['id']])->delete();
+        // $res1=Db::table('green_biddeposite')
+        //     ->where('project_id',$data['project_id'])
+        //     ->sum('deposite_payment_amount');
+        // Db::table('green_bid')
+        //     ->where('project_id',$data['project_id'])
+        //     ->update(['bid_deposite'=>$res1]);
         if ($res == null) {
             $status = 0;
             $message = '删除失败~~';
@@ -4030,17 +4024,17 @@ else{
         }
         $res=Db::table('green_bidcompensation')
             ->insert([
-                'project_id'=>$data['project_id'],
+                'toubiao_id'=>$data['toubiao_id'],
                 'compensation_invoice_date'=>$data['compensation_invoice_date'],
                 'compensation_invoice_amount'=>$data['compensation_invoice_amount'],
                 'compensation_payment_date'=>$data['compensation_payment_date'],
                 'compensation_payment_amount'=>$data['compensation_payment_amount'],
             ]);
         $res1=Db::table('green_bidcompensation')
-            ->where('project_id',$data['project_id'])
+            ->where('toubiao_id',$data['toubiao_id'])
             ->sum('compensation_payment_amount');
         Db::table('green_bid')
-            ->where('project_id',$data['project_id'])
+            ->where('toubiao_id',$data['toubiao_id'])
             ->update(['bid_compensation'=>$res1]);
         if ($res === null) {
             $status = 0;
@@ -4064,17 +4058,17 @@ else{
         }
         $res=Db::table('green_biddeposite')
             ->insert([
-                'project_id'=>$data['project_id'],
+                'toubiao_id'=>$data['toubiao_id'],
                 'deposite_invoice_date'=>$data['deposite_invoice_date'],
                 'deposite_invoice_amount'=>$data['deposite_invoice_amount'],
                 'deposite_payment_date'=>$data['deposite_payment_date'],
                 'deposite_payment_amount'=>$data['deposite_payment_amount'],
             ]);
         $res1=Db::table('green_biddeposite')
-            ->where('project_id',$data['project_id'])
+            ->where('toubiao_id',$data['toubiao_id'])
             ->sum('deposite_payment_amount');
         Db::table('green_bid')
-            ->where('project_id',$data['project_id'])
+            ->where('toubiao_id',$data['toubiao_id'])
             ->update(['bid_deposite'=>$res1]);
         if ($res === null) {
             $status = 0;

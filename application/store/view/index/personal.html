@@ -145,11 +145,8 @@ function del_person(id){
             data:"staff_id="+id,
             success: function (result) {
               console.log("成功");
-                // document.body.innerHTML=result;
-                // document.getElementById("searchInput").value=localStorage.content;
-                // localStorage.removeItem('content');
                 layer.msg('已删除',{icon: 5,time:1000});
-                layer.reload();
+                layer.father_reload();
             },
             error: function(data) {
                 alert("error:"+data.responseText);
