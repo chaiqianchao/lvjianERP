@@ -3967,7 +3967,7 @@ else{
         return ['status'=>$status, 'message'=>$message];
     }
     //删除客户
-    public function  CustomerDel(Request $request){
+    public function CustomerDel(Request $request){
         $data=$request->param();
         $res=Db::table('green_customer')->where(['project_id'=>$data['project_id'],'customer_name'=>$data['customer_name']])->delete();
         if ($res == null) {

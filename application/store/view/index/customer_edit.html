@@ -161,14 +161,13 @@
     }
 
 function deleteThis() {
-   console.log({$orderList['customer_name']});
 
-    layer.alert("您确定要删除当前合同的所有数据吗？",
+    layer.alert("您确定要删除当前客户的所有数据吗？",
         function() {
             $.ajax({
             type: "post",
             url: "{:url('index/CustomerDel')}",
-            data:"customer_name="+{$orderList["customer_name"]}+"&project_id="+{$orderList["project_id"]},
+            data:"customer_name="+'{$orderList["customer_name"]}'+"&project_id="+'{$orderList["project_id"]}',
             success: function (data) {
                   layer.alert("删除成功！",
                 function() {
