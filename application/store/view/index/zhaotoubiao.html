@@ -145,7 +145,7 @@
                         <tbody>
                             {volist name='orderList' id='vo'}
                             <tr class="text-c">
-                                <td>{$vo.project_id}</td>
+                                <td>{$vo.toubiao_id}</td>
                                 <td>{$vo.bid_content}</td>
                                 <td>{$vo.bid_deposit}</td>
                                 <td>{$vo.bid_compensation}</td>
@@ -158,7 +158,7 @@
             <td>{$.invoice_amount}</td>
             <td>{$.payment_date}</td>
             <td>{$.payment_amount}</td> -->
-                                <td><a href="" onclick="detail_show(this,'{:url("index/zhaotoubiao_details",["id"=>$vo["project_id"]])}')">点击详情 </a> </td> </tr> {/volist} </tbody> </table> <!-- 显示分页按钮,事先要将bootstrap导入css和js -->
+                                <td><a href="" onclick="detail_show(this,'{:url("index/zhaotoubiao_details",["id"=>$vo["toubiao_id"]])}')">点击详情 </a> </td> </tr> {/volist} </tbody> </table> <!-- 显示分页按钮,事先要将bootstrap导入css和js -->
                                         <div class="container" style="width: 100%;background-color: #fff;">
                                             <div class="row">
                                                 <div class="col-md-2"></div>

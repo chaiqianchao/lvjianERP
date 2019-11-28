@@ -26,9 +26,9 @@
                     <form id="newContract" class="layui-form" action="">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label"><span class="x-red">*</span>工程号</label>
+                                <label class="layui-form-label"><span class="x-red">*</span>投标号</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="project_id" autocomplete="off" class="layui-input">
+                                    <input type="text" name="toubiao_id" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </div>
@@ -68,15 +68,15 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label">资格预审时间</label>
+                                <label class="layui-form-label"><span class="x-red">*</span>资格预审时间</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="bid_pretrial_date" autocomplete="off" class="layui-input">
+                                    <input type="text" name="bid_pretrial_date" autocomplete="off" id="start" class="layui-input">
                                 </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label">是否通过预审</label>
+                                <label class="layui-form-label"><span class="x-red">*</span>是否通过预审</label>
                                 <div class="layui-input-inline" id="type">
                                     <ul>
                                         <li class="chechboxes">
@@ -89,7 +89,7 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label">招标时间</label>
+                                <label class="layui-form-label"><span class="x-red">*</span>招标时间</label>
                                 <div class="layui-input-inline">
                                     <input class="layui-input" placeholder="日期" name="bid_date" id="date1" autocomplete="off">
                                 </div>
@@ -97,7 +97,7 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label">是否中标</label>
+                                <label class="layui-form-label"><span class="x-red">*</span>是否中标</label>
                                 <div class="layui-input-inline" id="type">
                                     <ul>
                                         <li class="chechboxes">
@@ -429,12 +429,12 @@ layui.use(['form'], function(){
                 data: data,
                 success: function (result) {
                     console.log(result);//打印服务端返回的数据(调试用)
-                    // if (result.status == 1) {
-                    //     localStorage.removeItem("addanother");
-                    //     alert("SUCCESS");
-                    // }
-                    // else
-                    //     alert("新建合同失败!");
+                    if (result.status == 1) {
+                        localStorage.removeItem("addanother");
+                        alert("SUCCESS");
+                    }
+                    else
+                        alert(result.message);
                 },
                 error : function() {
                     alert("异常！");

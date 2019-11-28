@@ -2631,18 +2631,18 @@ else{
     {
         $data = $requset -> param();
         $info=['bid_progress'=>$data['bid_progress'],'bid_type'=>$data['bid_type']];
-        $res[0]=['project_id'=>'','bid_content'=>'','bid_deposite'=>'','bid_compensation'=>'','bid_progress'=>'','bid_type'=>'','bid_pretrial_date'=>'','bid_date'=>''];
+        $res[0]=['toubiao_id'=>'','bid_content'=>'','bid_deposite'=>'','bid_compensation'=>'','bid_progress'=>'','bid_type'=>'','bid_pretrial_date'=>'','bid_date'=>''];
         $id=[];$idfo=[];
         if($data['type']=='开票未收款'){
             $id1=Db::table('green_biddeposite')
                 ->whereNotNull('deposite_invoice_date')
                 ->whereNull('deposite_payment_date')
-                ->field('project_id')
+                ->field('toubiao_id')
                 ->select();
             $id2=Db::table('green_bidcompensation')
                 ->whereNotNull('compensation_invoice_date')
                 ->whereNull('compensation_payment_date')
-                ->field('project_id')
+                ->field('toubiao_id')
                 ->select();
             $i=0;$j=0;
             foreach ($id1 as $k=>$v)
@@ -2663,19 +2663,19 @@ else{
                 }
             }
             foreach ($id as $k=>$v){
-                $idfo[$j++]=$v['project_id'];
+                $idfo[$j++]=$v['toubiao_id'];
             }
         }
         if($data['type']=='未开票未收款'){
             $id1=Db::table('green_biddeposite')
                 ->whereNull('deposite_invoice_date')
                 ->whereNull('deposite_payment_date')
-                ->field('project_id')
+                ->field('toubiao_id')
                 ->select();
             $id2=Db::table('green_bidcompensation')
                 ->whereNull('compensation_invoice_date')
                 ->whereNull('compensation_invoice_date')
-                ->field('project_id')
+                ->field('toubiao_id')
                 ->select();
             $i=0;
             foreach ($id1 as $k=>$v)
@@ -2697,7 +2697,7 @@ else{
                 }
             }
             foreach ($id as $k=>$v){
-                $idfo[$j++]=$v['project_id'];
+                $idfo[$j++]=$v['toubiao_id'];
             }
         }
         if($data['start1']&&$data['end1']&&$data['start2']==''&&$data['end2']=='')
@@ -2705,7 +2705,7 @@ else{
             //资格预审时间
             $res=Db::table('green_bid')
                 ->where($info)
-                ->where('project_id','IN',$idfo)
+                ->where('toubiao_id','IN',$idfo)
                 ->where('bid_pretrial_date','BETWEEN',[$data['start1'],$data['end1']])
                 ->order("bid_date desc")
                     ->select();
@@ -2716,7 +2716,7 @@ else{
             //招标时间
             $res= Db::table('green_bid')
                 ->where($info)
-                ->where('project_id','IN',$idfo)
+                ->where('toubiao_id','IN',$idfo)
                 ->where('bid_date', 'BETWEEN', [$data['start2'], $data['end2']])
                 ->order("bid_date desc")
 //                ->select();
@@ -2727,7 +2727,7 @@ else{
             //资格预审时间+招标时间
             $res= Db::table('green_bid')
                 ->where($info)
-                ->where('project_id','IN',$idfo)
+                ->where('toubiao_id','IN',$idfo)
                 ->where('bid_pretrial_date', 'BETWEEN', [$data['start1'], $data['end1']])
                 ->where('bid_date', 'BETWEEN', [$data['start2'], $data['end2']])
                 ->order("bid_date desc")
@@ -2738,7 +2738,7 @@ else{
         {
             $res= Db::table('green_bid')
                 ->where($info)
-                ->where('project_id','IN',$idfo)
+                ->where('toubiao_id','IN',$idfo)
                 ->order("bid_date desc")
 //                ->select();
                     ->paginate($data['pagenumber'], false, ["query" => $data]);
@@ -2754,7 +2754,7 @@ else{
         $data=$request->param();
         $res=Db::table('green_bid')
             ->whereor([
-                'project_id'=>['like','%'.$data['content'].'%'],
+                'toubiao_id'=>['like','%'.$data['content'].'%'],
                 'bid_progress'=>['like','%'.$data['content'].'%'],
                 'bid_type'=>['like', '%'.$data['content'].'%'],
             ])
@@ -2762,7 +2762,7 @@ else{
             ->paginate($data['pagenumber'],false,["query"=>$data]);
         $count=Db::table('green_bid')
         ->whereor([
-            'project_id'=>['like','%'.$data['content'].'%'],
+            'toubiao_id'=>['like','%'.$data['content'].'%'],
             'bid_progress'=>['like','%'.$data['content'].'%'],
             'bid_type'=>['like', '%'.$data['content'].'%'],
         ])
@@ -2776,9 +2776,9 @@ else{
     public function BidAdd(Request $request){
         $data=$request->param();
  
-        if (GreenBid::get(['project_id'=> $data['project_id']])) {
+        if (GreenBid::get(['toubiao_id'=> $data['toubiao_id']])) {
         //如果在表中查询到该用户名
-        $status = 0;
+        $status = 3;
         $message1 = '该招投标项目已存在,请重新输入~~';
         return ['status'=>$status, 'message'=>$message1];
         }
@@ -2802,7 +2802,7 @@ else{
         {$data['bid_progress']=null;}
         $res=Db::table('green_bid')
             ->insert([
-                'project_id'=>$data['project_id'],
+                'toubiao_id'=>$data['toubiao_id'],
                 'project_name'=>$data['project_name'],
                 'bid_content'=>$data['bid_content'],
                 'project_constructor'=>$data['project_constructor'],
@@ -2826,7 +2826,7 @@ else{
             if(!$contents[3]){$contents[3]=null;}
             $res2=Db::table('green_bidcompensation')
                 ->insert([
-                    'project_id'=>$data['project_id'],
+                    'toubiao_id'=>$data['toubiao_id'],
                     'compensation_invoice_date'=>$contents[0],
                     'compensation_invoice_amount'=>$contents[1],
                     'compensation_payment_date'=>$contents[2],
@@ -2840,7 +2840,7 @@ else{
             if(!$contents[3]){$contents[3]=null;}
             $res3=Db::table('green_biddeposite')
                 ->insert([
-                    'project_id'=>$data['project_id'],
+                    'toubiao_id'=>$data['toubiao_id'],
                     'deposite_invoice_date'=>$contents[0],
                     'deposite_invoice_amount'=>$contents[1],
                     'deposite_payment_date'=>$contents[2],
@@ -2854,7 +2854,7 @@ else{
             if($data['bidphase_phase5']==''){$data['bidphase_phase5']=null;}
         $res4=Db::table('green_bidphase')
             ->insert([
-                'project_id'=>$data['project_id'],
+                'toubiao_id'=>$data['toubiao_id'],
                 'bidphase_phase1'=>$data['bidphase_phase1'],
                 'bidphase_phase2'=>$data['bidphase_phase2'],
                 'bidphase_phase3'=>$data['bidphase_phase3'],
@@ -2862,7 +2862,7 @@ else{
                 'bidphase_phase5'=>$data['bidphase_phase5'],
             ]);
 
-        if ($res== null||$res2== null||$res3== null||$res4 == null) {
+        if ($res== null||$res4 == null) {
             $status = 0;
             $message = '添加失败~~';
         }
