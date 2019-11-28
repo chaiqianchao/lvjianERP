@@ -32,14 +32,6 @@
             </div>
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>用户名
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" name="administrators_name" required="" lay-verify="name" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>密码
                 </label>
                 <div class="layui-input-inline">
@@ -59,27 +51,19 @@
             </div>
             <div class="layui-form-item">
               <label for="phone" class="layui-form-label">
-                  <span class="x-red">*</span>电话
+                  电话
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="phone" name="phone" required="" lay-verify="phone" autocomplete="off" class="layui-input">
+                  <input type="text" id="phone" name="phone" autocomplete="off" class="layui-input">
               </div>
             </div>
             
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
-                    <span></span>手机1
+                    <span class="x-red">*</span>手机
                 </label>
                 <div class="layui-input-inline">
-                     <input type="text" id="staff_telphole_1" name="staff_telphole_1"  autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="name" class="layui-form-label">
-                    <span></span>手机2
-                </label>
-                <div class="layui-input-inline">
-                     <input type="text" id="staff_telphole_2" name="staff_telphole_2" autocomplete="off" class="layui-input">
+                     <input type="text" id="staff_telphole_1" lay-verify="phone" name="staff_telphole_1"  autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -110,9 +94,18 @@
                       <option value="建筑二所">建筑二所</option>
                       <option value="结构所">结构所</option>
                       <option value="设备所">设备所</option>
+                      <option value="总师办">总师办</option>
+                      <option value="概预算">概预算</option>
+                      <option value="信息部">信息部</option>
+                      <option value="生产经营部">生产经营部</option>
+                      <option value="办公室">办公室</option>
+                      <option value="财务室">财务室</option>
+                      <option value="驾驶室">驾驶室</option>
+                      <option value="方案所">方案所</option>
                       <option value="景观所">景观所</option>
                       <option value="工业化所">工业化所</option>
-                      <option value="内装">内装</option>
+                      <option value="内装所">内装所</option>
+                      <option value="其他">其他</option>
                     </select>
                 </div>
             </div>
@@ -137,10 +130,22 @@
             </div>
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>执业资格
+                    执业资格
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" name="practising" autocomplete="off" class="layui-input" lay-verify="required">
+                    <select name="practising">
+                      <option value="一级注册建筑师">一级注册建筑师</option>
+                      <option value="二级注册建筑师">二级注册建筑师</option>
+                      <option value="一级注册结构工程师">一级注册结构工程师</option>
+                      <option value="二级注册结构工程师">二级注册结构工程师</option>
+                      <option value="注册公用设备工程师（暖通空调）">注册公用设备工程师（暖通空调）</option>
+                      <option value="注册公用设备工程师（给水排水）">注册公用设备工程师（给水排水）</option>
+                      <option value="注册电气工程师（供配电）">注册电气工程师（供配电）</option>
+                      <option value="注册造价工程师">注册造价工程师</option>
+                      <option value="一级注册建造师">一级注册建造师</option>
+                      <option value="二级注册建造师">二级注册建造师</option>
+                      <option value="其他">其他</option>
+                    </select>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -231,10 +236,10 @@ layui.use(['form','layer'], function(){
                     xadmin.father_reload();
                 }
                 else
-                    alert("添加员工失败!");
+                    alert(result.message);
             },
-            error : function() {
-                alert("异常！");
+            error : function(result) {
+                alert(result.message);
             }
         });
         return false;

@@ -1500,6 +1500,10 @@ public function StaffAdd(Request $request)
     $temp=[];
     // $count = Db::table('green_staff')->field(max('staff_id'));
     // dump($count);
+    $checkName = Db::table('green_administrators')->where('administrators_name',$data['staff_telphole_1'])->select();
+    if($checkName){
+        return ['status'=>3, 'message'=>"该手机号码已存在用户"];
+    }
     $res=Db::table('green_staff')
         // ->allowField(true)
         ->insert([
@@ -1507,7 +1511,6 @@ public function StaffAdd(Request $request)
             'staff_name'=>$data['name'],
             'staff_phone'=>$data['phone'],
             'staff_telphole_1'=>$data['staff_telphole_1'],
-            'staff_telphole_2'=>$data['staff_telphole_2'],
             'staff_extension'=>$data['extension'],
             'staff_position'=>$data['position'],
             'staff_department'=>$data['department'],
@@ -1544,10 +1547,11 @@ public function StaffAdd(Request $request)
     else{
         $data['admin']=0;
     }
+    // 默认用户名为电话号码staff_telphole_1
     Db::table('green_administrators')
         ->insert([
             'staff_name'=>$data['name'],
-            'administrators_name'=>$data['administrators_name'],
+            'administrators_name'=>$data['staff_telphole_1'],
             'administrators_password'=>md5($data['administrators_password']),
             'admin'=>$data['admin'],
             'enable'=>$data['enable'],
