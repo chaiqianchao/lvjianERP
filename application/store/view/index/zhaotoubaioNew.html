@@ -194,6 +194,9 @@
                                             <input type="radio" name="bid_type" class="classify" lay-skin="primary" value="零星"/>零星</li>
                                         <li class="chechboxes">
                                             <input type="radio" name="bid_type" class="classify" lay-skin="primary" value="其他"/>其他</li>
+                                        <li class="chechboxes" id="bid_typebtn">
+                                             <input type="text" id="bid_type" autocomplete="off" class="layui-input">
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -429,6 +432,25 @@ layui.use(['form'], function(){
         return false;
     });
 });
+    requestAnimationFrame(render);
+    function render() {
+        selected();
+        requestAnimationFrame(render);
+    }
+    function selected() {
+        if($('input[type=radio][name=bid_type]:checked').val()=='其他'){
+            $('#bid_typebtn').css('display','block');
+        }
+        else {
+            $('#bid_typebtn').css('display','none');
+        }
+        // if($('input[type=checkbox][value="其他"]').prop('checked')==true){
+        //     $('li.contentAdd').css('display','block');
+        // }
+        // else {
+        //     $('li.contentAdd').css('display','none');
+        // }
+    }
     var id = 15;
     //判断localstorage是否存在
     if (localStorage.addanother) {
@@ -482,7 +504,7 @@ layui.use(['form'], function(){
             item.className = "layui-input-inline";
             item.innerHTML = '<input type="text" autocomplete="off" class="layui-input '+className+'">'+'<button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button>';
             document.getElementById(obj).appendChild(item);
-                ;
+            
         }
     }
     var itemDel = function(e) {
@@ -524,7 +546,12 @@ layui.use(['form'], function(){
             }
         }
 
-        data = data + "&join_person="+join_person.substring(0, join_person.lastIndexOf('、'));;  
+        data = data + "&join_person="+join_person.substring(0, join_person.lastIndexOf('、'));
+        // 分离 招标类型，并转存
+        if ($('input[type=radio][name=bid_type]:checked').val()=='其他') {
+            var bid_type=document.getElementById("bid_type").value;
+            data = data+"&bid_types="+bid_type;
+        }
     // 分离 - 代建方，并转存
         // var project_agent = document.getElementsByClassName("project_agent");
         // var project_agentContent = "";

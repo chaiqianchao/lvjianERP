@@ -2796,7 +2796,6 @@ else{
     //新建招投标项目
     public function BidAdd(Request $request){
         $data=$request->param();
- 
         if (GreenBid::get(['toubiao_id'=> $data['toubiao_id']])) {
         //如果在表中查询到该用户名
         $status = 3;
@@ -2827,6 +2826,12 @@ else{
         }
         else
         {$data['bid_progress']=null;}
+
+        // 获取投标类型 "其他"数据
+        if($data["bid_type"]=="其他")
+            $data["bid_type"] = $data["bid_types"];
+        // 获取投标类型 "其他"数据end
+
         $res=Db::table('green_bid')
             ->insert([
                 'toubiao_id'=>$data['toubiao_id'],
