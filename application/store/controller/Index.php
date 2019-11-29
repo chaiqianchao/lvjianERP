@@ -1437,33 +1437,33 @@ class Index extends Controller
             elseif ($type=="补偿费") {
                 $res2=Db::table('green_bidcompensation')
                 ->insert([
-                    'project_id'=>$data['id'],
+                    'toubiao_id'=>$data['id'],
                     'compensation_invoice_date'=>$contents[0],
                     'compensation_invoice_amount'=>$contents[1],
                     'compensation_payment_date'=>$contents[2],
                     'compensation_payment_amount'=>$contents[3],
                 ]);
                 $re=Db::table('green_bidcompensation')
-                    ->where('project_id',$data['project_id'])
+                    ->where('toubiao_id',$data['id'])
                     ->sum('compensation_payment_amount');
                 Db::table('green_bid')
-                    ->where('project_id',$data['project_id'])
+                    ->where('toubiao_id',$data['id'])
                     ->update(['bid_compensation'=>$re]);
             }
             elseif ($type=="保证金") {
                 $res2=Db::table('green_biddeposite')
                 ->insert([
-                    'project_id'=>$data['id'],
+                    'toubiao_id'=>$data['id'],
                     'deposite_invoice_date'=>$contents[0],
                     'deposite_invoice_amount'=>$contents[1],
                     'deposite_payment_date'=>$contents[2],
                     'deposite_payment_amount'=>$contents[3],
                 ]);
                 $re=Db::table('green_biddeposite')
-                    ->where('project_id',$data['project_id'])
+                    ->where('toubiao_id',$data['id'])
                     ->sum('deposite_payment_amount');
                 Db::table('green_bid')
-                    ->where('project_id',$data['project_id'])
+                    ->where('toubiao_id',$data['id'])
                     ->update(['bid_deposite'=>$re]);
             }
         }
