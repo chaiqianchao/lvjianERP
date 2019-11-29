@@ -888,6 +888,7 @@ class Index extends Controller
     //进展阶段修改
     public function bidPhaseEdit(Request $request)
     {
+        $phase = ["预审完成","投标完成","公示完成","合同签订","已结算"];
         $data = $request -> param();
         foreach ($data as $k=>$v)
         {
@@ -900,7 +901,27 @@ class Index extends Controller
             ->update([
                 $data['column'].''=>$data['content'],
             ]);
-
+        $res = Db::table('green_bidphase')
+            ->where([
+                'toubiao_id'=>$data['toubiao_id'],
+            ])->select();
+        $phase_now = '';
+            // 用来更新bid表中的进展阶段
+        for ($i=1; $i <6; $i++) { 
+            if ($res[0]["bidphase_phase".$i])
+            {
+                // dump($res[0]["bidphase_phase".$i]);
+                $phase_now = $phase[$i-1];
+            }
+            dump($phase_now);
+        }
+        $res1 = Db::table('green_bid')
+            ->where([
+                'toubiao_id'=>$data['toubiao_id'],
+            ])
+            ->update([
+                'bid_progress'=>$phase_now,
+            ]);
         if (null!=$result) {
             return ['status'=>1, 'message'=>'更新成功'];
         } else {
@@ -2805,6 +2826,8 @@ else{
                 'toubiao_id'=>$data['toubiao_id'],
                 'project_name'=>$data['project_name'],
                 'bid_content'=>$data['bid_content'],
+                'biaolan_price'=>$data['biaolan_price'],
+                'notice'=>$data['notice'],
                 'project_constructor'=>$data['project_constructor'],
                 'project_agent'=>$data['project_agent'],
                 'bid_pretrial_date'=>$data['bid_pretrial_date'],
@@ -2820,7 +2843,9 @@ else{
                 'toubiao_other'=>$data['toubiao_other'],
                 // 'bid_deposite'=>null,
                 // 'bid_compensation'=>null,
+                'bit_fabaoren'=>$data['bit_fabaoren'],
                 'bid_contractor_mobile'=>$data['bid_contractor_mobile'],
+                'bid_dailiren'=>$data['bid_dailiren'],
                 'bid_agent_mobile'=>$data['bid_agent_mobile'],
                 'bid_remarks'=>$data['bid_remarks'],
             ]);

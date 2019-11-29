@@ -52,6 +52,24 @@
 		                                </td>
 		                            </tr>
 		                            <tr>
+		                                <th>标栏价</th>
+		                                <td>{$BidList['biaolan_price']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','biaolan_price','标栏价','{$BidList.biaolan_price}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>注意事项</th>
+		                                <td>{$BidList['notice']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','notice','注意事项','{$BidList.notice}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
 		                            	<th>建设方</th>
 		                                <td>{$BidList['project_constructor']}</td>
 		                                <td>
