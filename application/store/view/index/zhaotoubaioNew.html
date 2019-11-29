@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div class="layui-form-item">
+                     <!--    <div class="layui-form-item">
                             <div class="layui-inline" id="agent">
                                 <label class="layui-form-label">代建方</label>
                                 <div class="layui-input-inline">
@@ -81,7 +81,7 @@
                                     <button type="button" class="item-icon" onclick="itemAdd('agent','','project_agent')">+</button>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label"><span class="x-red">*</span>资格预审时间</label>
@@ -453,23 +453,23 @@ layui.use(['form'], function(){
         depositeContent = depositeContent.replace("^***","");
         data = data + "&deposite="+depositeContent;        
     // 分离 - 建设方，并转存
-        var project_constructor = document.getElementsByClassName("project_constructor");
-        var project_constructorContent = "";
-        for (var i =0; i < project_constructor.length; i++) {
-            if (project_constructor[i].value) {
-                project_constructorContent = project_constructorContent+project_constructor[i].value +",";
-            }
-        }
-        data = data + "&project_constructor="+project_constructorContent;  
+        // var project_constructor = document.getElementsByClassName("project_constructor");
+        // var project_constructorContent = "";
+        // for (var i =0; i < project_constructor.length; i++) {
+        //     if (project_constructor[i].value) {
+        //         project_constructorContent = project_constructorContent+project_constructor[i].value +",";
+        //     }
+        // }
+        // data = data + "&project_constructor="+project_constructorContent;  
     // 分离 - 代建方，并转存
-        var project_agent = document.getElementsByClassName("project_agent");
-        var project_agentContent = "";
-        for (var i =0; i < project_agent.length; i++) {
-            if (project_agent[i].value) {
-                project_agentContent = project_agentContent+project_agent[i].value +",";
-            }
-        }
-        data = data + "&project_agent="+project_agentContent;  
+        // var project_agent = document.getElementsByClassName("project_agent");
+        // var project_agentContent = "";
+        // for (var i =0; i < project_agent.length; i++) {
+        //     if (project_agent[i].value) {
+        //         project_agentContent = project_agentContent+project_agent[i].value +",";
+        //     }
+        // }
+        // data = data + "&project_agent="+project_agentContent;  
 // // 分离 - 是否通过预审，并转存,找出选择出来的单一对象
 //         var bid_ispretrial = document.getElementsByClassName("bid_ispretrial");
 //         for (var i =0; i < bid_ispretrial.length; i++) {
