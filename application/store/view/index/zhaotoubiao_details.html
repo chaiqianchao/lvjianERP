@@ -106,11 +106,38 @@
 		                                </td>
 		                            </tr>
 		                            <tr>
-		                            	<th>招标时间</th>
+		                            	<th>资格后审时间</th>
+		                                <td>{$BidList['houshen_date']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','houshen_date','资格后审时间','{$BidList.houshen_date}','bidDateEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                            	<th>答疑时间</th>
+		                                <td>{$BidList['question_date']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','question_date','答疑时间','{$BidList.question_date}','bidDateEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                            	<th>交标时间</th>
 		                                <td>{$BidList['bid_date']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_date','招标时间','{$BidList.bid_date}','bidDateEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_date','交标时间','{$BidList.bid_date}','bidDateEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                            	<th>交标地点</th>
+		                                <td>{$BidList['bid_space']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_space','交标地点','{$BidList.bid_space}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>

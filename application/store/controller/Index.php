@@ -2832,6 +2832,8 @@ else{
                 // 'project_agent'=>$data['project_agent'],
                 'bid_pretrial_date'=>$data['bid_pretrial_date'],
                 'bid_ispretrial'=>$data['bid_ispretrial'],
+                'houshen_date'=>$data['houshen_date'],
+                'question_date'=>$data['question_date'],
                 'bid_date'=>$data['bid_date'],
                 'bid_isbid'=>$data['bid_isbid'],
                 'bid_progress'=>$data['bid_progress'],
