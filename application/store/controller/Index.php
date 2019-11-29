@@ -1402,7 +1402,7 @@ class Index extends Controller
         $data = $request -> param();
   
         $count = Db::table('green_biddeposite')->count()+ Db::table('green_bidcompensation')->count();
-        $list = Db::table('green_biddeposite')->order('project_id desc')->paginate(10);
+        $list = Db::table('green_biddeposite')->order('toubiao_id desc')->paginate(10);
         $list1 = Db::table('green_bidcompensation')->paginate(10);
         $this -> view -> assign('orderList', $list);
         $this -> view -> assign('orderList1', $list1);
