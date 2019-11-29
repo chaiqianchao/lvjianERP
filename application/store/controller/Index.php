@@ -888,7 +888,7 @@ class Index extends Controller
     //进展阶段修改
     public function bidPhaseEdit(Request $request)
     {
-        $phase = ["预审完成","投标完成","公示完成","合同签订","已结算"];
+        $phase = ["预审完成","投标完成","公示完成","合同签订","已结算","已归档","其他"];
         $data = $request -> param();
         foreach ($data as $k=>$v)
         {
@@ -907,7 +907,7 @@ class Index extends Controller
             ])->select();
         $phase_now = '';
             // 用来更新bid表中的进展阶段
-        for ($i=1; $i <6; $i++) { 
+        for ($i=1; $i <8; $i++) { 
             if ($res[0]["bidphase_phase".$i])
             {
                 // dump($res[0]["bidphase_phase".$i]);
@@ -2804,7 +2804,13 @@ else{
         return ['status'=>$status, 'message'=>$message1];
         }
         else{
-        if($data['bidphase_phase5']){
+        if ($data['bidphase_phase7']){
+            $data['bid_progress']='其他';
+        }
+        elseif ($data['bidphase_phase6']){
+            $data['bid_progress']='已归档';
+        }
+        elseif($data['bidphase_phase5']){
             $data['bid_progress']='已结算';
         }
         elseif ($data['bidphase_phase4']){
@@ -2836,6 +2842,8 @@ else{
                 'question_date'=>$data['question_date'],
                 'bid_date'=>$data['bid_date'],
                 'bid_isbid'=>$data['bid_isbid'],
+                'bid_master'=>$data['bid_master'],
+                'join_person'=>$data['join_person'],
                 'bid_progress'=>$data['bid_progress'],
                 'bid_type'=>$data['bid_type'],
                 'toubiao_above'=>$data['toubiao_above'],
@@ -2845,7 +2853,7 @@ else{
                 'toubiao_other'=>$data['toubiao_other'],
                 // 'bid_deposite'=>null,
                 // 'bid_compensation'=>null,
-                'bit_fabaoren'=>$data['bit_fabaoren'],
+                'bid_fabaoren'=>$data['bid_fabaoren'],
                 'bid_contractor_mobile'=>$data['bid_contractor_mobile'],
                 'bid_dailiren'=>$data['bid_dailiren'],
                 'bid_agent_mobile'=>$data['bid_agent_mobile'],
@@ -2884,6 +2892,8 @@ else{
             if($data['bidphase_phase3']==''){$data['bidphase_phase3']=null;}
             if($data['bidphase_phase4']==''){$data['bidphase_phase4']=null;}
             if($data['bidphase_phase5']==''){$data['bidphase_phase5']=null;}
+            if($data['bidphase_phase6']==''){$data['bidphase_phase6']=null;}
+            if($data['bidphase_phase7']==''){$data['bidphase_phase7']=null;}
         $res4=Db::table('green_bidphase')
             ->insert([
                 'toubiao_id'=>$data['toubiao_id'],
@@ -2892,6 +2902,8 @@ else{
                 'bidphase_phase3'=>$data['bidphase_phase3'],
                 'bidphase_phase4'=>$data['bidphase_phase4'],
                 'bidphase_phase5'=>$data['bidphase_phase5'],
+                'bidphase_phase6'=>$data['bidphase_phase6'],
+                'bidphase_phase7'=>$data['bidphase_phase7'],
             ]);
 
         if ($res== null||$res4 == null) {

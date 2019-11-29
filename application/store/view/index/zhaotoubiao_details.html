@@ -78,7 +78,7 @@
 		                                	{/if}
 		                                </td>
 		                            </tr> -->
-		                       <!--      <tr>
+		                        <!--     <tr>
 		                            	<th>代建方</th>
 		                                <td>{BidList['project_agent']}</td>
 		                                <td>
@@ -147,6 +147,24 @@
 		                                <td>
 		                                	{if condition="$limit eq 2"}
 		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_isbid','是否中标','{$BidList.bid_isbid}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                            	<th>项目负责人</th>
+		                                <td>{$BidList['bid_master']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_master','项目负责人','{$BidList.bid_master}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                            	<th>参与人员</th>
+		                                <td>{$BidList['join_person']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','join_person','参与人员','{$BidList.join_person}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -390,6 +408,24 @@
 		                                <td>
 		                                	{if condition="$limit eq 2"}
 		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$phase.toubiao_id}','bidphase_phase5','已结算','{$phase.bidphase_phase5}','bidPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>已归档</th>
+		                                <td>{$phase['bidphase_phase6']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$phase.toubiao_id}','bidphase_phase6','已归档','{$phase.bidphase_phase6}','bidPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <th>其他</th>
+		                                <td>{$phase['bidphase_phase7']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$phase.toubiao_id}','bidphase_phase7','其他','{$phase.bidphase_phase7}','bidPhaseEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>

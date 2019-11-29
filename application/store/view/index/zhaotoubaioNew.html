@@ -150,6 +150,23 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline">
+                                <label class="layui-form-label">项目负责人</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="bid_master" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" id="join_person">
+                                <label class="layui-form-label">参与人员</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" autocomplete="off" class="layui-input join_person">
+                                    <button type="button" class="item-icon" onclick="itemAdd('join_person','','join_person')">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
                                 <label class="layui-form-label">投标类型</label>
                                 <div class="layui-input-inline" id="classify">
                                     <ul>
@@ -278,6 +295,22 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">已归档</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" placeholder="日期" name="bidphase_phase6" id="date14" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <div class="layui-inline">
+                                                    <label class="layui-form-label">其他</label>
+                                                    <div class="layui-input-inline">
+                                                        <input class="layui-input" name="bidphase_phase7" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </tbody>
                                     </table>
                                 </div>
@@ -396,7 +429,7 @@ layui.use(['form'], function(){
         return false;
     });
 });
-    var id = 11;
+    var id = 15;
     //判断localstorage是否存在
     if (localStorage.addanother) {
         var addItems = JSON.parse(localStorage.addanother);
@@ -438,6 +471,12 @@ layui.use(['form'], function(){
                 id+=2;
             document.getElementById(obj).appendChild(item);
         }
+        else if(obj == 'join_person') {
+            var item = document.createElement("div");
+            item.className = "layui-input-inline";
+            item.innerHTML ='<div class="layui-input-inline"><input type="text" autocomplete="off" class="layui-input join_person"><button type="button" class="item-icon" onclick="itemDel(this)">-</button></div>';
+            document.getElementById(obj).appendChild(item);
+        }
         else {
             var item = document.createElement("div");
             item.className = "layui-input-inline";
@@ -477,14 +516,15 @@ layui.use(['form'], function(){
         depositeContent = depositeContent.replace("^***","");
         data = data + "&deposite="+depositeContent;        
     // 分离 - 建设方，并转存
-        // var project_constructor = document.getElementsByClassName("project_constructor");
-        // var project_constructorContent = "";
-        // for (var i =0; i < project_constructor.length; i++) {
-        //     if (project_constructor[i].value) {
-        //         project_constructorContent = project_constructorContent+project_constructor[i].value +",";
-        //     }
-        // }
-        // data = data + "&project_constructor="+project_constructorContent;  
+        var join_person_list = document.getElementsByClassName("join_person");
+        var join_person = "";
+        for (var i =0; i < join_person_list.length; i++) {
+            if (join_person_list[i].value) {
+                join_person = join_person+join_person_list[i].value +"、";
+            }
+        }
+
+        data = data + "&join_person="+join_person.substring(0, join_person.lastIndexOf('、'));;  
     // 分离 - 代建方，并转存
         // var project_agent = document.getElementsByClassName("project_agent");
         // var project_agentContent = "";
