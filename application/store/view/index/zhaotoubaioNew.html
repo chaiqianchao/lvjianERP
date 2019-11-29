@@ -137,6 +137,32 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline">
+                                <label class="layui-form-label">交标资料</label>
+                                <div class="layui-input-inline" id="content">
+                                    <ul>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="bid_document" name="bid_document" lay-skin="primary" value="技术标"/>技术标</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="bid_document" name="bid_document" lay-skin="primary" value="商务标"/>商务标</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="bid_document" name="bid_document" lay-skin="primary" value="资信标"/>资信标</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="bid_document" name="bid_document" lay-skin="primary" value="效果图"/>效果图</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="bid_document" name="bid_document" lay-skin="primary" value="电子文档"/>电子文档</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="bid_document" name="bid_document" lay-skin="primary" value="多媒体"/>多媒体</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="bid_document" name="bid_document" lay-skin="primary" value="其他"/>其他</li>
+                                        <li class="chechboxes" id="bid_documentbtn">
+                                             <input type="text" id="bid_document" autocomplete="off" class="layui-input">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
                                 <label class="layui-form-label"><span class="x-red">*</span>是否中标</label>
                                 <div class="layui-input-inline" id="type">
                                     <ul>
@@ -444,12 +470,12 @@ layui.use(['form'], function(){
         else {
             $('#bid_typebtn').css('display','none');
         }
-        // if($('input[type=checkbox][value="其他"]').prop('checked')==true){
-        //     $('li.contentAdd').css('display','block');
-        // }
-        // else {
-        //     $('li.contentAdd').css('display','none');
-        // }
+        if($('input[type=checkbox][value="其他"]').prop('checked')==true){
+            $('#bid_documentbtn').css('display','block');
+        }
+        else {
+            $('#bid_documentbtn').css('display','none');
+        }
     }
     var id = 15;
     //判断localstorage是否存在
@@ -552,47 +578,18 @@ layui.use(['form'], function(){
             var bid_type=document.getElementById("bid_type").value;
             data = data+"&bid_types="+bid_type;
         }
-    // 分离 - 代建方，并转存
-        // var project_agent = document.getElementsByClassName("project_agent");
-        // var project_agentContent = "";
-        // for (var i =0; i < project_agent.length; i++) {
-        //     if (project_agent[i].value) {
-        //         project_agentContent = project_agentContent+project_agent[i].value +",";
-        //     }
-        // }
-        // data = data + "&project_agent="+project_agentContent;  
-// // 分离 - 是否通过预审，并转存,找出选择出来的单一对象
-//         var bid_ispretrial = document.getElementsByClassName("bid_ispretrial");
-//         for (var i =0; i < bid_ispretrial.length; i++) {
+            // 分离 - 交标资料，并转存
+        var bid_document_list = document.getElementsByClassName("bid_document");
+        var bid_document = "";
+        for (var i =0; i < bid_document_list.length-1; i++) {
+            if(bid_document_list[i].checked == true)
+                bid_document = bid_document+bid_document_list[i].value +"、";
+        }
+        if($('input[type=checkbox][value="其他"]').prop('checked')==true&&document.getElementById("bid_document").value!='') {
+            bid_document = bid_document+document.getElementById("bid_document").value+"、";
+        }
+        data = data + "&bid_document="+bid_document.substring(0, bid_document.lastIndexOf('、'));
 
-//             if(bid_ispretrial[i].checked == true && i<5)
-//                {
-//                 data = data + "&bid_ispretrial="+bid_ispretrial[i].value;
-//                 break;
-//                }
-//             else if(i>=5)
-//             {
-//                 data = data+"&bid_ispretrial="+bid_ispretrial[i].value;
-//             }
-//             else
-//                 continue;
-//         }     
-// // 分离 - 是否中标，并转存,找出选择出来的单一对象
-//         var bid_isbid = document.getElementsByClassName("bid_isbid");
-//         for (var i =0; i < bid_isbid.length; i++) {
-
-//             if(bid_isbid[i].checked == true && i<5)
-//                {
-//                 data = data + "&bid_isbid="+bid_isbid[i].value;
-//                 break;
-//                }
-//             else if(i>=5)
-//             {
-//                 data = data+"&bid_isbid="+bid_isbid[i].value;
-//             }
-//             else
-//                 continue;
-//         }
         console.log(data);
 
         $.ajax({

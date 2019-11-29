@@ -142,6 +142,15 @@
 		                                </td>
 		                            </tr>
 		                            <tr>
+		                            	<th>交标资料</th>
+		                                <td>{$BidList['bid_document']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','bid_document','交标资料','{$BidList.bid_document}','bidListEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            <tr>
 		                            	<th>是否中标</th>
 		                                <td>{$BidList['bid_isbid']}</td>
 		                                <td>

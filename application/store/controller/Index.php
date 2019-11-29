@@ -2831,7 +2831,6 @@ else{
         if($data["bid_type"]=="其他")
             $data["bid_type"] = $data["bid_types"];
         // 获取投标类型 "其他"数据end
-
         $res=Db::table('green_bid')
             ->insert([
                 'toubiao_id'=>$data['toubiao_id'],
@@ -2846,6 +2845,8 @@ else{
                 'houshen_date'=>$data['houshen_date'],
                 'question_date'=>$data['question_date'],
                 'bid_date'=>$data['bid_date'],
+                'bid_space'=>$data['bid_space'],
+                'bid_document'=>$data['bid_document'],
                 'bid_isbid'=>$data['bid_isbid'],
                 'bid_master'=>$data['bid_master'],
                 'join_person'=>$data['join_person'],
