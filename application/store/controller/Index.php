@@ -4413,7 +4413,7 @@ public function drawplanAdd(Request $request)
         // }
     }
 
-    //渲染工程详情界面
+    //渲染出图登记详情界面
     public function drawplan_details(Request $request)
     {
         $sid=Session::get('staff_id');
