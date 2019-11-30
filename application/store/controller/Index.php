@@ -825,7 +825,7 @@ class Index extends Controller
             return ['status'=>0, 'message'=>'更新失败,请检查'];
         }
     }
-    //保证金修改
+    //补偿费修改
     public function depositeEdit(Request $request)
     {
         $data = $request -> param();
@@ -838,6 +838,9 @@ class Index extends Controller
                 'id'=>$data['id'],
             ])
             ->update([
+                'deposite_invoice_id'=>$data['deposite_invoice_id'],
+                'deposite_invoice_price'=>$data['deposite_invoice_price'],
+                'deposite_invoice_object'=>$data['deposite_invoice_object'],
                 'deposite_invoice_date'=>$data['invoice_date'],
                 'deposite_invoice_amount'=>$data['invoice_amount'],
                 'deposite_payment_date'=>$data['payment_date'],
@@ -855,7 +858,7 @@ class Index extends Controller
             return ['status'=>0, 'message'=>'更新失败,请检查'];
         }
     }
-    //补偿费修改
+    //保证金修改
     public function compensationEdit(Request $request)
     {
         $data = $request -> param();
@@ -2866,10 +2869,10 @@ else{
                 'bid_remarks'=>$data['bid_remarks'],
             ]);
         $compensation = explode('^', $data['compensation']);
-        for ($i=1; $i < count($compensation); $i++) {
+        for ($i=0; $i < count($compensation); $i++) {
             $contents = explode('*', $compensation[$i]);
-            if(!$contents[2]){$contents[2]=null;}
-            if(!$contents[3]){$contents[3]=null;}
+            // if(!$contents[2]){$contents[2]=null;}
+            // if(!$contents[3]){$contents[3]=null;}
             $res2=Db::table('green_bidcompensation')
                 ->insert([
                     'toubiao_id'=>$data['toubiao_id'],
@@ -2880,17 +2883,20 @@ else{
                 ]);
         }
         $deposite = explode('^', $data['deposite']);
-        for ($i=1; $i < count($deposite); $i++) {
+        for ($i=0; $i < count($deposite); $i++) {
             $contents = explode('*', $deposite[$i]);
-            if(!$contents[2]){$contents[2]=null;}
-            if(!$contents[3]){$contents[3]=null;}
+            // if(!$contents[2]){$contents[2]=null;}
+            // if(!$contents[3]){$contents[3]=null;}
             $res3=Db::table('green_biddeposite')
                 ->insert([
                     'toubiao_id'=>$data['toubiao_id'],
-                    'deposite_invoice_date'=>$contents[0],
-                    'deposite_invoice_amount'=>$contents[1],
-                    'deposite_payment_date'=>$contents[2],
-                    'deposite_payment_amount'=>$contents[3],
+                    'deposite_invoice_id'=>$contents[0],
+                    'deposite_invoice_price'=>$contents[1],
+                    'deposite_invoice_object'=>$contents[2],
+                    'deposite_invoice_date'=>$contents[3],
+                    'deposite_invoice_amount'=>$contents[4],
+                    'deposite_payment_date'=>$contents[5],
+                    'deposite_payment_amount'=>$contents[6],
                 ]);
         }
             if($data['bidphase_phase1']==''){$data['bidphase_phase1']=null;}

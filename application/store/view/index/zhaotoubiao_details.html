@@ -267,7 +267,7 @@
 				<!-- 2 -->
 				<div class="layui-collapse" lay-filter="test">
                     <div class="layui-colla-item">
-                        <h2 class="layui-colla-title">保证金<i class="layui-icon layui-colla-icon"></i></h2>
+                        <h2 class="layui-colla-title">补偿费<i class="layui-icon layui-colla-icon"></i></h2>
                         <div class="layui-colla-content">
 		                    <table class="layui-table" id="table2">
 		                    	<tbody style="position: absolute;">
@@ -282,25 +282,31 @@
                         </tbody>
 		                        <tbody>
 		                            <tr>
+		                            	<th>名次</th>
+		                                <th>补偿费</th>
+		                                <th>付款方</th>
 		                                <th>开票时间</th>
 		                                <th>开票金额</th>
 		                                <th>到账时间</th>
 		                                <th>到账金额</th>
 		                                <th>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','','','','depositeAdd')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','','','','depositeAdd','新增')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </th>
 		                            </tr>
 		                            {volist name='deposite' id='vo'}
 		                            <tr>
+		                            	<td>{$vo['deposite_invoice_id']}</td>
+		                                <td>{$vo['deposite_invoice_price']}</td>
+		                                <td>{$vo['deposite_invoice_object']}</td>
 		                                <td>{$vo['deposite_invoice_date']}</td>
 		                                <td>{$vo['deposite_invoice_amount']}</td>
 		                                <td>{$vo['deposite_payment_date']}</td>
 		                                <td>{$vo['deposite_payment_amount']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$vo.id}','','','{$vo.deposite_invoice_date}*{$vo.deposite_invoice_amount}*{$vo.deposite_payment_date}*{$vo.deposite_payment_amount}','depositeEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$vo.id}','','','{$vo.deposite_invoice_id}*{$vo.deposite_invoice_price}*{$vo.deposite_invoice_object}*{$vo.deposite_invoice_date}*{$vo.deposite_invoice_amount}*{$vo.deposite_payment_date}*{$vo.deposite_payment_amount}','depositeEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -314,7 +320,7 @@
 				<!-- 3 -->
 				<div class="layui-collapse" lay-filter="test">
                     <div class="layui-colla-item">
-                        <h2 class="layui-colla-title">补偿费<i class="layui-icon layui-colla-icon"></i></h2>
+                        <h2 class="layui-colla-title">保证金<i class="layui-icon layui-colla-icon"></i></h2>
                         <div class="layui-colla-content">
 		                    <table class="layui-table" id="table3">
 							<tbody style="position: absolute;">
@@ -329,13 +335,13 @@
                         </tbody>
 		                        <tbody>
 		                            <tr>
-		                                <th>开票时间</th>
+		                            	<th>开票时间</th>
 		                                <th>开票金额</th>
 		                                <th>到账时间</th>
 		                                <th>到账金额</th>
 		                                <th>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','','','','compensationAdd')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$BidList.toubiao_id}','','','','compensationAdd','新增')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </th>
 		                            </tr>
@@ -452,11 +458,18 @@
 	</div
 ></div>
 <script type="text/javascript">
-function member_edit(id, column, chinese, content, type) {
+function member_edit(id, column, chinese, content, type,B_or_D) {
 	content =content.replace(/%/g, '%25');
 	var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
 	console.log(content);
-	xadmin.open('详情修改', url);
+	// 补偿费、保证金新增
+	if (B_or_D=="新增") {
+		xadmin.open('新增', url);
+	}
+	else{
+		xadmin.open('详情修改', url);
+	}
+	
 }
 function deleteThis() {
    console.log("项目id为："+{$BidList['toubiao_id']});

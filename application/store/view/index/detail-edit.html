@@ -66,10 +66,10 @@ $(function(){
 		case 'projectEdit1':buildtypeShow();break;
 		case 'contractPhaseEdit':contractPhaseShow();break;
 		case 'compensationAdd':
-		case 'depositeAdd':
 		case 'confirmEdit':
-		case 'depositeEdit': 
 		case 'compensationEdit': confirmShow();break;
+		case 'depositeAdd':
+		case 'depositeEdit': confirmShowDeposite();break;
 		case 'drawplanDesignerEdit': designer2Show();break;
 		case 'designerEdit': designerShow();break;
 		case 'projectContentEdit':
@@ -145,10 +145,10 @@ $('#submit').click(function() {
 		//招投标
 		case 'bidListEdit': $.get("{:url('index/bidListEdit')}",{toubiao_id:value[0], column: value[1], content:content});break;
 		case 'bidDateEdit': $.get("{:url('index/bidListEdit')}",{toubiao_id:value[0], column: value[1], content:content});break;
-		case 'depositeEdit': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/depositeEdit')}",{id:value[0], invoice_date:content[0], invoice_amount:content[1], payment_date:content[2], payment_amount:content[3]});break;
+		case 'depositeEdit': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/depositeEdit')}",{id:value[0], deposite_invoice_id:content[0],deposite_invoice_price:content[1],deposite_invoice_object:content[2],invoice_date:content[3], invoice_amount:content[4], payment_date:content[5], payment_amount:content[6]});break;
 		case 'compensationEdit': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/compensationEdit')}",{id:value[0], invoice_date:content[0], invoice_amount:content[1], payment_date:content[2], payment_amount:content[3]});break;
 		case 'bidPhaseEdit': $.get("{:url('index/bidPhaseEdit')}",{toubiao_id:value[0], column: value[1], content:content});break;
-		case 'depositeAdd': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/depositeAdd')}",{toubiao_id:value[0], deposite_invoice_date:content[0], deposite_invoice_amount:content[1], deposite_payment_date:content[2], deposite_payment_amount:content[3]});break;
+		case 'depositeAdd': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/depositeAdd')}",{toubiao_id:value[0], deposite_invoice_id:content[0],deposite_invoice_price:content[1],deposite_invoice_object:content[2],invoice_date:content[3], invoice_amount:content[4], payment_date:content[5], payment_amount:content[6]});break;
 		case 'compensationAdd': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/compensationAdd')}",{toubiao_id:value[0], compensation_invoice_date:content[0], compensation_invoice_amount:content[1], compensation_payment_date:content[2], compensation_payment_amount:content[3]});break;
 		//产值
 		case 'projectValueDateEdit': $.get("{:url('index/projectValueEdit')}",{id:value[0], column: value[1], content:content});break;
@@ -202,12 +202,21 @@ var confirmShow = function() {
 	$('#column').remove();
 	$('#content').remove();
 	var content = value[3].split('*');
-	if (value[4]=='depositeAdd'||value[4]=='compensationAdd') {
+	if (value[4]=='compensationAdd') {
 		content=['','','',''];
 	}
 	$('#form').html('<label>开票日期</label><input class="layui-input" style="width: 60%;" placeholder="日期" id="start" autocomplete="off" value="'+content[0]+'"><label>开票金额</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[1]+'"><label>到账日期</label><input class="layui-input" style="width: 60%;" placeholder="日期" id="end" autocomplete="off" value="'+content[2]+'""><label>到账金额</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[3]+'">');
 }
-
+// 补偿费
+var confirmShowDeposite = function() {
+	$('#column').remove();
+	$('#content').remove();
+	var content = value[3].split('*');
+	if (value[4]=='depositeAdd') {
+		content=['','','','','','',''];
+	}
+	$('#form').html('<label>名次</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[0]+'"><label>补偿费</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[1]+'"><label>付款方</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[2]+'"><label>开票日期</label><input class="layui-input" style="width: 60%;" placeholder="日期" id="start" autocomplete="off" value="'+content[3]+'"><label>开票金额</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[4]+'"><label>到账日期</label><input class="layui-input" style="width: 60%;" placeholder="日期" id="end" autocomplete="off" value="'+content[5]+'""><label>到账金额</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[6]+'">');
+}
 var paymentShow = function() {
 	$('#column').remove();
 	$('#content').remove();
