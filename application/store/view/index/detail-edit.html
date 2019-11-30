@@ -32,7 +32,7 @@
 		</form>
 	</div>
 	<div class="layui-input-block">
-		<a class="layui-btn" id="submit">确认修改</a>
+		<a class="layui-btn" id="submit">确认</a>
 	</div>
 </div>
 <script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
@@ -166,7 +166,7 @@ $('#submit').click(function() {
 		case 'ecoedit':$.get("{:url('index/ecoedit')}",{id:value[0], column: value[1], content:content});break;
 		case 'drawplanDesignerEdit':var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/drawplanDesignerEdit')}",{project_id:value[0], column: value[1],content1:content[0],content2:content[1],content3:content[2],content4:content[3],content5:content[4],content6:content[5],content7:content[6]});break;
 		// case 'drawplanDesignerEdit':$.get("{:url('index/drawplanDesignerEdit')}",{id:value[0], column: value[1], content:content});break;
-		case 'noticeEdit': $('input').each(function(){content+=$(this).val()+";";}); $.get("{:url('index/noticeEdit')}",{project_id:value[0], project_notice:content});break;
+		case 'noticeEdit': $('input').each(function(){content+=$(this).val()+";";}); if(content!=';'){$.get("{:url('index/noticeEdit')}",{project_id:value[0], project_notice:content});}break;
 	}
 	
     xadmin.close();
@@ -301,9 +301,12 @@ function buildtypeShow() {
 function noticeShow() {
  var oContent = $('#content');
  var notices = value[3].split(';');
- for (var i = 0; i < notices.length - 1; i++) {
-console.log(value[3])
+ console.log(notices);
+ for (var i = 0; i < notices.length-1; i++) {
      oContent.append('<li style="display: block;"><input type="text" class="layui-input" style="width: 100%;" value="'+notices[i]+'"></li>');
+ }
+ if (notices.length == 1) {
+ 	oContent.append('<li style="display: block;"><input type="text" class="layui-input" style="width: 100%;" placeholder="暂无公告，请先添加" disabled></li>');
  }
 }
 function itemAdd() {

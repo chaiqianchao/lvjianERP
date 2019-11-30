@@ -327,22 +327,8 @@ function notice_add(id) {
 }
 function member_edit(id, column, chinese, content, type) {
     var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
+    console.log(url);
     xadmin.open('详情修改', url);
-
-    // $.ajax({
-    //     type: "POST",  //提交方式
-    //     url: "{:url('index/editPower')}",
-    //     data: 'type='+type,
-    //     dataType: 'json',
-    //     success: function(data){
-    //         var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
-    //         console.log(data.msg);
-    //         if (data.msg == 0)
-    //             url = data.url;
-    //         xadmin.open('详情修改', url);
-    //     }
-    //   });
-
 	
 }
 function deleteThis() {
