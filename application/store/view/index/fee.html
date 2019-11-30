@@ -113,13 +113,14 @@
                     alert("异常！");
                 }
             });
+            location.reload(true);   
             // 完成修改
-            for (var i = 0; i < rows.length; i++) {
-                var cells = rows[i].cells;
-                for (var j = 0; j < cells.length - 1; j++) {
-                    cells[j].contentEditable = false;
-                }
-            }
+            // for (var i = 0; i < rows.length; i++) {
+            //     var cells = rows[i].cells;
+            //     for (var j = 0; j < cells.length - 1; j++) {
+            //         cells[j].contentEditable = false;
+            //     }
+            // }
         }
     }
 

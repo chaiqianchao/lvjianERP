@@ -4614,6 +4614,7 @@ public function drawplanAdd(Request $request)
             $data2[$i][$j]=str_replace("'", "",$data2[$i][$j]);
             }
         }
+        $timer = 0;
         for($i=0;$i<count($data2);$i++)
         {
             $res=Db::table('green_drawing_fee')
@@ -4624,8 +4625,13 @@ public function drawplanAdd(Request $request)
                 'drawing_sulphuric_acid_diagram'=>$data2[$i][3],
                 'drawing_text_production'=>$data2[$i][4],
             ]);
+            $timer = $timer +$res;
         }
-        return ['status'=>1, 'message'=>'更新成功'];
+        if ($timer>0) {
+            return ['status'=>1, 'message'=>'更新成功'];
+        } else {
+            return ['status'=>0, 'message'=>'更新失败,请检查'];
+        }
         
     }
      //图文制作费新增接口
@@ -4639,7 +4645,7 @@ public function drawplanAdd(Request $request)
                 'drawing_sulphuric_acid_diagram'=>$data['drawing_sulphuric_acid_diagram'],
                 'drawing_text_production'=>$data['drawing_text_production'],
             ]);
-        if (null!=$res) {
+        if ($res) {
             return ['status'=>1, 'message'=>'更新成功'];
         } else {
             return ['status'=>0, 'message'=>'更新失败,请检查'];
@@ -4658,7 +4664,7 @@ public function drawplanAdd(Request $request)
         $res=Db::table('green_drawing_fee')
             ->where('id',$data)
             ->delete();
-        if (null!=$res) {
+        if ($res) {
             return ['status'=>1, 'message'=>'删除成功'];
         } else {
             return ['status'=>0, 'message'=>'删除失败,请检查'];
@@ -4690,6 +4696,7 @@ public function drawplanAdd(Request $request)
             $data2[$i][$j]=str_replace("'", "",$data2[$i][$j]);
             }
         }
+        $timer = 0;
         for($i=0;$i<count($data2);$i++)
         {
             $res=Db::table('green_architecture_fee')
@@ -4699,8 +4706,13 @@ public function drawplanAdd(Request $request)
                 'design_unit_price'=>$data2[$i][2],
                 'unitprice_remarks'=>$data2[$i][3],
             ]);
+            $timer = $timer+$res;
         }
-        return ['status'=>1, 'message'=>'更新成功'];
+        if ($timer>0) {
+            return ['status'=>1, 'message'=>'更新成功'];
+        } else {
+            return ['status'=>0, 'message'=>'更新失败,请检查'];
+        }
     }
     //建筑专业新增接口
     public function architectureAdd(Request $request)
@@ -4712,7 +4724,7 @@ public function drawplanAdd(Request $request)
                 'design_unit_price'=>$data['design_unit_price'],
                 'unitprice_remarks'=>$data['unitprice_remarks'],
             ]);
-        if (null!=$res) {
+        if ($res) {
             return ['status'=>1, 'message'=>'更新成功'];
         } else {
             return ['status'=>0, 'message'=>'更新失败,请检查'];
@@ -4725,7 +4737,7 @@ public function drawplanAdd(Request $request)
         $res=Db::table('green_architecture_fee')
             ->where('id',$data)
             ->delete();
-        if (null!=$res) {
+        if ($res) {
             return ['status'=>1, 'message'=>'删除成功'];
         } else {
             return ['status'=>0, 'message'=>'删除失败,请检查'];
@@ -4756,6 +4768,7 @@ public function drawplanAdd(Request $request)
             $data2[$i][$j]=str_replace("'", "",$data2[$i][$j]);
             }
         }
+        $timer = 0;
         for($i=0;$i<count($data2);$i++)
         {
             $res=Db::table('green_structure_fee')
@@ -4765,8 +4778,9 @@ public function drawplanAdd(Request $request)
                 'design_unit_price'=>$data2[$i][2],
                 'unitprice_remarks'=>$data2[$i][3],
             ]);
+            $timer = $timer+$res;
         }
-        if (null!=$res) {
+        if ($timer>0) {
             return ['status'=>1, 'message'=>'更新成功'];
         } else {
             return ['status'=>0, 'message'=>'更新失败,请检查'];
@@ -4784,11 +4798,11 @@ public function drawplanAdd(Request $request)
                 'unitprice_remarks'=>$data['unitprice_remarks'],
             ]);
         // dump($data);
-        // if (null!=$res) {
+        if ($res) {
             return ['status'=>1, 'message'=>'更新成功'];
-        // } else {
-        //     return ['status'=>0, 'message'=>'更新失败,请检查'];
-        // }
+        } else {
+            return ['status'=>0, 'message'=>'更新失败,请检查'];
+        }
     }
     //结构专业删除接口
     public function structureDel(Request $request)
@@ -4797,7 +4811,7 @@ public function drawplanAdd(Request $request)
         $res=Db::table('green_structure_fee')
             ->where('id',$data)
             ->delete();
-        if (null!=$res) {
+        if ($res) {
             return ['status'=>1, 'message'=>'删除成功'];
         } else {
             return ['status'=>0, 'message'=>'删除失败,请检查'];
@@ -4828,6 +4842,7 @@ public function drawplanAdd(Request $request)
             $data2[$i][$j]=str_replace("'", "",$data2[$i][$j]);
             }
         }
+        $timer = 0;
         for($i=0;$i<count($data2);$i++)
         {
             $res=Db::table('green_equipment_fee')
@@ -4840,8 +4855,9 @@ public function drawplanAdd(Request $request)
                 'HVAC'=>$data2[$i][5],
                 'unitprice_remarks'=>$data2[$i][6],
             ]);
+            $timer = $timer +$res;
         }
-        if (null!=$res) {
+        if ($timer>0) {
             return ['status'=>1, 'message'=>'更新成功'];
         } else {
             return ['status'=>0, 'message'=>'更新失败,请检查'];
@@ -4860,7 +4876,7 @@ public function drawplanAdd(Request $request)
                 'HVAC'=>$data['HVAC'],
                 'unitprice_remarks'=>$data['unitprice_remarks'],
             ]);
-        if (null!=$res) {
+        if ($res) {
             return ['status'=>1, 'message'=>'更新成功'];
         } else {
             return ['status'=>0, 'message'=>'更新失败,请检查'];
@@ -4874,7 +4890,7 @@ public function drawplanAdd(Request $request)
         $res=Db::table('green_equipment_fee')
             ->where('id',$data)
             ->delete();
-        if (null!=$res) {
+        if ($res) {
             return ['status'=>1, 'message'=>'删除成功'];
         } else {
             return ['status'=>0, 'message'=>'删除失败,请检查'];
