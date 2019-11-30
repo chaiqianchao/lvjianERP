@@ -4258,7 +4258,15 @@ else{
         $data=$request->param();
         $res = GreenProject::get(['project_id'=>$data["value"]]);
         if($res){
-            return json(["status"=>1,"message"=>"已查找到相关数据","project_name"=>$res["project_name"],"project_contractor"=>$res["project_contractor"],"project_agent"=>$res["project_agent"],"project_remark"=>$res["project_remark"]]);
+            return json(["status"=>1,"message"=>"已查找到相关数据","project_name"=>$res["project_name"],"project_contractor"=>$res["project_contractor"],"project_agent"=>$res["project_agent"]]);
+        }
+        return json(["status"=>0,"message"=>"未查找到相关数据"]);
+    }
+    public function insertDrawPlanData(Request $request){
+        $data=$request->param();
+        $res = GreenProjectdrawplan::get(['project_id'=>$data["value"]]);
+        if($res){
+            return json(["status"=>1,"message"=>"已查找到相关数据","drawplan_survey"=>$res["drawplan_survey"]]);
         }
         return json(["status"=>0,"message"=>"未查找到相关数据"]);
     }
@@ -4269,8 +4277,7 @@ else{
         $sql="CREATE TABLE IF NOT EXISTS`greenbuild`.`green_projectvalue".$data['value']."` ( 
                             `id` INT NOT NULL AUTO_INCREMENT COMMENT '自增ID' , 
                             `project_id` VARCHAR(50) NOT NULL COMMENT '工程号' , 
-                            `project_name` VARCHAR(50) NOT NULL COMMENT '工程名称' , 
-                            `entry_name` VARCHAR(50) NOT NULL COMMENT '单体名称' , 
+                            `entry_name` VARCHAR(50) NULL COMMENT '单体名称' , 
                             `project_subcontractor` VARCHAR(50) NULL COMMENT '分包人' , 
 
                             `design_area` VARCHAR(50) NULL COMMENT '设计面积' , 
@@ -4279,7 +4286,7 @@ else{
                             `difficulty_system` VARCHAR(11) NULL COMMENT '难度系数' ,  
                             `distribution_ratio` VARCHAR(11) NULL COMMENT '分配比例' ,
                             `residual_coefficient` VARCHAR(11) NULL COMMENT '其他系数' ,
-                            `major` VARCHAR(11) NULL COMMENT '专业' , 
+                            `drawplan_major` VARCHAR(11) NULL COMMENT '专业' , 
                             `designer` VARCHAR(11) NULL COMMENT '设计人员' ,
                             `design_price` FLOAT NULL COMMENT '设计单价' , 
                             `design_value` FLOAT NULL COMMENT '设计产值' ,  
@@ -4319,34 +4326,19 @@ public function drawplanAdd(Request $request)
     {
         $data=$request->param();
         // dump(123);exit();
-        if (GreenProjectdrawplan::get(['project_id'=> $data['project_id']])) {
-            //如果在表中查询到该用户名
-            $status = 0;
-            $message1 = '出图计划已存在,请重新输入~~';
-            return ['status'=>$status, 'message'=>$message1];
-        }
-        else{
+        // if (GreenProjectdrawplan::get(['project_id'=> $data['project_id']])) {
+        //     //如果在表中查询到该用户名
+        //     $status = 0;
+        //     $message1 = '出图计划已存在,请重新输入~~';
+        //     return ['status'=>$status, 'message'=>$message1];
+        // }
+        // else{
         foreach ($data as $key => $value){
             if($value=='')
                 {$data[$key]=null;}
         }
         $status = 1;
         $message = '添加成功';
-        $res=Db::table('green_projectdrawplan')
-            ->insert([
-                'project_id'=>$data['project_id'],
-                'project_name'=>$data['project_name'],
-                'project_contractor'=>$data['project_contractor'],
-                'project_agent'=>$data['project_agent'],
-                'monomer_name'=>$data['monomer_name'],
-                'drawplan_major'=>$data['drawplan_major'],
-                'drawplan_phase'=>$data['drawplan_phase'],
-                'figure_number'=>$data['figure_number'],
-                'drawplan_number'=>$data['drawplan_number'],
-                'drawplan_survey'=>$data['drawplan_survey'],
-                'drawplan_date'=>$data['drawplan_date'],
-                'drawplan_remarks'=>$data['drawplan_remarks'],
-            ]);
         $res1=Db::table('green_drawplan_designer')
             ->insert([
                 'project_id'=>$data['project_id'],
@@ -4375,7 +4367,7 @@ public function drawplanAdd(Request $request)
             $res2=Db::table('green_economic_indicators')
             ->insert([
                 'project_id'=>$data['project_id'],
-                'monomer_name'=>$data['monomer_name'],
+                'entry_name'=>$data['entry_name'],
                 'aboveground_area'=>$data['aboveground_area'],
                 'underground_area'=>$data['underground_area'],
                 'civil_air_defense'=>$data['civil_air_defense'],
@@ -4384,12 +4376,41 @@ public function drawplanAdd(Request $request)
                 'category'=>$data['category'],
                 'notes'=>$data['notes'],
             ]);
-        if ($res === null) {
+            $res3=Db::table('green_projectvalue'.$data['project_id'])
+            ->insert([
+                'project_id'=>$data['project_id'],
+                'entry_name'=>$data['entry_name'],
+                'design_area'=>$data['design_area'],
+                'contract_amount'=>$data['contract_amount'],
+                'difficulty_system'=>$data['difficulty_system'],
+                'stage_proportions'=>$data['stage_proportions'],
+                'distribution_ratio'=>$data['distribution_ratio'],
+                'residual_coefficient'=>$data['residual_coefficient'],
+                'drawplan_major'=>$data['drawplan_major'],
+                'designer'=>$data['designer'],
+                'design_price'=>$data['design_price'],
+                'design_value'=>$data['design_value'],
+                'proofreader'=>$data['proofreader'],
+                'proofreading_price'=>$data['proofreading_price'],
+                'proofreading_value'=>$data['proofreading_value'],
+                'auditor'=>$data['auditor'],
+                'audit_price'=>$data['audit_price'],
+                'audit_value'=>$data['audit_value'],
+                'work_boss'=>$data['work_boss'],
+                'work_basenumber'=>$data['work_basenumber'],
+                'work_value'=>$data['work_value'],
+                'project_boss'=>$data['project_boss'],
+                'project_basenumber'=>$data['project_basenumber'],
+                'project_value'=>$data['project_value'],
+                'drawing_time'=>$data['drawing_time'],
+                'remarks'=>$data['remarks'],
+            ]);
+        if (!$res3) {
             $status = 0;
             $message = '添加失败~~';
         }
         return ['status'=>$status, 'message'=>$message];
-        }
+        // }
     }
 
     //渲染工程详情界面

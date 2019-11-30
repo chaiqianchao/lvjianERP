@@ -19,6 +19,9 @@
             background-color: transparent;
             border: none;
         }
+        .text-c input{
+            width: 100%;
+        }
     </style>
 <body>
 <div class="layui-card">
@@ -62,20 +65,20 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label">单体名称</label>
+                                <label class="layui-form-label"><span class="x-red">*</span>单体名称</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="monomer_name" autocomplete="off" class="layui-input">
+                                    <input type="text" name="entry_name" lay-verify="required" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </div>
-                        <div class="layui-form-item">
+                  <!--       <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">专业</label>
                                 <div class="layui-input-inline">
                                     <input type="text" name="drawplan_major" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">阶段</label>
@@ -88,7 +91,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">工程概况</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="drawplan_survey" autocomplete="off" class="layui-input">
+                                    <input type="text" id="drawplan_survey" name="drawplan_survey" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </div>
@@ -96,7 +99,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">出图日期</label>
                                 <div class="layui-input-inline">
-                                    <input class="layui-input"  autocomplete="off" placeholder="日期" name="drawplan_date" id="start">
+                                    <input class="layui-input"  autocomplete="off" placeholder="日期" name="drawing_time" id="start">
                                 </div>
                             </div>
                         </div>
@@ -104,7 +107,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">备注</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" id="drawplan_remarks" name="drawplan_remarks" autocomplete="off" class="layui-input">
+                                    <input type="text" name="drawplan_remarks" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </div>
@@ -117,7 +120,6 @@
                             </div>
                         </div>
                         <div  class="layui-table-body layui-table-main" style="margin: 5px;">
-                            <form id="data2">
                                 <table class="layui-table layui-form" id="table">
                                     <thead>
                                         <th>编号</th>
@@ -145,7 +147,6 @@
                                     </tbody>
 
                                 </table>
-                            </form>
                     </div>
                     </div>
                     <div><p style="text-align: left;">合计: <span id="summary" style="margin-left:10px;">0</span>元</p></div>
@@ -261,67 +262,74 @@
                                 <div class="layui-colla-content" style="overflow: hidden;overflow-x: scroll;">
                                     <table class="layui-table">
                                             <thead>
-                                                <th>类别</th>
                                                 <th>设计面积</th>
-                                                <th>主体产值额</th>
+                                                <th>主体合同额</th>
+                                                <th>难度系数</th>
                                                 <th>阶段比例</th>
+
                                                 <th>分配比例</th>
                                                 <th>其他系数</th>
                                                 <th>专业</th>
                                                 <th>设计人员</th>
+
                                                 <th>设计单价</th>
                                                 <th>设计产值</th>
                                                 <th>校对人员</th>
                                                 <th>校对单价</th>
+
                                                 <th>校对产值</th>
                                                 <th>审核人员</th>
                                                 <th>审核单价</th>
                                                 <th>审核产值</th>
+
                                                 <th>工种负责人</th>
                                                 <th>工种单价</th>
                                                 <th>工种产值</th>
                                                 <th>工程人员</th>
+
                                                 <th>工程单价</th>
                                                 <th>工程产值</th>
                                                 <th>备注</th>
                                             </thead>
                                             <tbody>
                                                 <tr class="text-c">
-                                                <td><input type="text" class="td_input" autocomplete="off" name="aboveground_area"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="underground_area"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="civil_air_defense"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="layer_number"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="height"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="category"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="notes"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="aboveground_area"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="underground_area"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="civil_air_defense"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="layer_number"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="height"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="category"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="notes"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="aboveground_area"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="underground_area"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="civil_air_defense"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="layer_number"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="height"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="category"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="notes"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="notes"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="notes"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="design_area"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" id="contract_amount" name="contract_amount"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" id="difficulty_system" name="difficulty_system"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" id="stage_proportions" name="stage_proportions"></td>
+
+                                                <td><input type="text" class="td_input" autocomplete="off" id="distribution_ratio" name="distribution_ratio"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" id="residual_coefficient" name="residual_coefficient"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_major"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="designer"></td>
+
+                                                <td><input type="text" class="td_input" autocomplete="off" onchange="checkInData('design_value',this.value)" name="design_price"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" id="design_value" name="design_value"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="proofreader"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" onchange="checkInData('proofreading_value',this.value)" name="proofreading_price"></td>
+
+                                                <td><input type="text" class="td_input" autocomplete="off" id="proofreading_value" name="proofreading_value"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="auditor"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" onchange="checkInData('audit_value',this.value)" name="audit_price"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" id="audit_value" name="audit_value"></td>
+
+                                                <td><input type="text" class="td_input" autocomplete="off" name="work_boss"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" onchange="checkInData('work_value',this.value)" name="work_basenumber"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" id="work_value" name="work_value"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="project_boss"></td>
+
+                                                <td><input type="text" class="td_input" autocomplete="off" onchange="checkInData('project_value',this.value)" name="project_basenumber"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" id="project_value" name="project_value"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="remarks"></td>
                                                 </tr>
                                             </tbody>
-                                    </table>      
+                                    </table>
                                 </div>
                             </div>
-                        </div>                     
-
-                        <div class="layui-form-item" style="padding-top: 2%;">
-                          <button  class="layui-btn" lay-filter="add" lay-submit>新建提交</button>
                         </div>
-
-                        
+                        <div class="layui-form-item" style="padding-top: 2%;">
+                          <button  class="layui-btn" lay-filter="add" lay-submit=''>提交</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -329,7 +337,16 @@
     </div>
 </div>
 <script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
 <script>
+    // 捕捉回车,阻止回车事件
+    document.onkeydown = function(e){
+        var ev = (typeof event!= 'undefined')?window.event:e;
+        if(ev.keyCode == 13)
+        {
+            return false;
+        }
+    }
 layui.use(['form','layer'], function(){
     $ = layui.jquery;
     var form = layui.form
@@ -394,8 +411,7 @@ function insertData(value){
     var project_agent =document.getElementById('project_agent');
     var project_contractor =document.getElementById('project_contractor');
     var project_name =document.getElementById('project_name');
-    var drawplan_remarks =document.getElementById('drawplan_remarks');
-
+    var drawplan_survey =document.getElementById('drawplan_survey');
     $.ajax({
             type: "POST",
             url: "{:url('index/insertData')}",
@@ -406,7 +422,21 @@ function insertData(value){
                     project_agent.value = result.project_agent;
                     project_contractor.value = result.project_contractor;
                     project_name.value = result.project_name;
-                    drawplan_remarks.value = result.project_remark;
+                }
+            },
+            error : function() {
+                console.log("异常！");
+                // alert("异常！");
+            }
+        });
+    $.ajax({
+            type: "POST",
+            url: "{:url('index/insertDrawPlanData')}",
+            data: "value="+value,
+            success: function (result) {
+                if (result.status == 1) {
+                    // console.log(result);
+                    drawplan_survey.value = result.drawplan_survey;
                 }
             },
             error : function() {
@@ -415,6 +445,38 @@ function insertData(value){
             }
         });
     return false;
+}
+// 计算产值数据，并插入数据
+function checkInData(id,value){
+    // 获取合同额、系数
+    var contract_amount = document.getElementById("contract_amount");
+    var difficulty_system = document.getElementById("difficulty_system");
+    var stage_proportions = document.getElementById("stage_proportions");
+    var distribution_ratio = document.getElementById("distribution_ratio");
+    var residual_coefficient = document.getElementById("residual_coefficient");
+
+    var design_value = document.getElementById("design_value");
+    var proofreading_value = document.getElementById("proofreading_value");
+    var audit_value = document.getElementById("audit_value");
+    var work_value = document.getElementById("work_value");
+    var project_value = document.getElementById("project_value");
+
+    var price = parseFloat(value);
+    var  D1 = parseFloat(contract_amount.value);
+    var  D2 = parseFloat(difficulty_system.value);
+    var  D3 = parseFloat(stage_proportions.value);
+    var  D4 = parseFloat(distribution_ratio.value);
+    var  D5 = parseFloat(residual_coefficient.value);
+    // 产值
+    var total = (price*D1*D2*D3*D4*D5).toFixed(2);
+    switch(id){
+        case 'design_value':design_value.value = total;break;
+        case 'proofreading_value':proofreading_value.value = total;break;
+        case 'audit_value':audit_value.value = total;break;
+        case 'work_value':work_value.value = total;break;
+        case 'project_value':project_value.value = total;break;
+        default:console.log("异常");
+    }
 }
 </script>
 </body>
