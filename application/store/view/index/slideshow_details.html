@@ -92,23 +92,23 @@
 		                                {/if}
 		                            </th>
 		                        </tr>
-		                        <tr>
+		                    <!--     <tr>
 		                            <th>应收金额</th>
-		                            <td>{$content["sum_receivable"]}</td>
+		                            <td>{content["sum_receivable"]}</td>
 		                        	<th class="td-manage">
 		                        		{if condition="$limit eq 2"}
-		                                <a title="编辑" onclick="member_edit('{$content["id"]}', 'sum_receivable', '应收金额', '{$content["sum_receivable"]}', 'tosumEdit')" href="javascript:;">
+		                                <a title="编辑" onclick="member_edit('{content["id"]}', 'sum_receivable', '应收金额', '{content["sum_receivable"]}', 'tosumEdit')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a>
 		                                {/if}
 		                            </th>
-		                        </tr>
+		                        </tr> -->
 		                        <tr>
-		                            <th>新增份数</th>
-		                            <td>{$content["new_number"]}</td>
+		                            <th>图纸份数</th>
+		                            <td>{$content["sum_number"]}</td>
 		                        	<th class="td-manage">
 		                        		{if condition="$limit eq 2"}
-		                                <a title="编辑" onclick="member_edit('{$content["id"]}', 'new_number', '新增份数', '{$content["new_number"]}', 'tosumEdit')" href="javascript:;">
+		                                <a title="编辑" onclick="member_edit('{$content["id"]}', 'sum_number', '新增份数', '{$content["sum_number"]}', 'tosumEdit')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a>
 		                                {/if}
