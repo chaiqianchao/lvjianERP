@@ -183,7 +183,7 @@
             <td>{$vo.contract_operator}</td>
             <td>{$vo.contract_projectleader}</td>
             <td>{$vo.contract_approver}</td>
-            <td><a href="" onclick="detail_show(this,'{:url("index/contract_details",["id"=>$vo["contract_id"]])}')" >点击详情</a></td>
+            <td><a href="" onclick="detail_show(this,'{:url("index/contract_details",["id"=>$vo["id"],"contract_id"=>$vo["contract_id"],"project_id"=>$vo["project_id"]])}')" >点击详情</a></td>
           </tr>
           {/volist}
 

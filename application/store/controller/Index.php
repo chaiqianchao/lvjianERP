@@ -3225,13 +3225,15 @@ public function adminselectall(Request $request)
         $limit=Db::table('green_administrators')->where('staff_id',$sid)->value("contract_view");
         $this -> view -> assign('limit', $limit);
         //获取到要编辑的合同号
-        $contract_id = $request -> param('id');
-        $data=['contract_id'=>$contract_id];
+        $base = $request -> param();
+        $id =$base["id"];
+        $data=['id'=>$id];
+        $data2 =["contract_id"=>$base["contract_id"],"project_id"=>$base["project_id"]];
         $res=Db::table('green_contract')->where($data)->select();
       
-        $res1=Db::table('green_contractunitprice')->where($data)->select();
-        $res2=Db::table('green_contractphase')->where($data)->select(); 
-        $res3=Db::table('green_confirm')->where($data)->select();
+        $res1=Db::table('green_contractunitprice')->where($data2)->select();
+        $res2=Db::table('green_contractphase')->where($data2)->select(); 
+        $res3=Db::table('green_confirm')->where(["contract_id"=>$base["contract_id"]])->select();
         // dump($res3);
         if ($res2 == null) {
             $res2[0]=['contract_phase1'=>'','contract_phase2'=>'','contract_phase3'=>'','contract_phase4'=>'','contract_phase5'=>'','contract_phase6'=>''];
@@ -3881,15 +3883,15 @@ else{
     //删除合同
     public function  ContractDel(Request $request){
         $data=$request->param();
-        $res=Db::table('green_contract')->where('contract_id',$data['contract_id'])->delete();
+        $res=Db::table('green_contract')->where('id',$data['id'])->delete();
         $res1=Db::table('green_contractaccountphase')->where('contract_id',$data['contract_id'])->delete();
         $res2=Db::table('green_contractunitprice')->where('contract_id',$data['contract_id'])->delete();
         // $res3=Db::table('green_contractconstruction')->where('contract_id',$data['contract_id'])->delete();
         $res4=Db::table('green_contractledger')->where('contract_id',$data['contract_id'])->delete();
         $res5=Db::table('green_contractsettlement')->where('contract_id',$data['contract_id'])->delete();
         $res6=Db::table('green_confirm')->where('contract_id',$data['contract_id'])->delete();
-
-        if ($res == null||$res1 == null||$res2 == null||$res4 == null||$res5 == null||$res6 ==null) {
+        dump($res,$res1,$res2,$res4,$res5,$res6);
+        if (!$res&&!$res1&&!$res2&&!$res4&&!$res5&&!$res6) {
             $status = 0;
             $message = '删除失败~~';
         }

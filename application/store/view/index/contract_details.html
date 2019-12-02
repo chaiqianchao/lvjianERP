@@ -299,22 +299,27 @@ function member_edit(id, column, chinese, content, type) {
 	xadmin.open('详情修改', url);
 }
 function deleteThis() {
-   console.log("合同号为："+{$ContractList['contract_id']});
+   console.log("合同号为："+{$ContractList['id']});
     layer.alert("您确定要删除当前合同的所有数据吗？",
         function() {
             $.ajax({
             type: "post",
             url: "{:url('index/ContractDel')}",
-            data:"contract_id="+{$ContractList['contract_id']},
+            data:"id="+'{$ContractList["id"]}'+"&contract_id="+'{$ContractList["contract_id"]}'+"&project_id="+'{$ContractList["project_id"]}',
             success: function (data) {
-                  layer.alert("删除成功！",
+                if (data.status == 1) {
+                	layer.alert(data.message,
                 function() {
                     xadmin.close();
                     xadmin.father_reload();
                 });
+                }
+                else{
+                	layer.alert(data.message);
+                }
             },
             error: function(data) {
-                alert("error:"+data.message);
+            	layer.alert("error:"+data.message);
              }
          });
         
