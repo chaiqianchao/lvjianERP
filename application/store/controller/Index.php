@@ -3232,12 +3232,10 @@ public function adminselectall(Request $request)
         $res=Db::table('green_contract')->where($data)->select();
       
         $res1=Db::table('green_contractunitprice')->where($data2)->select();
-        $res2=Db::table('green_contractphase')->where($data2)->select(); 
+        $res2=Db::table('green_contractphase')->where(["contract_id"=>$base["contract_id"]])->select(); 
         $res3=Db::table('green_confirm')->where(["contract_id"=>$base["contract_id"]])->select();
         // dump($res3);
-        if ($res2 == null) {
-            $res2[0]=['contract_phase1'=>'','contract_phase2'=>'','contract_phase3'=>'','contract_phase4'=>'','contract_phase5'=>'','contract_phase6'=>''];
-        }
+
         $this->view->assign(['ContractList'=>$res[0],'Unitprice'=>$res1,'phase'=>$res2[0],'confirm'=>$res3]);
         //渲染编辑模板
         return $this->view->fetch('contract_details');

@@ -280,13 +280,7 @@ function adminShow() {
 	$('option[value='+val+']').prop("selected", true);
 }
 function contractPhaseShow(){
-	$('#content').html('<select id="text"><option value="0">已通过</option><option value="1">未通过</option></select>');
-	var val = "";
-	switch(value[3]){
-		case '已通过': val = "0";break;
-		case '未通过': val = "1";break;
-	}
-	$('option[value='+val+']').prop("selected", true);
+	$('#content').html('<select id="text" name = "value"><option>未通过</option><option>已通过</option></select>');
 }
 function buildtypeShow() {
 	$('#content').html('<select id="text"><option value="0">住宅</option><option value="1">商业</option><option value="2">公建</option><option value="0">零星</option><option value="0">其他</option></select>');

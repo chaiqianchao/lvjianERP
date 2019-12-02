@@ -11,6 +11,15 @@
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/newcontract.css" />
     <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
     <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+    <style type="text/css">
+        /*样式重写*/
+        .layui-form-select .layui-edge{
+                margin-top: 13px;
+        }
+        .layui-form-selected .layui-edge{
+                margin-top: 7px;
+        }
+    </style>
 <body>
 <div class="layui-card">
     <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
@@ -213,7 +222,12 @@
                                             <div class="layui-inline">
                                                 <label class="layui-form-label">咨询</label>
                                                 <div class="layui-input-inline">
-                                                    <input type="text" autocomplete="off" id="date1" class="layui-input" name="contract_phase1">
+                                                    <div style="width:400px;">
+                                                        <select name="contract_phase1">
+                                                            <option value="未通过">未通过</option>
+                                                            <option value="已通过">已通过</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -221,7 +235,12 @@
                                             <div class="layui-inline">
                                                 <label class="layui-form-label">强排</label>
                                                 <div class="layui-input-inline">
-                                                    <input type="text" autocomplete="off" id="date2" class="layui-input" name="contract_phase2">
+                                                    <div style="width:400px;">
+                                                        <select name="contract_phase2">
+                                                            <option value="未通过">未通过</option>
+                                                            <option value="已通过">已通过</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -229,7 +248,12 @@
                                             <div class="layui-inline">
                                                 <label class="layui-form-label">方案</label>
                                                 <div class="layui-input-inline">
-                                                    <input type="text" autocomplete="off" id="date3" class="layui-input" name="contract_phase3">
+                                                    <div style="width:400px;">
+                                                        <select name="contract_phase3">
+                                                            <option value="未通过">未通过</option>
+                                                            <option value="已通过">已通过</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -237,15 +261,25 @@
                                             <div class="layui-inline">
                                                 <label class="layui-form-label">初步</label>
                                                 <div class="layui-input-inline">
-                                                    <input type="text" autocomplete="off" id="date4" class="layui-input" name="contract_phase4">
+                                                    <div style="width:400px;">
+                                                        <select name="contract_phase4">
+                                                            <option value="未通过">未通过</option>
+                                                            <option value="已通过">已通过</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="layui-form-item">
                                             <div class="layui-inline">
                                                 <label class="layui-form-label">施工图</label>
-                                                <div class="layui-input-inline">
-                                                    <input type="text" autocomplete="off" id="date5" class="layui-input" name="contract_phase5">
+                                               <div class="layui-input-inline">
+                                                    <div style="width:400px;">
+                                                        <select name="contract_phase5">
+                                                            <option value="未通过">未通过</option>
+                                                            <option value="已通过">已通过</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -253,7 +287,12 @@
                                             <div class="layui-inline">
                                                 <label class="layui-form-label">套图</label>
                                                 <div class="layui-input-inline">
-                                                    <input type="text" autocomplete="off" id="date6" class="layui-input" name="contract_phase6">
+                                                    <div style="width:400px;">
+                                                        <select name="contract_phase6">
+                                                            <option value="未通过">未通过</option>
+                                                            <option value="已通过">已通过</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -473,7 +512,11 @@ layui.use(['form'], function(){
                 console.log(result);//打印服务端返回的数据(调试用)
                 if (result.status == 1) {
                     localStorage.removeItem("addanother");
-                    alert(result.message);
+                    layer.alert(result.message,
+                    function() {
+                        xadmin.close();
+                        xadmin.father_reload();
+                    });
                 }
                 else
                     alert(result.message);
