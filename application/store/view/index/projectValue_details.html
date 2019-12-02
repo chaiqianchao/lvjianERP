@@ -19,7 +19,7 @@
         <div class="layui-card" >
         	<div class="back-pro" style="background-color: #fff;padding-bottom: 10px;"><a href="javascript:history.go(-1)">返回</a></div>
             <div class="layui-card-body ">
-				<p>&nbsp&nbsp&nbsp工程号：{$content[0]['project_id']}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp工程名称：{$content[0]['project_name']} </p>
+				<p>&nbsp&nbsp&nbsp工程号：{$content[0]['project_id']}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp工程名称：{$project_name} </p>
             	<!-- 1 -->
             	<div class="layui-collapse" lay-filter="test">
                     <div class="layui-colla-item">
@@ -31,7 +31,7 @@
 		                                <th>工程号</th>
 		                                <td>&nbsp;{$content[0]['project_id']}</td>
 		                                <th>工程名称</th>
-		                                <td>{$content[0]['project_name']}</td>
+		                                <td>{$project_name}</td>
 		                            </tr>
 		                        </tbody>
 								<th>单体名称</th>
@@ -71,7 +71,7 @@
 									<td>{$vo.difficulty_system}</td>
 									<td>{$vo.distribution_ratio}</td>
 									<td>{$vo.residual_coefficient}</td>
-									<td>{$vo.major}</td>
+									<td>{$vo.drawplan_major}</td>
 									<td>{$vo.designer}</td>
 									<td>{$vo.design_price}</td>
 									<td>{$vo.design_value}</td>

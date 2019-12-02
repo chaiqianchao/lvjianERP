@@ -81,7 +81,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">专业</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="major" autocomplete="off" class="layui-input" value="{$content['major']}">
+                                    <input type="text" name="drawplan_major" autocomplete="off" class="layui-input" value="{$content['drawplan_major']}">
                                 </div>
                             </div>
                         </div>
@@ -293,7 +293,7 @@
                 $.ajax({
                     type: "POST",
                     url: "{:url('index/ProjectValueDel')}",
-                    data:"ID="+ID+"&project_id="+project_id,
+                    data:"id="+ID+"&project_id="+project_id,
                     success: function (data) {
                         layer.alert("删除成功！",
                             function() {

@@ -964,7 +964,7 @@ class Index extends Controller
                 'difficulty_system'=>$data['difficulty_system'],
                 'distribution_ratio'=>$data['distribution_ratio'],
                 'residual_coefficient'=>$data['residual_coefficient'],
-                'major'=>$data['major'],
+                'drawplan_major'=>$data['drawplan_major'],
                 'designer'=>$data['designer'],
                 'design_price'=>$data['design_price'],
                 'design_value'=>$data['design_value'],
@@ -987,7 +987,7 @@ class Index extends Controller
                 'remarks'=>$data['remarks'],
             ]);
 
-        if (null!=$result) {
+        if ($result) {
             return ['status'=>1, 'message'=>'更新成功'];
         } else {
             return ['status'=>0, 'message'=>'更新失败,请检查'];
@@ -3196,6 +3196,7 @@ public function adminselectall(Request $request)
         $this -> view -> assign('limit', $limit);
         //获取到要编辑的工程号
         $data = $request -> param();
+        $project_name = Db::table('green_project')->where('project_id',$data["project_id"])->value("project_name");
         if($data['start']==''||$data['end']==''){
             $result=Db::table('green_projectvalue'.$data['project_id'])
 //                ->where('drawing_time','BETWEEN',[$data['start'],$data['end']])
@@ -3205,8 +3206,8 @@ public function adminselectall(Request $request)
                 ->where('drawing_time','BETWEEN',[$data['start'],$data['end']])
                 ->select();
         }
-//        dump($result);
         $this->view->assign('content',$result);
+        $this->view->assign('project_name',$project_name);
         //渲染编辑模板
         return $this->view->fetch('projectValue_details');
     }
