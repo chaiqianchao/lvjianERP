@@ -4420,28 +4420,21 @@ public function drawplanAdd(Request $request)
         $limit=Db::table('green_administrators')->where('staff_id',$sid)->value("project_view");
         $this -> view -> assign('limit', $limit);
         //获取到要编辑的工程号
-        $project_id = $request -> param('id');
+        $project_id = $request -> param('project_id');
         $data=['project_id'=>$project_id];
         
         //根据ID和手机号进行查询
         $result =GreenProject::get($data);
-        if (!$result) {
-            return ['status'=>0,'msg'=>"无匹配数据"];
-        }
         $result1=Db::table('green_projectdrawplan')->where($data)->select();
         $result2=Db::table('green_drawplan_designer')->where($data)->select();
         $result3=Db::table('green_economic_indicators')->where($data)->select();
-        // dump($result1);
 // exit;
         $this->view->assign('jibenxinxi',$result);
         $this->view->assign('content',$result1[0]);
         $this->view->assign('drawplan_designer',$result2);
         $this->view->assign('economic_indicators',$result3[0]);
         //渲染编辑模板
-        if ($request -> param('type')) {
-            return ['status'=>1, 'jibenxinxi'=>$result, 'shejirenyuan'=>$result2, 'projectvalue'=>$result6,'note'=>$note];
-        }
-        else
+  
             return $this->view->fetch('drawplan_details');
     }
     //出图登记编辑修改
