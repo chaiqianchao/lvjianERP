@@ -473,10 +473,10 @@ layui.use(['form'], function(){
                 console.log(result);//打印服务端返回的数据(调试用)
                 if (result.status == 1) {
                     localStorage.removeItem("addanother");
-                    alert("SUCCESS");
+                    alert(result.message);
                 }
                 else
-                    alert("新建合同失败!");
+                    alert(result.message);
             },
             error : function() {
                 alert("异常！");
@@ -523,10 +523,17 @@ function change(value) {
                 } 
             },
             error: function(data) {
-                alert("error:"+data.responseText);
+                // alert("error:"+data.responseText);
              }
          });
   }
+      // 屏蔽回车事件
+    document.onkeyup = function (e) {
+    var code = e.charCode || e.keyCode; 
+        if (code == 13) {
+            return false;
+        }
+    }
 </script>
 </body>
 </html>

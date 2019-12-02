@@ -3601,7 +3601,7 @@ public function designPriceAdd(Request $request)
     public function contractAdd(Request $request)
     {
         $data=$request->param();
-        if (GreenContract::get(['contract_id'=> $data['contract_id']])) {
+        if (GreenContract::get(['contract_id'=> $data['contract_id']])&&GreenContract::get(['project_id'=> $data['project_id']])) {
             //如果在表中查询到该用户名
             $status = 0;
             $message1 = '该合同已存在,请重新输入~~';
@@ -3612,6 +3612,9 @@ public function designPriceAdd(Request $request)
             $message = '添加失败';
             if ($data['contract_type']=='其他') {
                 $data['contract_type'] = $data['contract_type_self'];
+            }
+            else if ($data['contract_type']=='undefined') {
+                $data['contract_type'] ='';
             }
             $res1=Db::table('green_contract')
                 // ->allowField(true)
@@ -3633,13 +3636,13 @@ public function designPriceAdd(Request $request)
                     'project_totalarea'=>$data['project_totalarea'],
                     'contract_remarks'=>$data['contract_remarks'],
                 ]);
-            if ($res1 === null) {
+            if (!$res1) {
                 $status = 0;
-                $message = '添加失败~~';
+                $message = '新建失败~~';
             }
             else{
                 $status = 1;
-                $message = '添加成功';
+                $message = '新建成功';
             }
             $unitprice = explode('^', $data['contract_unitprice']);
             for ($i=1; $i < count($unitprice); $i++) {
