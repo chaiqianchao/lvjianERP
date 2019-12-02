@@ -186,7 +186,11 @@
 										<th>单价</th>
 										<th>下浮率</th>
 										<th>说明</th>
-										<th></th>
+										<th>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="新增" href="javascript:;" onclick="member_edit('{$ContractList.contract_id}','{$ContractList.project_id}','','','contractUnitpriceAdd','新增')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </th>
 		                            </tr>
 		                            {volist name="Unitprice" id="vo"}
 		                            <tr>
@@ -196,7 +200,7 @@
 		                                <td>{$vo.contract_remarks}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','{$vo.contract_content}','{$vo.contract_content}','{$vo.contract_unitprice}*{$vo.contract_floatingrate}*{$vo.contract_remarks}','contractUnitpriceEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','{$vo.contract_content}','{$vo.contract_content}','{$vo.contract_content}*{$vo.contract_unitprice}*{$vo.contract_floatingrate}*{$vo.contract_remarks}','contractUnitpriceEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>

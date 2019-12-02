@@ -3241,12 +3241,6 @@ public function adminselectall(Request $request)
         return $this->view->fetch('contract_details');
     }
 
-   // 合同详细，新增设计单价行
-public function newdesignPrice()
-{
-    //渲染编辑模板
-    return $this->view->fetch('newdesignPrice');
-}
 // 合同详细，新增设计单价行
 public function designPriceAdd(Request $request)
 {

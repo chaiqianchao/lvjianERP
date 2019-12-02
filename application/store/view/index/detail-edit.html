@@ -61,6 +61,7 @@ $(function(){
 		case 'personalvalueDateEdit':
 		case 'departmentvalueDateEdit':
 		case 'accountPhaseEdit': $('#content').html('<input class="layui-input" placeholder="日期" id="start" autocomplete="off" value="'+value[3]+'">');break;
+		case 'contractUnitpriceAdd': 
 		case 'contractUnitpriceEdit': unitPriceShow();break;
 		case 'paymentEdit': paymentShow();break;
 		case 'projectEdit1':buildtypeShow();break;
@@ -136,6 +137,8 @@ $('#submit').click(function() {
 		case 'contractEdit': $.get("{:url('index/contractEdit')}",{contract_id:value[0], column: value[1], content:content});break;
 		case 'contractPhaseEdit': $.get("{:url('index/contractPhaseEdit')}",{contract_id:value[0], column: value[1], content:content});break;
 		case 'contractUnitpriceEdit': var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/contractUnitpriceEdit')}",{contract_id:value[0], column: value[1], content:content[0],unitPrice:content[1],floatingrate:content[2],remarks:content[3]});break;
+		case 'contractUnitpriceAdd':var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/designPriceAdd')}",{contract_id:value[0], project_id: value[1], contract_content:content[0],contract_unitprice:content[1],contract_floatingrate:content[2],contract_remarks:content[3]});break;
+
 		case 'contractContentEdit': var content = "";$("input[type='checkbox']:checked").each(function(){if($(this).val()!="其他")content+=$(this).val()+",";});$('input[type="text"]').each(function(){if($(this).val() && $('#other').prop("checked") == true)content+=$(this).val()+",";});  $.get("{:url('index/contractEdit')}",{contract_id:value[0], column: value[1], content:content});break;
 		//合同台账
 		case 'ledgerListEdit': $.get("{:url('index/ledgerListEdit')}",{contract_id:value[0], column: value[1], content:content});break;
@@ -192,7 +195,10 @@ var unitPriceShow = function() {
 	$('#column').remove();
 	$('#content').remove();
 	var content = value[3].split('*');
-	$('#form').html('<label>内容</label><input type="text" class="layui-input" style="width: 60%;" value="'+value[2]+'"><label>单价</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[0]+'"><label>下浮率</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[1]+'"><label>说明</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[2]+'">');
+	if (value[4]=='contractUnitpriceAdd') {
+		content=['','','',''];
+	}
+	$('#form').html('<label>内容</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[0]+'"><label>单价</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[1]+'"><label>下浮率</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[2]+'"><label>说明</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[3]+'">');
 }
 // var show=function(type){
 // 	this.confirmShow();
@@ -217,6 +223,7 @@ var confirmShowDeposite = function() {
 	}
 	$('#form').html('<label>名次</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[0]+'"><label>补偿费</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[1]+'"><label>付款方</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[2]+'"><label>开票日期</label><input class="layui-input" style="width: 60%;" placeholder="日期" id="start" autocomplete="off" value="'+content[3]+'"><label>开票金额</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[4]+'"><label>到账日期</label><input class="layui-input" style="width: 60%;" placeholder="日期" id="end" autocomplete="off" value="'+content[5]+'""><label>到账金额</label><input type="text" class="layui-input" style="width: 60%;" value="'+content[6]+'">');
 }
+
 var paymentShow = function() {
 	$('#column').remove();
 	$('#content').remove();
