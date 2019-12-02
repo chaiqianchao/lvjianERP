@@ -5166,29 +5166,27 @@ public function drawplanAdd(Request $request)
 // 新增加晒记录，功能函数
     public function addslideshow(Request $request){
          $data=$request->param();
-$sql="CREATE TABLE IF NOT EXISTS`greenbuild`.`green_tosum".$data['project_id']."` ( 
-                    `id` INT NOT NULL AUTO_INCREMENT COMMENT '自增ID' , 
-                    `project_id` VARCHAR(50) NOT NULL COMMENT '工程号' , 
-                    `project_name` VARCHAR(50) NOT NULL COMMENT '工程名称' , 
-                    `entry_name` VARCHAR(50) NOT NULL COMMENT '单体名称' , 
-                    `project_contractor` VARCHAR(50) NULL COMMENT '发包人' , 
-                    `project_agent` VARCHAR(50) NULL COMMENT '代建方' , 
-                    `sum_fee` VARCHAR(50) NULL COMMENT '加晒费总额' , 
-                    `sum_settled` VARCHAR(50) NULL COMMENT '已结算加晒费' , 
-                    `sum_free` VARCHAR(11) NULL COMMENT '免费金额' , 
-                    `project_sort` VARCHAR(20) NULL COMMENT '加晒图分类' ,  
-                    `sum_receivable` VARCHAR(11) NULL COMMENT '应收金额' ,
-                    `sum_copies` int(11) NULL COMMENT '图纸数量' ,
-                    `sum_norms` VARCHAR(140) NULL COMMENT '图纸规格' , 
-                    `sum_number` VARCHAR(11) NULL COMMENT '图纸份数' ,
-                    `sum_untiprice` FLOAT NULL COMMENT '单份合计' , 
-                    `sum_totalprice` FLOAT NULL COMMENT '小计' ,  
-                    `sum_date` DATE NULL COMMENT '加晒时间' , 
-                    `sum_remarks` VARCHAR(11) NULL COMMENT '备注' , 
-                    PRIMARY KEY (`id`)) ENGINE = InnoDB COMMENT = '".$data['project_id']."加晒记录';";
-    Db::execute($sql);
-
-
+        $sql="CREATE TABLE IF NOT EXISTS`greenbuild`.`green_tosum".$data['project_id']."` ( 
+                            `id` INT NOT NULL AUTO_INCREMENT COMMENT '自增ID' , 
+                            `project_id` VARCHAR(50) NOT NULL COMMENT '工程号' , 
+                            `project_name` VARCHAR(50) NOT NULL COMMENT '工程名称' , 
+                            `entry_name` VARCHAR(50) NOT NULL COMMENT '单体名称' , 
+                            `project_contractor` VARCHAR(50) NULL COMMENT '发包人' , 
+                            `project_agent` VARCHAR(50) NULL COMMENT '代建方' , 
+                            `sum_fee` VARCHAR(50) NULL COMMENT '加晒费总额' , 
+                            `sum_settled` VARCHAR(50) NULL COMMENT '已结算加晒费' , 
+                            `sum_free` VARCHAR(11) NULL COMMENT '免费金额' , 
+                            `project_sort` VARCHAR(20) NULL COMMENT '加晒图分类' ,  
+                            `sum_receivable` VARCHAR(11) NULL COMMENT '应收金额' ,
+                            `sum_copies` int(11) NULL COMMENT '图纸数量' ,
+                            `sum_norms` VARCHAR(140) NULL COMMENT '图纸规格' , 
+                            `sum_number` VARCHAR(11) NULL COMMENT '图纸份数' ,
+                            `sum_untiprice` FLOAT NULL COMMENT '单份合计' , 
+                            `sum_totalprice` FLOAT NULL COMMENT '小计' ,  
+                            `sum_date` DATE NULL COMMENT '加晒时间' , 
+                            `sum_remarks` VARCHAR(11) NULL COMMENT '备注' , 
+                            PRIMARY KEY (`id`)) ENGINE = InnoDB COMMENT = '".$data['project_id']."加晒记录';";
+            Db::execute($sql);
 
 
          if ($data["flag"]==0) {
@@ -5262,7 +5260,6 @@ $sql="CREATE TABLE IF NOT EXISTS`greenbuild`.`green_tosum".$data['project_id']."
                 }
             }
             $sum_totalprice = $sum_untiprice*number_format($data['sum_number']);
-            dump($sum_totalprice);
              // 插入数据进入分支表
                $res=Db::table('green_tosum'.$data["project_id"])->insert(['project_id'=>$data['project_id'],
                     'project_name'=>$data['project_name'],
@@ -5291,7 +5288,7 @@ $sql="CREATE TABLE IF NOT EXISTS`greenbuild`.`green_tosum".$data['project_id']."
                     'sum_fee'=>$data["sum"]]);
 
          }
-         return json_encode(["res"=>$res]);
+         return ["res"=>$res];
     }
 //加晒记录详情渲染
 public function slideshow_details(Request $request)

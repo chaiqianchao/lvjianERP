@@ -207,7 +207,7 @@ layui.use(['form'], function(){
             data: data,
             success: function (result) {
                 console.log(result);//打印服务端返回的数据(调试用)
-                if (result.status == 200) {
+                if (result.res == 1) {
                     // alert("SUCCESS");
                     layer.alert("新增加晒记录成功",
                     function() {
@@ -219,16 +219,7 @@ layui.use(['form'], function(){
                     alert("新增加晒记录失败!");
             },
             error : function(result) {
-                console.log(result.status);
-               if (result.status == 200) {
-                    // alert("SUCCESS");
-                    layer.alert("新增加晒记录成功",
-                    function() {
-                        xadmin.close();
-                        xadmin.father_reload();
-                    });
-                }
-                else
+                console.log(result.res);
                     alert("异常!");
             }
         });
