@@ -187,18 +187,18 @@
     /*用户-停用*/
     function member_stop(obj, id) {
       var text, textContent;
-      if ($(obj).attr("title") == "启用") {
+      if ($(obj).attr("title") != "启用") {
         textContent = "停用后该管理员身份将无效，";
         text = "停用";
       } else {
         textContent = "启用后将恢复该管理员身份，";
         text = "启用";
       }
-      layer.confirm("确认要" + text + "吗？", function(index) {
-        if ($(obj).attr("title") == "启用") {
+      layer.confirm(textContent+"确认要" + text + "吗？", function(index) {
+        if ($(obj).attr("title") != "启用") {
           //发异步把用户状态进行更改
           $.get('{:url("index/changeAble")}', { id: id, enable: 0 });
-          $(obj).attr("title", "停用");
+          $(obj).attr("title", "启用");
           $(obj)
             .find("i")
             .html("&#xe62f;");
@@ -212,7 +212,7 @@
           layer.msg("已停用!", { icon: 5, time: 1000 });
         } else {
           $.get('{:url("index/changeAble")}', { id: id, enable: 1 });
-          $(obj).attr("title", "启用");
+          $(obj).attr("title", "停用");
           $(obj)
             .find("i")
             .html("&#xe601;");
