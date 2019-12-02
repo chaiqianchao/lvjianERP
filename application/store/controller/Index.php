@@ -2962,21 +2962,21 @@ public function adminselectall(Request $request)
 
     $data=$request->param();
     $res=Db::table('green_administrators')
-        ->where('admin','<>','0')
-        ->where([
+        ->whereor([
             'staff_id'=>['like','%'.$data['content'].'%'],
             'staff_name'=>['like', '%'.$data['content'].'%'],
             'administrators_name'=>['like', '%'.$data['content'].'%'],
         ])
+        ->where('admin','<>','0')
         ->order("staff_id")
         ->paginate($data['pagenumber'],false,["query"=>$data]);
     $count=Db::table('green_administrators')
-        ->where('admin','<>','0')
-        ->where([
+        ->whereor([
             'staff_id'=>['like','%'.$data['content'].'%'],
             'staff_name'=>['like', '%'.$data['content'].'%'],
             'administrators_name'=>['like', '%'.$data['content'].'%'],
         ])
+        ->where('admin','<>','0')
         ->count();
     $this -> view -> assign('orderList', $res);
     $this -> view -> assign('count', $count);
