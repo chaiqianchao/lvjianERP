@@ -1873,6 +1873,12 @@ public function StaffAdd(Request $request)
 
 //合同模糊筛选
     public function ContractselectAll(Request $request){
+        $sid=Session::get('staff_id');
+        $limit=Db::table('green_administrators')->where('staff_id',$sid)->value("ledger");
+        if ($limit ==0) {
+            return $this -> view -> fetch('noPower');
+        }
+        $this -> view -> assign('limit', $limit);
         $data=$request->param();
         $res=Db::table('green_contract')
             ->whereor([
