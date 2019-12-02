@@ -1106,7 +1106,7 @@ class Index extends Controller
         $data=$request->param();
         $res=Db::table('green_project')->where('project_id',$data['project_id'])->update(['project_notice'=>$data['project_notice']]);
     }
-    // 新增管理员
+    // 新增管理员页面渲染
     public function adminAdd()
     {
         $sid=Session::get('staff_id');
@@ -2983,7 +2983,45 @@ public function adminselectall(Request $request)
     $this -> view -> assign('pagenumber', $data['pagenumber']);
     return $this -> view -> fetch('adminlist');
 }
-    
+  //新增管理员
+    public function addadmin(Request $requset)
+    {
+        $data = $requset -> param();
+        $check = Db::table('green_administrators')->where("administrators_name",$data['username'])->select();
+        if ($check) {
+            return ['status'=>2, 'message'=>'用户名已存在'];
+        }
+        $temp=[2,2,0,0,2,2,2,2,2,0,0,0];
+    $result = Db::table('green_administrators')
+        ->insert([
+            'staff_name'=>$data['name'],
+            'administrators_name'=>$data['username'],
+            'administrators_password'=>md5($data['repass']),
+            'admin'=>'普通管理员',
+            'enable'=>1,
+            'project_view'=>$temp[0],
+            'contract_view'=>$temp[1],
+            'ledger'=>$temp[2],
+            'bid'=>$temp[3],
+            'adminstrator'=>$temp[4],
+            'staff'=>$temp[5],
+            'jurisdiction'=>$temp[6],
+            'customer'=>$temp[7],
+            'project_value'=>$temp[8],
+            'department_value'=>$temp[9],
+            'staff_value'=>$temp[10],
+            'invoice_new'=>$temp[11],
+            'update_time'=>'00:00:00',
+            'administrators_lastTime'=>time(),
+            'admin_status'=>0,
+        ]);
+
+        if ($result) {
+            return ['status'=>1, 'message'=>'添加成功'];
+        } else {
+            return ['status'=>0, 'message'=>'添加失败,请检查'];
+        } 
+    }
     //权限更改
     public function changeAble(Request $requset)
     {

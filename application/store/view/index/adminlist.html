@@ -228,9 +228,7 @@
       });
     }
     function searchSelectAll() {
-      window.localStorage.content = document.getElementById(
-        "searchInput"
-      ).value;
+      window.localStorage.content = document.getElementById("searchInput").value;
       var options = $("#pagenumber option:selected");
       var content = document.getElementById("searchInput").value;
       $.ajax({
