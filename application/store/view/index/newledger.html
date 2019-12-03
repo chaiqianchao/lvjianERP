@@ -343,7 +343,7 @@ layui.use(['form'], function(){
         var payment = document.getElementsByClassName("payment");
         var paymentContent = "";
         for (var i =0; i < payment.length; i++) {
-            if (i%4==0){
+            if (i%3==0){
                 paymentContent = paymentContent +"^"+payment[i].value;
             }
             else{

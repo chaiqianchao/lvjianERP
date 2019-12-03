@@ -2554,6 +2554,12 @@ else{
     }
     //合同台账模糊筛选
     public function ContractLedgerSelectAll(Request $request){
+        $sid=Session::get('staff_id');
+        $limit=Db::table('green_administrators')->where('staff_id',$sid)->value("ledger");
+        if ($limit ==0) {
+            return $this -> view -> fetch('noPower');
+        }
+        $this -> view -> assign('limit', $limit);
         $data=$request->param();
         $res = Db::name('green_contractledger')
             ->alias("a") //取一个别名
