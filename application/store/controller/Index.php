@@ -4974,7 +4974,7 @@ public function drawplanAdd(Request $request)
         $data=$requset->param();
         // dump($data);
         $info=[];
-        if(null!=$data['project_id']){$info['project_id']=$data['project_id'];}
+        if(null!=$data['toubiao_id']){$info['toubiao_id']=$data['toubiao_id'];}
         
         if($data['type']=='保证金')
         {
@@ -5131,22 +5131,22 @@ public function drawplanAdd(Request $request)
         $data=$request->param();
         $list=Db::table('green_biddeposite')
             ->whereor([
-                'project_id'=>['like','%'.$data['content'].'%'],
+                'toubiao_id'=>['like','%'.$data['content'].'%'],
             ])
             ->order("deposite_invoice_date desc")
             ->paginate($data['pagenumber'],false,["query"=>$data]);
         $list1=Db::table('green_bidcompensation')
             ->whereor([
-                'project_id'=>['like','%'.$data['content'].'%'],
+                'toubiao_id'=>['like','%'.$data['content'].'%'],
             ])
             ->order("compensation_invoice_date desc")
             ->paginate($data['pagenumber'],false,["query"=>$data]);
         $count=Db::table('green_bidcompensation')
             ->whereor([
-                'project_id'=>['like','%'.$data['content'].'%'],
+                'toubiao_id'=>['like','%'.$data['content'].'%'],
             ])->count()+Db::table('green_biddeposite')
                 ->whereor([
-                    'project_id'=>['like','%'.$data['content'].'%'],
+                    'toubiao_id'=>['like','%'.$data['content'].'%'],
                 ])->count();
         $this -> view -> assign('orderList', $list);
         $this -> view -> assign('orderList1', $list1);
