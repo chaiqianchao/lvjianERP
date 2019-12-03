@@ -13,6 +13,10 @@
   <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
   <style type="text/css">
     .layui-form-label {width: 150px;}
+    .td_input{
+            background-color: transparent;
+            border: none;
+        }
   </style>
 </head>
 <body>
@@ -50,11 +54,11 @@
           </thead>
           <tbody>
           <tr>
-            <td><input class="layui-input invoice" placeholder="开票日期" id="date10" autocomplete="off"></td>
-            <td><input class="layui-input invoice" placeholder="开票金额" autocomplete="off"></td>
-            <td><input class="layui-input invoice" placeholder="到账日期" id="date12" autocomplete="off"></td>
-            <td><input class="layui-input invoice" placeholder="到账金额"  autocomplete="off"></td>
-            <td><button class="layui-btn" style="background-color:#49CABE;" onclick="itemAdd()"><i class="iconfont">&#xe6b9;</i></button></td>
+            <td><input type="text" class="layui-input td_input invoice" placeholder="开票日期" id="date10" autocomplete="off"></td>
+            <td><input type="text" class="layui-input td_input invoice" placeholder="开票金额" autocomplete="off"></td>
+            <td><input type="text" class="layui-input td_input invoice" placeholder="到账日期" id="date12" autocomplete="off"></td>
+            <td><input type="text" class="layui-input td_input invoice" placeholder="到账金额"  autocomplete="off"></td>
+            <td><a title="新增" href="javascript:;" onclick="itemAdd()" style="text-decoration:none"><i class="layui-icon" style="color: #2196f3;"></i></a></td>
           </tr>
           </tbody>
         </table>
@@ -70,7 +74,8 @@
 var date = 3;
 function itemAdd() {
   var item = document.createElement("tr");
-  item.innerHTML ='<td><input class="layui-input invoice" placeholder="开票日期" id="date'+date+'" autocomplete="off"></td><td><input class="layui-input invoice" placeholder="开票金额"  autocomplete="off"></td><td><input class="layui-input invoice" placeholder="到账日期" id="date'+(date+1)+'" autocomplete="off"></td><td><input class="layui-input invoice" placeholder="到账金额"  autocomplete="off"></td><td><button class="layui-btn" style="background-color:#49CABE;" onclick="itemDel(this)"><i class="iconfont">&#8212;</i></button></td>';
+  item.innerHTML = '';
+  item.innerHTML ='<td><input type="text" class="layui-input td_input invoice" placeholder="开票日期" id="date'+date+'" autocomplete="off"></td><td><input class="layui-input td_input invoice" placeholder="开票金额"  autocomplete="off"></td><td><input class="layui-input td_input invoice" placeholder="到账日期" id="date'+(date+1)+'" autocomplete="off"></td><td><input class="layui-input td_input invoice" placeholder="到账金额"  autocomplete="off"></td><td><a title="删除" href="javascript:;" onclick="itemDel(this)" style="text-decoration:none"><i class="layui-icon" style="color: #2196f3;">&#8212;</i></a></td>';
   document.getElementsByTagName('tbody')[0].appendChild(item);
   date +=2;
 }
