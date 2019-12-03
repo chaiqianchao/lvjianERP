@@ -847,10 +847,10 @@ class Index extends Controller
                 'deposite_payment_amount'=>$data['payment_amount'],
             ]);
         $res1=Db::table('green_biddeposite')
-            ->where('toubiao_id',$data['id'])
+            ->where('toubiao_id',$data['toubiao_id'])
             ->sum('deposite_payment_amount');
         Db::table('green_bid')
-            ->where('toubiao_id',$data['id'])
+            ->where('toubiao_id',$data['toubiao_id'])
             ->update(['bid_deposite'=>$res1]);
         if (null!=$result) {
             return ['status'=>1, 'message'=>'更新成功'];
@@ -4114,7 +4114,7 @@ else{
     }
     // 删除接口end
 
-//新增补偿费
+//新增保证金
     public function compensationAdd(Request $request){
         $data=$request->param();
         foreach ($data as $k=>$v)
@@ -4147,7 +4147,7 @@ else{
         return json(['status'=>$status, 'message'=>$message]);
     }
 
-//新增保证金
+//新增补偿费
     public function depositeAdd(Request $request){
         $data=$request->param();
 
@@ -4158,10 +4158,13 @@ else{
         $res=Db::table('green_biddeposite')
             ->insert([
                 'toubiao_id'=>$data['toubiao_id'],
-                'deposite_invoice_date'=>$data['deposite_invoice_date'],
-                'deposite_invoice_amount'=>$data['deposite_invoice_amount'],
-                'deposite_payment_date'=>$data['deposite_payment_date'],
-                'deposite_payment_amount'=>$data['deposite_payment_amount'],
+                'deposite_invoice_id'=>$data['deposite_invoice_id'],
+                'deposite_invoice_price'=>$data['deposite_invoice_price'],
+                'deposite_invoice_object'=>$data['deposite_invoice_object'],
+                'deposite_invoice_date'=>$data['invoice_date'],
+                'deposite_invoice_amount'=>$data['invoice_amount'],
+                'deposite_payment_date'=>$data['payment_date'],
+                'deposite_payment_amount'=>$data['payment_amount'],
             ]);
         $res1=Db::table('green_biddeposite')
             ->where('toubiao_id',$data['toubiao_id'])

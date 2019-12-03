@@ -306,7 +306,7 @@
 		                                <td>{$vo['deposite_payment_amount']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$vo.id}','','','{$vo.deposite_invoice_id}*{$vo.deposite_invoice_price}*{$vo.deposite_invoice_object}*{$vo.deposite_invoice_date}*{$vo.deposite_invoice_amount}*{$vo.deposite_payment_date}*{$vo.deposite_payment_amount}','depositeEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$vo.id}','','','{$vo.deposite_invoice_id}*{$vo.deposite_invoice_price}*{$vo.deposite_invoice_object}*{$vo.deposite_invoice_date}*{$vo.deposite_invoice_amount}*{$vo.deposite_payment_date}*{$vo.deposite_payment_amount}*{$BidList.toubiao_id}','depositeEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
@@ -353,7 +353,7 @@
 		                                <td>{$vo['compensation_payment_amount']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$vo.id}','','','{$vo.compensation_invoice_date}*{$vo.compensation_invoice_amount}*{$vo.compensation_payment_date}*{$vo.compensation_payment_amount}','compensationEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$vo.id}','','','{$vo.compensation_invoice_date}*{$vo.compensation_invoice_amount}*{$vo.compensation_payment_date}*{$vo.compensation_payment_amount}*{$BidList.toubiao_id}','compensationEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>
