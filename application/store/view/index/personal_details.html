@@ -36,6 +36,16 @@
 		                                {/if}
 		                                </tr>
 		                            <tr>
+		                            	<tr>
+		                                <th>登录名</th>
+		                                <td>{$staff.administrators_name}</td>
+		                                {if condition="($limit eq 2)"}
+		                                <td>
+		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'administrators_name','登录名','{$staff.administrators_name}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                </td>
+		                                {/if}
+		                                </tr>
+		                            <tr>
 		                                <th>电话</th>
 		                                <td>{$staff.staff_phone}</td>
 		                                {if condition="($limit eq 2)"}
@@ -46,22 +56,14 @@
 		                            </tr>
 		                            <tr>
 		                                <th>手机1</th>
-		                                <td>{$staff.staff_phone}</td>
+		                                <td>{$staff.staff_telphole_1}</td>
 		                                {if condition="($limit eq 2)"}
 		                                <td>
 		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_telphole_1','手机1','{$staff.staff_telphole_1}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                </td>
 		                                {/if}
 		                            </tr>
-		                            <tr>
-		                                <th>手机2</th>
-		                                <td>{$staff.staff_phone}</td>
-		                                {if condition="($limit eq 2)"}
-		                                <td>
-		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_telphole_2','手机2','{$staff.staff_telphole_1}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
-		                                </td>
-		                                {/if}
-		                            </tr>
+		                           
 		                            <tr>
 		                                <th>分机</th>
 		                                <td>{$staff.staff_extension}</td>
@@ -118,7 +120,7 @@
 		                            </tr>
 		                            <tr>
 		                                <th>职称</th>
-		                                <td>{$staff.staff_practising}</td>
+		                                <td>{$staff.staff_title}</td>
 		                                {if condition="($limit eq 2)"}
 		                                <td>
 		                                	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_title','职称','{$staff.staff_title}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
@@ -145,7 +147,7 @@
 		                            </tr>
 		                            <tr>
 		                                <th>钉钉</th>
-		                                <td>{$staff.staff_wechat}</td>
+		                                <td>{$staff.staff_dingding}</td>
 		                                {if condition="($limit eq 2)"}
 								        <td>
 								        	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_dingding','钉钉','{$staff.staff_dingding}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
@@ -154,7 +156,7 @@
 		                            </tr>
 		                            <tr>
 		                                <th>邮箱</th>
-		                                <td>{$staff.staff_wechat}</td>
+		                                <td>{$staff.staff_email}</td>
 		                                {if condition="($limit eq 2)"}
 								        <td>
 								        	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_email','邮箱','{$staff.staff_email}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
@@ -163,7 +165,7 @@
 		                            </tr>
 		                            <tr>
 		                                <th>其他</th>
-		                                <td>{$staff.staff_wechat}</td>
+		                                <td>{$staff.staff_other}</td>
 		                                {if condition="($limit eq 2)"}
 								        <td>
 								        	<a title="编辑" href="javascript:;" class="edit" onclick="member_edit({$staff.staff_id},'staff_other','其他','{$staff.staff_other}','personalEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>

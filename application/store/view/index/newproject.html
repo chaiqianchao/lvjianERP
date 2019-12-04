@@ -621,7 +621,7 @@ layui.use(['form'], function(){
                 }
             });
         }
-        data = data + "&project_design="+project_designContent;
+        data = data + "&project_design="+project_designContent.Substring(0,project_designContent.Length - 1);
     // 分离 - 项目负责人，并转存
         var project_leader = document.getElementsByClassName("project_leader");
         var project_leaderContent = "";
@@ -630,7 +630,7 @@ layui.use(['form'], function(){
                 project_leaderContent = project_leaderContent+project_leader[i].value +",";
             }
         }
-        data = data + "&project_leader="+project_leaderContent;
+        data = data + "&project_leader="+project_leaderContent.Substring(0,project_leaderContent.Length - 1);
     // 分离 - 建设方，并转存
         var project_contractor = document.getElementsByClassName("project_contractor");
         var project_contractorContent = "";
@@ -639,7 +639,7 @@ layui.use(['form'], function(){
                 project_contractorContent = project_contractorContent+project_contractor[i].value +",";
             }
         }
-        data = data + "&project_contractor="+project_contractorContent;
+        data = data + "&project_contractor="+project_contractorContent.Substring(0,project_contractorContent.Length - 1);
     // 分离 - 代建方，并转存
         var project_agent = document.getElementsByClassName("project_agent");
         var project_agentContent = "";
@@ -648,7 +648,7 @@ layui.use(['form'], function(){
                 project_agentContent = project_agentContent+project_agent[i].value +",";
             }
         }
-        data = data + "&project_agent="+project_agentContent;
+        data = data + "&project_agent="+project_agentContent.Substring(0,project_agentContent.Length - 1);
 
         $.ajax({
             //几个参数需要注意一下

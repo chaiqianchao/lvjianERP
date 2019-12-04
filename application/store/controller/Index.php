@@ -1527,6 +1527,7 @@ public function StaffAdd(Request $request)
         // ->allowField(true)
         ->insert([
             'enable'=>$data['enable'],
+            'administrators_name'=>$data['staff_telphole_1'],
             'staff_name'=>$data['name'],
             'staff_phone'=>$data['phone'],
             'staff_telphole_1'=>$data['staff_telphole_1'],
@@ -1610,8 +1611,6 @@ public function StaffAdd(Request $request)
         $data = $request -> param();
             $count = Db::table('green_staff')->count();
             $list = Db::table('green_staff')->order("staff_name desc")->paginate(10); 
-       
-         
 
         $this -> view -> assign('orderList', $list);
         $this -> view -> assign('count', $count);
@@ -3007,7 +3006,7 @@ public function adminselectall(Request $request)
             return ['status'=>0, 'message'=>'添加失败,请检查'];
         } 
     }
-    //权限更改
+    //启用管理员更改
     public function changeAble(Request $requset)
     {
         $data = $requset -> param();
@@ -3025,13 +3024,36 @@ public function adminselectall(Request $request)
             ->update([
                 'enable'=>$data['enable']
             ]);
-        if (null!=$result1 &&null!=$result2 ) {
+        if ($result1 && $result2 ) {
             return ['status'=>1, 'message'=>'更新成功'];
         } else {
             return ['status'=>0, 'message'=>'更新失败,请检查'];
         } 
     }
-
+    //启用员工更改
+    public function changeStaffAble(Request $requset)
+    {
+        $data = $requset -> param();
+        $result1 = Db::table('green_administrators')
+            ->where([
+                'staff_id'=>$data['id']
+            ])
+            ->update([
+                'staff_enable'=>$data['staff_enable']
+            ]);
+        $result2 = Db::table('green_staff')
+            ->where([
+                'staff_id'=>$data['id']
+            ])
+            ->update([
+                'staff_enable'=>$data['staff_enable']
+            ]);
+        if ($result1 && $result2 ) {
+            return ['status'=>1, 'message'=>'更新成功'];
+        } else {
+            return ['status'=>0, 'message'=>'更新失败,请检查'];
+        } 
+    }
         // 工程产值
      public function gongchengchanzhi()
    {

@@ -74,6 +74,7 @@
                           <th>电话</th>
                           <th>状态</th>
                           <th>是否启用管理员</th>
+                          <th>是否启用为员工</th>
                           {if condition="$limit eq 2"}
                           <th>操作</th>
                           {/if}
@@ -91,11 +92,29 @@
                                   <td class="td-status">
                                     <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>
                                   </td>
+                                   {if condition ="$vo.staff_enable eq '1'"}
+                                   <td class="td-status">
+                                    <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>
+                                  </td>
+                                  {else}
+                                     <td class="td-status">
+                                      <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">已停用</span>
+                                    </td>
+                                  {/if}
                                   {if condition="$limit eq 2"}
                                   <td class="td-manage">
-                                    <a onclick="member_stop(this, {$vo.staff_id})" href="javascript:;"  title="停用">
+                                    <a onclick="member_stop(this, {$vo.staff_id})" href="javascript:;"  title="停用管理员">
                                       <i class="layui-icon">&#xe601;</i>
                                     </a>
+                                    {if condition ="$vo.staff_enable eq '1'"}
+                                        <a onclick="member_stop_staff(this, {$vo.staff_id})" href="javascript:;"  title="停用员工">
+                                          <i class="layui-icon">&#xe601;</i>
+                                        </a>
+                                    {else}
+                                        <a onclick="member_stop_staff(this, {$vo.staff_id})" href="javascript:;"  title="启用员工">
+                                          <i class="layui-icon">&#xe62f;</i>
+                                        </a>
+                                    {/if}
                                      <a onclick="del_person({$vo.staff_id})" href="javascript:;"  title="删除员工">
                                       <i class="iconfont">&#xe6b7;</i>
                                     </a>
@@ -105,11 +124,29 @@
                                   <td class="td-status">
                                     <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">已停用</span>
                                   </td>
+                                   {if condition ="$vo.staff_enable eq '1'"}
+                                   <td class="td-status">
+                                    <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>
+                                  </td>
+                                  {else}
+                                     <td class="td-status">
+                                      <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">已停用</span>
+                                    </td>
+                                  {/if}
                                   {if condition="$limit eq 2"}
                                   <td class="td-manage">
-                                    <a onclick="member_stop(this, {$vo.staff_id})" href="javascript:;" title="启用">
+                                    <a onclick="member_stop(this, {$vo.staff_id})" href="javascript:;" title="启用管理员">
                                       <i class="layui-icon">&#xe62f;</i>
                                     </a>
+                                    {if condition ="$vo.staff_enable eq '1'"}
+                                        <a onclick="member_stop_staff(this, {$vo.staff_id})" href="javascript:;"  title="停用员工">
+                                          <i class="layui-icon">&#xe601;</i>
+                                        </a>
+                                    {else}
+                                        <a onclick="member_stop_staff(this, {$vo.staff_id})" href="javascript:;"  title="启用员工">
+                                          <i class="layui-icon">&#xe62f;</i>
+                                        </a>
+                                    {/if}
                                     <a onclick="del_person({$vo.staff_id})" href="javascript:;"  title="删除员工">
                                       <i class="iconfont">&#xe6b7;</i>
                                     </a>
@@ -151,42 +188,67 @@ function del_person(id){
                 alert("error:"+data.responseText);
              }
          });
-
 });
   
 }
-/*用户-停用*/
+/*管理员-停用*/
 function member_stop(obj,id){
 var text,textContent;
-if($(obj).attr('title')!="启用")
+if($(obj).attr('title')!="启用管理员")
 {
-textContent =  "停用后该用户将无法登陆，";
+textContent =  "停用后该用户将停用管理员身份，";
 text = "停用";
 }
 else
 {
-textContent =  "启用后该用户将可以自由登陆，";
+textContent =  "启用后该用户将启用管理员身份，";
 text = "启用";
 }
 layer.confirm(textContent+'确认要'+text+'吗？',function(index){
 
-if($(obj).attr('title')!='启用'){
+if($(obj).attr('title')!='启用管理员'){
 
   //发异步把用户状态进行更改
   $.get('{:url("index/changeAble")}', {id:id, enable:0});
-  $(obj).attr('title','启用')
-  $(obj).find('i').html('&#xe62f;');
 
-  $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
   layer.msg('已停用!',{icon: 5,time:1000});
+  window.location.reload()
 
 }else{
   $.get('{:url("index/changeAble")}', {id:id, enable:1});
-  $(obj).attr('title','停用')
-  $(obj).find('i').html('&#xe601;');
 
-  $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
   layer.msg('已启用!',{icon: 6,time:1000});
+  window.location.reload()
+}
+
+});
+}
+/*员工-停用*/
+function member_stop_staff(obj,id){
+var text,textContent;
+if($(obj).attr('title')!="启用员工")
+{
+  textContent =  "停用后该用户将无法正常登录，";
+  text = "停用";
+}
+else
+{
+textContent =  "启用后该用户将可以正常登录，";
+text = "启用";
+}
+layer.confirm(textContent+'确认要'+text+'吗？',function(index){
+
+if($(obj).attr('title')!='启用员工'){
+
+  //发异步把用户状态进行更改
+  $.get('{:url("index/changeStaffAble")}', {id:id, staff_enable:0});
+  layer.msg('已停用!',{icon: 5,time:1000});
+  window.location.reload()
+
+}else{
+  $.get('{:url("index/changeStaffAble")}', {id:id, staff_enable:1});
+  layer.msg('已启用!',{icon: 6,time:1000});
+  window.location.reload()
 }
 
 });
