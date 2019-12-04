@@ -219,7 +219,6 @@
   <div></div>
 <script type="text/javascript" src="__STATIC__/js/domain.js"></script>
 <script>
-  console.log({$orderList});
   var showMenu = 1;
   function searchscreen() {
     if (showMenu == 1) {
@@ -233,7 +232,6 @@
 
   function searchSelect(){
     var options=$("#pagenumber option:selected");
-    console.log($('#select').serialize());
      $.ajax({
             type: "post",
             // dataType: "json",
@@ -257,7 +255,6 @@
             url: "{:url('index/drawplanSelectAll')}",
             data:$('#searchAll').serialize()+"&pagenumber="+options.val(),
             success: function (result) {
-              // console.log(result);
                 document.body.innerHTML=result;
                 document.getElementById("searchInput").value=localStorage.content;
                 localStorage.removeItem('content');

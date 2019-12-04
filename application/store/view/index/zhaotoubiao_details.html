@@ -461,7 +461,6 @@
 function member_edit(id, column, chinese, content, type,B_or_D) {
 	content =content.replace(/%/g, '%25');
 	var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
-	console.log(content);
 	// 补偿费、保证金新增
 	if (B_or_D=="新增") {
 		xadmin.open('新增', url);
@@ -472,7 +471,6 @@ function member_edit(id, column, chinese, content, type,B_or_D) {
 	
 }
 function deleteThis() {
-   console.log("项目id为："+{$BidList['toubiao_id']});
     layer.alert("您确定要删除当前招投标项目的所有数据吗？",
         function() {
             $.ajax({
@@ -490,8 +488,6 @@ function deleteThis() {
                 alert("error:"+data.message);
              }
          });
-            //当用户确认点击删除数据时
-        
         });
 }
 

@@ -441,8 +441,6 @@ class Index extends Controller
         $test = Db::query('SHOW FULL COLUMNS FROM '.'green_projectdraw');
         $test2 = Db::query('SHOW FULL COLUMNS FROM '.'green_projectphase');
         //给当前编辑模板赋值
-        // dump($result2);
-        // dump($test);
         $this->view->assign('jibenxinxi',$result);
         $this->view->assign('shejirenyuan',$result2);
         $this->view->assign('projectvalue',$result6);
@@ -913,10 +911,8 @@ class Index extends Controller
         for ($i=1; $i <8; $i++) { 
             if ($res[0]["bidphase_phase".$i])
             {
-                // dump($res[0]["bidphase_phase".$i]);
                 $phase_now = $phase[$i-1];
             }
-            dump($phase_now);
         }
         $res1 = Db::table('green_bid')
             ->where([
@@ -1523,7 +1519,6 @@ public function StaffAdd(Request $request)
     $rest=  [1,0,0,0,0,1,0,0,1,0,0,0];
     $temp=[];
     // $count = Db::table('green_staff')->field(max('staff_id'));
-    // dump($count);
     $checkName = Db::table('green_administrators')->where('administrators_name',$data['staff_telphole_1'])->select();
     if($checkName){
         return ['status'=>3, 'message'=>"该手机号码已存在用户"];
@@ -2224,7 +2219,6 @@ else{
                     ->where('`contract_receivables`'.$info4['contract_receivables'].' && '.'`contract_accepted`'.$info4['contract_accepted'].' && '.'`contract_invoiced_unpaid`'.$info4['contract_invoiced_unpaid'])
                     ->where('payment_date','BETWEEN',[$info3['start'],$info3['end']])
                     ->paginate($data['pagenumber'],false,["query"=>$data]);
-                    // dump(["query"=>$info]);
                 $count = Db::name('green_contractledger')
                     ->alias("a") 
                     ->join('green_confirm i', 'a.contract_id = i.contract_id')
@@ -2275,7 +2269,6 @@ else{
                     ->where('payment_date','BETWEEN',[$info3['start'],$info3['end']])
                     ->paginate($data['pagenumber'],false,["query"=>$data]);
 
-                    // dump(["query"=>$info]);
                 $count = Db::name('green_contractledger')
                     ->alias("a") 
                     ->join('green_confirm i', 'a.contract_id = i.contract_id')
@@ -2301,7 +2294,6 @@ else{
                     ->where('payment_date','BETWEEN',[$info3['start'],$info3['end']])
                     ->paginate($data['pagenumber'],false,["query"=>$data]);
 
-                    // dump(["query"=>$info]);
                 $count = Db::name('green_contractledger')
                     ->alias("a") 
                     ->join('green_confirm i', 'a.contract_id = i.contract_id')
@@ -2327,7 +2319,6 @@ else{
                     ->where('invoice_date','BETWEEN',[$info2['start'],$info2['end']])
                     ->where('payment_date','BETWEEN',[$info3['start'],$info3['end']])
                     ->paginate($data['pagenumber'],false,["query"=>$data]);
-                    // dump(["query"=>$info]);
                 $count = Db::name('green_contractledger')
                     ->alias("a") 
                     ->join('green_confirm i', 'a.contract_id = i.contract_id')
@@ -2351,7 +2342,6 @@ else{
                     ->where($info)
                     ->where('`contract_receivables`'.$info4['contract_receivables'].' && '.'`contract_accepted`'.$info4['contract_accepted'].' && '.'`contract_invoiced_unpaid`'.$info4['contract_invoiced_unpaid'])
                     ->paginate($data['pagenumber'],false,["query"=>$data]);
-                    // dump(["query"=>$info]);
                 $count = Db::name('green_contractledger')
                     ->alias("a") 
                     ->join('green_confirm i', 'a.contract_id = i.contract_id')
@@ -2371,7 +2361,6 @@ else{
                     ->where('`contract_receivables`'.$info4['contract_receivables'].' && '.'`contract_accepted`'.$info4['contract_accepted'].' && '.'`contract_invoiced_unpaid`'.$info4['contract_invoiced_unpaid'])
                     ->where('contractledger_signtime','BETWEEN',[$info1['start'],$info1['end']])
                     ->paginate($data['pagenumber'],false,["query"=>$data]);
-                    // dump(["query"=>$info]);
                 $count = Db::name('green_contractledger')
                     ->alias("a") 
                     ->join('green_confirm i', 'a.contract_id = i.contract_id')
@@ -2392,7 +2381,6 @@ else{
                     ->where('`contract_receivables`'.$info4['contract_receivables'].' && '.'`contract_accepted`'.$info4['contract_accepted'].' && '.'`contract_invoiced_unpaid`'.$info4['contract_invoiced_unpaid'])
                     ->where('invoice_date','BETWEEN',[$info2['start'],$info2['end']])
                     ->paginate($data['pagenumber'],false,["query"=>$data]);
-                    // dump(["query"=>$info]);
                 $count = Db::name('green_contractledger')
                     ->alias("a") 
                     ->join('green_confirm i', 'a.contract_id = i.contract_id')
@@ -2413,7 +2401,6 @@ else{
                     ->where('`contract_receivables`'.$info4['contract_receivables'].' && '.'`contract_accepted`'.$info4['contract_accepted'].' && '.'`contract_invoiced_unpaid`'.$info4['contract_invoiced_unpaid'])
                     ->where('payment_date','BETWEEN',[$info3['start'],$info3['end']])
                     ->paginate($data['pagenumber'],false,["query"=>$data]);
-                    // dump(["query"=>$info]);
                 $count = Db::name('green_contractledger')
                     ->alias("a") 
                     ->join('green_confirm i', 'a.contract_id = i.contract_id')
@@ -2436,7 +2423,6 @@ else{
                     ->where('invoice_date','BETWEEN',[$info2['start'],$info2['end']])
                     ->paginate($data['pagenumber'],false,["query"=>$data]);
 
-                    // dump(["query"=>$info]);
                 $count = Db::name('green_contractledger')
                     ->alias("a") 
                     ->join('green_confirm i', 'a.contract_id = i.contract_id')
@@ -2460,7 +2446,6 @@ else{
                     ->where('payment_date','BETWEEN',[$info3['start'],$info3['end']])
                     ->paginate($data['pagenumber'],false,["query"=>$data]);
 
-                    // dump(["query"=>$info]);
                 $count = Db::name('green_contractledger')
                     ->alias("a") 
                     ->join('green_confirm i', 'a.contract_id = i.contract_id')
@@ -2484,7 +2469,6 @@ else{
                     ->where('payment_date','BETWEEN',[$info3['start'],$info3['end']])
                     ->paginate($data['pagenumber'],false,["query"=>$data]);
 
-                    // dump(["query"=>$info]);
                 $count = Db::name('green_contractledger')
                     ->alias("a") 
                     ->join('green_confirm i', 'a.contract_id = i.contract_id')
@@ -2508,7 +2492,6 @@ else{
                     ->where('invoice_date','BETWEEN',[$info2['start'],$info2['end']])
                     ->where('payment_date','BETWEEN',[$info3['start'],$info3['end']])
                     ->paginate($data['pagenumber'],false,["query"=>$data]);
-                    // dump(["query"=>$info]);
                 $count = Db::name('green_contractledger')
                     ->alias("a") 
                     ->join('green_confirm i', 'a.contract_id = i.contract_id')
@@ -2550,7 +2533,6 @@ else{
         $confirm = true;
         $this -> view -> assign('confirm',$confirm);
         return $this -> view -> fetch('taizhangguanli');
-        // dump($res);
     }
     //合同台账模糊筛选
     public function ContractLedgerSelectAll(Request $request){
@@ -2649,7 +2631,6 @@ else{
         $result2 =Db::table('green_biddeposite')->where($data)->select();
         $result3 =GreenBidphase::get($data);
         // $result4 =GreenBidtype::get($data);
-        // dump($result3);
         $this->view->assign('BidList',$result[0]);
 
         //给当前编辑模板赋值
@@ -2951,8 +2932,6 @@ else{
 
         $count = Db::table('green_administrators')->where('admin','IN','超级管理员,普通管理员')->count();
         $list = Db::table('green_administrators')->where('admin','IN','超级管理员,普通管理员')->order("staff_id")->paginate(10);
-//       dump($list);
-
         $this -> view -> assign('orderList', $list);
         $this -> view -> assign('count', $count);
         $this -> view -> assign('pagenumber', 10);
@@ -3150,8 +3129,6 @@ public function adminselectall(Request $request)
             $sum=Db::table('green_projectvalue'.$data['project_id'])->where('drawing_time','between',[$data['start'],$data['end']])->sum('value_subtotal');
         }
         
-//        dump($list);
-
             $curpage = input('page') ? input('page') : 1;//当前第x页，有效值为：1,2,3,4,5...
             $listRow = $data['pagenumber'];//每页10行记录
             $dataTo = array();
@@ -3278,7 +3255,6 @@ public function adminselectall(Request $request)
         $res1=Db::table('green_contractunitprice')->where($data2)->select();
         $res2=Db::table('green_contractphase')->where(["contract_id"=>$base["contract_id"]])->select(); 
         $res3=Db::table('green_confirm')->where(["contract_id"=>$base["contract_id"]])->select();
-        // dump($res3);
 
         $this->view->assign(['ContractList'=>$res[0],'Unitprice'=>$res1,'phase'=>$res2[0],'confirm'=>$res3]);
         //渲染编辑模板
@@ -3325,7 +3301,6 @@ public function designPriceAdd(Request $request)
             ->paginate(10);
        // ->select();
         $sum=Db::table('green_departmentvalue')->sum('total_personalvalue');
-// dump($list);
         $this -> view -> assign('orderList', $list);
         $this -> view -> assign('count', $count);
         $this -> view -> assign('sum', round($sum,2));
@@ -3357,7 +3332,6 @@ public function designPriceAdd(Request $request)
         }
         
         $this->view->assign('content',$res);
-        // dump($res);
         return $this->view->fetch('departmentValue_details');
     }
 
@@ -3486,7 +3460,6 @@ public function designPriceAdd(Request $request)
             ->whereor(['staff_department'=>['like','%'.$data['content'].'%'],
                 'draw_date'=>['like','%'.$data['content'].'%']])
             ->sum('total_personalvalue');
-            // dump($res);
         $this -> view -> assign('orderList', $res);
         $this -> view -> assign('count', $count);
         $this -> view -> assign('pagenumber',$data['pagenumber']);
@@ -3536,7 +3509,6 @@ public function designPriceAdd(Request $request)
         }
         $this -> view -> assign('content', $res);
         $this -> view -> assign('sum', round($sum,2));
-        // dump($res);
         //渲染管理员列表模板
         return $this -> view -> fetch('personalvalue_details');
     }
@@ -3913,7 +3885,6 @@ else{
             $status = 1;
             $message = '删除成功';
         }
-            // dump($res2);
         return ['status'=>$status, 'message'=>$message];
     }
     //删除合同
@@ -3926,7 +3897,6 @@ else{
         $res4=Db::table('green_contractledger')->where('contract_id',$data['contract_id'])->delete();
         $res5=Db::table('green_contractsettlement')->where('contract_id',$data['contract_id'])->delete();
         $res6=Db::table('green_confirm')->where('contract_id',$data['contract_id'])->delete();
-        dump($res,$res1,$res2,$res4,$res5,$res6);
         if (!$res&&!$res1&&!$res2&&!$res4&&!$res5&&!$res6) {
             $status = 0;
             $message = '删除失败~~';
@@ -4143,7 +4113,6 @@ else{
             $status = 1;
             $message = '添加成功';
         }
-//        dump($res);
         return json(['status'=>$status, 'message'=>$message]);
     }
 
@@ -4250,14 +4219,12 @@ else{
         if ($isSort) {
             $sort = $sort . " desc";
         }
-        // dump($sort);
             $res =Db::table('green_projectdrawplan')
                 ->where($info)
                 ->where('monomer_name',"like","%".$data['monomer_name']."%")
                 ->order($sort)
                // ->select();
                 ->paginate($data['pagenumber'],false,["query"=>$data]);
-        // dump($res);
         $this -> view -> assign('count', count($res));
         $this -> view -> assign('orderList', $res);
         $this -> view -> assign('pagenumber', $data["pagenumber"]);
@@ -4365,7 +4332,6 @@ else{
 
 
         $res1 =Db::table('green_projectvalue'.$data["value"])->field('entry_name')->select();
-        // dump($res1);
         GreenProject::get(['project_id'=>$data["value"]]);
         if($res){
             return json(["status"=>1,"message"=>"已查找到相关数据","project_name"=>$res["project_name"],"project_contractor"=>$res["project_contractor"],"project_agent"=>$res["project_agent"],"project_remark"=>$res["project_remark"],"names"=>$res1]);
@@ -4376,14 +4342,6 @@ else{
 public function drawplanAdd(Request $request)
     {
         $data=$request->param();
-        // dump(123);exit();
-        // if (GreenProjectdrawplan::get(['project_id'=> $data['project_id']])) {
-        //     //如果在表中查询到该用户名
-        //     $status = 0;
-        //     $message1 = '出图计划已存在,请重新输入~~';
-        //     return ['status'=>$status, 'message'=>$message1];
-        // }
-        // else{
         foreach ($data as $key => $value){
             if($value=='')
                 {$data[$key]=null;}
@@ -4580,17 +4538,10 @@ public function drawplanAdd(Request $request)
     //图文制作费明细 渲染接口
     public function fee()
     {
-        // $sid=Session::get('staff_id');
-        // $limit=Db::table('green_administrators')->where('staff_id',$sid)->value('department_value');
-        // if ($limit == 0) {
-        //     return $this -> view -> fetch('noPower');
-        //     exit;
-        // }
         $count = Db::table('green_drawing_fee')->count();
         $list = Db::table('green_drawing_fee')->order("id")->select();
 
         $this -> view -> assign('orderList', $list);
-        // dump($list);
         $this -> view -> assign('count', $count);
         return $this->view->fetch('fee');
     }
@@ -4601,17 +4552,10 @@ public function drawplanAdd(Request $request)
     //建筑专业设计单价明细 渲染接口
     public function architecture_fee()
     {
-        // $sid=Session::get('staff_id');
-        // $limit=Db::table('green_administrators')->where('staff_id',$sid)->value('department_value');
-        // if ($limit == 0) {
-        //     return $this -> view -> fetch('noPower');
-        //     exit;
-        // }
         $count = Db::table('green_architecture_fee')->count();
         $list = Db::table('green_architecture_fee')->order("id")->select();
 
         $this -> view -> assign('orderList', $list);
-        // dump($list);
         $this -> view -> assign('count', $count);
         return $this->view->fetch('architecture_fee');
     }
@@ -4622,34 +4566,20 @@ public function drawplanAdd(Request $request)
     //结构专业设计单价明细 渲染接口
     public function structure_fee()
     {
-        // $sid=Session::get('staff_id');
-        // $limit=Db::table('green_administrators')->where('staff_id',$sid)->value('department_value');
-        // if ($limit == 0) {
-        //     return $this -> view -> fetch('noPower');
-        //     exit;
-        // }
         $count = Db::table('green_structure_fee')->count();
         $list = Db::table('green_structure_fee')->order("id")->select();
 
         $this -> view -> assign('orderList', $list);
-        // dump($list);
         $this -> view -> assign('count', $count);
         return $this->view->fetch('structure_fee');
     }
     //设备专业设计单价明细 渲染接口
     public function equipment_fee()
     {
-        // $sid=Session::get('staff_id');
-        // $limit=Db::table('green_administrators')->where('staff_id',$sid)->value('department_value');
-        // if ($limit == 0) {
-        //     return $this -> view -> fetch('noPower');
-        //     exit;
-        // }
         $count = Db::table('green_equipment_fee')->count();
         $list = Db::table('green_equipment_fee')->order("id")->select();
 
         $this -> view -> assign('orderList', $list);
-        // dump($list);
         $this -> view -> assign('count', $count);
         return $this->view->fetch('equipment_fee');
     }
@@ -4862,7 +4792,6 @@ public function drawplanAdd(Request $request)
                 'design_unit_price'=>$data['design_unit_price'],
                 'unitprice_remarks'=>$data['unitprice_remarks'],
             ]);
-        // dump($data);
         if ($res) {
             return ['status'=>1, 'message'=>'更新成功'];
         } else {
@@ -4951,7 +4880,6 @@ public function drawplanAdd(Request $request)
     public function equipmentDel(Request $request)
     {
         $data=$request->param('id');
-        // dump($data);
         $res=Db::table('green_equipment_fee')
             ->where('id',$data)
             ->delete();
@@ -4975,7 +4903,6 @@ public function drawplanAdd(Request $request)
         else
             {
         $data=$requset->param();
-        // dump($data);
         $info=[];
         if(null!=$data['toubiao_id']){$info['toubiao_id']=$data['toubiao_id'];}
         
@@ -5189,7 +5116,6 @@ public function drawplanAdd(Request $request)
             $status = 1;
             $message = '删除成功';
         }
-            // dump($res2);
         return ['status'=>$status, 'message'=>$message];
     }
     // 加晒记录概览渲染
@@ -5203,7 +5129,6 @@ public function drawplanAdd(Request $request)
         $this -> view -> assign('orderList', $result);
         $this -> view -> assign('count', $count);
         $this -> view -> assign('pagenumber', 10);
-        // dump($result);
         //渲染管理员列表模板
         return $this -> view -> fetch('slideshow');
     }
@@ -5372,7 +5297,6 @@ public function tosumSelectAll(Request $request){
         $this -> view -> assign('orderList', $res);
         $this -> view -> assign('count', count($res));
         $this -> view -> assign('pagenumber', $data['pagenumber']);
-        // dump($result);
         //渲染管理员列表模板
         return $this -> view -> fetch('slideshow');
     }

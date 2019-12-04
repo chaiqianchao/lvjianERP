@@ -165,7 +165,6 @@
   function searchSelectAll(){
     window.localStorage.content = document.getElementById("searchInput").value;
     var options=$("#pagenumber option:selected");
-    // console.log($('#searchAll').serialize());
      $.ajax({
             type: "post",
             url: "{:url('index/DepartmentvalueSelectAll')}",

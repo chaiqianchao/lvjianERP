@@ -148,7 +148,6 @@ layui.use(['form','layer'], function(){
     form.on('submit(add)',
     function() {
         var data = $('#newContract').serialize();
-        console.log(data);
         $.ajax({
         //几个参数需要注意一下
             type: "POST",//方法类型
@@ -156,7 +155,6 @@ layui.use(['form','layer'], function(){
             url: "{:url('index/CustomerAdd')}",//url
             data: data,
             success: function (result) {
-                console.log(result);//打印服务端返回的数据(调试用)
                 if (result.status == 1) {
                     // alert("SUCCESS");
                     layer.alert("新增客户信息成功",

@@ -140,10 +140,8 @@
   // function check(url ,id){
   //    var start = document.getElementById('start').value;
   //   var end = document.getElementById('end').value;
-  //   console.log(id);
   //   localStorage.start = start;
   //   localStorage.end = end;
-  //   // console.log(localStorage.start,localStorage.end);
   // }
   function gotoDetail(project_id){
       let start = document.getElementById('start').value;
@@ -182,7 +180,6 @@
   function searchSelectAll(){
     window.localStorage.content = document.getElementById("searchInput").value;
     var options=$("#pagenumber option:selected");
-    // console.log($('#searchAll').serialize());
      $.ajax({
             type: "post",
             url: "{:url('index/ProjectValueSelectAll')}",

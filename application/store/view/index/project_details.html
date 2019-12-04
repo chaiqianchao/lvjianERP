@@ -327,12 +327,10 @@ function notice_add(id) {
 }
 function member_edit(id, column, chinese, content, type) {
     var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
-    console.log(url);
     xadmin.open('详情修改', url);
 	
 }
 function deleteThis() {
-   // console.log('工程号为："'+{$jibenxinxi["project_id"]}+'"');
     layer.alert("您确定要删除当前工程的所有数据吗？",
         function() {
             $.ajax({

@@ -390,7 +390,6 @@ layui.use(['form'], function(){
         }
         confirmContent = confirmContent.replace("^***","");
         data = data + "&confirm="+confirmContent;
-        console.log(data);
 
         $.ajax({
             //几个参数需要注意一下
@@ -399,7 +398,6 @@ layui.use(['form'], function(){
                 url: "{:url('index/ledgerAdd')}",//url
                 data: data,
                 success: function (result) {
-                    console.log(result);//打印服务端返回的数据(调试用)
                     if (result.status == 1) {
                         localStorage.removeItem("addanother");
                          layer.alert("新建台账成功",

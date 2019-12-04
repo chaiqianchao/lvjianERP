@@ -302,7 +302,6 @@ function member_edit(id, column, chinese, content, type) {
 	xadmin.open('详情修改', url);
 }
 function deleteThis() {
-   console.log("合同号为："+{$ContractList['id']});
     layer.alert("您确定要删除当前合同的所有数据吗？",
         function() {
             $.ajax({

@@ -209,7 +209,6 @@
 <script type="text/javascript" src="__STATIC__/js/domain.js"></script>
 <script>
 	function searchSelect(){
-		// console.log($('#project_search').serialize());
 		var options=$("#pagenumber option:selected");
 		 $.ajax({
             type: "post",
@@ -228,13 +227,11 @@
 	function searchSelectAll(){
 		window.localStorage.content = document.getElementById("searchInput").value;
 		var options=$("#pagenumber option:selected");
-		// console.log($('#searchAll').serialize());
 		 $.ajax({
             type: "get",
             url: "{:url('index/ProjectselectAll')}",
             data:$('#searchAll').serialize()+"&pagenumber="+options.val(),
             success: function (result) {
-            	// console.log(result);
                 document.body.innerHTML=result;
 
                 document.getElementById("searchInput").value=localStorage.content;

@@ -79,13 +79,10 @@
                 Data[i].push(cells[j].innerHTML);
             }
         }
-        // console.log(Data);
         var string = getString(Data);
-        // console.log(eval(string));
 
 
         var btn = document.getElementById("edit");
-        console.log(btn.value);
         if (btn.value == "编辑") {
             btn.value = "完成编辑";
             // 添加修改
@@ -104,7 +101,6 @@
                 url: "{:url('index/equipmentEdit')}", //url
                 data: 'data=' + string,
                 success: function(result) {
-                    console.log(result); //打印服务端返回的数据(调试用)
                     if (result.status == 1) {
                         localStorage.removeItem("addanother");
                         alert("SUCCESS");
@@ -141,7 +137,6 @@
         return tree;
     }
     function Delete_this_data(id, that) {
-        console.log($(that).parent().parent());
 
         $.ajax({
             //几个参数需要注意一下
@@ -150,7 +145,6 @@
             url: "{:url('index/equipmentDel')}", //url
             data: 'id=' + id,
             success: function(result) {
-                console.log(result); //打印服务端返回的数据(调试用)
                 if (result.status == 1) {
                     $(that).parent().parent().remove();
                     localStorage.removeItem("addanother");

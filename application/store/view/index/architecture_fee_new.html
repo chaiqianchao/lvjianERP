@@ -73,7 +73,6 @@
 
     function submitProject() {
         var data = $('#newContract').serialize();
-        console.log(data);
 
         $.ajax({
             //几个参数需要注意一下
@@ -82,7 +81,6 @@
             url: "{:url('index/architectureAdd')}", //url
             data: data,
             success: function(result) {
-                console.log(result); //打印服务端返回的数据(调试用)
                 if (result.status == 1) {
                     localStorage.removeItem("addanother");
                     alert("SUCCESS");

@@ -144,7 +144,6 @@ function del_person(id){
             url: "{:url('index/del_person')}",
             data:"staff_id="+id,
             success: function (result) {
-              console.log("成功");
                 layer.msg('已删除',{icon: 5,time:1000});
                 layer.father_reload();
             },

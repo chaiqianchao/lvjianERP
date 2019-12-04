@@ -500,7 +500,6 @@ layui.use(['form'], function(){
         }
     }
     data = data + "&contract_agent="+contract_agentContent;
-    console.log(data);
 
     $.ajax({
         //几个参数需要注意一下
@@ -509,7 +508,6 @@ layui.use(['form'], function(){
             url: "{:url('index/contractAdd')}",//url
             data: data,
             success: function (result) {
-                console.log(result);//打印服务端返回的数据(调试用)
                 if (result.status == 1) {
                     localStorage.removeItem("addanother");
                     layer.alert(result.message,
@@ -538,7 +536,6 @@ function change(value) {
             data:{'id':value,'type':"select"},
             success: function(result){
                 if (result.status == 1) {
-                    console.log(result);
                     if (result.jibenxinxi) {
                         $("input[name='contract_constructor']")[0].value = result.jibenxinxi.project_contractor;
                         $("input[name='project_name']")[0].value = result.jibenxinxi.project_name;
@@ -548,14 +545,12 @@ function change(value) {
                         $("input[name='project_totalarea']")[0].value = result.jibenxinxi.project_totalarea;
                         // 设计内容
                         // $("input[name='contract_content']")[0].value = result.jibenxinxi.project_design;
-                        console.log(result.jibenxinxi.project_design);
                         var contentSplit = result.jibenxinxi.project_design.split(",");
                         // 过滤空字符
                         if (contentSplit[contentSplit.length-1]=='') {
                             contentSplit.pop();
                         }
 
-                        // console.log(contentSplit);
                         var contract_content = document.getElementsByClassName("contract_content");
                         // var contract_contentContent = "";
                         // for (var i =0; i < contract_content.length-1; i++) {

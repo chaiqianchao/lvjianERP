@@ -356,9 +356,6 @@ layui.use(['form','layer'], function(){
     form.on('submit(add)',
     function() {
         var data = $('#newContract').serialize();
-        console.log(data);
-        console.log($('#newContract td[drawplan_project1]').val());
-        console.log($("td[name='drawplan_project1']").val());
         $.ajax({
         //几个参数需要注意一下
             type: "POST",//方法类型
@@ -366,7 +363,6 @@ layui.use(['form','layer'], function(){
             url: "{:url('index/drawplanAdd')}",//url
             data: data,
             success: function (result) {
-                console.log(result);//打印服务端返回的数据(调试用)
                 if (result.status == 1) {
                     // alert("SUCCESS");
                     layer.alert("新增出图计划信息成功",
@@ -418,15 +414,13 @@ function insertData(value){
             data: "value="+value,
             success: function (result) {
                 if (result.status == 1) {
-                    // console.log(result);
                     project_agent.value = result.project_agent;
                     project_contractor.value = result.project_contractor;
                     project_name.value = result.project_name;
                 }
             },
             error : function() {
-                console.log("异常！");
-                // alert("异常！");
+                alert("异常！");
             }
         });
     $.ajax({
@@ -435,13 +429,11 @@ function insertData(value){
             data: "value="+value,
             success: function (result) {
                 if (result.status == 1) {
-                    // console.log(result);
                     drawplan_survey.value = result.drawplan_survey;
                 }
             },
             error : function() {
-                console.log(555);
-                // alert("异常！");
+                alert("异常！");
             }
         });
     return false;

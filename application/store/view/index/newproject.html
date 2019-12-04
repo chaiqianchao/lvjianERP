@@ -553,7 +553,6 @@ layui.use(['form'], function(){
         var content=document.getElementById(id);
         var number = parseFloat(content.value);
         if (isNaN(number)) {
-            console.log("非法");
             return 0;
         }
         else
@@ -602,7 +601,6 @@ layui.use(['form'], function(){
     }
     function submitProject(){
         var data = $('#newContract').serialize();
-        console.log(data);
 
         var project_classify = document.getElementsByClassName("classify");
         if($('input[type=radio][name=project_buildtype]:checked').val()=='其他')
@@ -659,7 +657,6 @@ layui.use(['form'], function(){
                 url: "{:url('index/projectAdd')}",//url
                 data: data,
                 success: function (result) {
-                    console.log(result);//打印服务端返回的数据(调试用)
                     if (result.status == 1) {
                         localStorage.removeItem("addanother");
                         alert("SUCCESS");

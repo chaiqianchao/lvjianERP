@@ -260,7 +260,6 @@
     function submitprojectvalue (){
         let id = '{$content["id"]}';
         let project_id ='{$content["project_id"]}';
-        console.log($('#projectvalue').serialize()+"&id="+id+"&project_id="+project_id);
         $.ajax({
             //几个参数需要注意一下
             type: "POST",//方法类型
@@ -268,7 +267,6 @@
             url: "{:url('index/projectValueEdit')}",//url
             data: $('#projectvalue').serialize()+"&id="+id+"&project_id="+project_id,
             success:function (result) {
-                console.log(result);//打印服务端返回的数据(调试用)
                 if (result.status == 1) {
                     xadmin.close();
                     xadmin.father_reload();
@@ -284,7 +282,6 @@
     }
 
     function deleteThis() {
-        console.log({$content['id']});
 
         layer.alert("您确定要删除当前合同的所有数据吗？",
             function() {

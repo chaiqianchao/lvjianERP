@@ -315,11 +315,9 @@
 function member_edit(id, column, chinese, content, type) {
 	content =content.replace(/%/g, '%25');
 	var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
-	console.log(content);
 	xadmin.open('详情修改', url);
 }
 function member_edit2(id, column, chinese, content, type) {
-	 console.log(content);
     var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
    
     xadmin.open('详情修改', url);

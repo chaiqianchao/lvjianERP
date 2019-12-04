@@ -176,7 +176,6 @@
   <script type="text/javascript" src="__STATIC__/js/domain.js"></script>
 <script>
   if (localStorage.addanother) {
-    console.log(localStorage.addanother);
     var data = localStorage.addanother.split('"')[1].split('&');
     var id = data[0].split('=')[1];
     var type = data[1].split('=')[1];
@@ -210,7 +209,6 @@
   function searchSelectAll(){
     window.localStorage.content = document.getElementById("searchInput").value;
     var options=$("#pagenumber option:selected");
-    // console.log($('#searchAll').serialize());
      $.ajax({
             type: "post",
             url: "{:url('index/invoiceSelectAll')}",

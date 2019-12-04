@@ -186,7 +186,6 @@ layui.use(['form'], function(){
     form.on('submit(add)',
     function() {
         var data = $('#data1').serialize();
-        // console.log(data);
        var tosunCheckList = document.getElementsByClassName("tosunCheck");
        var entry_name = document.getElementsByClassName("entry_name");
        var checklist = '';
@@ -197,8 +196,6 @@ layui.use(['form'], function(){
        }
 
        data = data+'&entry_name='+checklist+'&flag='+localStorage.flag+'&sum='+localStorage.sum;
-        // console.log($('#newContract td[drawplan_project1]').val());
-        // console.log($("td[name='drawplan_project1']").val());
         $.ajax({
         //几个参数需要注意一下
             type: "POST",//方法类型
@@ -206,7 +203,6 @@ layui.use(['form'], function(){
             url: "{:url('index/addslideshow')}",//url
             data: data,
             success: function (result) {
-                console.log(result);//打印服务端返回的数据(调试用)
                 if (result.res == 1) {
                     // alert("SUCCESS");
                     layer.alert("新增加晒记录成功",
@@ -219,7 +215,6 @@ layui.use(['form'], function(){
                     alert("新增加晒记录失败!");
             },
             error : function(result) {
-                console.log(result.res);
                     alert("异常!");
             }
         });
@@ -231,13 +226,11 @@ this.clickRadio();
 function clickRadio(){
     var type1 = document.getElementById("type1");
     if(type1.checked){
-        console.log("规格加晒");
         document.getElementById("tosunlist1").style.display="block";
         document.getElementById("tosunlist2").style.display="none";
         localStorage.flag = 0;
     }
     else{
-        console.log("自定义加晒");
         document.getElementById("tosunlist2").style.display="block";
         document.getElementById("tosunlist1").style.display="none";
         localStorage.flag = 1;
@@ -262,7 +255,6 @@ function insertData(value){
                     project_agent.value = result.project_agent;
                     project_contractor.value = result.project_contractor;
                     project_name.value = result.project_name;
-                    // console.log(result.names);
                     var list =[];
                     for (var i =0 ; i <result.names.length; i++) {
                         // conentList[2].innerHTML+='<dd onclick="console.log(1234)" lay-value="'+result.names[i].entry_name+'" class>'+result.names[i].entry_name+'</dd>';
@@ -272,16 +264,12 @@ function insertData(value){
                     }
                     // localStorage.list = result.names;
                     // var test = JSON.parse(localStorage.list);
-                    // console.log( eval("(" + localStorage.list + ")"));
-                    // console.log(localStorage.list[0].entry_name);
-                    // console.log(list);
                     return list;
                     // namelist = list;
                 }
             },
             error : function() {
-                console.log(555);
-                // alert("异常！");
+                alert("异常！");
             }
         });
     return false;
@@ -302,7 +290,6 @@ function changePrice(price, name) {
     var sum = 0;
     document.getElementById(name).value = price;
     var value = $('input[name='+name+']').val();
-    console.log(value);
     data[name] = parseFloat(value)*parseFloat(price);
     for(var item in data){
         sum += data[item];

@@ -89,7 +89,6 @@
             url: "{:url('index/personalValueEdit')}",//url
             data: $('#personalvalue').serialize()+"&id="+{$content['id']},
             success:function (result) {
-                console.log(result);//打印服务端返回的数据(调试用)
                 if (result.status == 1) {
                     xadmin.close();
                     xadmin.father_reload();
@@ -105,8 +104,6 @@
     }
 
     function deleteThis() {
-        console.log({$content['id']});
-
         layer.alert("您确定要删除当前合同的所有数据吗？",
             function() {
                 let id = '{$content["id"]}';

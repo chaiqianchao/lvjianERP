@@ -544,7 +544,6 @@ layui.use(['form'], function(){
     }
     function submitZTB(){
         var data = $('#newContract').serialize();
-        console.log(data);
 // 分离 - 保证金，并转存
         var compensation = document.getElementsByClassName("compensation");
         var compensationContent = "";
@@ -595,8 +594,6 @@ layui.use(['form'], function(){
             bid_document = bid_document+document.getElementById("bid_document").value+"、";
         }
         data = data + "&bid_document="+bid_document.substring(0, bid_document.lastIndexOf('、'));
-
-        console.log(data);
 
         $.ajax({
             //几个参数需要注意一下

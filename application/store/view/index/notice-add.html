@@ -30,7 +30,6 @@
 	function memberAdd() {
 		var id = location.search.split('?')[1].split('=')[1];
 		var notice = document.getElementById('new-notice').value;
-		console.log(notice)
 		$.get("{:url('index/noticeAdd')}",{project_id: id,project_notice: notice});
 
 	    xadmin.close();

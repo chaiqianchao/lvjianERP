@@ -201,7 +201,6 @@
 
   function searchSelect(){
     var options=$("#pagenumber option:selected");
-    console.log($('#select').serialize());
      $.ajax({
             type: "post",
             // dataType: "json",
@@ -225,7 +224,6 @@
             url: "{:url('index/tosumSelectAll')}",
             data:$('#searchAll').serialize()+"&pagenumber="+options.val(),
             success: function (result) {
-              // console.log(result);
                 document.body.innerHTML=result;
                 document.getElementById("searchInput").value=localStorage.content;
                 localStorage.removeItem('content');

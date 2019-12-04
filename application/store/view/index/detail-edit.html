@@ -49,7 +49,6 @@ if(url.indexOf("?")!=-1){
 		value[i]=decodeURI(strs[i].split("=")[1]); 
 	}
 	toubiao_id = '';
-	console.log(value);
 }
 
 
@@ -305,7 +304,6 @@ function buildtypeShow() {
 function noticeShow() {
  var oContent = $('#content');
  var notices = value[3].split(';');
- console.log(notices);
  for (var i = 0; i < notices.length-1; i++) {
      oContent.append('<li style="display: block;"><input type="text" class="layui-input" style="width: 100%;" value="'+notices[i]+'"></li>');
  }

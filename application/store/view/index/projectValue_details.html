@@ -117,13 +117,11 @@
 <script type="text/javascript">
 function member_edit(id, column, chinese, content, type) {
 	content =content.replace(/%/g, '%25');
-	console.log(id,column,chinese,content,type);
 	if (column=='drawing_time') {
 		type = "projectValueDateEdit";
 	}
 
 	var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
-	console.log(content);
 	xadmin.open('详情修改', url);
 }
 var template =

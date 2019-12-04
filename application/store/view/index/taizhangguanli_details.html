@@ -472,7 +472,6 @@ function member_edit(id, column, chinese, content, type) {
 	xadmin.open('详情修改', url);
 }
 function deleteThis() {
-   console.log("工程号为："+{$ledgerList["contract_id"]});
     layer.alert("您确定要删除当前台账的所有数据吗？",
         function() {
             $.ajax({
