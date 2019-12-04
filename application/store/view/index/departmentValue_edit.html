@@ -106,12 +106,13 @@
             data: $('#projectvalue').serialize()+"&id="+{$content['id']},
             success:function (result) {
                 if (result.status == 1) {
-                    xadmin.close();
-                    xadmin.father_reload();
-                    alert("SUCCESS");
+                    layer.alert("编辑成功",function(){
+                        xadmin.close();
+                        xadmin.father_reload();
+                    });
                 }
                 else
-                    alert(result.message);
+                    layer.alert("编辑失败");
             },
             error:function() {
                 alert("异常！");
@@ -120,7 +121,6 @@
     }
 
     function deleteThis() {
-
         layer.alert("您确定要删除当前合同的所有数据吗？",
             function() {
                 let ID = '{$content["id"]}';

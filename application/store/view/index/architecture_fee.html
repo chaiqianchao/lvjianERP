@@ -104,16 +104,19 @@ for (var i = 0; i < rows.length; i++) {
                 success: function (result) {
                     if (result.status == 1) {
                         localStorage.removeItem("addanother");
-                        alert("SUCCESS");
+                        layer.alert("修改价格成功",function(){
+                          location.reload(true);
+                        });
                     }
                     else
-                        alert("修改失败!");
+                        layer.alert("修改价格失败",function(){
+                          location.reload(true);
+                        });
                 },
                 error : function() {
                     alert("异常！");
                 }
             });
-        location.reload(true);
       // 完成修改
       // for (var i = 0; i < rows.length; i++) {   
       //   var cells = rows[i].cells;

@@ -212,7 +212,7 @@ layui.use(['form'], function(){
                     });
                 }
                 else
-                    alert("新增加晒记录失败!");
+                    layer.alert("新增加晒记录失败!");
             },
             error : function(result) {
                     alert("异常!");
@@ -257,15 +257,9 @@ function insertData(value){
                     project_name.value = result.project_name;
                     var list =[];
                     for (var i =0 ; i <result.names.length; i++) {
-                        // conentList[2].innerHTML+='<dd onclick="console.log(1234)" lay-value="'+result.names[i].entry_name+'" class>'+result.names[i].entry_name+'</dd>';
-                        // list.push(result.names[i].entry_name);
-                        // conent.innerHTML +='<option value="'+result.names[i].entry_name+'">'+result.names[i].entry_name+'</option>';
                         tosun.innerHTML+='<div style="display: flex;flex-direction: row;align-items: center;margin-bottom: 5px;" id="tosun"><input class="tosunCheck" type="checkbox" name="tosunCheck'+i+'"><input type="text" class="layui-input entry_name" disabled="true" value="'+result.names[i].entry_name+'" name="select'+i+'"></div>';
                     }
-                    // localStorage.list = result.names;
-                    // var test = JSON.parse(localStorage.list);
                     return list;
-                    // namelist = list;
                 }
             },
             error : function() {

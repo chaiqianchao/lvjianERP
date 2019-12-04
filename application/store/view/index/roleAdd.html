@@ -230,12 +230,13 @@ layui.use(['form','layer'], function(){
             data: data,
             success: function (result) {
                 if (result.status == 1) {
-                    alert("SUCCESS");
-                    xadmin.close();
-                    xadmin.father_reload();
+                    layer.alert("新建员工成功",function(){
+                        xadmin.close();
+                        xadmin.father_reload();
+                    });
                 }
                 else
-                    alert(result.message);
+                    layer.alert(result.message);
             },
             error : function(result) {
                 alert(result.message);

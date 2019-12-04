@@ -90,12 +90,13 @@
             data: $('#personalvalue').serialize()+"&id="+{$content['id']},
             success:function (result) {
                 if (result.status == 1) {
-                    xadmin.close();
-                    xadmin.father_reload();
-                    alert("SUCCESS");
+                    layer.alert("修改成功",function(){
+                        xadmin.close();
+                        xadmin.father_reload();
+                    });
                 }
                 else
-                    alert(result.message);
+                    layer.alert(result.message);
             },
             error:function() {
                 alert("异常！");

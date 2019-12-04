@@ -67,7 +67,7 @@
     </div>
     <script type="text/javascript" src="__STATIC__/js/domain.js"></script>
     <script type="text/javascript">
-            function editTable() {
+    function editTable() {
         var Data = [];
         var tb = document.getElementById("table");
         var rows = tb.rows;
@@ -103,15 +103,18 @@
                 success: function(result) {
                     if (result.status == 1) {
                         localStorage.removeItem("addanother");
-                        alert("SUCCESS");
+                        layer.alert("修改价格成功",function(){
+                          location.reload(true);
+                        });
                     } else
-                        alert("修改失败!");
+                        layer.alert("修改价格失败",function(){
+                          location.reload(true);
+                        });
                 },
                 error: function() {
                     alert("异常！");
                 }
             });
-            location.reload(true);
             // 完成修改
             // for (var i = 0; i < rows.length; i++) {
             //     var cells = rows[i].cells;
@@ -148,9 +151,11 @@
                 if (result.status == 1) {
                     $(that).parent().parent().remove();
                     localStorage.removeItem("addanother");
-                    alert("SUCCESS");
+                    layer.alert("删除成功",function(){
+                          location.reload(true);
+                        });
                 } else
-                    alert("删除失败!");
+                    layer.alert("删除失败");
             },
             error: function() {
                 alert("异常！");

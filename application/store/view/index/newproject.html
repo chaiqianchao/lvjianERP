@@ -659,10 +659,13 @@ layui.use(['form'], function(){
                 success: function (result) {
                     if (result.status == 1) {
                         localStorage.removeItem("addanother");
-                        alert("SUCCESS");
+                        layer.alert("新建工程成功",function(){
+                        xadmin.close();
+                        xadmin.father_reload();
+                    });
                     }
                     else
-                        alert("新建工程失败!");
+                        layer.alert("新建工程失败!");
                 },
                 error : function() {
                     alert("异常！");
