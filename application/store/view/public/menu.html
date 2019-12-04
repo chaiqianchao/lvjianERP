@@ -65,19 +65,13 @@
                     {/if}
                 </ul>
             </li>
+             {if condition ="($limits.contract_view neq 2)&&($limits.ledger neq 0)"}
             <li>
                 <a href="javascript:;">
                     <i class="iconfont left-nav-li" lay-tips="合同管理">&#xe723;</i>
                     <cite>合同管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
-                  <!--   {if condition ="$limits.contract_view eq 2"}
-                    <li>
-                        <a onclick="xadmin.add_tab('新建合同','newcontract.html')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>新建合同</cite></a>
-                    </li>
-                    {/if} -->
                     {if condition ="$limits.contract_view neq 0"}
                     <li>
                         <a onclick="xadmin.add_tab('查看合同','contract.html')">
@@ -85,13 +79,6 @@
                             <cite>查看合同</cite></a>
                     </li>
                     {/if}
-                 <!--    {if condition ="$limits.ledger eq 2"}
-                    <li>
-                        <a onclick="xadmin.add_tab('新建台账','newledger.html')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>新建台账</cite></a>
-                    </li>
-                    {/if} -->
                     {if condition ="$limits.ledger neq 0"}
                     <li>
                         <a onclick="xadmin.add_tab('台账管理','taizhangguanli.html')">
@@ -101,6 +88,7 @@
                     {/if}
                 </ul>
             </li>
+            {/if}
             {if condition ="$limits.bid neq 0"}
             <li>
                 <a href="javascript:;">
