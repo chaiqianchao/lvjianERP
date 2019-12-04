@@ -13,6 +13,11 @@
   <script type="text/javascript" src="__STATIC__/lib/bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
   <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+  <style type="text/css">
+    .container{
+        height: 100px;
+    }
+  </style>
 </head>
 <body>
   <div class="searchcard">
@@ -208,7 +213,6 @@
              }
 
          });
-
   }
   function searchSelectAll(){
     window.localStorage.content = document.getElementById("searchInput").value;
