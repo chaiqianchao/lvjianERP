@@ -173,10 +173,6 @@
     </div>
     <script type="text/javascript" src="__STATIC__/js/domain.js"></script>
     <script>
-        layui.use('element',function(){
-            var element = layui.element;
-            element.init();
-        })
     layui.use('form',function(){
         var form = layui.form;
         form.render();
@@ -205,6 +201,11 @@
             data: $('#select').serialize() + "&pagenumber=" + options.val(),
             success: function(result) {
                 document.body.innerHTML = result;
+                layui.use('form', function() {
+                var form = layui.form; 
+                form.render();
+               });
+               
             },
             error: function(data) {
                 alert("error:" + data.responseText);
@@ -225,6 +226,9 @@
                 document.body.innerHTML = result;
                 document.getElementById("searchInput").value = localStorage.content;
                 localStorage.removeItem('content');
+                layui.use('form', function() {
+                var form = layui.form; 
+                form.render();
             },
             error: function(data) {
                 alert("error:" + data.responseText);
