@@ -173,7 +173,15 @@
     </div>
     <script type="text/javascript" src="__STATIC__/js/domain.js"></script>
     <script>
-    layui.use(['form']);
+        layui.use('element',function(){
+            var element = layui.element;
+            element.init();
+        })
+    layui.use('form',function(){
+        var form = layui.form;
+        form.render();
+    });
+
     var flag = true;
 
     function pullDown() {

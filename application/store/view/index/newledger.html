@@ -11,6 +11,29 @@
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/newcontract.css" />
     <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
     <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+    <style type="text/css">
+        .input-items .layui-input {
+            width: 22%;
+            padding-left: 5px;
+        }
+        .layui-unselect{
+            width: 100%;
+        }
+        .layui-anim .layui-anim-upbit{
+            width: 40px;
+        }
+        .layui-form-select .layui-input{
+            padding-right: 0px;
+        }
+        .layui-select .layui-edge{
+            margin-top: 16px;
+            right: 70px;
+        }
+        .layui-unselect .layui-edge{
+            margin-top: 16px;
+            right: 70px;
+        }
+    </style>
 <body>
 <div class="layui-card">
     <div class="layui-card-body" style="min-width: 797px;width: 84%; margin-left: 8%;">
@@ -79,8 +102,8 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline" id="payment">
-                                <label class="layui-form-label">支付</label>
-                                <div class="layui-input-inline">
+                                <label class="layui-form-label" id="paymentlabel1">支付</label>
+                                    <div class="layui-input-inline">
                                     <ul style="width: 100%;">
                                         <li class="input-items">
                                             <input type="text" autocomplete="off" class="layui-input payment" placeholder="支付比例"></li>
@@ -88,14 +111,14 @@
                                             <input type="text" autocomplete="off" class="layui-input payment" placeholder="付款金额"></li>
                                         <li class="input-items">
                                             <input type="text" autocomplete="off" class="layui-input payment" placeholder="支付节点要求"></li>
-                                        <li class="input-items">
-                                            <li class="chechboxes">
-                                                <input type="radio" class="contractledger_status" name="contractledger_status" lay-skin="primary" value="是"/>是</li>
-                                            <li class="chechboxes">
-                                                <input type="radio" class="contractledger_status" checked name="contractledger_status" lay-skin="primary" value="否"/>否</li>
-                                            <li class="chechboxes">
-                                                <input type="radio" class="contractledger_status" name="contractledger_status" lay-skin="primary" value="部分"/>部分</li>
-                                        </li>
+                                    <div class="input-items">
+                                        <select name="bid_progress" class="payment">
+                                            <option value="该节点是否已付款">节点是否已付款</option>
+                                            <option value="否">否</option>
+                                            <option value="是">是</option>
+                                            <option value="部分">部分</option>
+                                        </select>
+                                    </div>
                                     </ul>
                                     <button type="button" class="item-icon" onclick="itemAdd('payment')">+</button>
                                 </div>
@@ -111,7 +134,7 @@
                                                 <div class="layui-inline">
                                                     <label class="layui-form-label">合同已签</label>
                                                     <div class="layui-input-inline">
-                                                        <input class="layui-input" placeholder="日期" name="contract_phase1" id="date1" autocomplete="off">
+                                                        <input class="layui-input" placeholder="日期" name="contract_account_phase1" id="date1" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -119,7 +142,7 @@
                                                 <div class="layui-inline">
                                                     <label class="layui-form-label">方案</label>
                                                     <div class="layui-input-inline">
-                                                        <input class="layui-input" placeholder="日期" name="contract_phase2" id="date2" autocomplete="off">
+                                                        <input class="layui-input" placeholder="日期" name="contract_account_phase2" id="date2" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -127,7 +150,7 @@
                                                 <div class="layui-inline">
                                                     <label class="layui-form-label">初步</label>
                                                     <div class="layui-input-inline">
-                                                        <input class="layui-input" placeholder="日期" name="contract_phase3" id="date3" autocomplete="off">
+                                                        <input class="layui-input" placeholder="日期" name="contract_account_phase3" id="date3" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -135,7 +158,7 @@
                                                 <div class="layui-inline">
                                                     <label class="layui-form-label">施工</label>
                                                     <div class="layui-input-inline">
-                                                        <input class="layui-input" placeholder="日期" name="contract_phase4" id="date4" autocomplete="off">
+                                                        <input class="layui-input" placeholder="日期" name="contract_account_phase4" id="date4" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -143,7 +166,7 @@
                                                 <div class="layui-inline">
                                                     <label class="layui-form-label">审批</label>
                                                     <div class="layui-input-inline">
-                                                        <input class="layui-input" placeholder="日期" name="contract_phase5" id="date5" autocomplete="off">
+                                                        <input class="layui-input" placeholder="日期" name="contract_account_phase5" id="date5" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -151,7 +174,7 @@
                                                 <div class="layui-inline">
                                                     <label class="layui-form-label">开工</label>
                                                     <div class="layui-input-inline">
-                                                        <input class="layui-input" placeholder="日期" name="contract_phase6" id="date6" autocomplete="off">
+                                                        <input class="layui-input" placeholder="日期" name="contract_account_phase6" id="date6" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,7 +182,7 @@
                                                 <div class="layui-inline">
                                                     <label class="layui-form-label">交底</label>
                                                     <div class="layui-input-inline">
-                                                        <input class="layui-input" placeholder="日期" name="contract_phase7" id="date7" autocomplete="off">
+                                                        <input class="layui-input" placeholder="日期" name="contract_account_phase7" id="date7" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -167,7 +190,7 @@
                                                 <div class="layui-inline">
                                                     <label class="layui-form-label">管网</label>
                                                     <div class="layui-input-inline">
-                                                        <input class="layui-input" placeholder="日期" name="contract_phase8" id="date8" autocomplete="off">
+                                                        <input class="layui-input" placeholder="日期" name="contract_account_phase8" id="date8" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -175,7 +198,7 @@
                                                 <div class="layui-inline">
                                                     <label class="layui-form-label">基础完工</label>
                                                     <div class="layui-input-inline">
-                                                        <input class="layui-input" placeholder="日期" name="contract_phase9" id="date9" autocomplete="off">
+                                                        <input class="layui-input" placeholder="日期" name="contract_account_phase9" id="date9" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,7 +206,7 @@
                                                 <div class="layui-inline">
                                                     <label class="layui-form-label">地下完工</label>
                                                     <div class="layui-input-inline">
-                                                        <input class="layui-input" placeholder="日期" name="contract_phase10" id="date10" autocomplete="off">
+                                                        <input class="layui-input" placeholder="日期" name="contract_account_phase10" id="date10" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -191,7 +214,7 @@
                                                 <div class="layui-inline">
                                                     <label class="layui-form-label">结顶</label>
                                                     <div class="layui-input-inline">
-                                                        <input class="layui-input" placeholder="日期" name="contract_phase11" id="date11" autocomplete="off">
+                                                        <input class="layui-input" placeholder="日期" name="contract_account_phase11" id="date11" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -199,7 +222,7 @@
                                                 <div class="layui-inline">
                                                     <label class="layui-form-label">室外工程</label>
                                                     <div class="layui-input-inline">
-                                                        <input class="layui-input" placeholder="日期" name="contract_phase12" id="date12" autocomplete="off">
+                                                        <input class="layui-input" placeholder="日期" name="contract_account_phase12" id="date12" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -207,7 +230,7 @@
                                                 <div class="layui-inline">
                                                     <label class="layui-form-label">竣工验收</label>
                                                     <div class="layui-input-inline">
-                                                        <input class="layui-input" placeholder="日期" name="contract_phase13" id="date13" autocomplete="off">
+                                                        <input class="layui-input" placeholder="日期" name="contract_account_phase13" id="date13" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -215,7 +238,7 @@
                                                 <div class="layui-inline">
                                                     <label class="layui-form-label">竣工备案</label>
                                                     <div class="layui-input-inline">
-                                                        <input class="layui-input" placeholder="日期" name="contract_phase14" id="date14" autocomplete="off">
+                                                        <input class="layui-input" placeholder="日期" name="contract_account_phase14" id="date14" autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
@@ -226,7 +249,7 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline" id="confirm">
-                                <label class="layui-form-label">开票-到账</label>
+                                <label class="layui-form-label" id="paymentlabel2">开票-到账</label>
                                 <div class="layui-input-inline">
                                     <ul>
                                         <li class="input-items">
@@ -282,6 +305,7 @@ layui.use(['form'], function(){
     });
 });
     var id = 17;
+    var timer1=1,timer2 = 1;
     //判断session是否存在
     if (localStorage.addanother) {
         var addItems = JSON.parse(localStorage.addanother);
@@ -300,14 +324,17 @@ layui.use(['form'], function(){
             item.innerHTML ='<ul><li class="input-items"><input type="text" autocomplete="off" class="layui-input payment" placeholder="支付比例"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input payment" placeholder="付款金额"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input payment" placeholder="支付节点要求"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input payment" placeholder="该节点是否已付款"></li></ul>'
                 +'<button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button>';
             document.getElementById(obj).appendChild(item);
+            document.getElementById("paymentlabel1").style.height =  47*(++timer1) +"px";
+            // 高度38px+9px=47px
         }
         else if (obj == 'confirm') {
             var item = document.createElement("div");
             item.className = "layui-input-inline";
-            item.innerHTML ='<ul><li class="input-items"><input class="layui-input" placeholder="开票日期" name="contract_phase1" id="date'+id+'" autocomplete="off"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input confirm" placeholder="开票金额"></li><li class="input-items"><input class="layui-input" placeholder="到账日期" name="contract_phase1" id="date'+(id+1)+'" autocomplete="off"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input confirm" placeholder="到账金额"></li></ul>'
+            item.innerHTML ='<ul><li class="input-items"><input class="layui-input confirm" placeholder="开票日期" name="contract_phase1" id="date'+id+'" autocomplete="off"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input confirm" placeholder="开票金额"></li><li class="input-items"><input class="layui-input confirm" placeholder="到账日期" name="contract_phase1" id="date'+(id+1)+'" autocomplete="off"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input confirm" placeholder="到账金额"></li></ul>'
                 +'<button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button>';
                 id +=2;
             document.getElementById(obj).appendChild(item);
+            document.getElementById("paymentlabel2").style.height =  47*(++timer2) +"px";
         }
         else {
             var item = document.createElement("div");
@@ -329,7 +356,7 @@ layui.use(['form'], function(){
             project_constructorContent = project_constructorContent+project_constructor[i].value +",";
         }
     }
-    data = data + "&project_constructor="+project_constructorContent;  
+    data = data + "&project_constructor="+project_constructorContent.substring(0,project_constructorContent.length-1);  
 // 分离 - 代建方，并转存
     var project_agent = document.getElementsByClassName("project_agent");
     var project_agentContent = "";
@@ -338,12 +365,12 @@ layui.use(['form'], function(){
             project_agentContent = project_agentContent+project_agent[i].value +",";
         }
     }
-    data = data + "&project_agent="+project_agentContent;    
+    data = data + "&project_agent="+project_agentContent.substring(0,project_agentContent.length-1);    
 // 分离 - 支付，并转存
         var payment = document.getElementsByClassName("payment");
         var paymentContent = "";
         for (var i =0; i < payment.length; i++) {
-            if (i%3==0){
+            if (i%4==0){
                 paymentContent = paymentContent +"^"+payment[i].value;
             }
             else{
@@ -375,7 +402,11 @@ layui.use(['form'], function(){
                     console.log(result);//打印服务端返回的数据(调试用)
                     if (result.status == 1) {
                         localStorage.removeItem("addanother");
-                        alert("SUCCESS");
+                         layer.alert("新建台账成功",
+                    function() {
+                        xadmin.close();
+                        xadmin.father_reload();
+                    });
                     }
                     else
                         alert("新建台账失败!");
