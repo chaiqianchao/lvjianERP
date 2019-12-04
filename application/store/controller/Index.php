@@ -64,7 +64,6 @@ class Index extends Controller
         $this->view->assign('name', $name);
         $this->isLogin();  //判断用户是否登录
 
-       // $this->view->assign('test', 'AR智游后台管理系统');
        // 权限渲染回前端页面
         $sid=Session::get('staff_id');
         $limits=Db::table('green_administrators')->where('staff_id',$sid)->select();
@@ -151,7 +150,7 @@ class Index extends Controller
                 $result = '没有该用户,请检查';
             } else {
                 $res = model('GreenAdministrators')->get(['administrators_name' => $data['administrators_name'], 'administrators_password' => $password, 
-                    'enable' => 0]);
+                    'staff_enable' => 0]);
                 if ($res) {
                     $result = '该用户已被停用';
                 } else {
@@ -1717,7 +1716,21 @@ public function StaffAdd(Request $request)
             ->update([
                 $data['column'].''=>$data['content'],
             ]);
-
+            // 修改登录名情况
+        if($data['column'] == 'administrators_name'){
+            $name = Db::table('green_staff')
+            ->where([
+                'staff_id'=>$data['id'],
+            ])
+            ->value("staff_name");
+             $result2 = Db::table('green_administrators')
+            ->where([
+                'staff_name'=>$name,
+            ])
+            ->update([
+                'administrators_name'=>$data['content'],
+            ]);
+        }
         if (null!=$result) {
             return ['status'=>1, 'message'=>'更新成功'];
         } else {
