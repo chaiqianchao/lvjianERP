@@ -79,6 +79,11 @@ class Index extends Controller
         $this->isLogin();  //判断用户是否登录
         return $this->view->fetch();
     }
+//错误页面
+    public function errors()
+    {
+        return $this->view->fetch('error');
+    }
 
     //登陆界面
     public function login()
