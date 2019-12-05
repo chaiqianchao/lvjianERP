@@ -335,6 +335,7 @@
                         </tbody>
 		                        <tbody>
 		                            <tr>
+		                            	<th>保证金</th>
 		                            	<th>开票时间</th>
 		                                <th>开票金额</th>
 		                                <th>到账时间</th>
@@ -347,13 +348,14 @@
 		                            </tr>
 		                            {volist name='Compensation' id='vo'}
 		                            <tr>
+		                                <td>{$vo['compensation_price']}</td>
 		                                <td>{$vo['compensation_invoice_date']}</td>
 		                                <td>{$vo['compensation_invoice_amount']}</td>
 		                                <td>{$vo['compensation_payment_date']}</td>
 		                                <td>{$vo['compensation_payment_amount']}</td>
 		                                <td>
 		                                	{if condition="$limit eq 2"}
-		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$vo.id}','','','{$vo.compensation_invoice_date}*{$vo.compensation_invoice_amount}*{$vo.compensation_payment_date}*{$vo.compensation_payment_amount}*{$BidList.toubiao_id}','compensationEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$vo.id}','','','{$vo.compensation_price}*{$vo.compensation_invoice_date}*{$vo.compensation_invoice_amount}*{$vo.compensation_payment_date}*{$vo.compensation_payment_amount}*{$BidList.toubiao_id}','compensationEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
 		                                	{/if}
 		                                </td>
 		                            </tr>

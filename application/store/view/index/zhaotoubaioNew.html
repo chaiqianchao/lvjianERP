@@ -354,6 +354,8 @@
                                         <div class="layui-input-inline">
                                             <ul>
                                                 <li class="input-items">
+                                                    <input type="text" autocomplete="off" class="layui-input compensation" placeholder="保证金"></li>
+                                                <li class="input-items">
                                                     <input class="layui-input compensation" placeholder="开票日期" id="date7" autocomplete="off">
                                                 </li>
                                                 <li class="input-items">
@@ -381,9 +383,9 @@
                                             <ul>
                                                 <li class="input-items">
                                                     <input type="text" autocomplete="off" class="layui-input deposite" placeholder="名次"></li>
-                                                    <li class="input-items">
+                                                <li class="input-items">
                                                     <input type="text" autocomplete="off" class="layui-input deposite" placeholder="补偿费"></li>
-                                                    <li class="input-items">
+                                                <li class="input-items">
                                                     <input type="text" autocomplete="off" class="layui-input deposite" placeholder="付款方"></li>
                                                 <li class="input-items">
                                                     <input class="layui-input deposite" placeholder="开票日期" id="date9" autocomplete="off">
@@ -520,7 +522,7 @@ layui.use(['form'], function(){
         else if (obj == 'compensation') {
             var item = document.createElement("div");
             item.className = "layui-input-inline";
-            item.innerHTML ='<ul><li class="input-items"><input class="layui-input compensation" placeholder="开票日期" id="date'+id+'" autocomplete="off"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input compensation" placeholder="开票金额"></li><li class="input-items"><input class="layui-input compensation" placeholder="到账日期" id="date'+(id+1)+'" autocomplete="off"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input compensation" placeholder="到账金额"></li></ul>'
+            item.innerHTML ='<ul><li class="input-items"><input type="text" autocomplete="off" class="layui-input compensation" placeholder="保证金"><li class="input-items"><input class="layui-input compensation" placeholder="开票日期" id="date'+id+'" autocomplete="off"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input compensation" placeholder="开票金额"></li><li class="input-items"><input class="layui-input compensation" placeholder="到账日期" id="date'+(id+1)+'" autocomplete="off"></li><li class="input-items"><input type="text" autocomplete="off" class="layui-input compensation" placeholder="到账金额"></li></ul>'
                 +'<button type="button" class="iconfont item-icon" onclick="itemDel(this)" href="javascript:;">-</button>';
                 id+=2;
             document.getElementById(obj).appendChild(item);
@@ -549,7 +551,7 @@ layui.use(['form'], function(){
         var compensation = document.getElementsByClassName("compensation");
         var compensationContent = "";
         for (var i =0; i < compensation.length; i++) {
-            if (i%4==0){
+            if (i%5==0){
                 compensationContent = compensationContent +"^"+compensation[i].value;
             }
             else{

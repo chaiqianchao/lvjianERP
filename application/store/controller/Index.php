@@ -871,6 +871,7 @@ class Index extends Controller
                 'id'=>$data['id'],
             ])
             ->update([
+                'compensation_price'=>$data['price'],
                 'compensation_invoice_date'=>$data['invoice_date'],
                 'compensation_invoice_amount'=>$data['invoice_amount'],
                 'compensation_payment_date'=>$data['payment_date'],
@@ -2951,10 +2952,11 @@ else{
             $res2=Db::table('green_bidcompensation')
                 ->insert([
                     'toubiao_id'=>$data['toubiao_id'],
-                    'compensation_invoice_date'=>$contents[0],
-                    'compensation_invoice_amount'=>$contents[1],
-                    'compensation_payment_date'=>$contents[2],
-                    'compensation_payment_amount'=>$contents[3],
+                    'compensation_price'=>$contents[0],
+                    'compensation_invoice_date'=>$contents[1],
+                    'compensation_invoice_amount'=>$contents[2],
+                    'compensation_payment_date'=>$contents[3],
+                    'compensation_payment_amount'=>$contents[4],
                 ]);
         }
         $deposite = explode('^', $data['deposite']);
