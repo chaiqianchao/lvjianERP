@@ -3211,8 +3211,8 @@ public function adminselectall(Request $request)
            'fragment' => '',
        ]);
        $p->appends($_GET);
-       $this->assign('orderList', $p);
-       $this->assign('plistpage', $p->render());
+        $this->assign('orderList', $p);
+        $this->assign('plistpage', $p->render());
         $this -> view -> assign('count', $count);
         $this -> view -> assign('sum', round($sum,2));
         $this -> view -> assign('pagenumber', 10);
