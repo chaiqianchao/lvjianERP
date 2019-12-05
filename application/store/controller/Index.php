@@ -1609,11 +1609,22 @@ public function StaffAdd(Request $request)
    {
         $sid=Session::get('staff_id');
         $limit=Db::table('green_administrators')->where('staff_id',$sid)->value("staff");
-        $this -> view -> assign('limit', $limit);
 
+        $this -> view -> assign('limit', $limit);
         $data = $request -> param();
+        if($limit == 0)
+        {
+            // 用户为本人，且无员工管理权限
+            $staff_name = Db::table('green_administrators')->where('staff_id',$sid)->value("staff_name");
+            $count = Db::table('green_staff')->where('staff_name',$staff_name)->count();
+            $list = Db::table('green_staff')->where('staff_name',$staff_name)->paginate(10); 
+        }
+        else{
+            
             $count = Db::table('green_staff')->count();
             $list = Db::table('green_staff')->order("staff_name desc")->paginate(10); 
+        }
+        
 
         $this -> view -> assign('orderList', $list);
         $this -> view -> assign('count', $count);
@@ -1797,8 +1808,8 @@ public function StaffAdd(Request $request)
     //修改密码页面
     public function passwordEdit(Request $request){
         $data = $request -> param('id');
-        $password=Db::table('green_administrators')->where('staff_id',$data)->select()[0]['administrators_password'];
-        $content = ['id'=>$data, 'password'=>$password];
+        
+        $content = ['id'=>$data];
         $this -> view -> assign('content', $content);
         return $this -> view -> fetch("password_edit");
     }
@@ -1806,16 +1817,17 @@ public function StaffAdd(Request $request)
     public function passwordChange(Request $request) {
         //获取数据
         $data = $request -> param();
+        $name =Db::table('green_staff')->where('staff_id',$data['id'])->value("staff_name");
         $pass = Db::table('green_administrators')
             ->where([
-                'staff_id'=>$data['id'],
+                'staff_name'=>$name,
             ])->value("administrators_password");
         if (strlen($data["newpass"])<6||strlen($data["newpass"])>16) {
             return ['status'=>0, 'message'=>'新密码长度应为6~16,请检查'];
         }
         if (md5($data["prepass"])== $pass) {
             $result = Db::table('green_administrators')
-            ->where(['staff_id'=>$data['id']])
+            ->where(['staff_name'=>$name])
             ->update(['administrators_password'=>md5($data['newpass'])]);
             return ['status'=>1, 'message'=>'修改成功'];
         }
