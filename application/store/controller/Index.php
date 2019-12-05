@@ -42,8 +42,6 @@ class Index extends Controller
             $this->error('用户未登陆,无权访问', url('index/login'));
         }
     }
-
-
     //防止用户重复登陆,放在登陆操作前面:index/login
     protected function alreadyLogin()
     {
@@ -2660,19 +2658,39 @@ else{
         //渲染编辑模板
         return $this->view->fetch('zhaotoubiao_details');
     }
-    //招投标表筛选
+
+    // 招投标表筛选
     public function BidSelect(Request $requset)
     {
         $data = $requset -> param();
-        $info=['bid_progress'=>$data['bid_progress'],'bid_type'=>$data['bid_type']];
+        if ($data["type"] == "无") {
+            $data["type"] = '';
+        }
+        if ($data["bid_progress"] == "无") {
+            $data["bid_progress"] = '';
+        }
+        if ($data["bid_type"] == "无") {
+            $data["bid_type"] = '';
+        }
+        if($data['bid_progress']&&$data['bid_type'])
+            $info=['bid_progress'=>$data['bid_progress'],'bid_type'=>$data['bid_type']];
+        else if($data['bid_progress']&&!$data['bid_type'])
+            $info=['bid_progress'=>$data['bid_progress']];
+        else if(!$data['bid_progress']&&$data['bid_type'])
+            $info=['bid_type'=>$data['bid_type']];
+        else
+            $info=[];
         $res[0]=['toubiao_id'=>'','bid_content'=>'','bid_deposite'=>'','bid_compensation'=>'','bid_progress'=>'','bid_type'=>'','bid_pretrial_date'=>'','bid_date'=>''];
         $id=[];$idfo=[];
-        if($data['type']=='开票未收款'){
+        // 已开票未收款筛选
+        if($data['type']=='已开票未收款'){
+            // 补偿费搜索
             $id1=Db::table('green_biddeposite')
                 ->whereNotNull('deposite_invoice_date')
                 ->whereNull('deposite_payment_date')
                 ->field('toubiao_id')
                 ->select();
+                // 保证金搜索
             $id2=Db::table('green_bidcompensation')
                 ->whereNotNull('compensation_invoice_date')
                 ->whereNull('compensation_payment_date')
@@ -2681,8 +2699,7 @@ else{
             $i=0;$j=0;
             foreach ($id1 as $k=>$v)
             {
-                if(in_array($v,$id))
-                {}
+                if(in_array($v,$id)){}
                 else
                 {
                     $id[$i++]=$v;
@@ -2700,23 +2717,23 @@ else{
                 $idfo[$j++]=$v['toubiao_id'];
             }
         }
-        if($data['type']=='未开票未收款'){
+        else if($data['type']=='未开票未收款'){
+            // 补偿费搜索
             $id1=Db::table('green_biddeposite')
                 ->whereNull('deposite_invoice_date')
                 ->whereNull('deposite_payment_date')
                 ->field('toubiao_id')
                 ->select();
+            // 保证金搜索
             $id2=Db::table('green_bidcompensation')
                 ->whereNull('compensation_invoice_date')
                 ->whereNull('compensation_invoice_date')
                 ->field('toubiao_id')
                 ->select();
-            $i=0;
+            $i=0;$j=0;
             foreach ($id1 as $k=>$v)
             {
-                if(in_array($v,$id))
-                {
-                }
+                if(in_array($v,$id)){}
                 else
                 {
                     $id[$i++]=$v;
@@ -2734,6 +2751,38 @@ else{
                 $idfo[$j++]=$v['toubiao_id'];
             }
         }
+        else{
+            // 既不是“已开票未收款”，也不是“未开票未收款”
+            // 补偿费搜索
+            $id1=Db::table('green_biddeposite')
+                ->field('toubiao_id')
+                ->select();
+            // 保证金搜索
+            $id2=Db::table('green_bidcompensation')
+                ->field('toubiao_id')
+                ->select();
+            $i=0;$j=0;
+            foreach ($id1 as $k=>$v)
+            {
+                if(in_array($v,$id)){}
+                else
+                {
+                    $id[$i++]=$v;
+                }
+            }
+            foreach ($id2 as $k=>$v)
+            {
+                if(in_array($v,$id)){}
+                else
+                {
+                    $id[$i++]=$v;
+                }
+            }
+            foreach ($id as $k=>$v){
+                $idfo[$j++]=$v['toubiao_id'];
+            }
+        }
+
         if($data['start1']&&$data['end1']&&$data['start2']==''&&$data['end2']=='')
         {
             //资格预审时间
@@ -2742,21 +2791,29 @@ else{
                 ->where('toubiao_id','IN',$idfo)
                 ->where('bid_pretrial_date','BETWEEN',[$data['start1'],$data['end1']])
                 ->order("bid_date desc")
-                    ->select();
-//                ->paginate($data['pagenumber'],false,["query"=>$data]);
+               ->paginate($data['pagenumber'],false,["query"=>$data]);
+            $count=Db::table('green_bid')
+                ->where($info)
+                ->where('toubiao_id','IN',$idfo)
+                ->where('bid_pretrial_date','BETWEEN',[$data['start1'],$data['end1']])
+                ->count();
         }
-        else if($data['start1']==''&&$data['end1']==''&&$data['start2']!=null&&$data['end2']!=null)
+        else if($data['start1']==''&&$data['end1']==''&&$data['start2']&&$data['end2'])
         {
-            //招标时间
+            //交标时间
             $res= Db::table('green_bid')
                 ->where($info)
                 ->where('toubiao_id','IN',$idfo)
                 ->where('bid_date', 'BETWEEN', [$data['start2'], $data['end2']])
                 ->order("bid_date desc")
-//                ->select();
-                    ->paginate($data['pagenumber'], false, ["query" => $data]);
+                ->paginate($data['pagenumber'], false, ["query" => $data]);
+            $count= Db::table('green_bid')
+                ->where($info)
+                ->where('toubiao_id','IN',$idfo)
+                ->where('bid_date', 'BETWEEN', [$data['start2'], $data['end2']])
+                ->count();
         }
-        else if($data['start1']!=null&&$data['end1']!=null&&$data['start2']!=null&&$data['end2']!=null)
+        else if($data['start1']&&$data['end1']&&$data['start2']&&$data['end2'])
         {
             //资格预审时间+招标时间
             $res= Db::table('green_bid')
@@ -2765,8 +2822,13 @@ else{
                 ->where('bid_pretrial_date', 'BETWEEN', [$data['start1'], $data['end1']])
                 ->where('bid_date', 'BETWEEN', [$data['start2'], $data['end2']])
                 ->order("bid_date desc")
-//                ->select();
-                    ->paginate($data['pagenumber'], false, ["query" => $data]);
+                ->paginate($data['pagenumber'], false, ["query" => $data]);
+            $count= Db::table('green_bid')
+                ->where($info)
+                ->where('toubiao_id','IN',$idfo)
+                ->where('bid_pretrial_date', 'BETWEEN', [$data['start1'], $data['end1']])
+                ->where('bid_date', 'BETWEEN', [$data['start2'], $data['end2']])
+                ->count();
         }
         else
         {
@@ -2774,12 +2836,15 @@ else{
                 ->where($info)
                 ->where('toubiao_id','IN',$idfo)
                 ->order("bid_date desc")
-//                ->select();
-                    ->paginate($data['pagenumber'], false, ["query" => $data]);
+                ->paginate($data['pagenumber'], false, ["query" => $data]);
+            $count= Db::table('green_bid')
+                ->where($info)
+                ->where('toubiao_id','IN',$idfo)
+                ->count();
         }
 
         $this -> view -> assign('orderList', $res);
-        $this -> view -> assign('count', sizeof($res));
+        $this -> view -> assign('count', $count);
         $this -> view -> assign('pagenumber', $data['pagenumber']);
         return $this -> view -> fetch('zhaotoubiao');
     }

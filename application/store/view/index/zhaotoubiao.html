@@ -42,7 +42,8 @@
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">类型</label>
                                     <div class="layui-input-block">
-                                        <input type="radio" name="type" value="开票未收款" title="已开票未收款" checked="">
+                                        <input type="radio" name="type" value="无" title="无" checked="">
+                                        <input type="radio" name="type" value="已开票未收款" title="已开票未收款">
                                         <input type="radio" name="type" value="未开票未收款" title="未开票未收款">
                                     </div>
                                 </div>
@@ -50,6 +51,7 @@
                                     <label class="layui-form-label">进展阶段</label>
                                     <div class="layui-input-inline" style="width: 40%;">
                                         <select name="bid_progress">
+                                            <option value="无">无</option>
                                             <option value="预审完成">预审完成</option>
                                             <option value="投标完成">投标完成</option>
                                             <option value="公示完成">公示完成</option>
@@ -63,6 +65,7 @@
                                     <label class="layui-form-label">投标类型</label>
                                     <div class="layui-input-inline" style="width: 40%;">
                                         <select name="bid_type">
+                                            <option value="无">无</option>
                                             <option value="总院">总院</option>
                                             <option value="方案所">方案所</option>
                                             <option value="景观所">景观所</option>
@@ -88,7 +91,7 @@
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">招标时间</label>
+                                    <label class="layui-form-label">交标时间</label>
                                     <div class="layui-input-inline" style="width: 40%;">
                                         <div class="layui-inline layui-show-xs-block" style="display: flex;flex-direction: row;">
                                             <input class="layui-input" autocomplete="off" placeholder="开始日" name="start2" id="date3">&nbsp;~&nbsp;
@@ -136,7 +139,7 @@
                             <th>进展阶段</th>
                             <th>投标类型</th>
                             <th>资格预审时间</th>
-                            <th>招标时间</th>
+                            <th>交标时间</th>
                             <!-- <th>开票金额</th> -->
                             <!-- <th>到账日期</th> -->
                             <!-- <th>到账金额</th> -->
@@ -179,7 +182,6 @@
     });
 
     var flag = true;
-
     function pullDown() {
         flag = !flag;
         if (flag) {
@@ -229,6 +231,7 @@
                 layui.use('form', function() {
                 var form = layui.form; 
                 form.render();
+                });
             },
             error: function(data) {
                 alert("error:" + data.responseText);
