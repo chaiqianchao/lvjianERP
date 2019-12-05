@@ -148,10 +148,15 @@ class Index extends Controller
         if (true === $result) {
 
             $password = md5($data['administrators_password']);
-            $ret = model('GreenAdministrators')->get(['administrators_name' => $data['administrators_name'], 'administrators_password' => $password]);
+            $ret = model('GreenAdministrators')->get(['administrators_name' => $data['administrators_name']]);
+            $administrators_password = model('GreenAdministrators')->where("administrators_name",$data['administrators_name'])->value("administrators_password");
             if (!$ret) {
                 $result = '没有该用户,请检查';
-            } else {
+            }
+            else if($administrators_password!=$password){
+                $result = '密码错误,请检查';
+            }
+            else {
                 $res = model('GreenAdministrators')->get(['administrators_name' => $data['administrators_name'], 'administrators_password' => $password, 
                     'staff_enable' => 0]);
                 if ($res) {
