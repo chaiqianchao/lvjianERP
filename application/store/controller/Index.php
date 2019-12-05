@@ -1674,20 +1674,21 @@ public function StaffAdd(Request $request)
         $power=Db::table('green_administrators')->where('staff_id',$sid)->value("admin");
         $isself = 0;
         $staff_id = $request -> param('staff_id');
+        $staff_name = Db::table('green_staff')->where(['staff_id'=>$staff_id])->value("staff_name");
         if ($staff_id == $sid) {
             $isself = 1;
         }
 
-             $this -> view -> assign('limit', $limit);
-             $this -> view -> assign('power', $power);
-             $this -> view -> assign('isself', $isself);
+         $this -> view -> assign('limit', $limit);
+         $this -> view -> assign('power', $power);
+         $this -> view -> assign('isself', $isself);
         $col = Db::query('SHOW FULL COLUMNS FROM '.'green_staff');
 
         $result1=Db::table('green_staff')->where(['staff_id'=>$staff_id])->select();
         $this->view->assign('staff',$result1[0]);
         $admin = Db::query('SHOW FULL COLUMNS FROM '.'green_administrators');
-
-        $result2=Db::table('green_administrators')->where(['staff_id'=>$staff_id])->select();
+        $id = Db::table('green_administrators')->where(['staff_name'=>$staff_name])->value("staff_id");
+        $result2=Db::table('green_administrators')->where(['staff_id'=>$id])->select();
         $admin = [];
         foreach ($result2[0] as $key => $value)
         {
@@ -1712,14 +1713,28 @@ public function StaffAdd(Request $request)
     public function personalEdit(Request $request)
     {
         //获取数据
-        $data = $request -> param();
-        $result = Db::table('green_staff')
+        $data = $request -> param(); 
+        // 修改员工姓名
+        if($data['column'] == 'staff_name'){
+            $name = Db::table('green_staff')
             ->where([
                 'staff_id'=>$data['id'],
             ])
+            ->value("staff_name");
+            // $id = Db::table('green_administrators')
+            // ->where([
+            //     'staff_name'=>$name,
+            // ])
+            // ->value("staff_id");
+            $result2 = Db::table('green_administrators')
+            ->where([
+                'staff_name'=>$name,
+            ])
             ->update([
-                $data['column'].''=>$data['content'],
+                'staff_name'=>$data['content'],
             ]);
+            // exit;
+        }
             // 修改登录名情况
         if($data['column'] == 'administrators_name'){
             $name = Db::table('green_staff')
@@ -1735,6 +1750,14 @@ public function StaffAdd(Request $request)
                 'administrators_name'=>$data['content'],
             ]);
         }
+
+        $result = Db::table('green_staff')
+            ->where([
+                'staff_id'=>$data['id'],
+            ])
+            ->update([
+                $data['column'].''=>$data['content'],
+            ]);
         if (null!=$result) {
             return ['status'=>1, 'message'=>'更新成功'];
         } else {

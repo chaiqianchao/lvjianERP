@@ -153,7 +153,7 @@
                                   </td>
                                   {/if}
                           {/if}
-                          <td><a href="" onclick="detail_show(this,'{:url("index/personal_details",["staff_id"=>$vo["staff_id"]])}')" >点击详情</a></td>
+                          <td><a href="" onclick="detail_show(this,'{:url("index/personal_details",["staff_name"=>$vo["staff_name"],"staff_id"=>$vo["staff_id"]])}')" >点击详情</a></td>
                         </tr>
                         {/volist}
                       </tbody>
