@@ -82,6 +82,14 @@
                         </div>
                         <div class="layui-form-item">
                           <div class="layui-inline" style="width: 100%;">
+                            <label class="layui-form-label">实算额</label>
+                            <div class="layui-input-inline" style="width: 40%;">
+                              <input type="text" name="contract_compute" autocomplete="off" class="layui-input">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <div class="layui-inline" style="width: 100%;">
                             <label class="layui-form-label">设计阶段</label>
                             <div class="layui-input-inline" style="width: 40%;">
                               <input type="text" name="contract_phase" autocomplete="off" class="layui-input">
@@ -165,6 +173,7 @@
             <th>合同分类</th>
             <th>签订时间</th>
             <th>合同额</th>
+            <th>实算额</th>
             <th>设计阶段</th>
             <th>经办人</th>
             <th>项目负责人</th>
@@ -179,6 +188,7 @@
             <td>{$vo.contract_type}</td>
             <td>{$vo.contract_signtime}</td>
             <td>{$vo.contract_amount}</td>
+            <td>{$vo.contract_compute}</td>
             <td>{$vo.contract_phase}</td>
             <td>{$vo.contract_operator}</td>
             <td>{$vo.contract_projectleader}</td>

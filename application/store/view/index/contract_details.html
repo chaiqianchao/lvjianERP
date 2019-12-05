@@ -94,6 +94,17 @@
 		                                </td>
 		                            </tr>
 		                            {/if}
+		                            {if condition="$limit eq 2"}
+		                            <tr>
+		                                <th>实算额（元）</th>
+		                                <td>{$ContractList['contract_compute']}</td>
+		                                <td>
+		                                	{if condition="$limit eq 2"}
+		                                	<a title="编辑" href="javascript:;" onclick="member_edit('{$ContractList["contract_id"]}','contract_compute','实算额（元）','{$ContractList["contract_compute"]}','contractEdit')"><i class="layui-icon" style="color: #2196f3;"></i></a>
+		                                	{/if}
+		                                </td>
+		                            </tr>
+		                            {/if}
 		                            <tr>
 		                                <th>设计内容</th>
 		                                <td>{$ContractList['contract_content']}</td>

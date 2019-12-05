@@ -1857,7 +1857,6 @@ public function StaffAdd(Request $request)
 
         $count = Db::table('green_contract')->count();
         $list = Db::table('green_contract')->order("project_id desc")->paginate(10);  
-
         $this -> view -> assign('orderList', $list);
         $this -> view -> assign('count', $count);
         $this -> view -> assign('pagenumber',10);
@@ -1938,6 +1937,7 @@ public function StaffAdd(Request $request)
                 'contract_type'=>['like', '%'.$data['content'].'%'],
                 'contract_signtime'=>['like','%'.$data['content'].'%'],
                 'contract_amount'=>['like','%'.$data['content'].'%'],
+                'contract_compute'=>['like','%'.$data['content'].'%'],
                 'contract_operator'=>['like','%'.$data['content'].'%'],
                 // 'project_name'=>['like', '%'.$data['content'].'%'],
                 'contract_projectleader'=>['like', '%'.$data['content'].'%'],
@@ -1952,6 +1952,7 @@ public function StaffAdd(Request $request)
                 'contract_type'=>['like', '%'.$data['content'].'%'],
                 'contract_signtime'=>['like','%'.$data['content'].'%'],
                 'contract_amount'=>['like','%'.$data['content'].'%'],
+                'contract_compute'=>['like','%'.$data['content'].'%'],
                 'contract_operator'=>['like','%'.$data['content'].'%'],
                 // 'project_name'=>['like', '%'.$data['content'].'%'],
                 'contract_projectleader'=>['like', '%'.$data['content'].'%'],
@@ -3784,6 +3785,7 @@ public function designPriceAdd(Request $request)
                     'contract_constructor'=>$data['contract_constructor'],
                     'contract_agent'=>$data['contract_agent'],
                     'contract_amount'=>$data['contract_amount'],
+                    'contract_compute'=>$data['contract_compute'],
                     'contract_design'=>$data['contract_design'],
                     'contract_content'=>$data['contract_content'],
                     'contract_reward'=>$data['contract_reward'],
