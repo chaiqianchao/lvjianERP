@@ -5275,6 +5275,7 @@ public function drawplanAdd(Request $request)
          $data=$request->param();
         $sql="CREATE TABLE IF NOT EXISTS`greenbuild`.`green_tosum".$data['project_id']."` ( 
                             `id` INT NOT NULL AUTO_INCREMENT COMMENT '自增ID' , 
+                            `stampflag` VARCHAR(20) NOT NULL COMMENT '明细时间戳' , 
                             `project_id` VARCHAR(50) NOT NULL COMMENT '工程号' , 
                             `project_name` VARCHAR(50) NOT NULL COMMENT '工程名称' , 
                             `entry_name` VARCHAR(50) NOT NULL COMMENT '单体名称' , 
@@ -5294,7 +5295,7 @@ public function drawplanAdd(Request $request)
                             `sum_remarks` VARCHAR(11) NULL COMMENT '备注' , 
                             PRIMARY KEY (`id`)) ENGINE = InnoDB COMMENT = '".$data['project_id']."加晒记录';";
             Db::execute($sql);
-
+            $stampflag = time();
 
          if ($data["flag"]==0) {
                 //规格加晒，增加多条记录
@@ -5302,6 +5303,7 @@ public function drawplanAdd(Request $request)
             for ($i=1; $i <  sizeof($list); $i++) { 
                 // 插入数据进入分支表
                $res=Db::table('green_tosum'.$data["project_id"])->insert(['project_id'=>$data['project_id'],
+                    'stampflag'=>$stampflag,
                     'project_name'=>$data['project_name'],
                     'project_contractor'=>$data['project_contractor'],
                     'project_agent'=>$data['project_agent'],
@@ -5312,6 +5314,7 @@ public function drawplanAdd(Request $request)
                     'entry_name'=>$list[$i]]);
                // 插入数据进入总表
                 $res1=Db::table('green_tosum')->insert(['project_id'=>$data['project_id'],
+                    'stampflag'=>$stampflag,
                     'project_name'=>$data['project_name'],
                     'project_contractor'=>$data['project_contractor'],
                     'project_agent'=>$data['project_agent'],
@@ -5369,6 +5372,7 @@ public function drawplanAdd(Request $request)
             $sum_totalprice = $sum_untiprice*number_format($data['sum_number']);
              // 插入数据进入分支表
                $res=Db::table('green_tosum'.$data["project_id"])->insert(['project_id'=>$data['project_id'],
+                    'stampflag'=>$stampflag,
                     'project_name'=>$data['project_name'],
                     'project_contractor'=>$data['project_contractor'],
                     'project_agent'=>$data['project_agent'],
@@ -5384,6 +5388,7 @@ public function drawplanAdd(Request $request)
                     'sum_fee'=>$data["sum"]]);
                // 插入数据进入总表
                 $res1=Db::table('green_tosum')->insert(['project_id'=>$data['project_id'],
+                    'stampflag'=>$stampflag,
                     'project_name'=>$data['project_name'],
                     'project_contractor'=>$data['project_contractor'],
                     'project_agent'=>$data['project_agent'],
@@ -5395,7 +5400,7 @@ public function drawplanAdd(Request $request)
                     'sum_fee'=>$data["sum"]]);
 
          }
-         return ["res"=>$res];
+         return ['res'=>$res,'message'=>"message"];
     }
 //加晒记录详情渲染
 public function slideshow_details(Request $request)
@@ -5404,7 +5409,7 @@ public function slideshow_details(Request $request)
    // $limit=Db::table('green_administrators')->where('staff_id',$sid)->value("tosum");
    $this -> view -> assign('limit', 2);
     $data=$request->param();
-    $res=Db::table('green_tosum'.$data['project_id'])->select();
+    $res=Db::table('green_tosum'.$data['project_id'])->where('stampflag',$data["stampflag"])->select();
     $this->view->assign('content',$res[0]);
     return $this->view->fetch('slideshow_details');
 }
