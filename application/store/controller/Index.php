@@ -3410,7 +3410,24 @@ public function adminselectall(Request $request)
         //渲染编辑模板
         return $this->view->fetch('contract_details');
     }
-
+    //新建台账获取合同数据
+    public function get_contract_details(Request $request)
+    {
+        $sid=Session::get('staff_id');
+        $limit=Db::table('green_administrators')->where('staff_id',$sid)->value("contract_view");
+        $this -> view -> assign('limit', $limit);
+        //获取到要编辑的合同号
+        $data = $request -> param();
+        $res=Db::table('green_contract')->where("contract_id",$data["value"])->select(); 
+        $result = 0;
+        if ($res) {
+            $result = 1;
+            // 获取生产数据
+            return ["result"=>$result,"project_name"=>$res[0]["project_name"],"contract_signtime"=>$res[0]["contract_signtime"],"contract_agent"=>$res[0]["contract_agent"],"contract_amount"=>$res[0]["contract_amount"],"contract_compute"=>$res[0]["contract_compute"]];
+        }
+        return ["result"=>$result];
+        //渲染编辑模板
+    }
 // 合同详细，新增设计单价行
 public function designPriceAdd(Request $request)
 {
