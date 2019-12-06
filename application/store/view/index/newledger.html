@@ -356,7 +356,9 @@ layui.use(['form'], function(){
             project_constructorContent = project_constructorContent+project_constructor[i].value +",";
         }
     }
-    data = data + "&project_constructor="+project_constructorContent.substring(0,project_constructorContent.length-1);  
+    project_constructorContent =project_constructorContent.substr(0,project_constructorContent.length - 1);
+    project_constructorContent=project_constructorContent;
+    data = data + "&project_constructor="+project_constructorContent;  
 // 分离 - 代建方，并转存
     var project_agent = document.getElementsByClassName("project_agent");
     var project_agentContent = "";
@@ -365,7 +367,9 @@ layui.use(['form'], function(){
             project_agentContent = project_agentContent+project_agent[i].value +",";
         }
     }
-    data = data + "&project_agent="+project_agentContent.substring(0,project_agentContent.length-1);    
+    project_agentContent =project_agentContent.substr(0,project_agentContent.length - 1);
+    project_agentContent=project_agentContent;
+    data = data + "&project_agent="+project_agentContent;    
 // 分离 - 支付，并转存
         var payment = document.getElementsByClassName("payment");
         var paymentContent = "";
