@@ -584,7 +584,7 @@ layui.use(['form'], function(){
         // 分离 招标类型，并转存
         if ($('input[type=radio][name=bid_type]:checked').val()=='其他') {
             var bid_type=document.getElementById("bid_type").value;
-            data = data+"&bid_types="+bid_type;
+            data = data+"&bid_type="+bid_type;
         }
             // 分离 - 交标资料，并转存
         var bid_document_list = document.getElementsByClassName("bid_document");
