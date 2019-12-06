@@ -413,7 +413,7 @@ layui.use(['form'], function(){
                     });
                     }
                     else
-                        alert("新建台账失败!");
+                        layer.alert(result.message);
                 },
                 error : function() {
                     alert("异常！");

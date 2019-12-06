@@ -2048,9 +2048,48 @@ public function StaffAdd(Request $request)
     $status = 0;
     $message1 = '该合同台账已存在,请重新输入~~';
     return ['status'=>$status, 'message'=>$message1];
-}
-else{
-
+        }
+        else{
+            $payment = explode('^', $data['payment']);
+        for ($i=1; $i < count($payment); $i++) {
+            $contents = explode('*', $payment[$i]);
+            $res2=Db::table('green_ledgernode')
+                ->insert([
+                    'contract_id'=>$data['contract_id'],
+                    'ledgernode_paymentratio'=>$contents[0],
+                    'ledgernode_payment'=>$contents[1],
+                    'ledgernode_require'=>$contents[2],
+                    'ledgernode_status'=>$contents[3],
+                ]);
+            if (!$res2) {
+                $status = 0;
+                $message = '添加失败~~';
+            }
+            else{
+                $status = 1;
+                $message = '添加成功';
+            }
+        }
+        $confirm = explode('^', $data['confirm']);
+        for ($i=1; $i < count($confirm); $i++) {
+            $contents = explode('*', $confirm[$i]);
+            $res2=Db::table('green_confirm')
+                ->insert([
+                    'contract_id'=>$data['contract_id'],
+                    'invoice_date'=>$contents[0],
+                    'invoice_amount'=>floatval($contents[1]),
+                    'payment_date'=>$contents[2],
+                    'payment_amount'=>floatval($contents[3]),
+                ]);
+            if ($res2 === null) {
+                $status = 0;
+                $message = '添加失败~~';
+            }
+            else{
+                $status = 1;
+                $message = '添加成功';
+            }
+        }
         $res=Db::table('green_contractledger')
             ->insert([
                 'contract_id'=>$data['contract_id'],
@@ -2070,46 +2109,7 @@ else{
             $status = 1;
             $message = '添加成功';
         }
-        $payment = explode('^', $data['payment']);
-        for ($i=1; $i < count($payment); $i++) {
-            $contents = explode('*', $payment[$i]);
-            $res2=Db::table('green_ledgernode')
-                ->insert([
-                    'contract_id'=>$data['contract_id'],
-                    'ledgernode_paymentratio'=>$contents[0],
-                    'ledgernode_payment'=>$contents[1],
-                    'ledgernode_require'=>$contents[2],
-                    'ledgernode_status'=>$contents[3],
-                ]);
-            if ($res2 === null) {
-                $status = 0;
-                $message = '添加失败~~';
-            }
-            else{
-                $status = 1;
-                $message = '添加成功';
-            }
-        }
-        $confirm = explode('^', $data['confirm']);
-        for ($i=1; $i < count($confirm); $i++) {
-            $contents = explode('*', $confirm[$i]);
-            $res2=Db::table('green_confirm')
-                ->insert([
-                    'contract_id'=>$data['contract_id'],
-                    'invoice_date'=>$contents[0],
-                    'invoice_amount'=>$contents[1],
-                    'payment_date'=>$contents[2],
-                    'payment_amount'=>$contents[3],
-                ]);
-            if ($res2 === null) {
-                $status = 0;
-                $message = '添加失败~~';
-            }
-            else{
-                $status = 1;
-                $message = '添加成功';
-            }
-        }
+        
         for ($i=1; $i < 15; $i++) { 
             if ($data['contract_account_phase'.$i]=='') {
                 $data['contract_account_phase'.$i]='0000-01-01';
@@ -2133,7 +2133,7 @@ else{
                 'contract_account_phase13'=>$data['contract_account_phase13'],
                 'contract_account_phase14'=>$data['contract_account_phase14'],
             ]);
-        if ($res3 === null) {
+        if (!$res3) {
             $status = 0;
             $message = '添加失败~~';
         }
