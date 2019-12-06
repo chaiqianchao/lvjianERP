@@ -471,10 +471,36 @@
                             </div>
                         </div>
                         <div id="column"></div>
+                        <div id="name" style="display: none;">
+                            <input type="text" name="name1" value="总包">
+                            <input type="text" name="name2" value="建筑">
+                            <input type="text" name="name3" value="结构">
+                            <input type="text" name="name4" value="给排水" >
+                            <input type="text" name="name5" value="暖通" >
+                            <input type="text" name="name6" value="电气" >
+                            <input type="text" name="name7" value="弱电" >
+                            <input type="text" name="name8" value="管网" >
+                            <input type="text" name="name9" value="景观" >
+                            <input type="text" name="name10" value="内装">
+                            <input type="text" name="name11" value="内装机电">
+                            <input type="text" name="name12" value="钢构">
+                            <input type="text" name="name13" value="幕墙">
+                            <input type="text" name="name14" value="护坡">
+                            <input type="text" name="name15" value="基坑">
+                            <input type="text" name="name16" value="燃气">
+                            <input type="text" name="name17" value="驳坎">
+                            <input type="text" name="name18" value="亮丽">
+                            <input type="text" name="name19" value="中央空调">
+                            <input type="text" name="name20" value="电力">
+                            <input type="text" name="name21" value="PC">
+                            <input type="text" name="name22" value="BIM">
+                            <input type="text" name="name23" value="其他">
+                        </div>
                         <div class="layui-form-item">
                             <a class="layui-btn" href="javascript:;" onclick="xadmin.open('新增字段','detailAdd?newcontract',800,600)">新增字段</a>
                             <button class="layui-btn" lay-filter="add" lay-submit>新建工程</button>
                         </div>
+
                     </form>
                 </div>
             </div>
@@ -615,9 +641,7 @@ layui.use(['form'], function(){
                 project_contractorContent = project_contractorContent+project_contractor[i].value +",";
             }
         }
-        console.log(project_contractorContent);
         project_contractorContent = project_contractorContent.substr(0,project_contractorContent.length - 1);
-        console.log(project_contractorContent);
         data = data + "&project_contractor="+project_contractorContent;
     // 分离 - 代建方，并转存
         var project_agent = document.getElementsByClassName("project_agent");

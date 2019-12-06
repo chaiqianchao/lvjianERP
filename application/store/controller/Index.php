@@ -385,6 +385,7 @@ class Index extends Controller
                     'contact'=>$data['contact'],
                     'others'=>$data['others'],
                 ]);
+                // 新建工程时，新建设计人员数据表
                 $sql1="CREATE TABLE `greenbuild`.`projectdesigner".$data['project_id']."`( 
                         `project_id` VARCHAR(30) NOT NULL COMMENT '工程编号' , 
                         `project_design` VARCHAR(20) NOT NULL COMMENT '设计内容' , 
@@ -399,8 +400,45 @@ class Index extends Controller
                         ADD PRIMARY KEY(
                         `project_id`,
                         `project_design`);";
+                // 新建工程时，新建对应工程产值数据表
+                $sql3="CREATE TABLE IF NOT EXISTS`greenbuild`.`green_projectvalue".$data['project_id']."` ( 
+                        `id` INT NOT NULL AUTO_INCREMENT COMMENT '自增ID' , 
+                        `project_id` VARCHAR(50) NOT NULL COMMENT '工程号' , 
+                        `project_name` VARCHAR(50) NOT NULL COMMENT '单体名称' , 
+                        `entry_name` VARCHAR(50) NOT NULL COMMENT '项目名称' , 
+                        `project_subcontractor` VARCHAR(50) NULL COMMENT '分包人' , 
+                        `design_area` VARCHAR(50) NULL COMMENT '设计面积' , 
+                        `contract_amount` VARCHAR(50) NULL COMMENT '主体合同额' , 
+                        `stage_proportions` VARCHAR(50) NULL COMMENT '阶段比例' , 
+                        `difficulty_system` VARCHAR(11) NULL COMMENT '难度系统' ,  
+                        `distribution_ratio` VARCHAR(11) NULL COMMENT '分配比例' , 
+                        `residual_coefficient` VARCHAR(11) NULL COMMENT '其他系数' , 
+                        `drawplan_major` VARCHAR(11) NULL COMMENT '专业' , 
+                        `designer` VARCHAR(11) NULL COMMENT '设计人员' , 
+                        `design_price` FLOAT NULL COMMENT '设计单价' , 
+                        `design_value` FLOAT NULL COMMENT '设计产值' , 
+                        `proofreader` VARCHAR(11) NULL COMMENT '校对人员' , 
+                        `proofreading_price` FLOAT NULL COMMENT '校对单价' , 
+                        `proofreading_value` FLOAT NULL COMMENT '校对产值' , 
+                        `auditor` VARCHAR(11) NULL COMMENT '审核人员' , 
+                        `audit_price` FLOAT NULL COMMENT '审核单价' , 
+                        `audit_value` FLOAT NULL COMMENT '审核产值' , 
+                        `work_boss` VARCHAR(11) NULL COMMENT '工种负责人' , 
+                        `work_basenumber` FLOAT NULL COMMENT '工种单价' , 
+                        `work_value` FLOAT NULL COMMENT '工种产值' , 
+                        `project_boss` VARCHAR(11) NULL COMMENT '工程人员' , 
+                        `project_basenumber` FLOAT NULL COMMENT '工程单价' , 
+                        `project_value` FLOAT NULL COMMENT '工程产值' , 
+                        `other_expenses` FLOAT NULL DEFAULT '0' COMMENT '其他费用' , 
+                        `value_subtotal` FLOAT NULL COMMENT '小计' , 
+                        `department` VARCHAR(30) NULL COMMENT '部门' , 
+                        `drawing_time` DATE NULL COMMENT '出图时间' , 
+                        `remarks` VARCHAR(140) NULL COMMENT '备注' , 
+                        `ground_floor` INT(3) NOT NULL DEFAULT '0' COMMENT '地上or地下 ' , 
+                        PRIMARY KEY (`id`)) ENGINE = InnoDB COMMENT = '".$data['project_id']."工程产值';";
                 Db::execute($sql1);
                 Db::execute($sql2);
+                Db::execute($sql3);
                 for($i=1;$i<=23;$i++)
                 {$result=Db::table('projectdesigner'.$data['project_id'])
                     ->insert([
@@ -1160,42 +1198,6 @@ class Index extends Controller
     {
         $data=$request->param();
 //        if(Db::query('SHOW TABLES LIKE '."'".'green_project'.$data['project_id']."'")===[])
-            $sql="CREATE TABLE IF NOT EXISTS`greenbuild`.`green_projectvalue".$data['project_id']."` ( 
-                        `id` INT NOT NULL AUTO_INCREMENT COMMENT '自增ID' , 
-                        `project_id` VARCHAR(50) NOT NULL COMMENT '工程号' , 
-                        `project_name` VARCHAR(50) NOT NULL COMMENT '工程名称' , 
-                        `entry_name` VARCHAR(50) NOT NULL COMMENT '项目名称' , 
-                        `project_subcontractor` VARCHAR(50) NULL COMMENT '分包人' , 
-                        `design_area` VARCHAR(50) NULL COMMENT '设计面积' , 
-                        `contract_amount` VARCHAR(50) NULL COMMENT '主体合同额' , 
-                        `stage_proportions` VARCHAR(50) NULL COMMENT '阶段比例' , 
-                        `difficulty_system` VARCHAR(11) NULL COMMENT '难度系统' ,  
-                        `distribution_ratio` VARCHAR(11) NULL COMMENT '分配比例' , 
-                        `residual_coefficient` VARCHAR(11) NULL COMMENT '其他系数' , 
-                        `major` VARCHAR(11) NULL COMMENT '专业' , 
-                        `designer` VARCHAR(11) NULL COMMENT '设计人员' , 
-                        `design_price` FLOAT NULL COMMENT '设计单价' , 
-                        `design_value` FLOAT NULL COMMENT '设计产值' , 
-                        `proofreader` VARCHAR(11) NULL COMMENT '校对人员' , 
-                        `proofreading_price` FLOAT NULL COMMENT '校对单价' , 
-                        `proofreading_value` FLOAT NULL COMMENT '校对产值' , 
-                        `auditor` VARCHAR(11) NULL COMMENT '审核人员' , 
-                        `audit_price` FLOAT NULL COMMENT '审核单价' , 
-                        `audit_value` FLOAT NULL COMMENT '审核产值' , 
-                        `work_boss` VARCHAR(11) NULL COMMENT '工种负责人' , 
-                        `work_basenumber` FLOAT NULL COMMENT '工种单价' , 
-                        `work_value` FLOAT NULL COMMENT '工种产值' , 
-                        `project_boss` VARCHAR(11) NULL COMMENT '工程人员' , 
-                        `project_basenumber` FLOAT NULL COMMENT '工程单价' , 
-                        `project_value` FLOAT NULL COMMENT '工程产值' , 
-                        `other_expenses` FLOAT NULL DEFAULT '0' COMMENT '其他费用' , 
-                        `value_subtotal` FLOAT NULL COMMENT '小计' , 
-                        `department` VARCHAR(30) NULL COMMENT '部门' , 
-                        `drawing_time` DATE NULL COMMENT '出图时间' , 
-                        `remarks` VARCHAR(140) NULL COMMENT '备注' , 
-                        `ground_floor` INT(3) NOT NULL DEFAULT '0' COMMENT '地上or地下 ' , 
-                        PRIMARY KEY (`id`)) ENGINE = InnoDB COMMENT = '".$data['project_id']."工程产值';";
-            Db::execute($sql);
         $res=Db::table('green_projectvalue'.$data['project_id'])
             ->insert([
                 'project_id'=>$data['project_id'],
@@ -4441,45 +4443,6 @@ else{
         $data=$request->param();
         $res = GreenProject::get(['project_id'=>$data["value"]]);
 
-        $sql="CREATE TABLE IF NOT EXISTS`greenbuild`.`green_projectvalue".$data['value']."` ( 
-                            `id` INT NOT NULL AUTO_INCREMENT COMMENT '自增ID' , 
-                            `project_id` VARCHAR(50) NOT NULL COMMENT '工程号' , 
-                            `entry_name` VARCHAR(50) NULL COMMENT '单体名称' , 
-                            `project_subcontractor` VARCHAR(50) NULL COMMENT '分包人' , 
-
-                            `design_area` VARCHAR(50) NULL COMMENT '设计面积' , 
-                            `contract_amount` VARCHAR(50) NULL COMMENT '主体合同额' , 
-                            `stage_proportions` VARCHAR(50) NULL COMMENT '阶段比例' , 
-                            `difficulty_system` VARCHAR(11) NULL COMMENT '难度系数' ,  
-                            `distribution_ratio` VARCHAR(11) NULL COMMENT '分配比例' ,
-                            `residual_coefficient` VARCHAR(11) NULL COMMENT '其他系数' ,
-                            `drawplan_major` VARCHAR(11) NULL COMMENT '专业' , 
-                            `designer` VARCHAR(11) NULL COMMENT '设计人员' ,
-                            `design_price` FLOAT NULL COMMENT '设计单价' , 
-                            `design_value` FLOAT NULL COMMENT '设计产值' ,  
-                            `proofreader` VARCHAR(11) NULL COMMENT '校对人员' , 
-                            `proofreading_price` float NULL COMMENT '校对单价' , 
-                            `proofreading_value` float NULL COMMENT '校对产值' , 
-                            `auditor` VARCHAR(11) NULL COMMENT '审核人员' , 
-                            `audit_price` float NULL COMMENT '审核单价' , 
-                            `audit_value` float NULL COMMENT '审核产值' , 
-                            `work_boss` VARCHAR(11) NULL COMMENT '工种负责人' , 
-                            `work_basenumber` float NULL COMMENT '工种单价' , 
-                            `work_value` float NULL COMMENT '工种产值' , 
-                            `project_boss` VARCHAR(11) NULL COMMENT '工程人员' , 
-                            `project_basenumber` float NULL COMMENT '工程单价' , 
-                            `project_value` float NULL COMMENT '工程产值' , 
-                            `other_expenses` float NULL COMMENT '其他费用' , 
-                            `value_subtotal` float NULL COMMENT '小计' , 
-                            `department` VARCHAR(30) NULL COMMENT '部门' , 
-                            `drawing_time` date NULL COMMENT '出图时间' , 
-                            `remarks` VARCHAR(140) NULL COMMENT '备注' , 
-                            `ground_floor` int(3) NULL COMMENT '地上or地下' , 
-
-                            PRIMARY KEY (`id`)) ENGINE = InnoDB COMMENT = '".$data['value']."工程产值_分支表';";
-            Db::execute($sql);
-
-
         $res1 =Db::table('green_projectvalue'.$data["value"])->field('entry_name')->select();
         GreenProject::get(['project_id'=>$data["value"]]);
         if($res){
@@ -4537,6 +4500,7 @@ public function drawplanAdd(Request $request)
             $res3=Db::table('green_projectvalue'.$data['project_id'])
             ->insert([
                 'project_id'=>$data['project_id'],
+                'project_name'=>$data['project_name'],
                 'entry_name'=>$data['entry_name'],
                 'design_area'=>$data['design_area'],
                 'contract_amount'=>$data['contract_amount'],
@@ -4563,7 +4527,25 @@ public function drawplanAdd(Request $request)
                 'drawing_time'=>$data['drawing_time'],
                 'remarks'=>$data['remarks'],
             ]);
-        if (!$res3) {
+            // 合并参与人员
+            $drawplan_member = $data['drawplan_project2'].";".$data['drawplan_type2'].";".$data['drawplan_designer2'].";".$data['drawplan_drafting2'].";".$data['drawplan_check2'].";".$data['drawplan_verify2'].";".$data['drawplan_authorize2'];
+        $res4=Db::table('green_projectdrawplan')
+            ->insert([
+                'project_id'=>$data['project_id'],
+                'project_name'=>$data['project_name'],
+                'project_contractor'=>$data['project_contractor'],
+                'project_agent'=>$data['project_agent'],
+                'monomer_name'=>$data['entry_name'],
+                'drawplan_major'=>$data['drawplan_major'],
+                'drawplan_phase'=>$data['drawplan_phase'],
+                'figure_number'=>$data['figure_number'],
+                'drawplan_survey'=>$data['drawplan_survey'],
+                'drawplan_number'=>$data['drawplan_number'],
+                'drawplan_member'=>$drawplan_member,
+                'drawplan_date'=>$data['drawing_time'],
+                'drawplan_remarks'=>$data['drawplan_remarks'],
+            ]);
+        if (!$res3&&!$res4) {
             $status = 0;
             $message = '添加失败~~';
         }

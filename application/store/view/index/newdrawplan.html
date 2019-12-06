@@ -355,7 +355,7 @@ layui.use(['form','layer'], function(){
     //监听提交
     form.on('submit(add)',
     function() {
-        var data = $('#newContract').serialize();
+        var data = $('#newContract').serialize()+"&drawplan_number="+drawplan_number;
         $.ajax({
         //几个参数需要注意一下
             type: "POST",//方法类型
@@ -383,12 +383,14 @@ layui.use(['form','layer'], function(){
 });
 
 var data = [];
+var drawplan_number =0;
 function showPrice(value, name, price) {
     var sum = 0;
     document.getElementById(name).value = price;
     data[name] = parseFloat(value)*parseFloat(price);
     for(var item in data){
         sum += data[item];
+        drawplan_number+=parseFloat(value);
     }
     document.getElementById('summary').innerText = sum;
 }
