@@ -47,7 +47,8 @@
                         <div class="layui-inline" style="width: 100%;">
                           <label class="layui-form-label">人员姓名</label>
                           <div class="layui-input-inline" style="width: 40%;">
-                                  <input type="text" name="staff_name" autocomplete="off" class="layui-input">
+                              <input type="text" name="staff_name" autocomplete="off" class="layui-input" onblur="lose('staff_name')" onfocus="get('staff_name')" oninput="changeName(this.value,'staff_name')">
+                              <ul id="staff_name"></ul>
                           </div>
                         </div>
                       </div>
@@ -257,6 +258,36 @@ function leadingOut() {
     tableToExcel('table','sheet1',template,'Data.xlsx');
   });
 }
+// 获取员工姓名列表
+function changeName(value,name) {
+  if (value == '') {
+    return false;
+  }
+     $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "{:url('index/getName')}",
+            data:{'content':value},
+            success: function(result){
+              $('#'+name).html('');
+              for (var i = 0; i < result.length; i++) {
+                var aLi = document.createElement('li');
+                aLi.innerText = result[i].staff_name;
+                document.getElementById(name).appendChild(aLi);
+                aLi.onmouseover = function() {
+                  this.className = 'mouseOver';
+                  $('input[name='+name+']').val(this.innerText);
+                };
+                aLi.onmouseout = function() {
+                  this.className = 'mouseOut';
+                };
+              }
+            },
+            error: function(data) {
+                alert("error:"+data.responseText);
+             }
+         });
+  }
 </script>
 </body>
 </html>
