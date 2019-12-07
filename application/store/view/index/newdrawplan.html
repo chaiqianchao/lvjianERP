@@ -9,8 +9,10 @@
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/newcontract.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/common.css" />
     <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
     <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/domain.js"></script>
     <style type="text/css">
         .layui-form-label{
             width: 120px;
@@ -166,13 +168,34 @@
                                             </thead>
                                             <tbody>
                                                 <tr class="text-c">
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_project1"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_type1"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_designer1"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_drafting1"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_check1"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_verify1"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_authorize1"></td>
+                                                <td>
+                                                    <input type="text" class="td_input" autocomplete="off" name="drawplan_project1" onblur="lose('drawplan_project1')" onfocus="get('drawplan_project1')" oninput="changeName(this.value,'drawplan_project1')">
+                                                    <ul id="drawplan_project1" class="ulWidth_full"></ul>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="td_input" autocomplete="off" name="drawplan_type1" onblur="lose('drawplan_type1')" onfocus="get('drawplan_type1')" oninput="changeName(this.value,'drawplan_type1')">
+                                                    <ul id="drawplan_type1" class="ulWidth_full"></ul>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="td_input" autocomplete="off" name="drawplan_designer1" onblur="lose('drawplan_designer1')" onfocus="get('drawplan_designer1')" oninput="changeName(this.value,'drawplan_designer1')">
+                                                    <ul id="drawplan_designer1" class="ulWidth_full"></ul>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="td_input" autocomplete="off" name="drawplan_drafting1" onblur="lose('drawplan_drafting1')" onfocus="get('drawplan_drafting1')" oninput="changeName(this.value,'drawplan_drafting1')">
+                                                    <ul id="drawplan_drafting1" class="ulWidth_full"></ul>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="td_input" autocomplete="off" name="drawplan_check1" onblur="lose('drawplan_check1')" onfocus="get('drawplan_check1')" oninput="changeName(this.value,'drawplan_check1')">
+                                                    <ul id="drawplan_check1" class="ulWidth_full"></ul>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="td_input" autocomplete="off" name="drawplan_verify1" onblur="lose('drawplan_verify1')" onfocus="get('drawplan_verify1')" oninput="changeName(this.value,'drawplan_verify1')">
+                                                    <ul id="drawplan_verify1" class="ulWidth_full"></ul>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="td_input" autocomplete="off" name="drawplan_authorize1" onblur="lose('drawplan_authorize1')" onfocus="get('drawplan_authorize1')" oninput="changeName(this.value,'drawplan_authorize1')">
+                                                    <ul id="drawplan_authorize1" class="ulWidth_full"></ul>
+                                                </td>
                                                 </tr>
                                             </tbody>
                                     </table>      
@@ -196,13 +219,34 @@
                                             </thead>
                                             <tbody>
                                                 <tr class="text-c">
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_project2"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_type2"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_designer2"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_drafting2"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_check2"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_verify2"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_authorize2"></td>
+                                                <td>
+                                                    <input type="text" class="td_input" autocomplete="off" name="drawplan_project2" onblur="lose('drawplan_project2')" onfocus="get('drawplan_project2')" oninput="changeName(this.value,'drawplan_project2')">
+                                                    <ul id="drawplan_project2" class="ulWidth_full"></ul>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="td_input" autocomplete="off" name="drawplan_type2" onblur="lose('drawplan_type2')" onfocus="get('drawplan_type2')" oninput="changeName(this.value,'drawplan_type2')">
+                                                    <ul id="drawplan_type2" class="ulWidth_full"></ul>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="td_input" autocomplete="off" name="drawplan_designer2" onblur="lose('drawplan_designer2')" onfocus="get('drawplan_designer2')" oninput="changeName(this.value,'drawplan_designer2')">
+                                                    <ul id="drawplan_designer2" class="ulWidth_full"></ul>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="td_input" autocomplete="off" name="drawplan_drafting2" onblur="lose('drawplan_drafting2')" onfocus="get('drawplan_drafting2')" oninput="changeName(this.value,'drawplan_drafting2')">
+                                                    <ul id="drawplan_drafting2" class="ulWidth_full"></ul>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="td_input" autocomplete="off" name="drawplan_check2" onblur="lose('drawplan_check2')" onfocus="get('drawplan_check2')" oninput="changeName(this.value,'drawplan_check2')">
+                                                    <ul id="drawplan_check2" class="ulWidth_full"></ul>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="td_input" autocomplete="off" name="drawplan_verify2" onblur="lose('drawplan_verify2')" onfocus="get('drawplan_verify2')" oninput="changeName(this.value,'drawplan_verify2')">
+                                                    <ul id="drawplan_verify2" class="ulWidth_full"></ul>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="td_input" autocomplete="off" name="drawplan_authorize2" onblur="lose('drawplan_authorize2')" onfocus="get('drawplan_authorize2')" oninput="changeName(this.value,'drawplan_authorize2')">
+                                                    <ul id="drawplan_authorize2" class="ulWidth_full"></ul>
+                                                </td>
                                                 </tr>
                                                 <thead>
                                                 <th>工程备注</th>
@@ -472,6 +516,36 @@ function checkInData(id,value){
         default:console.log("异常");
     }
 }
+// 获取员工姓名列表
+function changeName(value,name) {
+  if (value == '') {
+    return false;
+  }
+     $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "{:url('index/getName')}",
+            data:{'content':value},
+            success: function(result){
+              $('#'+name).html('');
+              for (var i = 0; i < result.length; i++) {
+                var aLi = document.createElement('li');
+                aLi.innerText = result[i].staff_name;
+                document.getElementById(name).appendChild(aLi);
+                aLi.onmouseover = function() {
+                  this.className = 'mouseOver';
+                  $('input[name='+name+']').val(this.innerText);
+                };
+                aLi.onmouseout = function() {
+                  this.className = 'mouseOut';
+                };
+              }
+            },
+            error: function(data) {
+                alert("error:"+data.responseText);
+             }
+         });
+  }
 </script>
 </body>
 </html>
