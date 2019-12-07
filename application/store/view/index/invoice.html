@@ -44,24 +44,54 @@
         </div>
       </form>
       <div class="layui-card-body layui-table-body layui-table-main">
-        <table class="layui-table layui-form" id="table">
+        <div id="baozhj">
+          <table class="layui-table layui-form" id="table">
           <thead>
-          <th>开票时间</th>
-          <th>开票金额</th>
-          <th>到账时间</th>
-          <th>到账金额</th>
-          <th>新增</th>
+            <th>保证金</th>
+            <th>开票金额</th>
+            <th>开票金额</th>
+            <th>到账时间</th>
+            <th>到账金额</th>
+            <th>新增</th>
           </thead>
           <tbody>
           <tr>
-            <td><input type="text" class="layui-input td_input invoice" placeholder="开票日期" id="date10" autocomplete="off"></td>
+            <td><input type="text" class="layui-input td_input invoice" placeholder="保证金" autocomplete="off"></td>
+            <td><input type="text" class="layui-input td_input invoice" placeholder="日期" id="date10" autocomplete="off"></td>
             <td><input type="text" class="layui-input td_input invoice" placeholder="开票金额" autocomplete="off"></td>
-            <td><input type="text" class="layui-input td_input invoice" placeholder="到账日期" id="date12" autocomplete="off"></td>
+            <td><input type="text" class="layui-input td_input invoice" placeholder="日期" id="date12" autocomplete="off"></td>
             <td><input type="text" class="layui-input td_input invoice" placeholder="到账金额"  autocomplete="off"></td>
-            <td><a title="新增" href="javascript:;" onclick="itemAdd()" style="text-decoration:none"><i class="layui-icon" style="color: #2196f3;"></i></a></td>
+            <td><a title="新增" href="javascript:;" onclick="itemAdd(0)" style="text-decoration:none"><i class="layui-icon" style="color: #2196f3;"></i></a></td>
           </tr>
           </tbody>
         </table>
+        </div>
+        <div id="bucf" style="display: none;">
+          <table class="layui-table layui-form" id="table">
+          <thead>
+            <th>名次</th>
+            <th>补偿费</th>
+            <th>付款方</th>
+            <th>开票金额</th>
+            <th>开票金额</th>
+            <th>到账时间</th>
+            <th>到账金额</th>
+            <th>新增</th>
+          </thead>
+          <tbody>
+          <tr>
+            <td><input type="text" class="layui-input td_input invoice2" placeholder="名次" autocomplete="off"></td>
+            <td><input type="text" class="layui-input td_input invoice2" placeholder="补偿费" autocomplete="off"></td>
+            <td><input type="text" class="layui-input td_input invoice2" placeholder="付款方" autocomplete="off"></td>
+            <td><input type="text" class="layui-input td_input invoice2" placeholder="日期" id="date10" autocomplete="off"></td>
+            <td><input type="text" class="layui-input td_input invoice2" placeholder="开票金额" autocomplete="off"></td>
+            <td><input type="text" class="layui-input td_input invoice2" placeholder="日期" id="date12" autocomplete="off"></td>
+            <td><input type="text" class="layui-input td_input invoice2" placeholder="到账金额"  autocomplete="off"></td>
+            <td><a title="新增" href="javascript:;" onclick="itemAdd(1)" style="text-decoration:none"><i class="layui-icon" style="color: #2196f3;"></i></a></td>
+          </tr>
+          </tbody>
+        </table>
+        </div>
       </div>
       <div class="layui-input-block" style=" text-align: center;margin: 10px 0;">
           <button class="layui-btn" onclick="submitInvoice()">新增开票</button>
@@ -72,25 +102,56 @@
 <script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
 <script type="text/javascript">
 var date = 3;
-function itemAdd() {
+function itemAdd(type) {
   var item = document.createElement("tr");
   item.innerHTML = '';
-  item.innerHTML ='<td><input type="text" class="layui-input td_input invoice" placeholder="开票日期" id="date'+date+'" autocomplete="off"></td><td><input class="layui-input td_input invoice" placeholder="开票金额"  autocomplete="off"></td><td><input class="layui-input td_input invoice" placeholder="到账日期" id="date'+(date+1)+'" autocomplete="off"></td><td><input class="layui-input td_input invoice" placeholder="到账金额"  autocomplete="off"></td><td><a title="删除" href="javascript:;" onclick="itemDel(this)" style="text-decoration:none"><i class="layui-icon" style="color: #2196f3;">&#8212;</i></a></td>';
-  document.getElementsByTagName('tbody')[0].appendChild(item);
+  if (type == 0) {
+    item.innerHTML ='<td><input class="layui-input td_input invoice" placeholder="保证金"  autocomplete="off"></td><td><input type="text" class="layui-input td_input invoice" placeholder="日期" id="date'+date+'" autocomplete="off"></td><td><input class="layui-input td_input invoice" placeholder="开票金额"  autocomplete="off"></td><td><input class="layui-input td_input invoice" placeholder="日期" id="date'+(date+1)+'" autocomplete="off"></td><td><input class="layui-input td_input invoice" placeholder="到账金额"  autocomplete="off"></td><td><a title="删除" href="javascript:;" onclick="itemDel(this)" style="text-decoration:none"><i class="layui-icon" style="color: #2196f3;">&#8212;</i></a></td>';
+  }
+  else if(type == 1){
+    item.innerHTML ='<td><input class="layui-input td_input invoice2" placeholder="名次"  autocomplete="off"></td><td><input class="layui-input td_input invoice2" placeholder="补偿费"  autocomplete="off"></td><td><input class="layui-input td_input invoice2" placeholder="付款方"  autocomplete="off"></td><td><input type="text" class="layui-input td_input invoice2" placeholder="日期" id="date'+date+'" autocomplete="off"></td><td><input class="layui-input td_input invoice2" placeholder="开票金额"  autocomplete="off"></td><td><input class="layui-input td_input invoice2" placeholder="日期" id="date'+(date+1)+'" autocomplete="off"></td><td><input class="layui-input td_input invoice2" placeholder="到账金额"  autocomplete="off"></td><td><a title="删除" href="javascript:;" onclick="itemDel(this)" style="text-decoration:none"><i class="layui-icon" style="color: #2196f3;">&#8212;</i></a></td>';
+  }
+  document.getElementsByTagName('tbody')[type].appendChild(item);
   date +=2;
 }
 
 function itemDel(e) {
   $(e).parent().parent().remove();
 }
-
+// 监听下拉选择，控制input数量，匹配保证金与补偿费
+requestAnimationFrame(render);
+    function render() {
+        selected();
+        requestAnimationFrame(render);
+    }
+function selected(){
+  setInterval(function(){
+    var data = $('#newInvoice').serialize();
+    var type = decodeURIComponent(data.split("type=")[1]);
+  if (type == "保证金") {
+    document.getElementById("baozhj").style.display = "block";
+    document.getElementById("bucf").style.display = "none";
+  }
+  else if(type == "补偿费") {
+    document.getElementById("baozhj").style.display = "none";
+    document.getElementById("bucf").style.display = "block";
+  }
+  },3000); 
+}
 function submitInvoice(){
-
   var data = $('#newInvoice').serialize();
-  var invoice = document.getElementsByClassName("invoice");
   var invoiceContent = "&invoice=";
+  var type = decodeURIComponent(data.split("type=")[1]);
+  if (type == "保证金") {
+    var split = 5;
+    var invoice = document.getElementsByClassName("invoice");
+  }
+  else if(type == "补偿费"){
+    var split = 7;
+    var invoice = document.getElementsByClassName("invoice2");
+  }
   for (var i =0; i < invoice.length; i++) {
-      if (i%4==0)
+      if (i%split==0)
           invoiceContent = invoiceContent +"^"+invoice[i].value;
       else
           invoiceContent = invoiceContent +"*"+invoice[i].value;

@@ -1465,13 +1465,16 @@ class Index extends Controller
                 ]);
             }
             elseif ($type=="补偿费") {
-                $res2=Db::table('green_bidcompensation')
+                $res2=Db::table('green_biddeposite')
                 ->insert([
                     'toubiao_id'=>$data['id'],
-                    'compensation_invoice_date'=>$contents[0],
-                    'compensation_invoice_amount'=>$contents[1],
-                    'compensation_payment_date'=>$contents[2],
-                    'compensation_payment_amount'=>$contents[3],
+                    'deposite_invoice_id'=>$contents[0],
+                    'deposite_invoice_price'=>$contents[1],
+                    'deposite_invoice_object'=>$contents[2],
+                    'deposite_invoice_date'=>$contents[3],
+                    'deposite_invoice_amount'=>$contents[4],
+                    'deposite_payment_date'=>$contents[5],
+                    'deposite_payment_amount'=>$contents[6],
                 ]);
                 $re=Db::table('green_bidcompensation')
                     ->where('toubiao_id',$data['id'])
@@ -1481,13 +1484,14 @@ class Index extends Controller
                     ->update(['bid_compensation'=>$re]);
             }
             elseif ($type=="保证金") {
-                $res2=Db::table('green_biddeposite')
+                $res2=Db::table('green_bidcompensation')
                 ->insert([
                     'toubiao_id'=>$data['id'],
-                    'deposite_invoice_date'=>$contents[0],
-                    'deposite_invoice_amount'=>$contents[1],
-                    'deposite_payment_date'=>$contents[2],
-                    'deposite_payment_amount'=>$contents[3],
+                    'compensation_price'=>$contents[0],
+                    'compensation_invoice_date'=>$contents[1],
+                    'compensation_invoice_amount'=>$contents[2],
+                    'compensation_payment_date'=>$contents[3],
+                    'compensation_payment_amount'=>$contents[4],
                 ]);
                 $re=Db::table('green_biddeposite')
                     ->where('toubiao_id',$data['id'])

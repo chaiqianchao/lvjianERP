@@ -182,15 +182,14 @@
 <script>
   if (localStorage.addanother) {
     var data = localStorage.addanother.split('"')[1].split('&');
-    var id = data[0].split('=')[1];
-    var type = data[1].split('=')[1];
+    var id = decodeURIComponent(data[0].split('=')[1]);
+    var type = decodeURIComponent(data[1].split('=')[1]);
     var invo = data[2].split('=')[1].split('^');
-
     var newInvo = document.getElementById('newInvo');
     newInvo.style="color: red;font-size: 10px;";
     newInvo.innerText = '';
     for (var i = 1; i < invo.length; i++) {
-      newInvo.innerText += '成功新增开票：工程号为'+id+', 开票类型为 "'+decodeURI(type)+'", 开票时间为 '+invo[i].split('*')[0]+', 开票金额为 '+invo[i].split('*')[1]+', 到账时间为 '+invo[i].split('*')[2]+', 到账金额为 '+invo[i].split('*')[3]+'\n';
+      newInvo.innerText += '成功新增开票：工程号为'+id+', 开票类型为 "'+type+'", 开票时间为 '+invo[i].split('*')[0]+', 开票金额为 '+invo[i].split('*')[1]+', 到账时间为 '+invo[i].split('*')[2]+', 到账金额为 '+invo[i].split('*')[3]+'\n';
     }
     localStorage.removeItem('addanother');
   }
