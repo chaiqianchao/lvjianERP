@@ -4,7 +4,7 @@ return [
     // | 应用设置
     // +----------------------------------------------------------------------
     // 默认Host地址
-    'app_host'               => /*'www.sskstudio.cn','193.112.86.91',*/'localhost',
+    'app_host'               => /*'www.zjljsj.cn','212.64.57.19',*/'localhost',
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace
