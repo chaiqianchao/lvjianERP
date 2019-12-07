@@ -3142,21 +3142,109 @@ public function adminselectall(Request $request)
     public function changeAble(Request $requset)
     {
         $data = $requset -> param();
-        $result1 = Db::table('green_administrators')
-            ->where([
-                'staff_id'=>$data['id']
-            ])
-            ->update([
-                'enable'=>$data['enable']
-            ]);
-        $result2 = Db::table('green_staff')
-            ->where([
-                'staff_id'=>$data['id']
-            ])
-            ->update([
-                'enable'=>$data['enable']
-            ]);
-        if ($result1 && $result2 ) {
+        // 默认权限
+        $yuan=  [1,1,1,1,0,1,0,2,2,2,0,0];
+        $sheng= [2,2,0,0,2,2,2,2,2,0,0,0];
+        $cai=   [1,1,2,2,0,1,0,0,1,2,2,2];
+        $ban=   [2,1,0,0,0,2,0,2,1,0,0,2];
+        $rest=  [1,0,0,0,0,1,0,0,1,0,0,0];
+        $temp=  [2,2,0,0,2,2,2,2,2,0,0,0];
+        $admin = Db::table('green_administrators')->where("staff_name",$data["staff_name"])->value("admin");
+        if($admin == "超级管理员")
+        return ['status'=>0, 'message'=>'更新失败，无修改超级管理员权限'];
+        $staff_department = Db::table('green_staff')->where("staff_name",$data["staff_name"])->value("staff_department");
+            // 启用为管理员
+        if($data["enable"]==1)
+        {
+                // 直接更新表
+            $result1 = Db::table('green_administrators')
+            ->where("staff_name",$data["staff_name"])
+        ->update([
+            'admin'=>'普通管理员',
+            'enable'=>1,
+            'project_view'=>$temp[0],
+            'contract_view'=>$temp[1],
+            'ledger'=>$temp[2],
+            'bid'=>$temp[3],
+            'adminstrator'=>$temp[4],
+            'staff'=>$temp[5],
+            'jurisdiction'=>$temp[6],
+            'customer'=>$temp[7],
+            'project_value'=>$temp[8],
+            'department_value'=>$temp[9],
+            'staff_value'=>$temp[10],
+            'invoice_new'=>$temp[11],
+        ]);
+        }
+        else{
+            // 停用管理员身份，恢复员工身份
+            if($staff_department){
+                switch ($staff_department)
+            {
+                case '院长室':
+                   $temp=$yuan;
+                    break;
+                case '生产经营部':
+                    $temp=$sheng;
+                    break;
+                case '财务部':
+                    $temp=$cai;
+                    break;
+                case '办公室':
+                    $temp=$ban;
+                    break;
+                default:
+                    $temp=$rest;
+            }
+            $result1 = Db::table('green_administrators')
+            ->where("staff_name",$data["staff_name"])
+                ->update([
+                    'admin'=>0,
+                    'enable'=>$data['enable'],
+                    'project_view'=>$temp[0],
+                    'contract_view'=>$temp[1],
+                    'ledger'=>$temp[2],
+                    'bid'=>$temp[3],
+                    'adminstrator'=>$temp[4],
+                    'staff'=>$temp[5],
+                    'jurisdiction'=>$temp[6],
+                    'customer'=>$temp[7],
+                    'project_value'=>$temp[8],
+                    'department_value'=>$temp[9],
+                    'staff_value'=>$temp[10],
+                    'invoice_new'=>$temp[11],
+                    'update_time'=>'00:00:00',
+                    'administrators_lastTime'=>time(),
+                    'admin_status'=>0,
+                ]);
+            }
+            else{
+                $temp = $rest;
+                $result1 = Db::table('green_administrators')
+                ->where("staff_name",$data["staff_name"])
+                ->update([
+                    'admin'=>0,
+                    'enable'=>$data['enable'],
+                    'project_view'=>$temp[0],
+                    'contract_view'=>$temp[1],
+                    'ledger'=>$temp[2],
+                    'bid'=>$temp[3],
+                    'adminstrator'=>$temp[4],
+                    'staff'=>$temp[5],
+                    'jurisdiction'=>$temp[6],
+                    'customer'=>$temp[7],
+                    'project_value'=>$temp[8],
+                    'department_value'=>$temp[9],
+                    'staff_value'=>$temp[10],
+                    'invoice_new'=>$temp[11],
+                    'update_time'=>'00:00:00',
+                    'administrators_lastTime'=>time(),
+                    'admin_status'=>0,
+                ]);
+            }
+        }
+        $result2 =  Db::table('green_staff')->where("staff_name",$data["staff_name"])->update(['enable'=>$data["enable"]]);
+        if ($result1) {
             return ['status'=>1, 'message'=>'更新成功'];
         } else {
             return ['status'=>0, 'message'=>'更新失败,请检查'];
@@ -3166,9 +3254,10 @@ public function adminselectall(Request $request)
     public function changeStaffAble(Request $requset)
     {
         $data = $requset -> param();
+        $staff_name = Db::table('green_staff')->where(['staff_id'=>$data['id']])->value("staff_name");
         $result1 = Db::table('green_administrators')
             ->where([
-                'staff_id'=>$data['id']
+                'staff_name'=>$staff_name
             ])
             ->update([
                 'staff_enable'=>$data['staff_enable']

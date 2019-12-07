@@ -103,7 +103,7 @@
                                   {/if}
                                   {if condition="$limit eq 2"}
                                   <td class="td-manage">
-                                    <a onclick="member_stop(this, {$vo.staff_id})" href="javascript:;"  title="停用管理员">
+                                    <a onclick="member_stop(this, '{$vo.staff_name}')" href="javascript:;"  title="停用管理员">
                                       <i class="layui-icon">&#xe601;</i>
                                     </a>
                                     {if condition ="$vo.staff_enable eq '1'"}
@@ -135,7 +135,7 @@
                                   {/if}
                                   {if condition="$limit eq 2"}
                                   <td class="td-manage">
-                                    <a onclick="member_stop(this, {$vo.staff_id})" href="javascript:;" title="启用管理员">
+                                    <a onclick="member_stop(this, '{$vo.staff_name}')" href="javascript:;" title="启用管理员">
                                       <i class="layui-icon">&#xe62f;</i>
                                     </a>
                                     {if condition ="$vo.staff_enable eq '1'"}
@@ -192,7 +192,7 @@ function del_person(id){
   
 }
 /*管理员-停用*/
-function member_stop(obj,id){
+function member_stop(obj,name){
 var text,textContent;
 if($(obj).attr('title')!="启用管理员")
 {
@@ -209,16 +209,25 @@ layer.confirm(textContent+'确认要'+text+'吗？',function(index){
 if($(obj).attr('title')!='启用管理员'){
 
   //发异步把用户状态进行更改
-  $.get('{:url("index/changeAble")}', {id:id, enable:0});
-
-  layer.msg('已停用!',{icon: 5,time:1000});
-  window.location.reload()
-
+  $.get('{:url("index/changeAble")}', {staff_name:name, enable:0},function(result){
+    if(result.status == 1){
+      layer.msg('已停用!',{icon: 5,time:1000});
+      window.location.reload();
+    }
+    else{
+      layer.msg(result.message,{icon: 5,time:1000});
+    }
+  });
 }else{
-  $.get('{:url("index/changeAble")}', {id:id, enable:1});
-
-  layer.msg('已启用!',{icon: 6,time:1000});
-  window.location.reload()
+  $.get('{:url("index/changeAble")}', {staff_name:name, enable:1},function(result){
+    if(result.status == 1){
+        layer.msg('已启用!',{icon: 6,time:1000});
+        window.location.reload();
+    }
+    else{
+      layer.msg(result.message,{icon: 5,time:1000});
+    }
+  });
 }
 
 });
@@ -241,16 +250,26 @@ layer.confirm(textContent+'确认要'+text+'吗？',function(index){
 if($(obj).attr('title')!='启用员工'){
 
   //发异步把用户状态进行更改
-  $.get('{:url("index/changeStaffAble")}', {id:id, staff_enable:0});
-  layer.msg('已停用!',{icon: 5,time:1000});
-  window.location.reload()
-
+  $.get('{:url("index/changeStaffAble")}', {id:id, staff_enable:0},function(result){
+    if (result.status == 1) {
+        layer.msg('已停用!',{icon: 5,time:1000});
+        window.location.reload();
+      }
+    else{
+      layer.msg(result.message,{icon: 5,time:1000});
+    }
+  });
 }else{
-  $.get('{:url("index/changeStaffAble")}', {id:id, staff_enable:1});
-  layer.msg('已启用!',{icon: 6,time:1000});
-  window.location.reload()
+  $.get('{:url("index/changeStaffAble")}', {id:id, staff_enable:1},function(result){
+    if (result.status == 1) {
+      layer.msg('已启用!',{icon: 6,time:1000});
+      window.location.reload();
+    }
+    else{
+      layer.msg(result.message,{icon: 5,time:1000});
+    }
+  }); 
 }
-
 });
 }
   function searchSelectAll(){
