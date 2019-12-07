@@ -4638,7 +4638,14 @@ public function drawplanAdd(Request $request)
                 'remarks'=>$data['remarks'],
             ]);
             // 合并参与人员
-            $drawplan_member = $data['drawplan_project2'].";".$data['drawplan_type2'].";".$data['drawplan_designer2'].";".$data['drawplan_drafting2'].";".$data['drawplan_check2'].";".$data['drawplan_verify2'].";".$data['drawplan_authorize2'];
+            if($data['drawplan_project2'])$data['drawplan_project2'] = $data['drawplan_project2'].';';
+            if($data['drawplan_type2'])$data['drawplan_type2'] = $data['drawplan_type2'].';';
+            if($data['drawplan_drafting2'])$data['drawplan_drafting2'] = $data['drawplan_drafting2'].';';
+            if($data['drawplan_check2'])$data['drawplan_check2'] = $data['drawplan_check2'].';';
+            if($data['drawplan_verify2'])$data['drawplan_verify2'] = $data['drawplan_verify2'].';';
+            if($data['drawplan_authorize2'])$data['drawplan_authorize2'] = $data['drawplan_authorize2'].';';
+            $temp = $data['drawplan_project2'].$data['drawplan_type2'].$data['drawplan_designer2'].$data['drawplan_drafting2'].$data['drawplan_check2'].$data['drawplan_verify2'].$data['drawplan_authorize2'];
+            $drawplan_member = substr($temp,0,strlen($temp)-1);
         $res4=Db::table('green_projectdrawplan')
             ->insert([
                 'project_id'=>$data['project_id'],
