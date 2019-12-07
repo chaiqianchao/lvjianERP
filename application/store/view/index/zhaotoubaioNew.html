@@ -9,8 +9,10 @@
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/font.css" />
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/xadmin.css" />
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/newcontract.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/common.css" />
     <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
     <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/domain.js"></script>
     <style type="text/css">
         .layui-form-label{
             width: 120px;
@@ -178,16 +180,18 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">项目负责人</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="bid_master" autocomplete="off" class="layui-input">
+                                    <input type="text" name="bid_master" autocomplete="off" class="layui-input" onblur="lose('bid_master')" onfocus="get('bid_master')" oninput="changeName(this.value,'bid_master')">
+                                    <ul id="bid_master" class="ulWidth"></ul>
                                 </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <div class="layui-inline" id="join_person">
+                            <div class="layui-inline" id="join_person_id">
                                 <label class="layui-form-label">参与人员</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" autocomplete="off" class="layui-input join_person">
-                                    <button type="button" class="item-icon" onclick="itemAdd('join_person','','join_person')">+</button>
+                                    <input type="text" autocomplete="off" class="layui-input join_person" name="join_person" onblur="lose('join_person')" onfocus="get('join_person')" oninput="changeName(this.value,'join_person')">
+                                    <ul id="join_person" class="ulWidth"></ul>
+                                    <button type="button" class="item-icon" onclick="itemAdd('join_person_id','','join_person')">+</button>
                                 </div>
                             </div>
                         </div>
@@ -527,7 +531,7 @@ layui.use(['form'], function(){
                 id+=2;
             document.getElementById(obj).appendChild(item);
         }
-        else if(obj == 'join_person') {
+        else if(obj == 'join_person_id') {
             var item = document.createElement("div");
             item.className = "layui-input-inline";
             item.innerHTML ='<div class="layui-input-inline"><input type="text" autocomplete="off" class="layui-input join_person"><button type="button" class="item-icon" onclick="itemDel(this)">-</button></div>';
@@ -621,6 +625,36 @@ layui.use(['form'], function(){
                 }
             });
     }
+// 获取员工姓名列表
+function changeName(value,name) {
+  if (value == '') {
+    return false;
+  }
+     $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "{:url('index/getName')}",
+            data:{'content':value},
+            success: function(result){
+              $('#'+name).html('');
+              for (var i = 0; i < result.length; i++) {
+                var aLi = document.createElement('li');
+                aLi.innerText = result[i].staff_name;
+                document.getElementById(name).appendChild(aLi);
+                aLi.onmouseover = function() {
+                  this.className = 'mouseOver';
+                  $('input[name='+name+']').val(this.innerText);
+                };
+                aLi.onmouseout = function() {
+                  this.className = 'mouseOut';
+                };
+              }
+            },
+            error: function(data) {
+                alert("error:"+data.responseText);
+             }
+         });
+  }
 </script>
 </body>
 </html>
