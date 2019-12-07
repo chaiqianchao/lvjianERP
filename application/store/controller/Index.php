@@ -4329,7 +4329,7 @@ else{
         $data=$request->param();
         $res=Db::table('green_staff')
             ->whereor([
-                'staff_name'=>['like','%'.$data['content'].'%'],
+                'staff_name'=>['like',$data['content'].'%'],
             ])
             ->field('staff_name')
             ->select();

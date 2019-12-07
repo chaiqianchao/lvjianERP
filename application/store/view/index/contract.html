@@ -15,17 +15,6 @@
   <script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
   <script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
 <script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
-
-  <style>
-.mouseOver{
-    background-color: #708090;
-    color:#FFFAFA;
-}
-.mouseOut{
-    background-color: #FFFAFA;
-    color:#000000;
-}
-</style>
 </head>
 <body>
   <div class="searchcard">
@@ -100,7 +89,7 @@
                           <div class="layui-inline" style="width: 100%;">
                             <label class="layui-form-label">经办人</label>
                             <div class="layui-input-inline" style="width: 40%;">
-                              <input type="text" name="contract_operator" autocomplete="off" class="layui-input" onblur="lose('contract_operator')" onfocus="get('contract_operator')" oninput="change(this.value,'contract_operator')">
+                              <input type="text" name="contract_operator" autocomplete="off" class="layui-input" onblur="lose('contract_operator')" onfocus="get('contract_operator')" oninput="changeName(this.value,'contract_operator')">
                               <ul id="contract_operator"></ul>
                             </div>
                           </div>
@@ -109,7 +98,7 @@
                           <div class="layui-inline" style="width: 100%;">
                             <label class="layui-form-label">项目负责人</label>
                             <div class="layui-input-inline" style="width: 40%;">
-                              <input type="text" name="contract_projectleader" autocomplete="off" class="layui-input" onblur="lose('contract_projectleader')" onfocus="get('contract_projectleader')" oninput="change(this.value,'contract_projectleader')">
+                              <input type="text" name="contract_projectleader" autocomplete="off" class="layui-input" onblur="lose('contract_projectleader')" onfocus="get('contract_projectleader')" oninput="changeName(this.value,'contract_projectleader')">
                               <ul id="contract_projectleader"></ul>
                             </div>
                           </div>
@@ -118,7 +107,7 @@
                           <div class="layui-inline" style="width: 100%;">
                             <label class="layui-form-label">审批人</label>
                             <div class="layui-input-inline" style="width: 40%;">
-                              <input type="text" name="contract_approver" autocomplete="off" class="layui-input" onblur="lose('contract_approver')" onfocus="get('contract_approver')" oninput="change(this.value,'contract_approver')">
+                              <input type="text" name="contract_approver" autocomplete="off" class="layui-input" onblur="lose('contract_approver')" onfocus="get('contract_approver')" oninput="changeName(this.value,'contract_approver')">
                               <ul id="contract_approver"></ul>
                             </div>
                           </div>
@@ -214,7 +203,9 @@
 <script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
 <script type="text/javascript" src="__STATIC__/js/domain.js"></script>
 <script>
-function change(value,name) {
+
+// 获取员工姓名列表
+function changeName(value,name) {
   if (value == '') {
     return false;
   }
@@ -243,7 +234,6 @@ function change(value,name) {
              }
          });
   }
-
   function searchSelect(){
     var options=$("#pagenumber option:selected");
      $.ajax({
