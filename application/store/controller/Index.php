@@ -3407,7 +3407,6 @@ public function adminselectall(Request $request)
                 'project_id'=>['like','%'.$data['content'].'%'],
                 'project_name'=>['like', '%'.$data['content'].'%'],
                 'project_subcontractor'=>['like', '%'.$data['content'].'%'],
-                'design_area'=>['like', '%'.$data['content'].'%'],
             ])
             ->count();
         if ($data['pagenumber'] =="全部") {
@@ -3418,7 +3417,6 @@ public function adminselectall(Request $request)
                 'project_id'=>['like','%'.$data['content'].'%'],
                 'project_name'=>['like', '%'.$data['content'].'%'],
                 'project_subcontractor'=>['like', '%'.$data['content'].'%'],
-                'design_area'=>['like', '%'.$data['content'].'%'],
             ])
             ->order("project_id desc")
             ->select();
@@ -3427,7 +3425,6 @@ public function adminselectall(Request $request)
                 'project_id'=>['like','%'.$data['content'].'%'],
                 'project_name'=>['like', '%'.$data['content'].'%'],
                 'project_subcontractor'=>['like', '%'.$data['content'].'%'],
-                'design_area'=>['like', '%'.$data['content'].'%'],
             ])
             ->sum('total_department');
 
@@ -4239,37 +4236,29 @@ else{
     public function ProjectValueDel(Request $request){
         $data=$request->param();
         $res=Db::table('green_projectvalue'.$data['project_id'])->where(['id'=>$data['id']])->delete();
-        $designe_value=Db::table('green_projectvalue')
-            ->where('project_id',$data['project_id'])
+        $designe_value=Db::table('green_projectvalue'.$data['project_id'])
             ->sum('designe_value');
-        $proofreading_value=Db::table('green_projectvalue')
-            ->where('project_id',$data['project_id'])
+        $proofreading_value=Db::table('green_projectvalue'.$data['project_id'])
             ->sum('proofreading_value');
-        $audit_value=Db::table('green_projectvalue')
-            ->where('project_id',$data['project_id'])
+        $audit_value=Db::table('green_projectvalue'.$data['project_id'])
             ->sum('audit_value');
-        $work_value=Db::table('green_projectvalue')
-            ->where('project_id',$data['project_id'])
+        $work_value=Db::table('green_projectvalue'.$data['project_id'])
             ->sum('work_value');
-        $project_value=Db::table('green_projectvalue')
-            ->where('project_id',$data['project_id'])
+        $project_value=Db::table('green_projectvalue'.$data['project_id'])
             ->sum('project_value');
-            $other_expenses=Db::table('green_projectvalue')
-            ->where('project_id',$data['project_id'])
+        $other_expenses=Db::table('green_projectvalue'.$data['project_id'])
             ->sum('other_expenses');
-        $value_subtotal=Db::table('green_projectvalue')
-            ->where('project_id',$data['project_id'])
+        $value_subtotal=Db::table('green_projectvalue'.$data['project_id'])
             ->sum('value_subtotal');
-        $design_area=Db::table('green_projectvalue')
-            ->where('project_id',$data['project_id'])
+        $design_area=Db::table('green_projectvalue'.$data['project_id'])
             ->sum('design_area');
-        $ground_floor_area=Db::table('green_projectvalue')
-            ->where(['project_id'=>$data['project_id'],'ground_floor'=>'1'])
-            ->sum('design_area');
-        $underground_building_area=Db::table('green_projectvalue')
-            ->where(['project_id'=>$data['project_id'],'ground_floor'=>'0'])
-            ->sum('design_area');
-        $total_building_area=$ground_floor_area+$underground_building_area;
+        // $ground_floor_area=Db::table('green_projectvalue'.$data['project_id'])
+        //     ->where('ground_floor'=>'1'])
+        //     ->sum('design_area');
+        // $underground_building_area=Db::table('green_projectvalue'.$data['project_id'])
+        //     ->where('ground_floor'=>'0'])
+        //     ->sum('design_area');
+        // $total_building_area=$ground_floor_area+$underground_building_area;
 
         Db::table('green_project_totalvalue')
             ->where('project_id',$data['project_id'])
@@ -4282,9 +4271,9 @@ else{
                 'project_value'=>$project_value,
                 'other_expenses'=>$other_expenses,
                 'design_area'=>$proofreading_value,
-                'ground_floor_area'=>$ground_floor_area,
-                'underground_building_area'=>$underground_building_area,
-                'total_building_area'=>$total_building_area,
+                // 'ground_floor_area'=>$ground_floor_area,
+                // 'underground_building_area'=>$underground_building_area,
+                // 'total_building_area'=>$total_building_area,
                 'total_department'=>$value_subtotal
             ]);
         if ($res == null) {
@@ -4699,7 +4688,37 @@ public function drawplanAdd(Request $request)
                 'department'=>$data['department'],
                 'drawing_time'=>$data['drawing_time'],
                 'remarks'=>$data['remarks'],
+            ]);
+            // 更新total工程产值大表
+        $design_value=Db::table('green_projectvalue'.$data['project_id'])
+            ->sum('design_value');
+        $proofreading_value=Db::table('green_projectvalue'.$data['project_id'])
+            ->sum('proofreading_value');
+        $audit_value=Db::table('green_projectvalue'.$data['project_id'])
+            ->sum('audit_value');
+        $work_value=Db::table('green_projectvalue'.$data['project_id'])
+            ->sum('work_value');
+        $project_value=Db::table('green_projectvalue'.$data['project_id'])
+            ->sum('project_value');
+        $other_expenses=Db::table('green_projectvalue'.$data['project_id'])
+            ->sum('other_expenses');
+        $value_subtotal=Db::table('green_projectvalue'.$data['project_id'])
+            ->sum('value_subtotal');
+        $design_area=Db::table('green_projectvalue'.$data['project_id'])
+            ->sum('design_area');
 
+        Db::table('green_project_totalvalue')
+            ->where('project_id',$data['project_id'])
+            ->update([
+                'subject_contract_amount'=>$design_area,
+                'design_value'=>$design_value,
+                'check_value'=>$proofreading_value,
+                'worktype_value'=>$work_value,
+                'examine_value'=>$audit_value,
+                'project_value'=>$project_value,
+                'other_expenses'=>$other_expenses,
+                'design_area'=>$proofreading_value,
+                'total_department'=>$value_subtotal
             ]);
         if (!$res3&&!$res4) {
             $status = 0;

@@ -395,7 +395,8 @@
         var audit_value = document.getElementById("audit_value").value;
         var work_value = document.getElementById("work_value").value;
         var project_value = document.getElementById("project_value").value;
-        document.getElementById("value_subtotal").value = parseFloat(design_value)+parseFloat(proofreading_value)+parseFloat(audit_value)+parseFloat(work_value)+parseFloat(project_value);
+        var other_expenses = document.getElementById("other_expenses").value;
+        document.getElementById("value_subtotal").value = parseFloat(design_value)+parseFloat(proofreading_value)+parseFloat(audit_value)+parseFloat(work_value)+parseFloat(project_value)+parseFloat(other_expenses);
     }
     // 捕捉回车,阻止回车事件
     document.onkeydown = function(e){
