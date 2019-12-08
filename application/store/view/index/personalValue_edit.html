@@ -87,7 +87,7 @@
             type: "POST",//方法类型
             dataType: "json",//预期服务器返回的数据类型
             url: "{:url('index/personalValueEdit')}",//url
-            data: $('#personalvalue').serialize()+"&id="+{$content['id']},
+            data: $('#personalvalue').serialize()+"&id="+{$content['id']}+"&Big_id="+{$Big_id},
             success:function (result) {
                 if (result.status == 1) {
                     layer.alert("修改成功",function(){

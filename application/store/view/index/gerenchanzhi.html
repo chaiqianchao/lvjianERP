@@ -111,7 +111,7 @@
               <td>{$vo.staff_department}</td>
               <td>{$vo.staff_name}</td>
               <td>{$vo.output_value}</td>
-              <td><a onclick="gotoDetail('{$vo['staff_name']}')">点击详情</a></td>
+              <td><a onclick="gotoDetail('{$vo['id']}','{$vo['staff_name']}')">点击详情</a></td>
             </tr>
             {/if}
             {/volist}
@@ -142,14 +142,14 @@
   <script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
   <script type="text/javascript" src="__STATIC__/js/domain.js"></script>
 <script>
-  function gotoDetail(staff_name){
+  function gotoDetail(id,staff_name){
     let start = document.getElementById('start').value;
     let end = document.getElementById('end').value;
     $.ajax({
       type: "post",
       // dataType: "json",
       url: "{:url('index/personalValue_details')}",
-      data:"start="+start+"&end="+end+"&staff_name="+staff_name,
+      data:"start="+start+"&end="+end+"&id="+id+"&staff_name="+staff_name,
       success: function (result) {
         document.body.innerHTML=result;
       },

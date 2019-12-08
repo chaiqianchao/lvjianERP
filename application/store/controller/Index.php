@@ -983,9 +983,11 @@ class Index extends Controller
     //渲染个人产值详情
     public function personalValue_Edit(Request $request)
     {
-        $data=$request->param('id');
-        $res=Db::table('green_personalvalue')->where('id',$data)->select();
+        $data=$request->param();
+        $staff_name = Db::table('green_personalvalue')->where('id',$data["Big_id"])->value("staff_name");
+        $res=Db::table('green_personalvalue'.$staff_name)->where('id',$data["id"])->select();
         $this->view->assign('content',$res[0]);
+        $this->view->assign('Big_id',$data["Big_id"]);
         return $this->view->fetch('personalValue_edit');
     }
    //工程产值编辑修改
@@ -1085,7 +1087,8 @@ class Index extends Controller
     {
         //获取数据
         $data = $request -> param();
-        $result = Db::table('green_personalvalue')
+        $staff_name = Db::table('green_personalvalue')->where('id',$data["Big_id"])->value("staff_name");
+        $result = Db::table('green_personalvalue'.$staff_name)
             ->where([
                 'id'=>$data['id']
             ])
@@ -1097,8 +1100,16 @@ class Index extends Controller
                 'output_value'=>$data['output_value'],
                 'staff_remarks'=>$data['staff_remarks'],
             ]);
-
-        if (null!=$result) {
+        $output_value=Db::table('green_personalvalue'.$staff_name)
+                    ->sum('output_value');
+        $result1 = Db::table('green_personalvalue')
+            ->where([
+                'staff_name'=>$staff_name
+            ])
+            ->update([
+                'output_value'=>$output_value,
+            ]);
+        if ($result) {
             return ['status'=>1, 'message'=>'更新成功'];
         } else {
             return ['status'=>0, 'message'=>'更新失败,请检查'];
@@ -3546,15 +3557,16 @@ public function designPriceAdd(Request $request)
             exit;
         }
         $count = Db::table('green_departmentvalue')->count();
-        $list = Db::name('green_departmentvalue')
-            ->alias("a") //取一个别名
-            //与category表进行关联，取名i，并且a表的categoryid字段等于category表的id字段
-            ->join('green_staff i', 'a.staff_name=i.staff_name')
-            //想要的字段
-            ->field('a.staff_department,a.staff_name,round(sum(total_personalvalue),2) as total_personalvalue,a.draw_date,a.id')
-            ->group('a.staff_name')
-            ->paginate(10);
-       // ->select();
+        $list = Db::table('green_departmentvalue')->paginate(10);
+       //  $list = Db::name('green_departmentvalue')
+       //      ->alias("a") //取一个别名
+       //      //与category表进行关联，取名i，并且a表的categoryid字段等于category表的id字段
+       //      ->join('green_staff i', 'a.staff_name=i.staff_name')
+       //      //想要的字段
+       //      ->field('a.staff_department,a.staff_name,round(sum(total_personalvalue),2) as total_personalvalue,a.draw_date,a.id')
+       //      ->group('a.staff_name')
+       //      ->paginate(10);
+       // // ->select();
         $sum=Db::table('green_departmentvalue')->sum('total_personalvalue');
         $this -> view -> assign('orderList', $list);
         $this -> view -> assign('count', $count);
@@ -3727,7 +3739,7 @@ public function designPriceAdd(Request $request)
         $count = Db::table('green_personalvalue')->count();
         $list = Db::table('green_personalvalue')
             ->group('staff_name')
-            ->field('id,staff_department,staff_name,round(SUM(output_value),2) as output_value')
+            ->field('id,staff_department,staff_name,round(output_value,2) as output_value')
             ->order("output_value desc")
             ->paginate(10); 
         $sum = Db::table('green_personalvalue')->sum('output_value'); 
@@ -3745,24 +3757,25 @@ public function designPriceAdd(Request $request)
         $this -> view -> assign('limit', $limit);
         $data= $request -> param();
         if($data['start']==''||$data['end']==''){
-            $res=Db::table('green_personalvalue')
-                ->where('staff_name',$data['staff_name'])
+            $res=Db::table('green_personalvalue'.$data['staff_name'])
+                // ->where('id',$data['id'])
                 ->select();
-            $sum=Db::table('green_personalvalue')
-                ->where('staff_name',$data['staff_name'])
+            $sum=Db::table('green_personalvalue'.$data['staff_name'])
+                // ->where('id',$data['id'])
                 ->sum('output_value');
         }
         else{
-            $res=Db::table('green_personalvalue')
-                ->where('staff_name',$data['staff_name'])
+            $res=Db::table('green_personalvalue'.$data['staff_name'])
+                // ->where('id',$data['id'])
                 ->where('draw_date','BETWEEN',[$data['start'],$data['end']])
                 ->select();
-            $sum=Db::table('green_personalvalue')
-                ->where('staff_name',$data['staff_name'])
+            $sum=Db::table('green_personalvalue'.$data['staff_name'])
+                // ->where('id',$data['id'])
                 ->where('draw_date','BETWEEN',[$data['start'],$data['end']])
                 ->sum('output_value');
         }
         $this -> view -> assign('content', $res);
+        $this -> view -> assign('id',$data['id'] );
         $this -> view -> assign('sum', round($sum,2));
         //渲染管理员列表模板
         return $this -> view -> fetch('personalvalue_details');

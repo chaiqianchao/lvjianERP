@@ -52,7 +52,7 @@
 								<td>{$vo.staff_remarks}</td>
 								<th class="td-manage">
 									{if condition="$limit eq 2"}
-									<a title="编辑" href="javascript:;" class="edit" onclick="xadmin.open('个人产值修改','{:url("index/personalValue_Edit",["id"=>$vo["id"]])}')">
+									<a title="编辑" href="javascript:;" class="edit" onclick="xadmin.open('个人产值修改','{:url("index/personalValue_Edit",["id"=>$vo["id"],"Big_id"=>$id])}')">
 									<i class="layui-icon" style="color: #2196f3;"></i>
 									</a>
 									{/if}
@@ -78,11 +78,6 @@
 	</div>
 </div>
 <script type="text/javascript">
-function member_edit(id, column, chinese, content, type) {
-	content =content.replace(/%/g, '%25');
-	var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
-	xadmin.open('详情修改', url);
-}
 var template =
     ' <style type="text/css">' +
     'table {' +
