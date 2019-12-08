@@ -4790,6 +4790,34 @@ public function drawplanAdd(Request $request)
                 'output_value'=>$output_value
                 ]);
             }
+            // 重新加载院产值表中的产值数据
+            if(!Db::table('green_departmentvalue')->where("staff_name",$personalList[$i])->select()){
+                Db::table('green_departmentvalue')
+                ->insert([
+                'staff_department'=>$staff_department,
+                'staff_name'=>$personalList[$i],
+                'draw_date'=>$data['drawing_time'],
+                'total_personalvalue'=>$personalValue[$i],
+                'reward_coefficient'=>1,
+                'special_allowance'=>0,
+                'yearend_personalvalue'=>$personalValue[$i],
+                'departmentvalue_remarks'=>$data['remarks'],
+                ]);
+            }
+            else{
+                // 个人产值大表中已存在个人产值数据
+                $output_value=Db::table('green_personalvalue'.$personalList[$i])
+                    ->sum('output_value');
+                $reward_coefficient = Db::table('green_departmentvalue')->where("staff_name",$personalList[$i])->value('reward_coefficient');
+                $special_allowance = Db::table('green_departmentvalue')->where("staff_name",$personalList[$i])->value('special_allowance');
+                $yearend_personalvalue = $output_value*$reward_coefficient+$special_allowance;
+                Db::table('green_departmentvalue')
+               ->where('staff_name',$personalList[$i])
+               ->update([
+                'total_personalvalue'=>$output_value,
+                'yearend_personalvalue'=>$yearend_personalvalue,
+                ]);
+            }
             
             }
         if (!$res3&&!$res4) {
