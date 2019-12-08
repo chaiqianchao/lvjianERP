@@ -434,7 +434,6 @@ class Index extends Controller
                         `department` VARCHAR(30) NULL COMMENT '部门' , 
                         `drawing_time` DATE NULL COMMENT '出图时间' , 
                         `remarks` VARCHAR(140) NULL COMMENT '备注' , 
-                        `ground_floor` INT(3) NOT NULL DEFAULT '0' COMMENT '地上or地下 ' , 
                         PRIMARY KEY (`id`)) ENGINE = InnoDB COMMENT = '".$data['project_id']."工程产值';";
                 Db::execute($sql1);
                 Db::execute($sql2);
@@ -1209,7 +1208,7 @@ class Index extends Controller
                 'difficulty_system'=>$data['difficulty_system'],
                 'distribution_ratio'=>$data['distribution_ratio'],
                 'residual_coefficient'=>$data['residual_coefficient'],
-                'major'=>$data['major'],
+                'drawplan_major'=>$data['major'],
                 'designer'=>$data['designer'],
                 'design_price'=>$data['design_price'],
                 'design_value'=>$data['design_value'],
@@ -1230,7 +1229,6 @@ class Index extends Controller
                 'department'=>Db::table('green_staff')->where('staff_name',$data['designer'])->value('staff_department'),
                 'drawing_time'=>$data['drawing_time'],
                 'remarks'=>$data['remarks'],
-                'ground_floor'=>$data['ground_floor'],
             ]);
         $design_value=Db::table('green_projectvalue'.$data['project_id'])
             ->sum('design_value');
@@ -4634,6 +4632,9 @@ public function drawplanAdd(Request $request)
                 'project_boss'=>$data['project_boss'],
                 'project_basenumber'=>$data['project_basenumber'],
                 'project_value'=>$data['project_value'],
+                'other_expenses'=>$data['other_expenses'],
+                'value_subtotal'=>$data['value_subtotal'],
+                'department'=>$data['department'],
                 'drawing_time'=>$data['drawing_time'],
                 'remarks'=>$data['remarks'],
             ]);
@@ -4645,8 +4646,10 @@ public function drawplanAdd(Request $request)
             if($data['drawplan_verify2'])$data['drawplan_verify2'] = $data['drawplan_verify2'].';';
             if($data['drawplan_authorize2'])$data['drawplan_authorize2'] = $data['drawplan_authorize2'].';';
             $temp = $data['drawplan_project2'].$data['drawplan_type2'].$data['drawplan_designer2'].$data['drawplan_drafting2'].$data['drawplan_check2'].$data['drawplan_verify2'].$data['drawplan_authorize2'];
-            $drawplan_member = substr($temp,0,strlen($temp)-1);
-        $res4=Db::table('green_projectdrawplan')
+            // dump( $temp );
+            // $drawplan_member = substr($temp,0,strlen($temp)-1);
+            // dump($drawplan_member);
+            $res4=Db::table('green_projectdrawplan')
             ->insert([
                 'project_id'=>$data['project_id'],
                 'project_name'=>$data['project_name'],
@@ -4658,9 +4661,45 @@ public function drawplanAdd(Request $request)
                 'figure_number'=>$data['figure_number'],
                 'drawplan_survey'=>$data['drawplan_survey'],
                 'drawplan_number'=>$data['drawplan_number'],
-                'drawplan_member'=>$drawplan_member,
+                'drawplan_member'=>$temp,
                 'drawplan_date'=>$data['drawing_time'],
                 'drawplan_remarks'=>$data['drawplan_remarks'],
+            ]);
+            //将出图，整合到工程产值小表中
+            $res5=Db::table('green_projectvalue'.$data['project_id'])
+            ->insert([
+                'project_id'=>$data['project_id'],
+                'project_name'=>$data['project_name'],
+                'entry_name'=>$data['entry_name'],
+                'project_subcontractor'=>$data['project_contractor'],
+                'design_area'=>$data['design_area'],
+                'contract_amount'=>$data['contract_amount'],
+                'stage_proportions'=>$data['stage_proportions'],
+                'difficulty_system'=>$data['difficulty_system'],
+                'distribution_ratio'=>$data['distribution_ratio'],
+                'residual_coefficient'=>$data['residual_coefficient'],
+                'drawplan_major'=>$data['drawplan_major'],
+                'designer'=>$data['designer'],
+                'design_price'=>$data['design_price'],
+                'design_value'=>$data['design_value'],
+                'proofreader'=>$data['proofreader'],
+                'proofreading_price'=>$data['proofreading_price'],
+                'proofreading_value'=>$data['proofreading_value'],
+                'auditor'=>$data['auditor'],
+                'audit_price'=>$data['audit_price'],
+                'audit_value'=>$data['audit_value'],
+                'work_boss'=>$data['work_boss'],
+                'work_basenumber'=>$data['work_basenumber'],
+                'work_value'=>$data['work_value'],
+                'project_boss'=>$data['project_boss'],
+                'project_basenumber'=>$data['project_basenumber'],
+                'project_value'=>$data['project_value'],
+                'other_expenses'=>$data['other_expenses'],
+                'value_subtotal'=>$data['value_subtotal'],
+                'department'=>$data['department'],
+                'drawing_time'=>$data['drawing_time'],
+                'remarks'=>$data['remarks'],
+
             ]);
         if (!$res3&&!$res4) {
             $status = 0;

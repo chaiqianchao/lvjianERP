@@ -333,6 +333,9 @@
 
                                                 <th>工程单价</th>
                                                 <th>工程产值</th>
+                                                <th>其他费用</th>
+                                                <th>小计</th>
+                                                <th>部门</th>
                                                 <th>备注</th>
                                             </thead>
                                             <tbody>
@@ -364,6 +367,9 @@
 
                                                 <td><input type="text" class="td_input" autocomplete="off" onchange="checkInData('project_value',this.value)" name="project_basenumber"></td>
                                                 <td><input type="text" class="td_input" autocomplete="off" id="project_value" name="project_value"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" id="other_expenses" name="other_expenses"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" id="value_subtotal" name="value_subtotal" onclick="values()"></td>
+                                                <td><input type="text" class="td_input" autocomplete="off" name="department"></td>
                                                 <td><input type="text" class="td_input" autocomplete="off" name="remarks"></td>
                                                 </tr>
                                             </tbody>
@@ -383,6 +389,14 @@
 <script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
 <script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
 <script>
+    function values(){
+        var design_value = document.getElementById("design_value").value;
+        var proofreading_value = document.getElementById("proofreading_value").value;
+        var audit_value = document.getElementById("audit_value").value;
+        var work_value = document.getElementById("work_value").value;
+        var project_value = document.getElementById("project_value").value;
+        document.getElementById("value_subtotal").value = parseFloat(design_value)+parseFloat(proofreading_value)+parseFloat(audit_value)+parseFloat(work_value)+parseFloat(project_value);
+    }
     // 捕捉回车,阻止回车事件
     document.onkeydown = function(e){
         var ev = (typeof event!= 'undefined')?window.event:e;
@@ -518,9 +532,8 @@ function checkInData(id,value){
 }
 // 获取员工姓名列表
 function changeName(value,name) {
-  if (value == '') {
+  if (value == '')
     return false;
-  }
      $.ajax({
             type: "post",
             dataType: "json",
