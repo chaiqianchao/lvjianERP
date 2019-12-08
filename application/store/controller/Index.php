@@ -4720,6 +4720,65 @@ public function drawplanAdd(Request $request)
                 'design_area'=>$proofreading_value,
                 'total_department'=>$value_subtotal
             ]);
+        // 更新total工程产值大表end
+            // 检查是否有对应员工的个人产值表
+            $personalList = [$data["designer"],$data["proofreader"],$data["auditor"],$data["work_boss"],$data["project_boss"]];
+            $personalValue = [$data["design_value"],$data["proofreading_value"],$data["audit_value"],$data["work_value"],$data["project_value"]];
+            for ($i=0; $i < 5; $i++) { 
+                // 检查个人小表是否存在，若不存在则当即插入
+                 $sql="CREATE TABLE IF NOT EXISTS`greenbuild`.`green_personalvalue".$personalList[$i]."` ( 
+                        `id` INT NOT NULL AUTO_INCREMENT COMMENT '自增ID' , 
+                        `staff_department` VARCHAR(20) NOT NULL COMMENT '部门' , 
+                        `staff_name` VARCHAR(11) NOT NULL COMMENT '人员名字' , 
+                        `draw_date` date NULL COMMENT '出图时间' , 
+                        `project_id` VARCHAR(30) NULL COMMENT '工程号' , 
+                        `project_name` VARCHAR(20)NOT NULL COMMENT '工程名称' , 
+                        `entry_name` VARCHAR(20) NOT NULL COMMENT '单体名称' , 
+                        `output_value` float NULL COMMENT '产值（元）' , 
+                        `staff_remarks` VARCHAR(20) NULL COMMENT '备注' ,
+                        PRIMARY KEY (`id`)) ENGINE = InnoDB COMMENT = '".$personalList[$i]."个人产值';";
+                Db::execute($sql);
+                $staff_department = Db::table('green_staff')->where('staff_name',$personalList[$i])->value("staff_department");
+                if(!$staff_department){
+                    $staff_department = "暂无部门";
+                }
+                Db::table('green_personalvalue'.$personalList[$i])
+                ->insert([
+                'staff_department'=>$staff_department,
+                'staff_name'=>$personalList[$i],
+                'draw_date'=>$data['drawing_time'],
+                'project_id'=>$data['project_id'],
+                'project_name'=>$data['project_name'],
+                'entry_name'=>$data['entry_name'],
+                'output_value'=>$personalValue[$i],
+                'staff_remarks'=>$data['remarks'],
+                ]);
+            // 重新加载total个人产值表中的产值数据
+            if(!Db::table('green_personalvalue')->where("staff_name",$personalList[$i])->select()){
+                Db::table('green_personalvalue')
+                ->insert([
+                'staff_department'=>$staff_department,
+                'staff_name'=>$personalList[$i],
+                'draw_date'=>$data['drawing_time'],
+                'project_id'=>$data['project_id'],
+                'project_name'=>$data['project_name'],
+                'entry_name'=>$data['entry_name'],
+                'output_value'=>$personalValue[$i],
+                'staff_remarks'=>$data['remarks'],
+                ]);
+            }
+            else{
+                // 个人产值大表中已存在个人产值数据
+                $output_value=Db::table('green_personalvalue'.$personalList[$i])
+                    ->sum('output_value');
+                Db::table('green_personalvalue')
+               ->where('staff_name',$personalList[$i])
+               ->update([
+                'output_value'=>$output_value
+                ]);
+            }
+            
+            }
         if (!$res3&&!$res4) {
             $status = 0;
             $message = '添加失败~~';
