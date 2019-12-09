@@ -3085,23 +3085,24 @@ public function adminselectall(Request $request)
     $this -> view -> assign('limit', $limit);
 
     $data=$request->param();
-    $res=Db::table('green_administrators')
-        ->whereor([
-            'staff_id'=>['like','%'.$data['content'].'%'],
-            'staff_name'=>['like', '%'.$data['content'].'%'],
-            'administrators_name'=>['like', '%'.$data['content'].'%'],
-        ])
-        ->where('admin','<>','0')
-        ->order("staff_id")
-        ->paginate($data['pagenumber'],false,["query"=>$data]);
-    $count=Db::table('green_administrators')
-        ->whereor([
-            'staff_id'=>['like','%'.$data['content'].'%'],
-            'staff_name'=>['like', '%'.$data['content'].'%'],
-            'administrators_name'=>['like', '%'.$data['content'].'%'],
-        ])
-        ->where('admin','<>','0')
-        ->count();
+    $content = $data["content"];
+    $res = Db::table('green_administrators')->where(function($query) use ($content){
+        $query->whereor([
+            'staff_id'=>['like','%'.$content.'%'],
+            'staff_name'=>['like', '%'.$content.'%'],
+            'administrators_name'=>['like', '%'.$content.'%'],
+        ]);
+    })->where('admin','IN','超级管理员,普通管理员')
+    ->order("staff_id")
+    ->paginate($data['pagenumber'],false,["query"=>$data]);
+    $count=Db::table('green_administrators')->where(function($query) use ($content){
+        $query->whereor([
+            'staff_id'=>['like','%'.$content.'%'],
+            'staff_name'=>['like', '%'.$content.'%'],
+            'administrators_name'=>['like', '%'.$content.'%'],
+        ]);
+    })->where('admin','IN','超级管理员,普通管理员')
+    ->count();
     $this -> view -> assign('orderList', $res);
     $this -> view -> assign('count', $count);
     $this -> view -> assign('pagenumber', $data['pagenumber']);
