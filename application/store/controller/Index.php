@@ -388,10 +388,10 @@ class Index extends Controller
                 // 新建工程时，新建设计人员数据表
                 $sql1="CREATE TABLE `greenbuild`.`projectdesigner".$data['project_id']."`( 
                         `project_id` VARCHAR(30) NOT NULL COMMENT '工程编号' , 
-                        `project_design` VARCHAR(20) NOT NULL COMMENT '设计内容' , 
-                        `projectdesigner_type` VARCHAR(100) NULL DEFAULT NULL COMMENT '工种负责人' , 
-                        `projectdesigner_design` VARCHAR(100) NULL DEFAULT NULL COMMENT '设计人' , 
-                        `project_subcontractor` VARCHAR(100) NULL DEFAULT NULL COMMENT '分包人' , 
+                        `project_design` VARCHAR(200) NOT NULL COMMENT '设计内容' , 
+                        `projectdesigner_type` VARCHAR(200) NULL DEFAULT NULL COMMENT '工种负责人' , 
+                        `projectdesigner_design` VARCHAR(200) NULL DEFAULT NULL COMMENT '设计人' , 
+                        `project_subcontractor` VARCHAR(200) NULL DEFAULT NULL COMMENT '分包人' , 
                         PRIMARY KEY (`project_id`)) 
                         ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci COMMENT = '".$data['project_id']."设计人员';
                                 ";
