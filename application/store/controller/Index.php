@@ -1629,10 +1629,10 @@ public function StaffAdd(Request $request)
    {
         $sid=Session::get('staff_id');
         $limit=Db::table('green_administrators')->where('staff_id',$sid)->value("staff");
-
+        // dump($sid);
         $this -> view -> assign('limit', $limit);
         $data = $request -> param();
-        if($limit == 0)
+        if($limit != 2)
         {
             // 用户为本人，且无员工管理权限
             $staff_name = Db::table('green_administrators')->where('staff_id',$sid)->value("staff_name");
@@ -1640,7 +1640,6 @@ public function StaffAdd(Request $request)
             $list = Db::table('green_staff')->where('staff_name',$staff_name)->paginate(10); 
         }
         else{
-            
             $count = Db::table('green_staff')->count();
             $list = Db::table('green_staff')->order("staff_name desc")->paginate(10); 
         }
