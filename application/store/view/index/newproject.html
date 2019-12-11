@@ -108,15 +108,15 @@
                                 <div class="layui-input-inline" id="type">
                                     <ul>
                                         <li class="chechboxes">
-                                            <input type="radio" class="project_buildtype" name="project_buildtype" lay-skin="primary" value="住宅"/>住宅</li>
+                                            <input type="checkbox" class="project_buildtype" lay-skin="primary" value="住宅"/>住宅</li>
                                         <li class="chechboxes">
-                                            <input type="radio" class="project_buildtype" name="project_buildtype" lay-skin="primary" value="商业"/>商业</li>
+                                            <input type="checkbox" class="project_buildtype" lay-skin="primary" value="商业"/>商业</li>
                                         <li class="chechboxes">
-                                            <input type="radio" class="project_buildtype" name="project_buildtype" lay-skin="primary" value="公建"/>公建</li>
-                                            <li class="chechboxes">
-                                            <input type="radio" class="project_buildtype" name="project_buildtype" lay-skin="primary" value="零星"/>零星</li>
+                                            <input type="checkbox" class="project_buildtype" lay-skin="primary" value="公建"/>公建</li>
                                         <li class="chechboxes">
-                                            <input type="radio" class="project_buildtype" name="project_buildtype" lay-skin="primary" value="其他"/>其他</li>
+                                            <input type="checkbox" class="project_buildtype" lay-skin="primary" value="零星"/>零星</li>
+                                        <li class="chechboxes">
+                                            <input type="checkbox" class="project_buildtype" lay-skin="primary" value="其他1"/>其他</li>
                                         <li class="chechboxes" id="classifybtn">
                                              <input type="text" id="classifyadd" autocomplete="off" class="layui-input">
                                         </li>
@@ -186,7 +186,10 @@
                                         <li class="chechboxes">
                                             <input type="checkbox" class="project_design" lay-skin="primary" value="BIM"/>BIM</li>
                                         <li class="chechboxes">
-                                            <input type="checkbox" class="project_design" lay-skin="primary" value="其他"/>其他</li>
+                                            <input type="checkbox" class="project_design" lay-skin="primary" value="其他2"/>其他</li>
+                                        <li class="chechboxes" id="classifybtn">
+                                             <input type="text" id="project_designadd" autocomplete="off" class="layui-input">
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -667,17 +670,17 @@ layui.use(['form'], function(){
         requestAnimationFrame(render);
     }
     function selected() {
-        if($('input[type=radio][name=project_buildtype]:checked').val()=='其他'){
+        if($('input[type=checkbox][value="其他1"]').prop('checked')==true){
             $('#classifybtn').css('display','block');
         }
         else {
             $('#classifybtn').css('display','none');
         }
-        if($('input[type=checkbox][value="其他"]').prop('checked')==true){
-            $('li.contentAdd').css('display','block');
+        if($('input[type=checkbox][value="其他2"]').prop('checked')==true){
+            $('#project_designadd').css('display','block');
         }
         else {
-            $('li.contentAdd').css('display','none');
+            $('#project_designadd').css('display','none');
         }
     }
     //判断localstorage是否存在
@@ -744,11 +747,23 @@ layui.use(['form'], function(){
     function submitProject(){
         var data = $('#newContract').serialize();
 
-        var project_classify = document.getElementsByClassName("classify");
-        if($('input[type=radio][name=project_buildtype]:checked').val()=='其他')
-        {
-            data = data+"&project_buildtype_self="+$('#classifyadd').val();
+        // var project_classify = document.getElementsByClassName("classify");
+        // if($('input[type=radio][name=project_buildtype]:checked').val()=='其他')
+        // {
+        //     data = data+"&project_buildtype_self="+$('#classifyadd').val();
+        // }
+        // 分离 - 建筑类型，并转存
+        var project_buildtype = document.getElementsByClassName("project_buildtype");
+        var project_buildtypeContent = " ";
+        for (var i =0; i < project_buildtype.length-1; i++) {
+            if(project_buildtype[i].checked == true)
+                project_buildtypeContent = project_buildtypeContent+project_buildtype[i].value +",";
         }
+        if($('input[type=checkbox][value="其他1"]').prop('checked')==true) {
+                    project_buildtypeContent += document.getElementById("classifyadd").value+",";
+        }
+        project_buildtypeContent=project_buildtypeContent.substr(0,project_buildtypeContent.length - 1);
+        data = data + "&project_buildtype="+project_buildtypeContent;
     // 分离 - 设计内容，并转存
         var project_design = document.getElementsByClassName("project_design");
         var project_designContent = " ";
@@ -756,12 +771,8 @@ layui.use(['form'], function(){
             if(project_design[i].checked == true)
                 project_designContent = project_designContent+project_design[i].value +",";
         }
-        if($('input[type=checkbox][value="其他"]').prop('checked')==true) {
-            $('.content').each(function() {
-                if ($(this).val()) {
-                    project_designContent += $(this).val() +",";
-                }
-            });
+        if($('input[type=checkbox][value="其他2"]').prop('checked')==true) {
+            project_designContent += document.getElementById("project_designadd").value+",";
         }
         project_designContent=project_designContent.substr(0,project_designContent.length - 1);
         data = data + "&project_design="+project_designContent;
