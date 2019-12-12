@@ -4568,10 +4568,36 @@ public function drawplanAdd(Request $request)
             if($value=='')
                 {$data[$key]=null;}
         }
-        $status = 1;
-        $message = '添加成功';
+        if (!$data['project_id']) {
+            return ['status'=>0, 'message'=>"缺少工程号"];
+        }
+        else if(!$data['project_name']){
+            return ['status'=>0, 'message'=>"缺少工程名称"];
+        }
+        else if(!$data['project_contractor']){
+            return ['status'=>0, 'message'=>"缺少发包人"];
+        }
+        else if(!$data['project_agent']){
+            return ['status'=>0, 'message'=>"缺少代建方"];
+        }
+        else if(!$data['entry_name']){
+            return ['status'=>0, 'message'=>"缺少单体名称"];
+        }
+        else if(!$data['drawplan_phase']){
+            return ['status'=>0, 'message'=>"缺少阶段"];
+        }
+        else if(!$data['drawing_time']){
+            return ['status'=>0, 'message'=>"缺少出图日期"];
+        }
+        else if(!$data['figure_number']){
+            return ['status'=>0, 'message'=>"缺少图号"];
+        }
+        else if(!$data['drawplan_major']){
+            return ['status'=>0, 'message'=>"缺少专业"];
+        }
+      
         $res1=Db::table('green_drawplan_designer')
-            ->insert([
+            ->insertGetId([
                 'project_id'=>$data['project_id'],
                 'drawplan_project1'=>$data['drawplan_project1'],
                 'drawplan_project2'=>$data['drawplan_project2'],
@@ -4596,7 +4622,7 @@ public function drawplanAdd(Request $request)
                 'authorize_remarks'=>$data['authorize_remarks'],
             ]);
             $res2=Db::table('green_economic_indicators')
-            ->insert([
+            ->insertGetId([
                 'project_id'=>$data['project_id'],
                 'entry_name'=>$data['entry_name'],
                 'aboveground_area'=>$data['aboveground_area'],
@@ -4615,11 +4641,8 @@ public function drawplanAdd(Request $request)
             if($data['drawplan_verify2'])$data['drawplan_verify2'] = $data['drawplan_verify2'].';';
             if($data['drawplan_authorize2'])$data['drawplan_authorize2'] = $data['drawplan_authorize2'].';';
             $temp = $data['drawplan_project2'].$data['drawplan_type2'].$data['drawplan_designer2'].$data['drawplan_drafting2'].$data['drawplan_check2'].$data['drawplan_verify2'].$data['drawplan_authorize2'];
-            // dump( $temp );
-            // $drawplan_member = substr($temp,0,strlen($temp)-1);
-            // dump($drawplan_member);
-            $res4=Db::table('green_projectdrawplan')
-            ->insert([
+            $res3=Db::table('green_projectdrawplan')
+            ->insertGetId([
                 'project_id'=>$data['project_id'],
                 'project_name'=>$data['project_name'],
                 'project_contractor'=>$data['project_contractor'],
@@ -4635,8 +4658,8 @@ public function drawplanAdd(Request $request)
                 'drawplan_remarks'=>$data['drawplan_remarks'],
             ]);
             //将出图，整合到工程产值小表中
-            $res5=Db::table('green_projectvalue'.$data['project_id'])
-            ->insert([
+            $res4=Db::table('green_projectvalue'.$data['project_id'])
+            ->insertGetId([
                 'project_id'=>$data['project_id'],
                 'project_name'=>$data['project_name'],
                 'entry_name'=>$data['entry_name'],
@@ -4669,7 +4692,6 @@ public function drawplanAdd(Request $request)
                 'drawing_time'=>$data['drawing_time'],
                 'remarks'=>$data['remarks'],
             ]);
-
             // 更新total工程产值大表
         $design_value=Db::table('green_projectvalue'.$data['project_id'])
             ->sum('design_value');
@@ -4688,7 +4710,7 @@ public function drawplanAdd(Request $request)
         $design_area=Db::table('green_projectvalue'.$data['project_id'])
             ->sum('design_area');
 
-        Db::table('green_project_totalvalue')
+        $res5 =Db::table('green_project_totalvalue')
             ->where('project_id',$data['project_id'])
             ->update([
                 'subject_contract_amount'=>$design_area,
@@ -4706,6 +4728,9 @@ public function drawplanAdd(Request $request)
             $personalList = [$data["designer"],$data["proofreader"],$data["auditor"],$data["work_boss"],$data["project_boss"]];
             $personalValue = [$data["design_value"],$data["proofreading_value"],$data["audit_value"],$data["work_value"],$data["project_value"]];
             for ($i=0; $i < 5; $i++) { 
+                if (!$personalList[$i]) {
+                    continue;
+                }
                 // 检查个人小表是否存在，若不存在则当即插入
                  $sql="CREATE TABLE IF NOT EXISTS`greenbuild`.`green_personalvalue".$personalList[$i]."` ( 
                         `id` INT NOT NULL AUTO_INCREMENT COMMENT '自增ID' , 
@@ -4774,14 +4799,12 @@ public function drawplanAdd(Request $request)
             }
             else{
                 // 个人产值大表中已存在个人产值数据
-                $output_value=Db::table('green_personalvalue'.$personalList[$i])
-                    ->sum('output_value');
+                $output_value=Db::table('green_personalvalue'.$personalList[$i])->sum('output_value');
                 $reward_coefficient = Db::table('green_departmentvalue')->where("staff_name",$personalList[$i])->value('reward_coefficient');
                 $special_allowance = Db::table('green_departmentvalue')->where("staff_name",$personalList[$i])->value('special_allowance');
                 $yearend_personalvalue = $output_value*$reward_coefficient+$special_allowance;
-                Db::table('green_departmentvalue')
-               ->where('staff_name',$personalList[$i])
-               ->update([
+                Db::table('green_departmentvalue')->where('staff_name',$personalList[$i])
+                ->update([
                 'total_personalvalue'=>$output_value,
                 'yearend_personalvalue'=>$yearend_personalvalue,
                 ]);
@@ -4789,10 +4812,9 @@ public function drawplanAdd(Request $request)
             
             }
         if (!$res3&&!$res4) {
-            $status = 0;
-            $message = '添加失败~~';
+            return ['status'=>0, 'message'=>'添加失败~~'];
         }
-        return ['status'=>$status, 'message'=>$message];
+        return ['status'=>1, 'message'=>"添加成功~~"];
         // }
     }
 
