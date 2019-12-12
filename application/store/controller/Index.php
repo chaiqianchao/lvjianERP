@@ -4826,13 +4826,14 @@ public function drawplanAdd(Request $request)
         $this -> view -> assign('limit', $limit);
         //获取到要编辑的工程号
         $project_id = $request -> param('project_id');
-        $data=['project_id'=>$project_id];
+        $monomer_name = $request -> param('monomer_name');
+        // $data=['project_id'=>$project_id,'monomer_name'=>$monomer_name];
         
         //根据ID和手机号进行查询
-        $result =GreenProject::get($data);
-        $result1=Db::table('green_projectdrawplan')->where($data)->select();
-        $result2=Db::table('green_drawplan_designer')->where($data)->select();
-        $result3=Db::table('green_economic_indicators')->where($data)->select();
+        $result =GreenProject::get(['project_id'=>$project_id]);
+        $result1=Db::table('green_projectdrawplan')->where(['project_id'=>$project_id,'monomer_name'=>$monomer_name])->select();
+        $result2=Db::table('green_drawplan_designer')->where(['project_id'=>$project_id])->select();
+        $result3=Db::table('green_economic_indicators')->where(['project_id'=>$project_id,'entry_name'=>$monomer_name])->select();
 // exit;
         $this->view->assign('jibenxinxi',$result);
         $this->view->assign('content',$result1[0]);
