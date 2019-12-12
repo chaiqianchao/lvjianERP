@@ -480,7 +480,7 @@ class Index extends Controller
         // $result3 =GreenProject::get($data);
         // $result4 =GreenProjectbuildtype::get($data);
         $result5=Db::table('green_projectdraw')->where($data)->select();
-        $result6=Db::table('green_projectvalue')->where($data)->select();
+        $result6=Db::table('green_projectvalue'.$project_id)->select();
 
         $test = Db::query('SHOW FULL COLUMNS FROM '.'green_projectdraw');
         $test2 = Db::query('SHOW FULL COLUMNS FROM '.'green_projectphase');
@@ -3289,13 +3289,13 @@ public function adminselectall(Request $request)
    {
         $sid=Session::get('staff_id');
         $contract_amount_limit=Db::table('green_administrators')->where('staff_id',$sid)->value("contract_amount_limit");
-        $this -> view -> assign('contract_amount_limit', $contract_amount_limit);
+        $this -> view -> assign('contract_amount_limit', $contract_amount_limit); 
     
         $count = Db::table('green_project_totalvalue')->count();
         $list = Db::table('green_project_totalvalue')
             ->order("project_id desc")
             ->select();
-        $sum=Db::table('green_projectvalue')->sum('value_subtotal');
+        $sum=Db::table('green_project_totalvalue')->sum('total_department');
 
        $curpage = input('page') ? input('page') : 1;//当前第x页，有效值为：1,2,3,4,5...
        $listRow = 10;//每页10行记录
@@ -4132,8 +4132,8 @@ else{
             $res2=Db::query("DROP TABLE `greenbuild`.`projectdesigner".$data['project_id']."`");}
         if(Db::table('green_projectdraw')->where('project_id',$data['project_id'])->select()){
             $res3=Db::table('green_projectdraw')->where('project_id',$data['project_id'])->delete();}
-        if(Db::table('green_projectvalue')->where('project_id',$data['project_id'])->select()){
-            $res4=Db::table('green_projectvalue')->where('project_id',$data['project_id'])->delete();}
+        // if(Db::table('green_projectvalue')->where('project_id',$data['project_id'])->select()){
+        //     $res4=Db::table('green_projectvalue')->where('project_id',$data['project_id'])->delete();}
         if(Db::table('green_projectdrawplan')->where('project_id',$data['project_id'])->select()){
             $res5=Db::table('green_projectdrawplan')->where('project_id',$data['project_id'])->delete();}
         if(Db::table('green_projectphase')->where('project_id',$data['project_id'])->select()){
@@ -4144,9 +4144,9 @@ else{
         //     $res8=Db::table('green_project_totalvalue')->where('project_id',$data['project_id'])->delete();}
         if(Db::table('green_drawplan_designer')->where('project_id',$data['project_id'])->select()){
             $res9=Db::table('green_drawplan_designer')->where('project_id',$data['project_id'])->delete();}
-        if(Db::table('green_projectvalue')->where('project_id',$data['project_id'])->select()){
-            $res10=Db::table('green_projectvalue')->where('project_id',$data['project_id'])->delete();}
-        if ($res === null||$res1 === null||$res3 === null||$res4 === null||$res5 === null||$res6 === null||$res7 === null||$res8 ===null||$res9 === null||$res10 === null) {
+        // if(Db::table('green_projectvalue')->where('project_id',$data['project_id'])->select()){
+        //     $res10=Db::table('green_projectvalue')->where('project_id',$data['project_id'])->delete();}
+        if ($res === null||$res1 === null||$res3 === null||$res5 === null||$res6 === null||$res7 === null||$res8 ===null||$res9 === null) {
             $status = 0;
             $message = '删除失败~~';
         }
@@ -4607,39 +4607,6 @@ public function drawplanAdd(Request $request)
                 'category'=>$data['category'],
                 'notes'=>$data['notes'],
             ]);
-            $res3=Db::table('green_projectvalue'.$data['project_id'])
-            ->insert([
-                'project_id'=>$data['project_id'],
-                'project_name'=>$data['project_name'],
-                'entry_name'=>$data['entry_name'],
-                'design_area'=>$data['design_area'],
-                'contract_amount'=>$data['contract_amount'],
-                'difficulty_system'=>$data['difficulty_system'],
-                'stage_proportions'=>$data['stage_proportions'],
-                'distribution_ratio'=>$data['distribution_ratio'],
-                'residual_coefficient'=>$data['residual_coefficient'],
-                'drawplan_major'=>$data['drawplan_major'],
-                'designer'=>$data['designer'],
-                'design_price'=>$data['design_price'],
-                'design_value'=>$data['design_value'],
-                'proofreader'=>$data['proofreader'],
-                'proofreading_price'=>$data['proofreading_price'],
-                'proofreading_value'=>$data['proofreading_value'],
-                'auditor'=>$data['auditor'],
-                'audit_price'=>$data['audit_price'],
-                'audit_value'=>$data['audit_value'],
-                'work_boss'=>$data['work_boss'],
-                'work_basenumber'=>$data['work_basenumber'],
-                'work_value'=>$data['work_value'],
-                'project_boss'=>$data['project_boss'],
-                'project_basenumber'=>$data['project_basenumber'],
-                'project_value'=>$data['project_value'],
-                'other_expenses'=>$data['other_expenses'],
-                'value_subtotal'=>$data['value_subtotal'],
-                'department'=>$data['department'],
-                'drawing_time'=>$data['drawing_time'],
-                'remarks'=>$data['remarks'],
-            ]);
             // 合并参与人员
             if($data['drawplan_project2'])$data['drawplan_project2'] = $data['drawplan_project2'].';';
             if($data['drawplan_type2'])$data['drawplan_type2'] = $data['drawplan_type2'].';';
@@ -4702,6 +4669,7 @@ public function drawplanAdd(Request $request)
                 'drawing_time'=>$data['drawing_time'],
                 'remarks'=>$data['remarks'],
             ]);
+
             // 更新total工程产值大表
         $design_value=Db::table('green_projectvalue'.$data['project_id'])
             ->sum('design_value');

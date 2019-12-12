@@ -110,10 +110,12 @@
           </tr>
             {/volist}
             </tbody>
+            {if condition="$contract_amount_limit eq 1"}
             <tr style="visibility:hidden;">
               <td>小计： </td>
               <td>{$sum}</td>
             </tr>
+            {/if}
           </table>
           <!-- 显示分页按钮,事先要将bootstrap导入css和js -->
           <!--<div class="container" style="width: 100%;">-->
