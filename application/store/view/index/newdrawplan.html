@@ -35,7 +35,7 @@
                     <form id="newContract" class="layui-form" action="">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label"><span class="x-red">*</span>工程号</label>
+                                <label class="layui-form-label">工程号</label>
                                 <div class="layui-input-inline">
                                     <input type="text" name="project_id" lay-verify="required" autocomplete="off" class="layui-input" onchange="insertData(this.value)">
                                 </div>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label"><span class="x-red">*</span>工程名称</label>
+                                <label class="layui-form-label">工程名称</label>
                                 <div class="layui-input-inline">
                                     <input type="text" id="project_name" name="project_name" lay-verify="required" autocomplete="off" class="layui-input">
                                 </div>
@@ -67,23 +67,23 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label"><span class="x-red">*</span>单体名称</label>
+                                <label class="layui-form-label">单体名称</label>
                                 <div class="layui-input-inline">
                                     <input type="text" name="entry_name" lay-verify="required" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </div>
-                  <!--       <div class="layui-form-item">
+                        <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">专业</label>
                                 <div class="layui-input-inline">
                                     <input type="text" name="drawplan_major" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label"><span class="x-red">*</span>阶段</label>
+                                <label class="layui-form-label">阶段</label>
                                 <div class="layui-input-inline">
                                     <input type="text" name="drawplan_phase" lay-verify="required" autocomplete="off" class="layui-input">
                                 </div>
@@ -99,7 +99,7 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label"><span class="x-red">*</span>出图日期</label>
+                                <label class="layui-form-label">出图日期</label>
                                 <div class="layui-input-inline">
                                     <input class="layui-input"  autocomplete="off" placeholder="日期" name="drawing_time" id="start">
                                 </div>
@@ -115,7 +115,7 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label"><span class="x-red">*</span>图号</label>
+                                <label class="layui-form-label">图号</label>
                                 <div class="layui-input-inline">
                                     <input type="text" name="figure_number" autocomplete="off" class="layui-input">
                                 </div>
@@ -313,7 +313,7 @@
 
                                                 <th>分配比例</th>
                                                 <th>其他系数</th>
-                                                <th>专业</th>
+                                                <!-- <th>专业</th> -->
                                                 <th>设计人员</th>
 
                                                 <th>设计单价</th>
@@ -347,7 +347,7 @@
 
                                                 <td><input type="text" class="td_input" autocomplete="off" id="distribution_ratio" name="distribution_ratio"></td>
                                                 <td><input type="text" class="td_input" autocomplete="off" id="residual_coefficient" name="residual_coefficient"></td>
-                                                <td><input type="text" class="td_input" autocomplete="off" name="drawplan_major"></td>
+                                                <!-- <td><input type="text" class="td_input" autocomplete="off" name="drawplan_major"></td> -->
                                                 <td><input type="text" class="td_input" autocomplete="off" name="designer"></td>
 
                                                 <td><input type="text" class="td_input" autocomplete="off" onchange="checkInData('design_value',this.value)" name="design_price"></td>

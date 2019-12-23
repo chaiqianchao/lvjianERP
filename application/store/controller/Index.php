@@ -315,13 +315,55 @@ class Index extends Controller
     public function projectAdd(Request $request)
         {
             $data=$request->param();
+
+        // 内容是否出入完整判断
+        if (!$data['project_id']) {
+            return ['status'=>0, 'message'=>"请填写工程号"];
+        }
+        else if(!$data['project_name']){
+            return ['status'=>0, 'message'=>"请填写工程名称"];
+        }
+        else if(!$data['project_contractor']){
+            return ['status'=>0, 'message'=>"请填写发包人"];
+        }
+        else if(!$data['project_agent']){
+            return ['status'=>0, 'message'=>"请填写代建方"];
+        }
+        else if(!$data['project_leader']){
+            return ['status'=>0, 'message'=>"请填写项目负责人"];
+        }
+        else if(!$data['project_landarea']){
+            return ['status'=>0, 'message'=>"请填写用地面积"];
+        }
+        else if(!is_numeric($data['aboveground_area'])){
+            return ['status'=>0, 'message'=>"地上面积请填数字"];
+        }
+        else if(!is_numeric($data['underground_area'])){
+            return ['status'=>0, 'message'=>"地下面积请填数字"];
+        }
+        else if(!$data['aboveground_area']){
+            return ['status'=>0, 'message'=>"请填写地上面积"];
+        }
+        else if(!$data['underground_area']){
+            return ['status'=>0, 'message'=>"请填写地下面积"];
+        }
+        else if(!$data['project_totalarea']){
+            return ['status'=>0, 'message'=>"请填写总建筑面积"];
+        }
+        else if(!$data['project_buildtype']){
+            return ['status'=>0, 'message'=>"请选择建筑类型"];
+        }
+
+
+
+
             if (GreenProject::get(['project_id'=> $data['project_id']])) {
-        //如果在表中查询到该用户名
-        $status = 0;
-        $message1 = '工程已存在,请重新输入~~';
-        return ['status'=>$status, 'message'=>$message1];
-    }
-    else{
+            //如果在表中查询到该用户名
+            $status = 0;
+            $message1 = '工程已存在,请重新输入~~';
+            return ['status'=>$status, 'message'=>$message1];
+            }
+            else{
             foreach ($data as $key => $value){
                 if($value=='')
                     {$data[$key]=null;}

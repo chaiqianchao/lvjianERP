@@ -818,10 +818,10 @@ layui.use(['form'], function(){
                         layer.alert("新建工程成功",function(){
                         xadmin.close();
                         xadmin.father_reload();
-                    });
+                        });
                     }
                     else
-                        layer.alert("新建工程失败!");
+                        layer.alert(result.message);
                 },
                 error : function() {
                     alert("异常！");
