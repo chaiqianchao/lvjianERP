@@ -102,7 +102,7 @@
                             <div class="layui-inline" id="constructor">
                                 <label class="layui-form-label"><span class="x-red">*</span>建设方</label>
                                 <div class="layui-input-inline">
-                                    <input type="text"  name="contract_constructor" autocomplete="off" lay-verify="required" class="layui-input contract_constructor">
+                                    <input type="text"  name="contract_constructor1" autocomplete="off" lay-verify="required" class="layui-input contract_constructor">
                                     <button type="button" class="item-icon" onclick="itemAdd('constructor','','contract_constructor')">+</button>
                                 </div>
                             </div>
@@ -332,7 +332,7 @@
                             <div class="layui-inline" id="projectleader">
                                 <label class="layui-form-label"><span class="x-red">*</span>项目负责人</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" autocomplete="off" name="contract_projectleader" lay-verify="required" class="layui-input contract_projectleader" onblur="lose('contract_projectleader')" onfocus="get('contract_projectleader')" oninput="changeName(this.value,'contract_projectleader')">
+                                    <input type="text" autocomplete="off" name="contract_projectleader1" lay-verify="required" class="layui-input contract_projectleader" onblur="lose('contract_projectleader')" onfocus="get('contract_projectleader')" oninput="changeName(this.value,'contract_projectleader')">
                                     <ul id="contract_projectleader" class="ulWidth"></ul>
                                     <button type="button" class="item-icon" onclick="itemAdd('projectleader','','contract_projectleader')">+</button>
                                 </div>
@@ -496,6 +496,7 @@ function changeName(value,name) {
             }
         });
     }
+    contract_contentContent=contract_contentContent.substr(0,contract_contentContent.length - 1);
     data = data + "&contract_content="+contract_contentContent;
 // 分离 - 设计范围，并转存
     var contract_design = document.getElementsByClassName("contract_design");
@@ -505,6 +506,7 @@ function changeName(value,name) {
             contract_designContent = contract_designContent+contract_design[i].value +",";
         }
     }
+    contract_designContent=contract_designContent.substr(0,contract_designContent.length - 1);
     data = data + "&contract_design="+contract_designContent;
 // 分离 - 奖惩措施，并转存
     var contract_reward = document.getElementsByClassName("contract_reward");
@@ -514,6 +516,7 @@ function changeName(value,name) {
             contract_rewardContent = contract_rewardContent+contract_reward[i].value +",";
         }
     }
+    contract_rewardContent=contract_rewardContent.substr(0,contract_rewardContent.length - 1);
     data = data + "&contract_reward="+contract_rewardContent;
 // 分离 - 项目负责人，并转存
     var contract_projectleader = document.getElementsByClassName("contract_projectleader");
@@ -523,6 +526,7 @@ function changeName(value,name) {
             contract_projectleaderContent = contract_projectleaderContent+contract_projectleader[i].value +",";
         }
     }
+    contract_projectleaderContent=contract_projectleaderContent.substr(0,contract_projectleaderContent.length - 1);
     data = data + "&contract_projectleader="+contract_projectleaderContent;
 // 分离 - 建设方，并转存
     var contract_constructor = document.getElementsByClassName("contract_constructor");
@@ -532,6 +536,7 @@ function changeName(value,name) {
             contract_constructorContent = contract_constructorContent+contract_constructor[i].value +",";
         }
     }
+    contract_constructorContent=contract_constructorContent.substr(0,contract_constructorContent.length - 1);
     data = data + "&contract_constructor="+contract_constructorContent;
 // 分离 - 代建方，并转存
     var contract_agent = document.getElementsByClassName("contract_agent");
@@ -541,6 +546,7 @@ function changeName(value,name) {
             contract_agentContent = contract_agentContent+contract_agent[i].value +",";
         }
     }
+    contract_agentContent=contract_agentContent.substr(0,contract_agentContent.length - 1);
     data = data + "&contract_agent="+contract_agentContent;
 
     $.ajax({
@@ -579,10 +585,10 @@ function change(value) {
             success: function(result){
                 if (result.status == 1) {
                     if (result.jibenxinxi) {
-                        $("input[name='contract_constructor']")[0].value = result.jibenxinxi.project_contractor;
+                        $("input[name='contract_constructor1']")[0].value = result.jibenxinxi.project_contractor;
                         $("input[name='project_name']")[0].value = result.jibenxinxi.project_name;
                         $("input[name='contract_agent']")[0].value = result.jibenxinxi.project_agent;        
-                        $("input[name='contract_projectleader']")[0].value = result.jibenxinxi.project_leader;
+                        $("input[name='contract_projectleader1']")[0].value = result.jibenxinxi.project_leader;
                         $("input[name='contract_remarks']")[0].value = result.jibenxinxi.project_remark;
                         $("input[name='project_totalarea']")[0].value = result.jibenxinxi.project_totalarea;
                         // 设计内容

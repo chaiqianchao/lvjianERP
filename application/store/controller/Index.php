@@ -3932,6 +3932,35 @@ public function designPriceAdd(Request $request)
             return ['status'=>$status, 'message'=>$message1];
         }
         else{
+
+             // 内容是否出入完整判断
+            if (!$data['contract_id']) {
+                return ['status'=>0, 'message'=>"请填写合同编号"];
+            }
+            else if(!$data['project_id']){
+                return ['status'=>0, 'message'=>"请填写工程编号"];
+            }
+            else if(!$data['contract_type']){
+                return ['status'=>0, 'message'=>"请选择合同分类"];
+            }
+            else if(!$data['contract_signtime']){
+                return ['status'=>0, 'message'=>"请填写合同签订时间"];
+            }
+            else if(!$data['project_name']){
+                return ['status'=>0, 'message'=>"请填写工程名称"];
+            }
+            else if(!$data['contract_constructor']){
+                return ['status'=>0, 'message'=>"请填写建设方"];
+            }
+            else if(!$data['contract_projectleader']){
+                return ['status'=>0, 'message'=>"请填写项目负责人"];
+            }
+            else if(!$data['contract_approver']){
+                return ['status'=>0, 'message'=>"请填写审批人"];
+            }
+
+
+
             $status = 0;
             $message = '添加失败';
             if ($data['contract_type']=='其他') {
