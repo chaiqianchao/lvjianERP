@@ -3473,6 +3473,10 @@ public function adminselectall(Request $request)
         //获取到要编辑的工程号
         $data = $request -> param();
         $project_name = Db::table('green_project')->where('project_id',$data["project_id"])->value("project_name");
+        if(!isset($data['start']))
+            $data['start'] = '';
+        if(!isset($data['end']))
+            $data['end'] = '';
         if($data['start']==''||$data['end']==''){
             $result=Db::table('green_projectvalue'.$data['project_id'])
 //                ->where('drawing_time','BETWEEN',[$data['start'],$data['end']])
