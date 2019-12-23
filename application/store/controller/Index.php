@@ -2979,6 +2979,15 @@ public function StaffAdd(Request $request)
         return ['status'=>$status, 'message'=>$message1];
         }
         else{
+
+        if(!isset($data['bid_ispretrial']))
+            return ['status'=>0, 'message'=>'请选择是否通过预审'];
+        else if(!isset($data['bid_isbid']))
+            return ['status'=>0, 'message'=>'请选择是否中标'];
+        else if(!isset($data['bid_document'])||$data['bid_document'] == '')
+            return ['status'=>0, 'message'=>'请选择交标资料'];
+
+
         if ($data['bidphase_phase7']){
             $data['bid_progress']='其他';
         }
@@ -3046,6 +3055,7 @@ public function StaffAdd(Request $request)
             $contents = explode('*', $compensation[$i]);
             // if(!$contents[2]){$contents[2]=null;}
             // if(!$contents[3]){$contents[3]=null;}
+    // 保证金
             $res2=Db::table('green_bidcompensation')
                 ->insert([
                     'toubiao_id'=>$data['toubiao_id'],
@@ -3061,6 +3071,7 @@ public function StaffAdd(Request $request)
             $contents = explode('*', $deposite[$i]);
             // if(!$contents[2]){$contents[2]=null;}
             // if(!$contents[3]){$contents[3]=null;}
+    // 补偿费
             $res3=Db::table('green_biddeposite')
                 ->insert([
                     'toubiao_id'=>$data['toubiao_id'],
