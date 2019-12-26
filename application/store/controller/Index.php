@@ -4685,6 +4685,7 @@ public function drawplanAdd(Request $request)
         $res1=Db::table('green_drawplan_designer')
             ->insertGetId([
                 'project_id'=>$data['project_id'],
+                'monomer_name'=>$data['entry_name'],
                 'drawplan_project1'=>$data['drawplan_project1'],
                 'drawplan_project2'=>$data['drawplan_project2'],
                 'project_remarks'=>$data['project_remarks'],
@@ -4918,7 +4919,7 @@ public function drawplanAdd(Request $request)
         //根据ID和手机号进行查询
         $result =GreenProject::get(['project_id'=>$project_id]);
         $result1=Db::table('green_projectdrawplan')->where(['project_id'=>$project_id,'monomer_name'=>$monomer_name])->select();
-        $result2=Db::table('green_drawplan_designer')->where(['project_id'=>$project_id])->select();
+        $result2=Db::table('green_drawplan_designer')->where(['project_id'=>$project_id,'monomer_name'=>$monomer_name])->select();
         $result3=Db::table('green_economic_indicators')->where(['project_id'=>$project_id,'entry_name'=>$monomer_name])->select();
 // exit;
         $this->view->assign('jibenxinxi',$result);
@@ -4974,7 +4975,7 @@ public function drawplanAdd(Request $request)
             $result = Db::table('green_drawplan_designer')
             ->where([
                 'project_id'=>$data['project_id']
-            ])
+                ])
             ->update([
                 'drawplan_project1'=>$data['content1'],
                 'drawplan_type1'=>$data['content2'],
