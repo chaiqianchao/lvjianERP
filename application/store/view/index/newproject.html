@@ -55,7 +55,7 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline" id="agent">
-                                <label class="layui-form-label"><span class="x-red">*</span>代建方</label>
+                                <label class="layui-form-label">代建方</label>
                                 <div class="layui-input-inline">
                                     <input type="text" autocomplete="off" class="layui-input project_agent">
                                     <button type="button" class="item-icon" onclick="itemAdd('agent','','project_agent')">+</button>
@@ -127,9 +127,9 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-inline" id="projectleader_id">
-                                <label class="layui-form-label"><span class="x-red">*</span>项目负责人</label>
+                                <label class="layui-form-label">项目负责人</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" autocomplete="off" lay-verify="required" name="project_leader" class="layui-input project_leader" onblur="lose('project_leader')" onfocus="get('project_leader')" oninput="changeName(this.value,'project_leader')">
+                                    <input type="text" autocomplete="off" name="project_leader" class="layui-input project_leader" onblur="lose('project_leader')" onfocus="get('project_leader')" oninput="changeName(this.value,'project_leader')">
                                     <ul id="project_leader" class="ulWidth"></ul>
                                     <button type="button" class="item-icon" onclick="itemAdd('projectleader_id','','project_leader')">+</button>
                                 </div>

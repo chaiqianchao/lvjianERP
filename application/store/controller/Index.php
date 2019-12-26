@@ -326,33 +326,33 @@ class Index extends Controller
         else if(!$data['project_contractor']){
             return ['status'=>0, 'message'=>"请填写发包人"];
         }
-        else if(!$data['project_agent']){
-            return ['status'=>0, 'message'=>"请填写代建方"];
-        }
-        else if(!$data['project_leader']){
-            return ['status'=>0, 'message'=>"请填写项目负责人"];
-        }
-        else if(!$data['project_landarea']){
-            return ['status'=>0, 'message'=>"请填写用地面积"];
-        }
-        else if(!is_numeric($data['aboveground_area'])){
-            return ['status'=>0, 'message'=>"地上面积请填数字"];
-        }
-        else if(!is_numeric($data['underground_area'])){
-            return ['status'=>0, 'message'=>"地下面积请填数字"];
-        }
-        else if(!$data['aboveground_area']){
-            return ['status'=>0, 'message'=>"请填写地上面积"];
-        }
-        else if(!$data['underground_area']){
-            return ['status'=>0, 'message'=>"请填写地下面积"];
-        }
-        else if(!$data['project_totalarea']){
-            return ['status'=>0, 'message'=>"请填写总建筑面积"];
-        }
-        else if(!$data['project_buildtype']){
-            return ['status'=>0, 'message'=>"请选择建筑类型"];
-        }
+        // else if(!$data['project_agent']){
+        //     return ['status'=>0, 'message'=>"请填写代建方"];
+        // }
+        // else if(!$data['project_leader']){
+        //     return ['status'=>0, 'message'=>"请填写项目负责人"];
+        // }
+        // else if(!$data['project_landarea']){
+        //     return ['status'=>0, 'message'=>"请填写用地面积"];
+        // }
+        // else if(!is_numeric($data['aboveground_area'])){
+        //     return ['status'=>0, 'message'=>"地上面积请填数字"];
+        // }
+        // else if(!is_numeric($data['underground_area'])){
+        //     return ['status'=>0, 'message'=>"地下面积请填数字"];
+        // }
+        // else if(!$data['aboveground_area']){
+        //     return ['status'=>0, 'message'=>"请填写地上面积"];
+        // }
+        // else if(!$data['underground_area']){
+        //     return ['status'=>0, 'message'=>"请填写地下面积"];
+        // }
+        // else if(!$data['project_totalarea']){
+        //     return ['status'=>0, 'message'=>"请填写总建筑面积"];
+        // }
+        // else if(!$data['project_buildtype']){
+        //     return ['status'=>0, 'message'=>"请选择建筑类型"];
+        // }
 
 
 
