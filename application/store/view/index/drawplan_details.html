@@ -140,7 +140,7 @@
 		                                <td>{$vo["drawplan_authorize1"]}</td>
 										<th class="td-manage">
 		                                    {if condition="$limit eq 2"}
-			                                 <a title="编辑" onclick="member_edit2('{$vo["project_id"]}','1','{$vo["project_id"]}','{$vo["drawplan_project1"]}*{$vo["drawplan_type1"]}*{$vo["drawplan_designer1"]}*{$vo["drawplan_drafting1"]}*{$vo["drawplan_check1"]}*{$vo["drawplan_verify1"]}*{$vo["drawplan_authorize1"]}','drawplanDesignerEdit')" href="javascript:;">
+			                                 <a title="编辑" onclick="member_edit2('{$vo["project_id"]}','1','{$vo["project_id"]}','{$vo["drawplan_project1"]}*{$vo["drawplan_type1"]}*{$vo["drawplan_designer1"]}*{$vo["drawplan_drafting1"]}*{$vo["drawplan_check1"]}*{$vo["drawplan_verify1"]}*{$vo["drawplan_authorize1"]}','drawplanDesignerEdit','{$vo["monomer_name"]}')" href="javascript:;">
 	                                      <i class="layui-icon">&#xe642;</i>
 	                                    </a>
 		                                    {/if}
@@ -168,7 +168,7 @@
 		                                <td>{$vo["drawplan_authorize2"]}</td>
 										<th class="td-manage">
 		                                    {if condition="$limit eq 2"}
-		                                     <a title="编辑" onclick="member_edit2('{$vo["project_id"]}','2','{$vo["project_id"]}','{$vo["drawplan_project2"]}*{$vo["drawplan_type2"]}*{$vo["drawplan_designer2"]}*{$vo["drawplan_drafting2"]}*{$vo["drawplan_check2"]}*{$vo["drawplan_verify2"]}*{$vo["drawplan_authorize2"]}','drawplanDesignerEdit')" href="javascript:;">
+		                                     <a title="编辑" onclick="member_edit2('{$vo["project_id"]}','2','{$vo["project_id"]}','{$vo["drawplan_project2"]}*{$vo["drawplan_type2"]}*{$vo["drawplan_designer2"]}*{$vo["drawplan_drafting2"]}*{$vo["drawplan_check2"]}*{$vo["drawplan_verify2"]}*{$vo["drawplan_authorize2"]}','drawplanDesignerEdit','{$vo["monomer_name"]}')" href="javascript:;">
 	                                      <i class="layui-icon">&#xe642;</i>
 	                                    </a>
 		                                    {/if}
@@ -196,7 +196,7 @@
 		                                <td>{$vo["authorize_remarks"]}</td>
 										<th class="td-manage">
 		                                    {if condition="$limit eq 2"}
-		                                     <a title="编辑" onclick="member_edit2('{$vo["project_id"]}','3','{$vo["project_id"]}','{$vo["project_remarks"]}*{$vo["type_remarks"]}*{$vo["designer_remarks"]}*{$vo["drafting_remarks"]}*{$vo["check_remarks"]}*{$vo["verify_remarks"]}*{$vo["authorize_remarks"]}','drawplanDesignerEdit')" href="javascript:;">
+		                                     <a title="编辑" onclick="member_edit2('{$vo["project_id"]}','3','{$vo["project_id"]}','{$vo["project_remarks"]}*{$vo["type_remarks"]}*{$vo["designer_remarks"]}*{$vo["drafting_remarks"]}*{$vo["check_remarks"]}*{$vo["verify_remarks"]}*{$vo["authorize_remarks"]}','drawplanDesignerEdit','{$vo["monomer_name"]}')" href="javascript:;">
 	                                      <i class="layui-icon">&#xe642;</i>
 	                                    </a>
 		                                    {/if}
@@ -319,8 +319,8 @@ function member_edit(id, column, chinese, content, type) {
 	var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
 	xadmin.open('详情修改', url);
 }
-function member_edit2(id, column, chinese, content, type) {
-    var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
+function member_edit2(id, column, chinese, content, type,monomer_name) {
+    var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type+"&monomer_name="+monomer_name;
    
     xadmin.open('详情修改', url);
 }

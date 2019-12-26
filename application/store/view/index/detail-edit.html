@@ -48,6 +48,7 @@ if(url.indexOf("?")!=-1){
 	for(i=0;i<strs.length;i++){
 		value[i]=decodeURI(strs[i].split("=")[1]); 
 	}
+	console.log(value);
 	toubiao_id = '';
 }
 
@@ -168,7 +169,7 @@ $('#submit').click(function() {
 		//出图计划
 		case 'drawplanEdit':$.get("{:url('index/drawplanEdit')}",{id:value[0], column: value[1], content:content});break;
 		case 'ecoedit':$.get("{:url('index/ecoedit')}",{id:value[0], column: value[1], content:content});break;
-		case 'drawplanDesignerEdit':var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/drawplanDesignerEdit')}",{project_id:value[0], column: value[1],content1:content[0],content2:content[1],content3:content[2],content4:content[3],content5:content[4],content6:content[5],content7:content[6]});break;
+		case 'drawplanDesignerEdit':var content = [];var i = 0;$('input').each(function(){content[i++]=$(this).val();}); $.get("{:url('index/drawplanDesignerEdit')}",{project_id:value[0], column: value[1],monomer_name:value[5],content1:content[0],content2:content[1],content3:content[2],content4:content[3],content5:content[4],content6:content[5],content7:content[6]});break;
 		// case 'drawplanDesignerEdit':$.get("{:url('index/drawplanDesignerEdit')}",{id:value[0], column: value[1], content:content});break;
 		case 'noticeEdit': $('input').each(function(){content+=$(this).val()+";";}); if(content!=';'){$.get("{:url('index/noticeEdit')}",{project_id:value[0], project_notice:content});}break;
 	}

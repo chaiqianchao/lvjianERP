@@ -4721,12 +4721,18 @@ public function drawplanAdd(Request $request)
                 'notes'=>$data['notes'],
             ]);
             // 合并参与人员
-            if($data['drawplan_project2'])$data['drawplan_project2'] = $data['drawplan_project2'].';';
-            if($data['drawplan_type2'])$data['drawplan_type2'] = $data['drawplan_type2'].';';
-            if($data['drawplan_drafting2'])$data['drawplan_drafting2'] = $data['drawplan_drafting2'].';';
-            if($data['drawplan_check2'])$data['drawplan_check2'] = $data['drawplan_check2'].';';
-            if($data['drawplan_verify2'])$data['drawplan_verify2'] = $data['drawplan_verify2'].';';
-            if($data['drawplan_authorize2'])$data['drawplan_authorize2'] = $data['drawplan_authorize2'].';';
+            if(isset($data['drawplan_project2']))$data['drawplan_project2'] = $data['drawplan_project2'].';';
+            else $data['drawplan_project2'] =';';
+            if(isset($data['drawplan_type2']))$data['drawplan_type2'] = $data['drawplan_type2'].';';
+            else $data['drawplan_type2'] =';';
+            if(isset($data['drawplan_drafting2']))$data['drawplan_drafting2'] = $data['drawplan_drafting2'].';';
+            else $data['drawplan_drafting2'] =';';
+            if(isset($data['drawplan_check2']))$data['drawplan_check2'] = $data['drawplan_check2'].';';
+            else $data['drawplan_check2'] =';';
+            if(isset($data['drawplan_verify2']))$data['drawplan_verify2'] = $data['drawplan_verify2'].';';
+            else $data['drawplan_verify2'] =';';
+            if(isset($data['drawplan_authorize2']))$data['drawplan_authorize2'] = $data['drawplan_authorize2'].';';
+            else $data['drawplan_authorize2'] =';';
             $temp = $data['drawplan_project2'].$data['drawplan_type2'].$data['drawplan_designer2'].$data['drawplan_drafting2'].$data['drawplan_check2'].$data['drawplan_verify2'].$data['drawplan_authorize2'];
             $res3=Db::table('green_projectdrawplan')
             ->insertGetId([
@@ -4974,7 +4980,8 @@ public function drawplanAdd(Request $request)
         if ($data['column']=='1') {
             $result = Db::table('green_drawplan_designer')
             ->where([
-                'project_id'=>$data['project_id']
+                'project_id'=>$data['project_id'],
+                'monomer_name'=>$data['monomer_name']
                 ])
             ->update([
                 'drawplan_project1'=>$data['content1'],
@@ -4989,7 +4996,8 @@ public function drawplanAdd(Request $request)
         elseif ($data['column']=='2') {
             $result = Db::table('green_drawplan_designer')
             ->where([
-                'project_id'=>$data['project_id']
+                'project_id'=>$data['project_id'],
+                'monomer_name'=>$data['monomer_name']
             ])
             ->update([
                 'drawplan_project2'=>$data['content1'],
@@ -5004,7 +5012,8 @@ public function drawplanAdd(Request $request)
         elseif ($data['column']=='3') {
             $result = Db::table('green_drawplan_designer')
             ->where([
-                'project_id'=>$data['project_id']
+                'project_id'=>$data['project_id'],
+                'monomer_name'=>$data['monomer_name']
             ])
             ->update([
                 'project_remarks'=>$data['content1'],
