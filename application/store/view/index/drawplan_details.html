@@ -63,34 +63,34 @@
                                 </tr>
                                 {if condition="$limit eq 2"}
                                 <tr class="text-c">
-                            		<td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'project_contractor', '发包人', '{$content["project_contractor"]}', 'drawplanEdit')" href="javascript:;">
+                            		<td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'project_contractor', '发包人', '{$content["project_contractor"]}', 'drawplanEdit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a></td>
-		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'project_agent', '代建方', '{$content["project_agent"]}', 'drawplanEdit')" href="javascript:;">
+		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'project_agent', '代建方', '{$content["project_agent"]}', 'drawplanEdit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a></td>
-		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}','monomer_name', '单体名称', '{$content["monomer_name"]}', 'drawplanEdit')" href="javascript:;">
+		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}','monomer_name', '单体名称', '{$content["monomer_name"]}', 'drawplanEdit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a></td>
-		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_major', '专业', '{$content["drawplan_major"]}', 'drawplanEdit')" href="javascript:;">
+		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_major', '专业', '{$content["drawplan_major"]}', 'drawplanEdit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a></td>
-		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_phase', '阶段', '{$content["drawplan_phase"]}', 'drawplanEdit')" href="javascript:;">
+		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_phase', '阶段', '{$content["drawplan_phase"]}', 'drawplanEdit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a></td>
-		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'figure_number', '图号', '{$content["figure_number"]}', 'drawplanEdit')" href="javascript:;">
+		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'figure_number', '图号', '{$content["figure_number"]}', 'drawplanEdit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a></td>
-		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_number', '图数', '{$content["drawplan_number"]}', 'drawplanEdit')" href="javascript:;">
+		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_number', '图数', '{$content["drawplan_number"]}', 'drawplanEdit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a></td>
-		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_survey', '工程概况', '{$content["drawplan_survey"]}', 'drawplanEdit')" href="javascript:;">
+		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_survey', '工程概况', '{$content["drawplan_survey"]}', 'drawplanEdit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a></td>
-		                            <td> <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_date', '日期', '{$content["drawplan_date"]}', 'drawplanEdit')" href="javascript:;">
+		                            <td> <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_date', '日期', '{$content["drawplan_date"]}', 'drawplanEdit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a></td>
-		                            <td> <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_remarks', '备注', '{$content["drawplan_remarks"]}', 'drawplanEdit')" href="javascript:;">
+		                            <td> <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_remarks', '备注', '{$content["drawplan_remarks"]}', 'drawplanEdit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a></td>
                         		</tr>
@@ -231,7 +231,7 @@
 		                            <td>{$economic_indicators.aboveground_area}</td>
 		                        	<th class="td-manage">
 		                        		{if condition="$limit eq 2"}
-		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'aboveground_area', '地上面积（含架空）', '{$economic_indicators["aboveground_area"]}', 'ecoedit')" href="javascript:;">
+		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'aboveground_area', '地上面积（含架空）', '{$economic_indicators["aboveground_area"]}', 'ecoedit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a>
 		                                {/if}
@@ -242,7 +242,7 @@
 		                            <td>{$economic_indicators.underground_area}</td>
 		                        	<th class="td-manage">
 		                        		{if condition="$limit eq 2"}
-		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'underground_area', '地下面积（含人防）', '{$economic_indicators["underground_area"]}', 'ecoedit')" href="javascript:;">
+		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'underground_area', '地下面积（含人防）', '{$economic_indicators["underground_area"]}', 'ecoedit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a>
 		                                {/if}
@@ -253,7 +253,7 @@
 		                            <td>{$economic_indicators.civil_air_defense}</td>
 		                        	<th class="td-manage">
 		                        		{if condition="$limit eq 2"}
-		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}','civil_air_defense', '其中人防', '{$economic_indicators["civil_air_defense"]}', 'ecoedit')" href="javascript:;">
+		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}','civil_air_defense', '其中人防', '{$economic_indicators["civil_air_defense"]}', 'ecoedit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a>
 		                                {/if}
@@ -264,7 +264,7 @@
 		                            <td>{$economic_indicators.layer_number}</td>
 		                        	<th class="td-manage">
 		                        		{if condition="$limit eq 2"}
-		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'layer_number', '层数', '{$economic_indicators["layer_number"]}', 'ecoedit')" href="javascript:;">
+		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'layer_number', '层数', '{$economic_indicators["layer_number"]}', 'ecoedit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a>
 		                                {/if}
@@ -275,7 +275,7 @@
 		                            <td>{$economic_indicators.height}</td>
 		                        	<th class="td-manage">
 		                        		{if condition="$limit eq 2"}
-		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'height', '高度', '{$economic_indicators["height"]}', 'ecoedit')" href="javascript:;">
+		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'height', '高度', '{$economic_indicators["height"]}', 'ecoedit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a>
 		                                {/if}
@@ -286,7 +286,7 @@
 		                            <td>{$economic_indicators.category}</td>
 		                        	<th class="td-manage">
 		                        		{if condition="$limit eq 2"}
-		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'category', '类别', '{$economic_indicators["category"]}', 'ecoedit')" href="javascript:;">
+		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'category', '类别', '{$economic_indicators["category"]}', 'ecoedit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a>
 		                                {/if}
@@ -297,7 +297,7 @@
 		                            <td>{$economic_indicators.notes}</td>
 		                        	<th class="td-manage">
 		                        		{if condition="$limit eq 2"}
-		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'notes', '备注', '{$economic_indicators["notes"]}', 'ecoedit')" href="javascript:;">
+		                                <a title="编辑" onclick="member_edit('{$content["project_id"]}', 'notes', '备注', '{$economic_indicators["notes"]}', 'ecoedit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a>
 		                                {/if}
@@ -314,9 +314,9 @@
 	</div>
 </div>
 <script type="text/javascript">
-function member_edit(id, column, chinese, content, type) {
+function member_edit(id, column, chinese, content, type,monomer_name) {
 	content =content.replace(/%/g, '%25');
-	var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type;
+	var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type+"&monomer_name="+monomer_name;
 	xadmin.open('详情修改', url);
 }
 function member_edit2(id, column, chinese, content, type,monomer_name) {

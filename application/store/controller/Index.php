@@ -4943,7 +4943,8 @@ public function drawplanAdd(Request $request)
         $data = $request -> param();
         $result = Db::table('green_projectdrawplan')
             ->where([
-                'project_id'=>$data['id']
+                'project_id'=>$data['id'],
+                'monomer_name'=>$data['monomer_name']
             ])
             ->update([
                 $data['column']=>$data['content'],
@@ -4961,7 +4962,10 @@ public function drawplanAdd(Request $request)
         //获取数据
         $data = $request -> param();
         $result=Db::table('green_economic_indicators')
-        ->where('project_id',$data['id'])
+        ->where([
+                'project_id'=>$data['id'],
+                'entry_name'=>$data['monomer_name']
+            ])
         ->update([
             $data['column']=>$data['content'],
         ]);
