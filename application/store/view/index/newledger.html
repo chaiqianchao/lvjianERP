@@ -70,7 +70,7 @@
                             <div class="layui-inline" id="constructor">
                                 <label class="layui-form-label"><span class="x-red">*</span>建设方</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" autocomplete="off" lay-verify="required" class="layui-input project_constructor">
+                                    <input type="text" autocomplete="off" name="contract_constructor" lay-verify="required" class="layui-input project_constructor">
                                     <button type="button" class="item-icon" onclick="itemAdd('constructor','project_constructor')">+</button>
                                 </div>
                             </div>
@@ -439,6 +439,7 @@ function change(value) {
                         $("input[name='contract_agent']")[0].value = result.contract_agent;        
                         $("input[name='contractledger_amount']")[0].value = result.contract_amount;
                         $("input[name='contractledger_actual']")[0].value = result.contract_compute;
+                        $("input[name='contract_constructor']")[0].value = result.contract_constructor;
                 }
             },
             error: function(data) {

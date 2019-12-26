@@ -3579,7 +3579,7 @@ public function adminselectall(Request $request)
         if ($res) {
             $result = 1;
             // 获取生产数据
-            return ["result"=>$result,"project_name"=>$res[0]["project_name"],"contract_signtime"=>$res[0]["contract_signtime"],"contract_agent"=>$res[0]["contract_agent"],"contract_amount"=>$res[0]["contract_amount"],"contract_compute"=>$res[0]["contract_compute"]];
+            return ["result"=>$result,"project_name"=>$res[0]["project_name"],"contract_signtime"=>$res[0]["contract_signtime"],"contract_agent"=>$res[0]["contract_agent"],"contract_amount"=>$res[0]["contract_amount"],"contract_compute"=>$res[0]["contract_compute"],"contract_constructor"=>$res[0]["contract_constructor"]];
         }
         return ["result"=>$result];
         //渲染编辑模板
