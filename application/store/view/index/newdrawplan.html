@@ -441,23 +441,38 @@ layui.use(['form','layer'], function(){
     });
 });
 
-var data = [];
+var data = [];//存放图纸单种总价
+var count =[];//存放图纸数量
 var drawplan_number =0;
 function showPrice(value, name, price) {
+    // console.log(eval(count.join('+')));
     var sum = 0;
     document.getElementById(name).value = price;
     data[name] = parseFloat(value)*parseFloat(price);
+    if (isNaN(data[name])) {
+        data[name] = 0;
+    }
+    count[name] = parseFloat(value);
     for(var item in data){
         sum += data[item];
         drawplan_number+=parseFloat(value);
     }
     document.getElementById('summary').innerText = sum;
+    drawplan_number = 0;
+    for(var item in count){
+        if(isNaN(count[item]))
+            count[item] = 0;
+        drawplan_number += count[item];
+    }
 }
 function changePrice(price, name) {
     var sum = 0;
     document.getElementById(name).value = price;
     var value = $('input[name="'+name+'"]').val();
     data[name] = parseFloat(value)*parseFloat(price);
+    if (isNaN(data[name])) {
+        data[name] = 0;
+    }
     for(var item in data){
         sum += data[item];
     }
