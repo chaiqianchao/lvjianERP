@@ -4660,18 +4660,18 @@ public function drawplanAdd(Request $request)
         else if(!$data['project_name']){
             return ['status'=>0, 'message'=>"缺少工程名称"];
         }
-        else if(!$data['project_contractor']){
-            return ['status'=>0, 'message'=>"缺少发包人"];
-        }
-        else if(!$data['project_agent']){
-            return ['status'=>0, 'message'=>"缺少代建方"];
-        }
+        // else if(!$data['project_contractor']){
+        //     return ['status'=>0, 'message'=>"缺少发包人"];
+        // }
+        // else if(!$data['project_agent']){
+        //     return ['status'=>0, 'message'=>"缺少代建方"];
+        // }
         else if(!$data['entry_name']){
             return ['status'=>0, 'message'=>"缺少单体名称"];
         }
-        else if(!$data['drawplan_phase']){
-            return ['status'=>0, 'message'=>"缺少阶段"];
-        }
+        // else if(!$data['drawplan_phase']){
+        //     return ['status'=>0, 'message'=>"缺少阶段"];
+        // }
         else if(!$data['drawing_time']){
             return ['status'=>0, 'message'=>"缺少出图日期"];
         }
