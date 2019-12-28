@@ -4734,6 +4734,7 @@ public function drawplanAdd(Request $request)
             if(isset($data['drawplan_authorize2']))$data['drawplan_authorize2'] = $data['drawplan_authorize2'].';';
             else $data['drawplan_authorize2'] =';';
             $temp = $data['drawplan_project2'].$data['drawplan_type2'].$data['drawplan_designer2'].$data['drawplan_drafting2'].$data['drawplan_check2'].$data['drawplan_verify2'].$data['drawplan_authorize2'];
+            
             $res3=Db::table('green_projectdrawplan')
             ->insertGetId([
                 'project_id'=>$data['project_id'],
@@ -4746,6 +4747,7 @@ public function drawplanAdd(Request $request)
                 'figure_number'=>$data['figure_number'],
                 'drawplan_survey'=>$data['drawplan_survey'],
                 'drawplan_number'=>$data['drawplan_number'],
+                'drawplan_sepcific'=>$data['drawplan_sepcific'],
                 'drawplan_member'=>$temp,
                 'drawplan_date'=>$data['drawing_time'],
                 'drawplan_remarks'=>$data['drawplan_remarks'],
@@ -5876,6 +5878,12 @@ public function tosumSelect(Request $request)
         }
         return ['status'=>$status,'message'=>$message];
     }
-
+    //获取出图规格列表
+    public function getDrawSizeList(Request $request)
+    {
+        $data=$request->param();
+        $list = Db::table('green_drawing_fee')->select();
+        return ['status'=>1,'message'=>'成功','list'=>$list];
+    }
 
 }

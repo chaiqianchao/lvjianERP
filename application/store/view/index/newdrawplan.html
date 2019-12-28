@@ -389,6 +389,7 @@
 <script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
 <script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
 <script>
+    var list = [];
     function values(){
         var design_value = document.getElementById("design_value").value;
         var proofreading_value = document.getElementById("proofreading_value").value;
@@ -398,6 +399,22 @@
         var other_expenses = document.getElementById("other_expenses").value;
         document.getElementById("value_subtotal").value = parseFloat(design_value)+parseFloat(proofreading_value)+parseFloat(audit_value)+parseFloat(work_value)+parseFloat(project_value)+parseFloat(other_expenses);
     }
+
+    function getDrawSizeList(){
+        $.ajax({
+        //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "{:url('index/getDrawSizeList')}",//url
+            data: data,
+            success: function (result) {
+                list = result.list;
+            },
+            error : function(result) {
+            }
+        });
+    }
+    this.getDrawSizeList();
     // 捕捉回车,阻止回车事件
     document.onkeydown = function(e){
         var ev = (typeof event!= 'undefined')?window.event:e;
@@ -414,7 +431,38 @@ layui.use(['form','layer'], function(){
     //监听提交
     form.on('submit(add)',
     function() {
-        var data = $('#newContract').serialize()+"&drawplan_number="+drawplan_number;
+        //获取出图规格
+        var sizeBox = {};
+        for (var i = 0;i<list.length;i++) {
+            var name1 = 'blueprint_'+list[i].drawing_size;
+            var name2 = 'sulphuric_acid_diagram_'+list[i].drawing_size;
+            var name3 = 'text_production_'+list[i].drawing_size;
+            var price_name1 = 'price_blueprint_'+list[i].drawing_size;
+            var price_name2 = 'price_sulphuric_acid_diagram_'+list[i].drawing_size;
+            var price_name3 = 'price_text_production_'+list[i].drawing_size;
+                sizeBox[list[i].drawing_size] = {};
+
+            if ($('input[name="'+name1+'"]').val()) {
+                sizeBox[list[i].drawing_size][name1] = $('input[name="'+name1+'"]').val();
+            }
+            if ($('input[name="'+name2+'"]').val()) {
+                sizeBox[list[i].drawing_size][name2] = $('input[name="'+name2+'"]').val();
+            }
+            if ($('input[name="'+name3+'"]').val()) {
+                sizeBox[list[i].drawing_size][name3] = $('input[name="'+name3+'"]').val();
+            }
+            if ($('input[name="'+price_name1+'"]').val()) {
+                sizeBox[list[i].drawing_size][price_name1] = $('input[name="'+price_name1+'"]').val();
+            }
+            if ($('input[name="'+price_name2+'"]').val()) {
+                sizeBox[list[i].drawing_size][price_name2] = $('input[name="'+price_name2+'"]').val();
+            }
+            if ($('input[name="'+price_name3+'"]').val()) {
+                sizeBox[list[i].drawing_size][price_name3] = $('input[name="'+price_name3+'"]').val();
+            }
+        }
+        sizeBox = JSON.stringify(sizeBox);
+        var data = $('#newContract').serialize()+"&drawplan_number="+drawplan_number+"&drawplan_sepcific="+sizeBox;
         $.ajax({
         //几个参数需要注意一下
             type: "POST",//方法类型
