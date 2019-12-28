@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>详情修改</title>
+	<meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/lib/layui/css/layui.css" />
+  	<link rel="stylesheet" href="__STATIC__/lib/bootstrap/css/bootstrap.css" />
+	<script type="text/javascript" src="__STATIC__/lib/layui/layui.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/xadmin.js"></script>
+<style type="text/css">
+	body {text-align: center;}
+	form {font-size: 18px;}
+	label {width: 150px;margin: 7px 0 0 5%;float: left;text-align: center;}
+	li {margin-bottom: 9px;display: inline-block;}
+	a {margin-top: 10px;}
+	.layui-input-block {margin: 0;}
+	.item-icon, input {margin: 0 8px;}
+	.item-icon {font-size: 25px;}
+	.table input {width: 150px;text-align: center;}
+	.filling {width: 200px;border: 1px solid #ccc;overflow: scroll;}
+	.layui-form-label{
+            width: 120px;
+        }
+        .td_input{
+            background-color: transparent;
+            border: none;
+        }
+        .text-c input{
+            width: 100%;
+        }
+</style>
+</head>
+<body>
+<div style="margin-top: 20px;">
+	<div class="layui-form-item">
+		<form id="form" class="layui-form" style="display: flex;flex-direction: column;">
+			<div>
+				<label>图数</label>
+				<input class="layui-input-inline layui-input" id="content" style="width: 60%;"></input>
+			</div>
+				<label>规格</label>
+			<div  class="layui-table-body layui-table-main" style="margin: 5px;display: flex;justify-content: center;">
+                <table class="layui-table layui-form" id="table" style="width: 80%;">
+                            <thead>
+                                <th>编号</th>
+                                <th>图纸尺寸</th>
+                                <th>蓝图数量</th>
+                                <th>蓝图单价（元/张）</th>
+                                <th>硫酸图数量</th>
+                                <th>硫酸图单价（元/张）</th>
+                                <th>文本制作数量</th>
+                                <th>文本制作单价（元/张）</th>
+                            </thead>
+                            <tbody>
+                                {volist name='orderList' id='vo'}
+                                <tr class="text-c">
+                                    <td>{$vo.id}</td>
+                                    <td>{$vo.drawing_size}</td>
+                                    <td><input type="text" class="td_input" name="blueprint_{$vo.drawing_size}" onchange="showPrice(this.value, this.name, {$vo.drawing_blueprint})"></td>
+                                    <td><input type="text" class="td_input" id="blueprint_{$vo.drawing_size}" name="price_blueprint_{$vo.drawing_size}" onchange="changePrice(this.value,'blueprint_{$vo.drawing_size}')"></td>
+                                    <td><input type="text" class="td_input" name="sulphuric_acid_diagram_{$vo.drawing_size}" onchange="showPrice(this.value, this.name, {$vo.drawing_sulphuric_acid_diagram})"></td>
+                                    <td><input type="text" class="td_input" id="sulphuric_acid_diagram_{$vo.drawing_size}" name="price_sulphuric_acid_diagram_{$vo.drawing_size}" onchange="changePrice(this.value,'sulphuric_acid_diagram_{$vo.drawing_size}')"></td>
+                                    <td><input type="text" class="td_input" name="text_production_{$vo.drawing_size}" onchange="showPrice(this.value, this.name, {$vo.drawing_text_production})"></td>
+                                    <td><input type="text" class="td_input" id="text_production_{$vo.drawing_size}" name="price_text_production_{$vo.drawing_size}" onchange="changePrice(this.value,'text_production_{$vo.drawing_size}')"></td>
+                                </tr>
+                                {/volist}
+                            </tbody>
+
+                </table>   
+            </div>
+             <div><p style="text-align: left;">合计: <span id="summary" style="margin-left:10px;">0</span>元</p></div>
+		</form>
+	</div>
+	<div class="layui-input-block">
+		<a class="layui-btn" id="submit">确认修改</a>
+	</div>
+</div>
+<script type="text/javascript" src="__STATIC__/lib/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/lib/layui/layui.date.js"></script>
+<script>
+
+var url = location.search;
+if(url.indexOf("?")!=-1){
+	var str = url.substr(1);
+	strs = str.split("&"); 
+	value=new Array(strs.length);
+	for(i=0;i<strs.length;i++){
+		value[i]=decodeURI(strs[i].split("=")[1]); 
+	}
+}
+
+// 获取规格数据，并填充到表格中
+// 异步转同步
+(function(){
+	var result =new Promise((resolve,reject)=>{
+		$.ajax({
+        //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "{:url('index/get_drawplan_details')}",//url
+            data: {project_id:value[0],monomer_name:value[1]},
+            success: function (result) {
+            	if (result.status==1) {
+            		drawplan_number = result.result[0]
+            		document.getElementById('content').value = result.result[0].drawplan_number;
+            	}
+            	resolve(result.result[0]);
+            }
+        });
+	}).then((result)=>{
+			console.log(result);
+			var drawplan_sepcific = JSON.parse(result.drawplan_sepcific)
+			console.log(drawplan_sepcific)
+			var	keys =Object.keys(drawplan_sepcific) 
+			for (var i =0; i <keys.length; i++) {
+				var name1 = 'blueprint_'+keys[i];
+				var name2 = 'sulphuric_acid_diagram_'+keys[i];
+				var name3 = 'text_production_'+keys[i];
+				var price_name1 = 'price_blueprint_'+keys[i];
+				var price_name2 = 'price_sulphuric_acid_diagram_'+keys[i];
+				var price_name3 = 'price_text_production_'+keys[i];
+				$('input[name="'+name1+'"]').attr('value',typeof(drawplan_sepcific[keys[i]][name1]) == 'undefined'?'':drawplan_sepcific[keys[i]][name1])
+				$('input[name="'+name2+'"]').attr('value',typeof(drawplan_sepcific[keys[i]][name2]) == 'undefined'?'':drawplan_sepcific[keys[i]][name2])
+				$('input[name="'+name3+'"]').attr('value',typeof(drawplan_sepcific[keys[i]][name3]) == 'undefined'?'':drawplan_sepcific[keys[i]][name3])
+				$('input[name="'+price_name1+'"]').attr('value',typeof(drawplan_sepcific[keys[i]][price_name1]) == 'undefined'?'':drawplan_sepcific[keys[i]][price_name1])
+				$('input[name="'+price_name2+'"]').attr('value',typeof(drawplan_sepcific[keys[i]][price_name2]) == 'undefined'?'':drawplan_sepcific[keys[i]][price_name2])
+				$('input[name="'+price_name3+'"]').attr('value',typeof(drawplan_sepcific[keys[i]][price_name3]) == 'undefined'?'':drawplan_sepcific[keys[i]][price_name3])
+			}
+	})
+	
+})();
+
+
+$('#submit').click(function() {
+	if (document.getElementById('start')) {
+		var content = document.getElementById('start').value;
+	}
+	else if (document.getElementById('text')) {
+		var content = document.getElementById('text').value;
+	}
+	else {
+	  var content = "";
+	 }
+
+	
+    xadmin.close();
+    xadmin.father_reload();
+});
+
+var data = [];//存放图纸单种总价
+var count =[];//存放图纸数量
+var drawplan_number =0;
+function showPrice(value, name, price) {
+    // console.log(eval(count.join('+')));
+    var sum = 0;
+    document.getElementById(name).value = price;
+    data[name] = parseFloat(value)*parseFloat(price);
+    if (isNaN(data[name])) {
+        data[name] = 0;
+    }
+    count[name] = parseFloat(value);
+    for(var item in data){
+        sum += data[item];
+        drawplan_number+=parseFloat(value);
+    }
+    document.getElementById('summary').innerText = sum;
+    drawplan_number = 0;
+    for(var item in count){
+        if(isNaN(count[item]))
+            count[item] = 0;
+        drawplan_number += count[item];
+    }
+}
+function changePrice(price, name) {
+    var sum = 0;
+    document.getElementById(name).value = price;
+    var value = $('input[name="'+name+'"]').val();
+    data[name] = parseFloat(value)*parseFloat(price);
+    if (isNaN(data[name])) {
+        data[name] = 0;
+    }
+    for(var item in data){
+        sum += data[item];
+    }
+    document.getElementById('summary').innerText = sum;
+    localStorage.sum = sum;
+}
+
+
+// 价格如何去计算，在拿到数据的时候，同时计算已有数据的价格
+</script>
+</body>
+</html>

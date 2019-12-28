@@ -462,7 +462,8 @@ layui.use(['form','layer'], function(){
             }
         }
         sizeBox = JSON.stringify(sizeBox);
-        var data = $('#newContract').serialize()+"&drawplan_number="+drawplan_number+"&drawplan_sepcific="+sizeBox;
+        var price = parseFloat(document.getElementById('summary').innerText);
+        var data = $('#newContract').serialize()+"&drawplan_number="+drawplan_number+"&drawplan_sepcific="+sizeBox+"&price="+price;
         $.ajax({
         //几个参数需要注意一下
             type: "POST",//方法类型

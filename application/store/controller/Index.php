@@ -1217,6 +1217,12 @@ class Index extends Controller
     {
         return $this->view->fetch('detail-edit');
     }
+    public function drawplanSizeEdit()
+    {
+        $list = Db::table('green_drawing_fee')->select();
+        $this -> view -> assign('orderList', $list);
+        return $this->view->fetch('drawplanSizeEdit');
+    }
     // 新建工程
     public function newProject()
     {
@@ -4747,6 +4753,7 @@ public function drawplanAdd(Request $request)
                 'figure_number'=>$data['figure_number'],
                 'drawplan_survey'=>$data['drawplan_survey'],
                 'drawplan_number'=>$data['drawplan_number'],
+                'price'=>$data['price'],
                 'drawplan_sepcific'=>$data['drawplan_sepcific'],
                 'drawplan_member'=>$temp,
                 'drawplan_date'=>$data['drawing_time'],
@@ -4937,6 +4944,18 @@ public function drawplanAdd(Request $request)
         //渲染编辑模板
   
             return $this->view->fetch('drawplan_details');
+    }
+        //获取出图登记详情数据
+    public function get_drawplan_details(Request $request)
+    {
+        
+        //获取到要编辑的工程号
+        $project_id = $request -> param('project_id');
+        $monomer_name = $request -> param('monomer_name');
+        
+        $result1=Db::table('green_projectdrawplan')->where(['project_id'=>$project_id,'monomer_name'=>$monomer_name])->select();
+        //渲染编辑模板
+        return ['status'=>1, 'message'=>"查找成功~~","result"=>$result1];
     }
     //出图登记编辑修改
     public function drawplanEdit(Request $request)

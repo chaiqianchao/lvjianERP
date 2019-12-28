@@ -81,7 +81,7 @@
 		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'figure_number', '图号', '{$content["figure_number"]}', 'drawplanEdit','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a></td>
-		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_number', '图数', '{$content["drawplan_number"]}', 'drawplanEdit','{$content["monomer_name"]}')" href="javascript:;">
+		                            <td><a title="编辑" onclick="drawplanSizeEdit('{$content["project_id"]}','{$content["monomer_name"]}')" href="javascript:;">
 		                                  <i class="layui-icon">&#xe642;</i>
 		                                </a></td>
 		                            <td><a title="编辑" onclick="member_edit('{$content["project_id"]}', 'drawplan_survey', '工程概况', '{$content["drawplan_survey"]}', 'drawplanEdit','{$content["monomer_name"]}')" href="javascript:;">
@@ -321,7 +321,11 @@ function member_edit(id, column, chinese, content, type,monomer_name) {
 }
 function member_edit2(id, column, chinese, content, type,monomer_name) {
     var url = '{:url("index/detailEdit")}' +"?id="+id+"&column="+column+"&chinese="+chinese+"&content="+content+"&type="+type+"&monomer_name="+monomer_name;
-   
+    xadmin.open('详情修改', url);
+}
+//工程名称，单体名称
+function drawplanSizeEdit(id,monomer_name){
+	 var url = '{:url("index/drawplanSizeEdit")}' +"?id="+id+"&monomer_name="+monomer_name;
     xadmin.open('详情修改', url);
 }
 var template =
